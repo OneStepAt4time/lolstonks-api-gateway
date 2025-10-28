@@ -43,8 +43,8 @@ async def get_platform_status(
     path = "/lol/status/v4/platform-data"
     data = await riot_client.get(path, region, is_platform_endpoint=False)
 
-    # Cache with short TTL (5 minutes - status can change quickly)
-    await cache.set(cache_key, data, ttl=300)
+    # Cache with configured TTL
+    await cache.set(cache_key, data, ttl=settings.cache_ttl_platform_status)
 
     logger.success(
         "Platform status fetched",

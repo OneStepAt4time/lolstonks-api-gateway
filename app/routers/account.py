@@ -54,8 +54,8 @@ async def get_account_by_puuid(
     path = f"/riot/account/v1/accounts/by-puuid/{params.puuid}"
     data = await riot_client.get(path, query.region, is_platform_endpoint=True)
 
-    # Cache with 1 hour TTL
-    await cache.set(cache_key, data, ttl=3600)
+    # Cache with configured TTL
+    await cache.set(cache_key, data, ttl=settings.cache_ttl_account)
     logger.success("Account fetched by PUUID", puuid=params.puuid[:8], gameName=data.get("gameName"))
 
     return data
@@ -96,8 +96,8 @@ async def get_account_by_riot_id(
     path = f"/riot/account/v1/accounts/by-riot-id/{params.gameName}/{params.tagLine}"
     data = await riot_client.get(path, query.region, is_platform_endpoint=True)
 
-    # Cache with 1 hour TTL
-    await cache.set(cache_key, data, ttl=3600)
+    # Cache with configured TTL
+    await cache.set(cache_key, data, ttl=settings.cache_ttl_account)
     logger.success("Account fetched by Riot ID", gameName=params.gameName, puuid=data.get("puuid", "")[:8])
 
     return data
@@ -138,8 +138,8 @@ async def get_active_shard(
     path = f"/riot/account/v1/active-shards/by-game/{params.game}/by-puuid/{params.puuid}"
     data = await riot_client.get(path, query.region, is_platform_endpoint=True)
 
-    # Cache with short TTL (10 minutes)
-    await cache.set(cache_key, data, ttl=600)
+    # Cache with configured TTL
+    await cache.set(cache_key, data, ttl=settings.cache_ttl_account_shard)
     logger.success("Active shard fetched", puuid=params.puuid[:8], shard=data.get("activeShard"))
 
     return data

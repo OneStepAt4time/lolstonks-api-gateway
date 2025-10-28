@@ -41,8 +41,8 @@ async def get_champion_rotations(
     path = "/lol/platform/v3/champion-rotations"
     data = await riot_client.get(path, region, is_platform_endpoint=False)
 
-    # Cache with 24 hour TTL (rotations change weekly)
-    await cache.set(cache_key, data, ttl=86400)
+    # Cache with configured TTL
+    await cache.set(cache_key, data, ttl=settings.cache_ttl_champion_rotation)
     logger.success("Champion rotation fetched", region=region)
 
     return data

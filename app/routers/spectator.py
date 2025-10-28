@@ -48,8 +48,8 @@ async def get_active_game(
     path = f"/lol/spectator/v5/active-games/by-summoner/{puuid}"
     data = await riot_client.get(path, region, is_platform_endpoint=False)
 
-    # Cache with very short TTL (30 seconds - game state changes quickly)
-    await cache.set(cache_key, data, ttl=30)
+    # Cache with configured TTL
+    await cache.set(cache_key, data, ttl=settings.cache_ttl_spectator_active)
     logger.success("Active game fetched", puuid=puuid[:8], gameId=data.get("gameId"))
 
     return data
@@ -81,8 +81,8 @@ async def get_featured_games(
     path = "/lol/spectator/v5/featured-games"
     data = await riot_client.get(path, region, is_platform_endpoint=False)
 
-    # Cache with short TTL (2 minutes - featured games change frequently)
-    await cache.set(cache_key, data, ttl=120)
+    # Cache with configured TTL
+    await cache.set(cache_key, data, ttl=settings.cache_ttl_spectator_featured)
     logger.success("Featured games fetched", region=region, count=len(data.get("gameList", [])))
 
     return data

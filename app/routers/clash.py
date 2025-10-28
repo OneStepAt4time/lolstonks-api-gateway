@@ -46,8 +46,8 @@ async def get_clash_player(
     path = f"/lol/clash/v1/players/by-puuid/{puuid}"
     data = await riot_client.get(path, region, is_platform_endpoint=False)
 
-    # Cache with short TTL (5 minutes)
-    await cache.set(cache_key, data, ttl=300)
+    # Cache with configured TTL
+    await cache.set(cache_key, data, ttl=settings.cache_ttl_clash_player)
     logger.success("Clash player data fetched", puuid=puuid[:8], registrations=len(data))
 
     return data
@@ -87,8 +87,8 @@ async def get_clash_team(
     path = f"/lol/clash/v1/teams/{teamId}"
     data = await riot_client.get(path, region, is_platform_endpoint=False)
 
-    # Cache with short TTL (5 minutes)
-    await cache.set(cache_key, data, ttl=300)
+    # Cache with configured TTL
+    await cache.set(cache_key, data, ttl=settings.cache_ttl_clash_team)
     logger.success("Clash team data fetched", teamId=teamId, name=data.get("name"))
 
     return data
@@ -124,8 +124,8 @@ async def get_clash_tournaments(
     path = "/lol/clash/v1/tournaments"
     data = await riot_client.get(path, region, is_platform_endpoint=False)
 
-    # Cache with short TTL (10 minutes)
-    await cache.set(cache_key, data, ttl=600)
+    # Cache with configured TTL
+    await cache.set(cache_key, data, ttl=settings.cache_ttl_clash_tournament)
     logger.success("Clash tournaments fetched", region=region, count=len(data))
 
     return data
@@ -162,8 +162,8 @@ async def get_clash_tournament(
     path = f"/lol/clash/v1/tournaments/{tournamentId}"
     data = await riot_client.get(path, region, is_platform_endpoint=False)
 
-    # Cache with short TTL (10 minutes)
-    await cache.set(cache_key, data, ttl=600)
+    # Cache with configured TTL
+    await cache.set(cache_key, data, ttl=settings.cache_ttl_clash_tournament)
     logger.success("Clash tournament fetched", tournamentId=tournamentId)
 
     return data
@@ -195,8 +195,8 @@ async def get_clash_tournament_by_team(
     path = f"/lol/clash/v1/tournaments/by-team/{teamId}"
     data = await riot_client.get(path, region, is_platform_endpoint=False)
 
-    # Cache with short TTL (5 minutes)
-    await cache.set(cache_key, data, ttl=300)
+    # Cache with configured TTL
+    await cache.set(cache_key, data, ttl=settings.cache_ttl_clash_team)
     logger.success("Clash tournament by team fetched", teamId=teamId)
 
     return data
