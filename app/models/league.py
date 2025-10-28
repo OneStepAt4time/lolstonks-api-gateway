@@ -6,12 +6,12 @@ https://developer.riotgames.com/apis#league-v4
 
 from typing import Annotated, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
-from app.models.common import Division, HasEncryptedSummonerId, QueueType, RegionQuery, Tier
+from app.models.common import Division, EnumBaseModel, HasEncryptedSummonerId, QueueType, RegionQuery, Tier
 
 
-class LeagueByQueueParams(BaseModel):
+class LeagueByQueueParams(EnumBaseModel):
     """Path parameters for challenger/grandmaster/master league endpoints."""
 
     queue: Annotated[
@@ -38,7 +38,7 @@ class LeagueEntriesBySummonerQuery(RegionQuery):
     pass
 
 
-class LeagueEntriesParams(BaseModel):
+class LeagueEntriesParams(EnumBaseModel):
     """Path parameters for GET /lol/league/v4/entries/{queue}/{tier}/{division}."""
 
     queue: Annotated[

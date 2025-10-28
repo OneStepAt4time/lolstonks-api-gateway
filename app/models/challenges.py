@@ -6,9 +6,9 @@ https://developer.riotgames.com/apis#lol-challenges-v1
 
 from typing import Annotated, Optional
 
-from pydantic import Field
+from pydantic import ConfigDict, Field
 
-from app.models.common import HasChallengeId, HasPuuid, RegionQuery, Tier
+from app.models.common import EnumBaseModel, HasChallengeId, HasPuuid, RegionQuery, Tier
 
 
 class AllChallengesConfigQuery(RegionQuery):
@@ -29,7 +29,7 @@ class ChallengeConfigQuery(RegionQuery):
     pass
 
 
-class ChallengeLeaderboardParams(HasChallengeId):
+class ChallengeLeaderboardParams(EnumBaseModel, HasChallengeId):
     """Path parameters for GET /lol/challenges/v1/challenges/{challengeId}/leaderboards/by-level/{level}.
 
     Note: Leaderboards are only available for top tiers (MASTER, GRANDMASTER, CHALLENGER).

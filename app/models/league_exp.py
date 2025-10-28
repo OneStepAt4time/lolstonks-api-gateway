@@ -9,12 +9,12 @@ It's similar to LEAGUE-V4 but with different pagination support.
 
 from typing import Annotated, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
-from app.models.common import Division, QueueType, RegionQuery, Tier
+from app.models.common import Division, EnumBaseModel, QueueType, RegionQuery, Tier
 
 
-class LeagueExpEntriesParams(BaseModel):
+class LeagueExpEntriesParams(EnumBaseModel):
     """Path parameters for GET /lol/league-exp/v4/entries/{queue}/{tier}/{division}."""
 
     queue: Annotated[
