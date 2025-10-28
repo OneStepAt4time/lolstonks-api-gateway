@@ -30,6 +30,7 @@ Features · Quick Start · Usage · Configuration · Contributing · [Documentat
 - [Architecture & Design](#architecture--design)
 - [Development](#development)
 - [Contributing](#contributing)
+- [Support Development](#support-development)
 - [License](#license)
 - [Contact](#contact)
 
@@ -228,6 +229,32 @@ If you hit problems you can't resolve locally, open an issue with logs and repro
 - Admin endpoints to inspect/flush caches
 - Pluggable storage backends for match tracking
 - Support for automatic API key rotation
+
+---
+
+## Support Development
+
+Enjoying LOLStonks API Gateway? Help me continue developing and maintaining this project!
+
+### ☕ Buy Me a Coffee
+If you find this project useful, consider supporting my work by buying me a coffee:
+
+[![Buy Me A Coffee](https://www.buymeacoffee.com/assets/img/custom_images/black_img.png)](https://buymeacoffee.com/onestepat4time)
+
+Your support helps me:
+- 💰 Cover server and API costs for development
+- 🐛 Fix bugs and implement new features
+- 📚 Improve documentation and user experience
+- 🚀 Keep this project maintained and up-to-date
+
+### 🤝 Other Ways to Support
+- **⭐ Star this project** on GitHub
+- **🐛 Report issues** and suggest features
+- **📝 Improve documentation**
+- **💻 Contribute code** via pull requests
+- **📢 Share** this project with others
+
+Every contribution, whether it's code, documentation, bug reports, or just a cup of coffee, makes a huge difference and is greatly appreciated!
 
 ---
 
