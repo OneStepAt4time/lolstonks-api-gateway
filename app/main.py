@@ -14,6 +14,7 @@ from app.routers import (
     summoner,
     match,
     league,
+    league_exp,
     champion,
     champion_mastery,
     spectator,
@@ -67,6 +68,7 @@ app.include_router(account.router)  # Account API (Riot ID lookups)
 app.include_router(summoner.router)  # Summoner-V4
 app.include_router(match.router)  # Match-V5
 app.include_router(league.router)  # League-V4
+app.include_router(league_exp.router)  # League-EXP-V4 (experimental)
 app.include_router(champion.router)  # Champion-V3 (rotations)
 app.include_router(champion_mastery.router)  # Champion-Mastery-V4
 app.include_router(spectator.router)  # Spectator-V5 (live games)
