@@ -111,9 +111,6 @@ class RegionQuery(BaseModel):
         )
     ] = settings.riot_default_region
 
-    class Config:
-        use_enum_values = True
-
 
 class PlatformRegionQuery(BaseModel):
     """Regional routing parameter for platform endpoints (ACCOUNT, MATCH)."""
@@ -125,9 +122,6 @@ class PlatformRegionQuery(BaseModel):
             description="Regional routing value (americas, europe, asia, sea)"
         )
     ] = PlatformRegion.AMERICAS
-
-    class Config:
-        use_enum_values = True
 
 
 class PaginationQuery(BaseModel):

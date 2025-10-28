@@ -40,9 +40,6 @@ class ChallengeLeaderboardParams(HasChallengeId):
         Field(description="Challenge leaderboard tier (MASTER, GRANDMASTER, or CHALLENGER only)")
     ]
 
-    class Config:
-        use_enum_values = True
-
 
 class ChallengeLeaderboardQuery(RegionQuery):
     """Query parameters for GET /lol/challenges/v1/challenges/{challengeId}/leaderboards/by-level/{level}."""

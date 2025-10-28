@@ -19,9 +19,6 @@ class LeagueByQueueParams(BaseModel):
         Field(description="Queue type (RANKED_SOLO_5x5, RANKED_FLEX_SR, RANKED_FLEX_TT)")
     ]
 
-    class Config:
-        use_enum_values = True
-
 
 class LeagueByQueueQuery(RegionQuery):
     """Query parameters for challenger/grandmaster/master league endpoints."""
@@ -56,9 +53,6 @@ class LeagueEntriesParams(BaseModel):
         Division,
         Field(description="Division (I, II, III, IV)")
     ]
-
-    class Config:
-        use_enum_values = True
 
 
 class LeagueEntriesQuery(RegionQuery):

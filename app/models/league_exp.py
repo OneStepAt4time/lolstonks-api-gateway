@@ -30,9 +30,6 @@ class LeagueExpEntriesParams(BaseModel):
         Field(description="Division (I, II, III, IV)")
     ]
 
-    class Config:
-        use_enum_values = True
-
 
 class LeagueExpEntriesQuery(RegionQuery):
     """Query parameters for GET /lol/league-exp/v4/entries/{queue}/{tier}/{division}."""
