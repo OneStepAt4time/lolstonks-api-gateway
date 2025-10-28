@@ -4,11 +4,21 @@ Riot Developer Portal API Reference:
 https://developer.riotgames.com/apis#summoner-v4
 """
 
-from fastapi import APIRouter, Query
+from typing import Annotated
+
+from fastapi import APIRouter, Depends
 from loguru import logger
 
 from app.cache.redis_cache import cache
 from app.config import settings
+from app.models.summoner import (
+    SummonerByIdParams,
+    SummonerByIdQuery,
+    SummonerByNameParams,
+    SummonerByNameQuery,
+    SummonerByPuuidParams,
+    SummonerByPuuidQuery,
+)
 from app.riot.client import riot_client
 
 router = APIRouter(prefix="/lol/summoner/v4", tags=["summoner"])
@@ -16,8 +26,8 @@ router = APIRouter(prefix="/lol/summoner/v4", tags=["summoner"])
 
 @router.get("/summoners/by-name/{summonerName}")
 async def get_summoner_by_name(
-    summonerName: str,
-    region: str = Query(default=settings.riot_default_region, description="Region code (e.g., euw1, kr, na1)")
+    params: Annotated[SummonerByNameParams, Depends()],
+    query: Annotated[SummonerByNameQuery, Depends()],
 ):
     """
     Get summoner by summoner name.
@@ -33,30 +43,30 @@ async def get_summoner_by_name(
     Returns:
         Summoner object from Riot API
     """
-    logger.info("Fetching summoner by name", summoner=summonerName, region=region)
+    logger.info("Fetching summoner by name", summoner=params.summonerName, region=query.region)
 
     # Check cache first
-    cache_key = f"summoner:name:{region}:{summonerName}"
+    cache_key = f"summoner:name:{query.region}:{params.summonerName}"
     cached_data = await cache.get(cache_key)
     if cached_data:
-        logger.debug("Cache hit for summoner", summoner=summonerName)
+        logger.debug("Cache hit for summoner", summoner=params.summonerName)
         return cached_data
 
     # Fetch from Riot API
-    path = f"/lol/summoner/v4/summoners/by-name/{summonerName}"
-    data = await riot_client.get(path, region, is_platform_endpoint=False)
+    path = f"/lol/summoner/v4/summoners/by-name/{params.summonerName}"
+    data = await riot_client.get(path, query.region, is_platform_endpoint=False)
 
     # Store in cache
     await cache.set(cache_key, data, ttl=settings.cache_ttl_summoner)
 
-    logger.success("Summoner fetched successfully", summoner=summonerName, puuid=data.get("puuid", "unknown"))
+    logger.success("Summoner fetched successfully", summoner=params.summonerName, puuid=data.get("puuid", "unknown"))
     return data
 
 
 @router.get("/summoners/by-puuid/{encryptedPUUID}")
 async def get_summoner_by_puuid(
-    encryptedPUUID: str,
-    region: str = Query(default=settings.riot_default_region, description="Region code")
+    params: Annotated[SummonerByPuuidParams, Depends()],
+    query: Annotated[SummonerByPuuidQuery, Depends()],
 ):
     """
     Get summoner by PUUID.
@@ -70,18 +80,18 @@ async def get_summoner_by_puuid(
     Returns:
         Summoner object from Riot API
     """
-    logger.info("Fetching summoner by PUUID", puuid=encryptedPUUID, region=region)
+    logger.info("Fetching summoner by PUUID", puuid=params.encryptedPUUID, region=query.region)
 
     # Check cache first
-    cache_key = f"summoner:puuid:{region}:{encryptedPUUID}"
+    cache_key = f"summoner:puuid:{query.region}:{params.encryptedPUUID}"
     cached_data = await cache.get(cache_key)
     if cached_data:
         logger.debug("Cache hit for summoner by PUUID")
         return cached_data
 
     # Fetch from Riot API
-    path = f"/lol/summoner/v4/summoners/by-puuid/{encryptedPUUID}"
-    data = await riot_client.get(path, region, is_platform_endpoint=False)
+    path = f"/lol/summoner/v4/summoners/by-puuid/{params.encryptedPUUID}"
+    data = await riot_client.get(path, query.region, is_platform_endpoint=False)
 
     # Store in cache
     await cache.set(cache_key, data, ttl=settings.cache_ttl_summoner)
@@ -92,8 +102,8 @@ async def get_summoner_by_puuid(
 
 @router.get("/summoners/{encryptedSummonerId}")
 async def get_summoner_by_id(
-    encryptedSummonerId: str,
-    region: str = Query(default=settings.riot_default_region, description="Region code")
+    params: Annotated[SummonerByIdParams, Depends()],
+    query: Annotated[SummonerByIdQuery, Depends()],
 ):
     """
     Get summoner by summoner ID.
@@ -107,18 +117,18 @@ async def get_summoner_by_id(
     Returns:
         Summoner object from Riot API
     """
-    logger.info("Fetching summoner by ID", summoner_id=encryptedSummonerId, region=region)
+    logger.info("Fetching summoner by ID", summoner_id=params.encryptedSummonerId, region=query.region)
 
     # Check cache first
-    cache_key = f"summoner:id:{region}:{encryptedSummonerId}"
+    cache_key = f"summoner:id:{query.region}:{params.encryptedSummonerId}"
     cached_data = await cache.get(cache_key)
     if cached_data:
         logger.debug("Cache hit for summoner by ID")
         return cached_data
 
     # Fetch from Riot API
-    path = f"/lol/summoner/v4/summoners/{encryptedSummonerId}"
-    data = await riot_client.get(path, region, is_platform_endpoint=False)
+    path = f"/lol/summoner/v4/summoners/{params.encryptedSummonerId}"
+    data = await riot_client.get(path, query.region, is_platform_endpoint=False)
 
     # Store in cache
     await cache.set(cache_key, data, ttl=settings.cache_ttl_summoner)
