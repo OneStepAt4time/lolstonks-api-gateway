@@ -4,6 +4,7 @@ Configuration management using Pydantic Settings.
 Loads configuration from environment variables and .env file.
 """
 
+from pydantic import ConfigDict
 from pydantic_settings import BaseSettings
 
 
@@ -76,9 +77,11 @@ class Settings(BaseSettings):
     port: int = 8080
     log_level: str = "INFO"
 
-    class Config:
-        env_file = ".env"
-        case_sensitive = False
+    model_config = ConfigDict(
+        env_file=".env",
+        case_sensitive=False,
+        extra="ignore",
+    )
 
 
 # Global settings instance

@@ -32,12 +32,16 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
-        cache: 'pip'
+
+    - name: Install UV
+      uses: astral-sh/setup-uv@v4
+      with:
+        version: "latest"
 
     - name: Install dependencies
       run: |
-        pip install -e ".[dev]"
-        pip install -e ".[docs]"
+        uv pip install -e ".[dev]"
+        uv pip install -e ".[docs]"
 
     - name: Lint with ruff
       run: |
@@ -46,16 +50,15 @@ jobs:
 
     - name: Type checking
       run: |
-        pip install mypy
         mypy app/ --ignore-missing-imports || true
 
     - name: Test with pytest
       env:
         REDIS_HOST: localhost
         REDIS_PORT: 6379
-        RIOT_API_KEY: test-key-for-testing
+        RIOT_API_KEY: RGAPI-test-key-for-testing
       run: |
-        pytest --cov=app --cov-report=xml --cov-report=html -v
+        uv run pytest --cov=app --cov-report=xml --cov-report=html -v
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
@@ -98,10 +101,15 @@ jobs:
       with:
         python-version: '3.12'
 
+    - name: Install UV
+      uses: astral-sh/setup-uv@v4
+      with:
+        version: "latest"
+
     - name: Install dependencies
       run: |
-        pip install bandit safety
-        pip install -e ".[dev]"
+        uv pip install safety
+        uv pip install -e ".[dev]"
 
     - name: Run Bandit security linter
       run: |
