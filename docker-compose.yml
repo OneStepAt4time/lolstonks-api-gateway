@@ -45,7 +45,7 @@ services:
       image: "redis/redisinsight:latest"
       container_name: lol-redis-insight
       ports:
-        - "8001:8001"  # Accedi alla GUI da http://localhost:8001
+        - "8001:5540"  # RedisInsight listens on 5540, expose as 8001
       volumes:
         - redis-insight-data:/data # Volume per salvare le connessioni
       networks:
