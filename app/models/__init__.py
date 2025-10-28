@@ -20,6 +20,7 @@ Structure:
 # Common models
 from app.models.common import (
     Division,
+    EnumBaseModel,
     GameRegion,
     HasChallengeId,
     HasChampionId,
@@ -137,6 +138,7 @@ from app.models.champion import ChampionRotationsQuery
 __all__ = [
     # Common
     "Division",
+    "EnumBaseModel",
     "GameRegion",
     "HasChallengeId",
     "HasChampionId",

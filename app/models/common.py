@@ -6,7 +6,7 @@ These models contain shared parameters used across multiple endpoints.
 from enum import Enum
 from typing import Annotated
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 from app.config import settings
 
@@ -99,8 +99,15 @@ class Division(str, Enum):
     IV = "IV"
 
 
+# Base Model with enum configuration
+class EnumBaseModel(BaseModel):
+    """Base model that serializes enums as values."""
+
+    model_config = ConfigDict(use_enum_values=True)
+
+
 # Base Query Models
-class RegionQuery(BaseModel):
+class RegionQuery(EnumBaseModel):
     """Standard region query parameter for game-specific endpoints."""
 
     region: Annotated[
@@ -112,7 +119,7 @@ class RegionQuery(BaseModel):
     ] = settings.riot_default_region
 
 
-class PlatformRegionQuery(BaseModel):
+class PlatformRegionQuery(EnumBaseModel):
     """Regional routing parameter for platform endpoints (ACCOUNT, MATCH)."""
 
     region: Annotated[
