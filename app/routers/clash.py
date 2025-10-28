@@ -1,4 +1,8 @@
-"""Clash-V1 API endpoints (Clash tournament data)."""
+"""Clash-V1 API endpoints (Clash tournament data).
+
+Riot Developer Portal API Reference:
+https://developer.riotgames.com/apis#clash-v1
+"""
 
 from fastapi import APIRouter, Query
 from loguru import logger
@@ -19,6 +23,8 @@ async def get_clash_player(
     Get clash player info by PUUID.
 
     Returns list of clash tournament registrations for the player.
+
+    API Reference: https://developer.riotgames.com/apis#clash-v1/GET_getPlayersByPUUID
 
     Returns:
         List of player registration objects with:
@@ -54,6 +60,8 @@ async def get_clash_team(
 ):
     """
     Get clash team by team ID.
+
+    API Reference: https://developer.riotgames.com/apis#clash-v1/GET_getTeamById
 
     Returns:
         Team object with:
@@ -93,6 +101,8 @@ async def get_clash_tournaments(
     """
     Get all active and upcoming clash tournaments.
 
+    API Reference: https://developer.riotgames.com/apis#clash-v1/GET_getTournaments
+
     Returns:
         List of tournament objects with:
         - id: Tournament ID
@@ -129,6 +139,8 @@ async def get_clash_tournament(
     """
     Get clash tournament by tournament ID.
 
+    API Reference: https://developer.riotgames.com/apis#clash-v1/GET_getTournamentById
+
     Returns:
         Tournament object with:
         - id: Tournament ID
@@ -164,6 +176,8 @@ async def get_clash_tournament_by_team(
 ):
     """
     Get clash tournament that a team is registered for.
+
+    API Reference: https://developer.riotgames.com/apis#clash-v1/GET_getTournamentByTeam
 
     Returns:
         Tournament object for the team's registered tournament.

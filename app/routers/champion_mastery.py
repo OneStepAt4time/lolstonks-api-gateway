@@ -1,4 +1,8 @@
-"""Champion-Mastery-V4 API endpoints."""
+"""Champion-Mastery-V4 API endpoints.
+
+Riot Developer Portal API Reference:
+https://developer.riotgames.com/apis#champion-mastery-v4
+"""
 
 from fastapi import APIRouter, Query
 from loguru import logger
@@ -17,6 +21,8 @@ async def get_all_champion_masteries(
 ):
     """
     Get all champion mastery entries for a summoner by PUUID.
+
+    API Reference: https://developer.riotgames.com/apis#champion-mastery-v4/GET_getAllChampionMasteries
 
     Returns list of champion mastery objects sorted by champion level descending.
     """
@@ -49,6 +55,8 @@ async def get_champion_mastery(
     """
     Get champion mastery entry for a specific champion.
 
+    API Reference: https://developer.riotgames.com/apis#champion-mastery-v4/GET_getChampionMastery
+
     Returns champion mastery object with level, points, tokens, etc.
     """
     cache_key = f"mastery:champion:{region}:{puuid}:{championId}"
@@ -79,6 +87,8 @@ async def get_top_champion_masteries(
 ):
     """
     Get top N champion mastery entries for a summoner.
+
+    API Reference: https://developer.riotgames.com/apis#champion-mastery-v4/GET_getTopChampionMasteries
 
     Args:
         count: Number of top champions (1-20, default 3)
@@ -112,6 +122,8 @@ async def get_mastery_score(
 ):
     """
     Get total mastery score for a summoner.
+
+    API Reference: https://developer.riotgames.com/apis#champion-mastery-v4/GET_getChampionMasteryScore
 
     Returns integer representing total mastery points across all champions.
     """

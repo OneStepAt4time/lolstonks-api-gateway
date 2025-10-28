@@ -1,4 +1,8 @@
-"""Spectator-V5 API endpoints."""
+"""Spectator-V5 API endpoints.
+
+Riot Developer Portal API Reference:
+https://developer.riotgames.com/apis#spectator-v5
+"""
 
 from fastapi import APIRouter, Query
 from loguru import logger
@@ -19,6 +23,8 @@ async def get_active_game(
     Get current game information for a summoner (if in game).
 
     Returns 404 if player is not currently in a game.
+
+    API Reference: https://developer.riotgames.com/apis#spectator-v5/GET_getCurrentGameInfoByPuuid
 
     Returns:
         - gameId: Current game ID
@@ -55,6 +61,8 @@ async def get_featured_games(
 ):
     """
     Get list of featured games (high-profile matches shown in client).
+
+    API Reference: https://developer.riotgames.com/apis#spectator-v5/GET_getFeaturedGames
 
     Returns:
         - gameList: List of featured game objects

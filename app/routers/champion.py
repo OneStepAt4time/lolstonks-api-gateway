@@ -1,4 +1,8 @@
-"""Champion-V3 API endpoints."""
+"""Champion-V3 API endpoints.
+
+Riot Developer Portal API Reference:
+https://developer.riotgames.com/apis#champion-v3
+"""
 
 from fastapi import APIRouter, Query
 from loguru import logger
@@ -16,6 +20,8 @@ async def get_champion_rotations(
 ):
     """
     Get current champion rotation (free-to-play champions).
+
+    API Reference: https://developer.riotgames.com/apis#champion-v3/GET_getChampionInfo
 
     Returns:
         - freeChampionIds: List of free champion IDs

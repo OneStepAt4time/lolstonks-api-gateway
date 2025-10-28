@@ -1,4 +1,8 @@
-"""Challenges-V1 API endpoints (Player challenges and progression)."""
+"""Challenges-V1 API endpoints (Player challenges and progression).
+
+Riot Developer Portal API Reference:
+https://developer.riotgames.com/apis#lol-challenges-v1
+"""
 
 from fastapi import APIRouter, Query
 from loguru import logger
@@ -16,6 +20,8 @@ async def get_all_challenges_config(
 ):
     """
     Get configuration for all challenges.
+
+    API Reference: https://developer.riotgames.com/apis#lol-challenges-v1/GET_getAllChallengeConfigs
 
     Returns list of all challenge configuration objects with:
     - id: Challenge ID
@@ -52,6 +58,8 @@ async def get_challenge_config(
     """
     Get configuration for a specific challenge.
 
+    API Reference: https://developer.riotgames.com/apis#lol-challenges-v1/GET_getChallengeConfigs
+
     Returns:
         Challenge configuration object with thresholds, localized names, etc.
     """
@@ -84,6 +92,8 @@ async def get_challenge_leaderboard(
 ):
     """
     Get leaderboard for a specific challenge at a specific level.
+
+    API Reference: https://developer.riotgames.com/apis#lol-challenges-v1/GET_getChallengeLeaderboards
 
     Args:
         challengeId: Challenge ID
@@ -122,6 +132,8 @@ async def get_challenge_percentiles(
     """
     Get percentile distribution for a challenge.
 
+    API Reference: https://developer.riotgames.com/apis#lol-challenges-v1/GET_getChallengePercentiles
+
     Returns map of challenge values to percentiles.
     """
     cache_key = f"challenges:percentiles:{region}:{challengeId}"
@@ -151,6 +163,8 @@ async def get_player_challenges(
 ):
     """
     Get all challenge data for a player by PUUID.
+
+    API Reference: https://developer.riotgames.com/apis#lol-challenges-v1/GET_getPlayerData
 
     Returns:
         - totalPoints: Total challenge points

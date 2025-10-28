@@ -1,4 +1,8 @@
-"""Summoner API endpoints - Priority 1."""
+"""Summoner API endpoints - Priority 1.
+
+Riot Developer Portal API Reference:
+https://developer.riotgames.com/apis#summoner-v4
+"""
 
 from fastapi import APIRouter, Query
 from loguru import logger
@@ -19,6 +23,8 @@ async def get_summoner_by_name(
     Get summoner by summoner name.
 
     This is the primary entry point for user lookups.
+
+    API Reference: https://developer.riotgames.com/apis#summoner-v4/GET_getBySummonerName
 
     Args:
         summonerName: Summoner name (URL encoded)
@@ -55,6 +61,8 @@ async def get_summoner_by_puuid(
     """
     Get summoner by PUUID.
 
+    API Reference: https://developer.riotgames.com/apis#summoner-v4/GET_getByPUUID
+
     Args:
         encryptedPUUID: Encrypted PUUID
         region: Region code
@@ -89,6 +97,8 @@ async def get_summoner_by_id(
 ):
     """
     Get summoner by summoner ID.
+
+    API Reference: https://developer.riotgames.com/apis#summoner-v4/GET_getBySummonerId
 
     Args:
         encryptedSummonerId: Encrypted summoner ID

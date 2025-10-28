@@ -1,4 +1,8 @@
-"""League API endpoints - Priority 5."""
+"""League API endpoints - Priority 5.
+
+Riot Developer Portal API Reference:
+https://developer.riotgames.com/apis#league-v4
+"""
 
 from fastapi import APIRouter, Query
 from loguru import logger
@@ -20,6 +24,8 @@ async def get_challenger_league(
 
     This endpoint returns the top players in a region, including their summonerIds.
     Use this to get a list of high-level players to track.
+
+    API Reference: https://developer.riotgames.com/apis#league-v4/GET_getChallengerLeague
 
     Args:
         queue: Queue type (RANKED_SOLO_5x5, RANKED_FLEX_SR, RANKED_FLEX_TT)
@@ -56,6 +62,8 @@ async def get_grandmaster_league(
     """
     Get grandmaster league entries for a queue.
 
+    API Reference: https://developer.riotgames.com/apis#league-v4/GET_getGrandmasterLeague
+
     Args:
         queue: Queue type (RANKED_SOLO_5x5, RANKED_FLEX_SR, RANKED_FLEX_TT)
         region: Region code
@@ -90,6 +98,8 @@ async def get_master_league(
 ):
     """
     Get master league entries for a queue.
+
+    API Reference: https://developer.riotgames.com/apis#league-v4/GET_getMasterLeague
 
     Args:
         queue: Queue type (RANKED_SOLO_5x5, RANKED_FLEX_SR, RANKED_FLEX_TT)
@@ -126,6 +136,8 @@ async def get_league_entries_by_summoner(
     """
     Get league entries for a summoner (all queues).
 
+    API Reference: https://developer.riotgames.com/apis#league-v4/GET_getLeagueEntriesForSummoner
+
     Args:
         encryptedSummonerId: Encrypted summoner ID
         region: Region code
@@ -150,4 +162,61 @@ async def get_league_entries_by_summoner(
     await cache.set(cache_key, data, ttl=settings.cache_ttl_league)
 
     logger.success("League entries fetched", entries=len(data))
+    return data
+
+
+@router.get("/entries/{queue}/{tier}/{division}")
+async def get_league_entries(
+    queue: str,
+    tier: str,
+    division: str,
+    region: str = Query(default=settings.riot_default_region, description="Region code"),
+    page: int = Query(default=1, ge=1, description="Page number (starts at 1)"),
+):
+    """
+    Get league entries by queue, tier, and division.
+
+    This endpoint provides paginated access to league entries at specific ranks.
+    Use this for fetching large sets of ranked players.
+
+    API Reference: https://developer.riotgames.com/apis#league-v4/GET_getLeagueEntries
+
+    Args:
+        queue: Queue type (RANKED_SOLO_5x5, RANKED_FLEX_SR, RANKED_FLEX_TT)
+        tier: Tier (IRON, BRONZE, SILVER, GOLD, PLATINUM, EMERALD, DIAMOND)
+        division: Division (I, II, III, IV)
+        region: Region code
+        page: Page number (starts at 1)
+
+    Returns:
+        Array of league entries with summoner info, LP, win/loss stats
+    """
+    logger.info(
+        "Fetching league entries",
+        queue=queue,
+        tier=tier,
+        division=division,
+        region=region,
+        page=page,
+    )
+
+    # Check cache first
+    cache_key = f"league:entries:{region}:{queue}:{tier}:{division}:{page}"
+    cached_data = await cache.get(cache_key)
+    if cached_data:
+        logger.debug("Cache hit for league entries")
+        return cached_data
+
+    # Fetch from Riot API
+    path = f"/lol/league/v4/entries/{queue}/{tier}/{division}"
+    # Add page parameter if not default
+    if page != 1:
+        path += f"?page={page}"
+
+    data = await riot_client.get(path, region, is_platform_endpoint=False)
+
+    # Store in cache (1 hour - league entries change frequently)
+    await cache.set(cache_key, data, ttl=settings.cache_ttl_league)
+
+    logger.success("League entries fetched", queue=queue, tier=tier, division=division, entries=len(data))
     return data

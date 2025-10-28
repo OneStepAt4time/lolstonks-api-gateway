@@ -1,4 +1,8 @@
-"""Platform-V4 / LOL-STATUS-V4 API endpoints."""
+"""Platform-V4 / LOL-STATUS-V4 API endpoints.
+
+Riot Developer Portal API Reference:
+https://developer.riotgames.com/apis#lol-status-v4
+"""
 
 from fastapi import APIRouter, Query
 from loguru import logger
@@ -16,6 +20,8 @@ async def get_platform_status(
 ):
     """
     Get League of Legends platform status for a region.
+
+    API Reference: https://developer.riotgames.com/apis#lol-status-v4/GET_getPlatformData
 
     Returns:
         - id: Region ID
