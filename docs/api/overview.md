@@ -251,6 +251,6 @@ if summoner:
 
 ---
 
-*Documentation generated on 2025-10-28 18:34:54 UTC*
+*Documentation generated on 2024-10-28 18:34:54 UTC*
 
-For the most up-to-date interactive documentation, visit [Swagger UI](http://localhost:8000/docs) when the server is running.
+For the most up-to-date interactive documentation, visit [Swagger UI](http://localhost:8080/docs) when the server is running.

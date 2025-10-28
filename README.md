@@ -8,8 +8,6 @@ Features · Quick Start · Usage · Configuration · Contributing · [Documentat
 
 ---
 
-## Badges
-
 [![Python](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-green.svg)](https://fastapi.tiangolo.com/)
 [![Redis](https://img.shields.io/badge/Redis-7.x-red.svg)](https://redis.io/)
@@ -76,40 +74,42 @@ This gateway is intended for use by any application interacting with Riot Games'
 
 1. Copy `.env` and set your Riot key:
 
-```powershell
+```bash
 cp .env.example .env
 # Edit .env and set RIOT_API_KEY
 ```
 
-1. Start services with Docker Compose:
+2. Start services with Docker Compose:
 
-```powershell
+```bash
 docker-compose up -d
 ```
 
-1. Health check:
+3. Health check:
 
-```powershell
+```bash
 curl http://127.0.0.1:8080/health
 # Expect: {"status":"ok"}
 ```
 
-1. Open interactive API docs at: <http://127.0.0.1:8080/docs>
+4. Open interactive API docs at: http://127.0.0.1:8080/docs
 
 ### Run Locally (venv)
 
 1. Create virtualenv and install:
 
-```powershell
+```bash
 python -m venv .venv
-.\.venv\Scripts\Activate.ps1
+source .venv/bin/activate  # Linux/macOS
+# or
+.venv\Scripts\activate     # Windows
 pip install -U pip
 pip install -r requirements.txt
 ```
 
-1. Copy `.env` and run:
+2. Copy `.env` and run:
 
-```powershell
+```bash
 cp .env.example .env
 # set RIOT_API_KEY in .env
 python -m app.main
@@ -145,19 +145,19 @@ Notes:
 
 Get a summoner by name (region query param available):
 
-```powershell
+```bash
 curl "http://127.0.0.1:8080/lol/summoner/v4/summoners/by-name/Faker?region=kr"
 ```
 
 Fetch Challenger players:
 
-```powershell
+```bash
 curl "http://127.0.0.1:8080/lol/league/v4/challengerleagues/by-queue/RANKED_SOLO_5x5?region=euw1"
 ```
 
 Get match IDs by PUUID:
 
-```powershell
+```bash
 PUUID="player-puuid-here"
 curl "http://127.0.0.1:8080/lol/match/v5/matches/by-puuid/$PUUID/ids?region=euw1&count=10"
 ```
@@ -204,12 +204,25 @@ Linting & type checking:
 
 ## Contributing
 
-Contributions are welcome! Please read the repository's `CONTRIBUTING.md` (if present) and follow these steps:
+Contributions are welcome! Please read the [Contributing Guide](docs/development/contributing.md) for details on:
 
-1. Fork the repo
-1. Create a branch for your change
-1. Run tests and linters
-1. Open a pull request with a clear description
+1. Setting up your development environment
+1. Code style guidelines and best practices
+1. Testing requirements
+1. Pull request process
+
+---
+
+## Support This Project
+
+If you find LOLStonks API Gateway useful, consider supporting its development:
+
+- ⭐ **Star this repository** on GitHub
+- 💬 **Share** with others who might find it useful
+- 🐛 **Report issues** or contribute code
+- ☕ **[Buy me a coffee](https://buymeacoffee.com/onestepat4time)** to support ongoing development
+
+Your support helps cover API costs, server expenses, and dedicated development time. See [SUPPORT.md](SUPPORT.md) for more ways to help.
 
 ---
 
@@ -229,32 +242,6 @@ If you hit problems you can't resolve locally, open an issue with logs and repro
 - Admin endpoints to inspect/flush caches
 - Pluggable storage backends for match tracking
 - Support for automatic API key rotation
-
----
-
-## Support Development
-
-Enjoying LOLStonks API Gateway? Help me continue developing and maintaining this project!
-
-### ☕ Buy Me a Coffee
-If you find this project useful, consider supporting my work by buying me a coffee:
-
-[![Buy Me A Coffee](https://www.buymeacoffee.com/assets/img/custom_images/black_img.png)](https://buymeacoffee.com/onestepat4time)
-
-Your support helps me:
-- 💰 Cover server and API costs for development
-- 🐛 Fix bugs and implement new features
-- 📚 Improve documentation and user experience
-- 🚀 Keep this project maintained and up-to-date
-
-### 🤝 Other Ways to Support
-- **⭐ Star this project** on GitHub
-- **🐛 Report issues** and suggest features
-- **📝 Improve documentation**
-- **💻 Contribute code** via pull requests
-- **📢 Share** this project with others
-
-Every contribution, whether it's code, documentation, bug reports, or just a cup of coffee, makes a huge difference and is greatly appreciated!
 
 ---
 

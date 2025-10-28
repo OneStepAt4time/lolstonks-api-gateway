@@ -9,50 +9,47 @@
 
 **Production-grade Riot Games API Gateway** engineered for high-performance applications with intelligent caching, automatic rate limiting, and comprehensive observability.
 
-!!! tip "Why LOLStonks?"
-    **Reduce API costs by 80%** with intelligent caching, **improve response times by 10x** with local endpoints, and **ensure 99.9% uptime** with built-in retry logic and monitoring.
-
 ![LOLStonks logo](../.github/logo.png)
 
-## ✨ Enterprise Features
+## Enterprise Features
 
-### 🚀 **Performance & Scalability**
+### Performance & Scalability
 - **Sub-100ms Response Times**: Optimized for high-throughput applications
 - **Async Architecture**: Built on FastAPI with full async/await support
 - **Horizontal Scaling**: Stateless design enables multi-instance deployment
 - **Connection Pooling**: Efficient resource management for high concurrency
 
-### 🛡️ **Reliability & Resilience**
+### Reliability & Resilience
 - **Intelligent Rate Limiting**: Token bucket algorithm ensures Riot API compliance
 - **Automatic Retries**: Exponential backoff for 429 responses with configurable limits
 - **Circuit Breaker Pattern**: Fault tolerance for external API dependencies
 - **Graceful Degradation**: Continue operation during partial outages
 
-### 💾 **Intelligent Caching**
+### Intelligent Caching
 - **Multi-Layer Caching**: Redis-based with strategic TTL configuration
-- **Cache Hit Rates**: 80%+ average cache hit rate for optimal performance
+- **High Cache Hit Rates**: Optimized caching strategy for frequently accessed data
 - **Smart Invalidation**: Automatic cache updates based on data freshness
 - **Memory Optimization**: Efficient cache key management and eviction policies
 
-### 📊 **Observability & Monitoring**
+### Observability & Monitoring
 - **Comprehensive Metrics**: Prometheus-compatible metrics for full stack monitoring
 - **Structured Logging**: JSON-formatted logs with request tracing
 - **Health Checks**: Multi-level health monitoring for all dependencies
 - **Performance Analytics**: Real-time performance insights and alerting
 
-### 🔧 **Developer Experience**
+### Developer Experience
 - **Type-Safe API**: Full Pydantic model validation with comprehensive error handling
 - **Interactive Documentation**: Auto-generated OpenAPI specs with Swagger UI and ReDoc
 - **Multi-Region Support**: Complete coverage of all Riot API regions
 - **UV Integration**: Modern Python package management with fast dependency resolution
 
-### 🏭 **Production Ready**
+### Production Ready
 - **Container-Native**: Docker support with optimized images
 - **Security Hardened**: Input validation, CORS protection, and secure defaults
 - **Configuration Management**: Environment-based configuration with validation
 - **CI/CD Integration**: Automated testing, documentation generation, and deployment
 
-## 🚀 Quick Start
+## Quick Start
 
 ### System Requirements
 
@@ -134,7 +131,7 @@ For production deployment, see our comprehensive [Deployment Guide](getting-star
 - SSL/TLS setup with Let's Encrypt
 - Monitoring and alerting setup
 
-## 📖 Documentation
+## Documentation
 
 - [Installation Guide](getting-started/installation.md) - Detailed setup instructions
 - [Quick Start](getting-started/quick-start.md) - Basic usage examples
@@ -142,20 +139,20 @@ For production deployment, see our comprehensive [Deployment Guide](getting-star
 - [API Reference](api/overview.md) - Complete API documentation
 - [Architecture](architecture/overview.md) - System design and components
 
-## 🔗 Quick Links
+## Quick Links
 
-- **Interactive API Docs**: [Swagger UI](http://localhost:8000/docs) | [ReDoc](http://localhost:8000/redoc)
+- **Interactive API Docs**: [Swagger UI](http://localhost:8080/docs) | [ReDoc](http://localhost:8080/redoc)
 - **Riot Developer Portal**: [developer.riotgames.com](https://developer.riotgames.com/)
 - **GitHub Repository**: [github.com/OneStepAt4time/lolstonks-api-gateway](https://github.com/OneStepAt4time/lolstonks-api-gateway)
 
-## 📊 Example Usage
+## Example Usage
 
 ### Get Summoner by Name
 
 ```python
 import httpx
 
-response = httpx.get("http://localhost:8000/summoner/by-name/Faker?region=kr")
+response = httpx.get("http://localhost:8080/summoner/by-name/Faker?region=kr")
 summoner = response.json()
 print(f"Summoner: {summoner['name']} (Level: {summoner['summonerLevel']})")
 ```
@@ -164,7 +161,7 @@ print(f"Summoner: {summoner['name']} (Level: {summoner['summonerLevel']})")
 
 ```python
 summoner_id = "summoner-id-here"
-response = httpx.get(f"http://localhost:8000/spectator/active-game/{summoner_id}?region=kr")
+response = httpx.get(f"http://localhost:8080/spectator/active-game/{summoner_id}?region=kr")
 game = response.json()
 print(f"Game mode: {game['gameMode']}, Game time: {game['gameLength']}s")
 ```
@@ -173,12 +170,12 @@ print(f"Game mode: {game['gameMode']}, Game time: {game['gameLength']}s")
 
 ```python
 puuid = "player-puuid-here"
-response = httpx.get(f"http://localhost:8000/match/ids/by-puuid/{puuid}?region=euw1&count=5")
+response = httpx.get(f"http://localhost:8080/match/ids/by-puuid/{puuid}?region=euw1&count=5")
 match_ids = response.json()
 print(f"Recent matches: {match_ids}")
 ```
 
-## 🏗️ Architecture Overview
+## Architecture Overview
 
 The LOLStonks API Gateway consists of several key components:
 
@@ -188,15 +185,15 @@ The LOLStonks API Gateway consists of several key components:
 - **Match Tracking**: Service to prevent duplicate match processing
 - **Router Layer**: Organized API endpoints mirroring Riot's API structure
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions! Please see our [Contributing Guide](development/contributing.md) for details on how to get started.
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](../LICENSE) file for details.
 
-## 🔧 Development Status
+## Development Status
 
 - **Stable**: Core API Gateway functionality
 - **Active Development**: Documentation system, monitoring, and additional features
@@ -204,4 +201,4 @@ This project is licensed under the MIT License - see the [LICENSE](../LICENSE) f
 
 ---
 
-**Built with ❤️ for the League of Legends developer community**
+**Built for the League of Legends developer community**
