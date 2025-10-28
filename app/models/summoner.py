@@ -15,12 +15,7 @@ class SummonerByNameParams(BaseModel):
     """Path parameters for GET /lol/summoner/v4/summoners/by-name/{summonerName}."""
 
     summonerName: Annotated[
-        str,
-        Field(
-            min_length=1,
-            max_length=100,
-            description="Summoner name (URL encoded)"
-        )
+        str, Field(min_length=1, max_length=100, description="Summoner name (URL encoded)")
     ]
 
 

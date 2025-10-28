@@ -45,13 +45,7 @@ class TopChampionMasteriesQuery(RegionQuery):
     """Query parameters for GET /lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}/top."""
 
     count: Annotated[
-        int,
-        Field(
-            default=3,
-            ge=1,
-            le=20,
-            description="Number of top champions to return (1-20)"
-        )
+        int, Field(default=3, ge=1, le=20, description="Number of top champions to return (1-20)")
     ] = 3
 
 

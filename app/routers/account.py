@@ -56,7 +56,9 @@ async def get_account_by_puuid(
 
     # Cache with configured TTL
     await cache.set(cache_key, data, ttl=settings.cache_ttl_account)
-    logger.success("Account fetched by PUUID", puuid=params.puuid[:8], gameName=data.get("gameName"))
+    logger.success(
+        "Account fetched by PUUID", puuid=params.puuid[:8], gameName=data.get("gameName")
+    )
 
     return data
 
@@ -88,17 +90,26 @@ async def get_account_by_riot_id(
     # Check cache
     cached_data = await cache.get(cache_key)
     if cached_data:
-        logger.debug("Cache hit for account by Riot ID", gameName=params.gameName, tagLine=params.tagLine)
+        logger.debug(
+            "Cache hit for account by Riot ID", gameName=params.gameName, tagLine=params.tagLine
+        )
         return cached_data
 
     # Fetch from Riot API (use platform endpoint for regional routing)
-    logger.info("Fetching account by Riot ID", gameName=params.gameName, tagLine=params.tagLine, region=query.region)
+    logger.info(
+        "Fetching account by Riot ID",
+        gameName=params.gameName,
+        tagLine=params.tagLine,
+        region=query.region,
+    )
     path = f"/riot/account/v1/accounts/by-riot-id/{params.gameName}/{params.tagLine}"
     data = await riot_client.get(path, query.region, is_platform_endpoint=True)
 
     # Cache with configured TTL
     await cache.set(cache_key, data, ttl=settings.cache_ttl_account)
-    logger.success("Account fetched by Riot ID", gameName=params.gameName, puuid=data.get("puuid", "")[:8])
+    logger.success(
+        "Account fetched by Riot ID", gameName=params.gameName, puuid=data.get("puuid", "")[:8]
+    )
 
     return data
 
@@ -134,7 +145,9 @@ async def get_active_shard(
         return cached_data
 
     # Fetch from Riot API (use platform endpoint for regional routing)
-    logger.info("Fetching active shard", puuid=params.puuid[:8], game=params.game, region=query.region)
+    logger.info(
+        "Fetching active shard", puuid=params.puuid[:8], game=params.game, region=query.region
+    )
     path = f"/riot/account/v1/active-shards/by-game/{params.game}/by-puuid/{params.puuid}"
     data = await riot_client.get(path, query.region, is_platform_endpoint=True)
 

@@ -26,6 +26,7 @@ dev = [
     "ruff>=0.6.0",
     "mypy>=1.0.0",
     "bandit>=1.7.0",
+    "pre-commit>=3.8.0",
 ]
 
 docs = [
@@ -105,3 +106,7 @@ warn_unused_ignores = true
 warn_no_return = true
 follow_imports = "normal"
 ignore_missing_imports = true
+
+[tool.bandit]
+exclude_dirs = ["tests", ".venv", "venv", "build", "dist"]
+skips = ["B101"]  # Skip assert_used test

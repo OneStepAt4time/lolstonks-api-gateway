@@ -6,7 +6,7 @@ https://developer.riotgames.com/apis#lol-challenges-v1
 
 from typing import Annotated, Optional
 
-from pydantic import ConfigDict, Field
+from pydantic import Field
 
 from app.models.common import EnumBaseModel, HasChallengeId, HasPuuid, RegionQuery, Tier
 
@@ -37,7 +37,7 @@ class ChallengeLeaderboardParams(EnumBaseModel, HasChallengeId):
 
     level: Annotated[
         Tier,
-        Field(description="Challenge leaderboard tier (MASTER, GRANDMASTER, or CHALLENGER only)")
+        Field(description="Challenge leaderboard tier (MASTER, GRANDMASTER, or CHALLENGER only)"),
     ]
 
 
@@ -46,11 +46,7 @@ class ChallengeLeaderboardQuery(RegionQuery):
 
     limit: Annotated[
         Optional[int],
-        Field(
-            default=None,
-            ge=1,
-            description="Limit the number of results returned (optional)"
-        )
+        Field(default=None, ge=1, description="Limit the number of results returned (optional)"),
     ] = None
 
 

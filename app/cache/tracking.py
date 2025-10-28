@@ -40,7 +40,7 @@ class MatchTracker:
     async def close(self):
         """Close Redis connection."""
         if self.redis:
-            await self.redis.aclose()
+            await self.redis.aclose()  # type: ignore[attr-defined]
             logger.info("Match tracker connection closed")
 
     async def is_processed(self, region: str, match_id: str) -> bool:

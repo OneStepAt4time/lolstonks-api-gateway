@@ -2,8 +2,6 @@
 
 import os
 
-import pytest
-
 
 def test_config_imports():
     """Test that config module can be imported."""
@@ -78,6 +76,7 @@ def test_environment_override():
     # Reimport settings (in real scenarios, use dependency injection)
     from importlib import reload
     from app import config
+
     reload(config)
 
     assert config.settings.riot_default_region == "kr"

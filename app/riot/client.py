@@ -96,7 +96,7 @@ class RiotClient:
         response.raise_for_status()
 
         # Return JSON response
-        return response.json()
+        return response.json()  # type: ignore[no-any-return]
 
 
 # Global client instance

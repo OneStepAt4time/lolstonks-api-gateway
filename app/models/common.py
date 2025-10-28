@@ -93,7 +93,7 @@ class Division(str, Enum):
     Master, Grandmaster, and Challenger don't use divisions.
     """
 
-    I = "I"
+    I = "I"  # noqa: E741
     II = "II"
     III = "III"
     IV = "IV"
@@ -113,10 +113,9 @@ class RegionQuery(EnumBaseModel):
     region: Annotated[
         GameRegion,
         Field(
-            default=settings.riot_default_region,
-            description="Region code (e.g., euw1, kr, na1)"
-        )
-    ] = settings.riot_default_region
+            default=settings.riot_default_region, description="Region code (e.g., euw1, kr, na1)"
+        ),
+    ] = settings.riot_default_region  # type: ignore[assignment]
 
 
 class PlatformRegionQuery(EnumBaseModel):
@@ -126,60 +125,36 @@ class PlatformRegionQuery(EnumBaseModel):
         PlatformRegion,
         Field(
             default=PlatformRegion.AMERICAS,
-            description="Regional routing value (americas, europe, asia, sea)"
-        )
+            description="Regional routing value (americas, europe, asia, sea)",
+        ),
     ] = PlatformRegion.AMERICAS
 
 
 class PaginationQuery(BaseModel):
     """Pagination parameters for list endpoints."""
 
-    start: Annotated[
-        int,
-        Field(
-            default=0,
-            ge=0,
-            description="Start index for pagination"
-        )
-    ] = 0
+    start: Annotated[int, Field(default=0, ge=0, description="Start index for pagination")] = 0
 
     count: Annotated[
-        int,
-        Field(
-            default=20,
-            ge=1,
-            le=100,
-            description="Number of items to return (1-100)"
-        )
+        int, Field(default=20, ge=1, le=100, description="Number of items to return (1-100)")
     ] = 20
 
 
 # Reusable Path Parameter Mixins
 # These can be inherited by endpoint-specific models to avoid duplication
 
+
 class HasPuuid(BaseModel):
     """Mixin for models that include a PUUID path parameter."""
 
-    puuid: Annotated[
-        str,
-        Field(
-            min_length=1,
-            max_length=100,
-            description="Player UUID"
-        )
-    ]
+    puuid: Annotated[str, Field(min_length=1, max_length=100, description="Player UUID")]
 
 
 class HasEncryptedSummonerId(BaseModel):
     """Mixin for models that include an encrypted summoner ID path parameter."""
 
     encryptedSummonerId: Annotated[
-        str,
-        Field(
-            min_length=1,
-            max_length=100,
-            description="Encrypted summoner ID"
-        )
+        str, Field(min_length=1, max_length=100, description="Encrypted summoner ID")
     ]
 
 
@@ -187,12 +162,7 @@ class HasEncryptedPuuid(BaseModel):
     """Mixin for models that include an encrypted PUUID path parameter."""
 
     encryptedPUUID: Annotated[
-        str,
-        Field(
-            min_length=1,
-            max_length=100,
-            description="Encrypted Player UUID"
-        )
+        str, Field(min_length=1, max_length=100, description="Encrypted Player UUID")
     ]
 
 
@@ -200,58 +170,29 @@ class HasMatchId(BaseModel):
     """Mixin for models that include a match ID path parameter."""
 
     matchId: Annotated[
-        str,
-        Field(
-            pattern=r"^[A-Z0-9]+_\d+$",
-            description="Match ID (e.g., EUW1_123456789)"
-        )
+        str, Field(pattern=r"^[A-Z0-9]+_\d+$", description="Match ID (e.g., EUW1_123456789)")
     ]
 
 
 class HasChampionId(BaseModel):
     """Mixin for models that include a champion ID path parameter."""
 
-    championId: Annotated[
-        int,
-        Field(
-            ge=1,
-            description="Champion ID"
-        )
-    ]
+    championId: Annotated[int, Field(ge=1, description="Champion ID")]
 
 
 class HasChallengeId(BaseModel):
     """Mixin for models that include a challenge ID path parameter."""
 
-    challengeId: Annotated[
-        int,
-        Field(
-            ge=0,
-            description="Challenge ID"
-        )
-    ]
+    challengeId: Annotated[int, Field(ge=0, description="Challenge ID")]
 
 
 class HasTeamId(BaseModel):
     """Mixin for models that include a team ID path parameter."""
 
-    teamId: Annotated[
-        str,
-        Field(
-            min_length=1,
-            max_length=100,
-            description="Team ID"
-        )
-    ]
+    teamId: Annotated[str, Field(min_length=1, max_length=100, description="Team ID")]
 
 
 class HasTournamentId(BaseModel):
     """Mixin for models that include a tournament ID path parameter."""
 
-    tournamentId: Annotated[
-        int,
-        Field(
-            ge=0,
-            description="Tournament ID"
-        )
-    ]
+    tournamentId: Annotated[int, Field(ge=0, description="Tournament ID")]

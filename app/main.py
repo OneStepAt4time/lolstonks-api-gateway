@@ -40,7 +40,12 @@ async def lifespan(app: FastAPI):
     """Lifespan context manager for startup and shutdown events."""
     # Startup
     logger.info("Starting LOL API Gateway")
-    logger.info("Configuration loaded", region=settings.riot_default_region, host=settings.host, port=settings.port)
+    logger.info(
+        "Configuration loaded",
+        region=settings.riot_default_region,
+        host=settings.host,
+        port=settings.port,
+    )
 
     # Initialize Redis connection for tracking
     await tracker.connect()

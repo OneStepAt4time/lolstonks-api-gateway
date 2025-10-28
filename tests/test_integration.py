@@ -61,12 +61,9 @@ class TestAPIRouterRegistration:
     def test_summoner_routes_exist(self, test_app):
         """Test summoner routes are registered."""
         routes = [route.path for route in test_app.routes]
-        route_str = " ".join(routes)
 
-        # At least some summoner endpoints should exist
-        summoner_routes = [r for r in routes if "summoner" in r.lower()]
-        # If no exact match, check that routes are registered in general
-        assert len(test_app.routes) > 10  # Should have multiple routes
+        # Check that we have various routes registered
+        assert len(routes) > 10  # Should have multiple routes
 
     def test_match_routes_exist(self, test_app):
         """Test match routes are registered."""

@@ -6,17 +6,23 @@ https://developer.riotgames.com/apis#league-v4
 
 from typing import Annotated, Optional
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import Field
 
-from app.models.common import Division, EnumBaseModel, HasEncryptedSummonerId, QueueType, RegionQuery, Tier
+from app.models.common import (
+    Division,
+    EnumBaseModel,
+    HasEncryptedSummonerId,
+    QueueType,
+    RegionQuery,
+    Tier,
+)
 
 
 class LeagueByQueueParams(EnumBaseModel):
     """Path parameters for challenger/grandmaster/master league endpoints."""
 
     queue: Annotated[
-        QueueType,
-        Field(description="Queue type (RANKED_SOLO_5x5, RANKED_FLEX_SR, RANKED_FLEX_TT)")
+        QueueType, Field(description="Queue type (RANKED_SOLO_5x5, RANKED_FLEX_SR, RANKED_FLEX_TT)")
     ]
 
 
@@ -41,18 +47,11 @@ class LeagueEntriesBySummonerQuery(RegionQuery):
 class LeagueEntriesParams(EnumBaseModel):
     """Path parameters for GET /lol/league/v4/entries/{queue}/{tier}/{division}."""
 
-    queue: Annotated[
-        QueueType,
-        Field(description="Queue type")
-    ]
+    queue: Annotated[QueueType, Field(description="Queue type")]
     tier: Annotated[
-        Tier,
-        Field(description="Tier (IRON, BRONZE, SILVER, GOLD, PLATINUM, EMERALD, DIAMOND)")
+        Tier, Field(description="Tier (IRON, BRONZE, SILVER, GOLD, PLATINUM, EMERALD, DIAMOND)")
     ]
-    division: Annotated[
-        Division,
-        Field(description="Division (I, II, III, IV)")
-    ]
+    division: Annotated[Division, Field(description="Division (I, II, III, IV)")]
 
 
 class LeagueEntriesQuery(RegionQuery):
@@ -60,9 +59,5 @@ class LeagueEntriesQuery(RegionQuery):
 
     page: Annotated[
         Optional[int],
-        Field(
-            default=1,
-            ge=1,
-            description="Page number for pagination (starts at 1)"
-        )
+        Field(default=1, ge=1, description="Page number for pagination (starts at 1)"),
     ] = 1

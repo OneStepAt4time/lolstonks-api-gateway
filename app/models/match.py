@@ -28,8 +28,8 @@ class MatchIdsByPuuidQuery(PlatformRegionQuery, PaginationQuery):
         Field(
             default=None,
             ge=0,
-            description="Epoch timestamp in seconds. Only matches after this time are returned."
-        )
+            description="Epoch timestamp in seconds. Only matches after this time are returned.",
+        ),
     ] = None
 
     endTime: Annotated[
@@ -37,17 +37,15 @@ class MatchIdsByPuuidQuery(PlatformRegionQuery, PaginationQuery):
         Field(
             default=None,
             ge=0,
-            description="Epoch timestamp in seconds. Only matches before this time are returned."
-        )
+            description="Epoch timestamp in seconds. Only matches before this time are returned.",
+        ),
     ] = None
 
     queue: Annotated[
         Optional[int],
         Field(
-            default=None,
-            ge=0,
-            description="Queue ID. Only matches from this queue are returned."
-        )
+            default=None, ge=0, description="Queue ID. Only matches from this queue are returned."
+        ),
     ] = None
 
     type: Annotated[
@@ -55,8 +53,8 @@ class MatchIdsByPuuidQuery(PlatformRegionQuery, PaginationQuery):
         Field(
             default=None,
             pattern=r"^(ranked|normal|tourney|tutorial)$",
-            description="Match type filter (ranked, normal, tourney, tutorial)"
-        )
+            description="Match type filter (ranked, normal, tourney, tutorial)",
+        ),
     ] = None
 
 
@@ -70,11 +68,7 @@ class MatchQuery(PlatformRegionQuery):
     """Query parameters for GET /lol/match/v5/matches/{matchId}."""
 
     force: Annotated[
-        bool,
-        Field(
-            default=False,
-            description="Force refresh from Riot API (bypass cache)"
-        )
+        bool, Field(default=False, description="Force refresh from Riot API (bypass cache)")
     ] = False
 
 

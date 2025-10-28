@@ -78,7 +78,9 @@ def get_platform_url(region: str) -> str:
 
     # Otherwise, it's a game region code, map it to platform
     if region not in SUPPORTED_REGIONS:
-        raise ValueError(f"Unsupported region: {region}. Supported: {SUPPORTED_REGIONS + platform_regions_list}")
+        raise ValueError(
+            f"Unsupported region: {region}. Supported: {SUPPORTED_REGIONS + platform_regions_list}"
+        )
 
     platform = PLATFORM_REGIONS[region]
     return f"https://{platform}.api.riotgames.com"

@@ -16,8 +16,7 @@ router = APIRouter(prefix="/lol/spectator/v5", tags=["spectator"])
 
 @router.get("/active-games/by-summoner/{puuid}")
 async def get_active_game(
-    puuid: str,
-    region: str = Query(default=settings.riot_default_region, description="Region code")
+    puuid: str, region: str = Query(default=settings.riot_default_region, description="Region code")
 ):
     """
     Get current game information for a summoner (if in game).
@@ -57,7 +56,7 @@ async def get_active_game(
 
 @router.get("/featured-games")
 async def get_featured_games(
-    region: str = Query(default=settings.riot_default_region, description="Region code")
+    region: str = Query(default=settings.riot_default_region, description="Region code"),
 ):
     """
     Get list of featured games (high-profile matches shown in client).

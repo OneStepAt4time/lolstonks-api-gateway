@@ -27,20 +27,10 @@ class AccountByRiotIdParams(BaseModel):
     """Path parameters for GET /riot/account/v1/accounts/by-riot-id/{gameName}/{tagLine}."""
 
     gameName: Annotated[
-        str,
-        Field(
-            min_length=1,
-            max_length=100,
-            description="Riot ID game name (before the #)"
-        )
+        str, Field(min_length=1, max_length=100, description="Riot ID game name (before the #)")
     ]
     tagLine: Annotated[
-        str,
-        Field(
-            min_length=1,
-            max_length=100,
-            description="Riot ID tag line (after the #)"
-        )
+        str, Field(min_length=1, max_length=100, description="Riot ID tag line (after the #)")
     ]
 
 
@@ -57,8 +47,8 @@ class ActiveShardParams(HasPuuid):
         str,
         Field(
             pattern=r"^(val|lor)$",
-            description="Game identifier (val for Valorant, lor for Legends of Runeterra)"
-        )
+            description="Game identifier (val for Valorant, lor for Legends of Runeterra)",
+        ),
     ]
 
 

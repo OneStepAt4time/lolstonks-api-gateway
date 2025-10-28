@@ -16,7 +16,7 @@ router = APIRouter(prefix="/lol/platform/v3", tags=["champion"])
 
 @router.get("/champion-rotations")
 async def get_champion_rotations(
-    region: str = Query(default=settings.riot_default_region, description="Region code")
+    region: str = Query(default=settings.riot_default_region, description="Region code"),
 ):
     """
     Get current champion rotation (free-to-play champions).

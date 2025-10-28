@@ -105,7 +105,9 @@ async def get_match(
     Returns:
         Match object from Riot API
     """
-    logger.info("Match request received", match_id=params.matchId, region=query.region, force=query.force)
+    logger.info(
+        "Match request received", match_id=params.matchId, region=query.region, force=query.force
+    )
 
     cache_key = f"match:{query.region}:{params.matchId}"
 
@@ -123,7 +125,9 @@ async def get_match(
                 logger.debug("Cache hit for processed match", match_id=params.matchId)
                 return cached_data
             else:
-                logger.debug("Cache miss for processed match (TTL expired)", match_id=params.matchId)
+                logger.debug(
+                    "Cache miss for processed match (TTL expired)", match_id=params.matchId
+                )
         else:
             logger.debug("Match not yet processed", match_id=params.matchId)
     else:

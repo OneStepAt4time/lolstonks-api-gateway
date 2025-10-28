@@ -16,7 +16,7 @@ router = APIRouter(prefix="/lol/status/v4", tags=["platform"])
 
 @router.get("/platform-data")
 async def get_platform_status(
-    region: str = Query(default=settings.riot_default_region, description="Region code")
+    region: str = Query(default=settings.riot_default_region, description="Region code"),
 ):
     """
     Get League of Legends platform status for a region.
@@ -50,7 +50,7 @@ async def get_platform_status(
         "Platform status fetched",
         region=region,
         maintenances=len(data.get("maintenances", [])),
-        incidents=len(data.get("incidents", []))
+        incidents=len(data.get("incidents", [])),
     )
 
     return data

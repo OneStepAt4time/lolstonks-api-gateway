@@ -59,7 +59,11 @@ async def get_summoner_by_name(
     # Store in cache
     await cache.set(cache_key, data, ttl=settings.cache_ttl_summoner)
 
-    logger.success("Summoner fetched successfully", summoner=params.summonerName, puuid=data.get("puuid", "unknown"))
+    logger.success(
+        "Summoner fetched successfully",
+        summoner=params.summonerName,
+        puuid=data.get("puuid", "unknown"),
+    )
     return data
 
 
@@ -117,7 +121,9 @@ async def get_summoner_by_id(
     Returns:
         Summoner object from Riot API
     """
-    logger.info("Fetching summoner by ID", summoner_id=params.encryptedSummonerId, region=query.region)
+    logger.info(
+        "Fetching summoner by ID", summoner_id=params.encryptedSummonerId, region=query.region
+    )
 
     # Check cache first
     cache_key = f"summoner:id:{query.region}:{params.encryptedSummonerId}"

@@ -16,7 +16,7 @@ router = APIRouter(prefix="/lol/challenges/v1", tags=["challenges"])
 
 @router.get("/challenges/config")
 async def get_all_challenges_config(
-    region: str = Query(default=settings.riot_default_region, description="Region code")
+    region: str = Query(default=settings.riot_default_region, description="Region code"),
 ):
     """
     Get configuration for all challenges.
@@ -53,7 +53,7 @@ async def get_all_challenges_config(
 @router.get("/challenges/{challengeId}/config")
 async def get_challenge_config(
     challengeId: int,
-    region: str = Query(default=settings.riot_default_region, description="Region code")
+    region: str = Query(default=settings.riot_default_region, description="Region code"),
 ):
     """
     Get configuration for a specific challenge.
@@ -88,7 +88,7 @@ async def get_challenge_leaderboard(
     challengeId: int,
     level: str,
     region: str = Query(default=settings.riot_default_region, description="Region code"),
-    limit: int = Query(default=None, ge=1, description="Limit results (optional)")
+    limit: int = Query(default=None, ge=1, description="Limit results (optional)"),
 ):
     """
     Get leaderboard for a specific challenge at a specific level.
@@ -112,7 +112,9 @@ async def get_challenge_leaderboard(
         return cached_data
 
     # Fetch from Riot API
-    logger.info("Fetching challenge leaderboard", challengeId=challengeId, level=level, region=region)
+    logger.info(
+        "Fetching challenge leaderboard", challengeId=challengeId, level=level, region=region
+    )
     path = f"/lol/challenges/v1/challenges/{challengeId}/leaderboards/by-level/{level}"
     params = {"limit": limit} if limit else None
     data = await riot_client.get(path, region, is_platform_endpoint=False, params=params)
@@ -127,7 +129,7 @@ async def get_challenge_leaderboard(
 @router.get("/challenges/{challengeId}/percentiles")
 async def get_challenge_percentiles(
     challengeId: int,
-    region: str = Query(default=settings.riot_default_region, description="Region code")
+    region: str = Query(default=settings.riot_default_region, description="Region code"),
 ):
     """
     Get percentile distribution for a challenge.
@@ -158,8 +160,7 @@ async def get_challenge_percentiles(
 
 @router.get("/player-data/{puuid}")
 async def get_player_challenges(
-    puuid: str,
-    region: str = Query(default=settings.riot_default_region, description="Region code")
+    puuid: str, region: str = Query(default=settings.riot_default_region, description="Region code")
 ):
     """
     Get all challenge data for a player by PUUID.
@@ -187,6 +188,10 @@ async def get_player_challenges(
 
     # Cache with configured TTL
     await cache.set(cache_key, data, ttl=settings.cache_ttl_challenges_player)
-    logger.success("Player challenges fetched", puuid=puuid[:8], totalPoints=data.get("totalPoints", {}).get("current", 0))
+    logger.success(
+        "Player challenges fetched",
+        puuid=puuid[:8],
+        totalPoints=data.get("totalPoints", {}).get("current", 0),
+    )
 
     return data

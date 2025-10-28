@@ -16,8 +16,7 @@ router = APIRouter(prefix="/lol/clash/v1", tags=["clash"])
 
 @router.get("/players/by-puuid/{puuid}")
 async def get_clash_player(
-    puuid: str,
-    region: str = Query(default=settings.riot_default_region, description="Region code")
+    puuid: str, region: str = Query(default=settings.riot_default_region, description="Region code")
 ):
     """
     Get clash player info by PUUID.
@@ -56,7 +55,7 @@ async def get_clash_player(
 @router.get("/teams/{teamId}")
 async def get_clash_team(
     teamId: str,
-    region: str = Query(default=settings.riot_default_region, description="Region code")
+    region: str = Query(default=settings.riot_default_region, description="Region code"),
 ):
     """
     Get clash team by team ID.
@@ -96,7 +95,7 @@ async def get_clash_team(
 
 @router.get("/tournaments")
 async def get_clash_tournaments(
-    region: str = Query(default=settings.riot_default_region, description="Region code")
+    region: str = Query(default=settings.riot_default_region, description="Region code"),
 ):
     """
     Get all active and upcoming clash tournaments.
@@ -134,7 +133,7 @@ async def get_clash_tournaments(
 @router.get("/tournaments/{tournamentId}")
 async def get_clash_tournament(
     tournamentId: int,
-    region: str = Query(default=settings.riot_default_region, description="Region code")
+    region: str = Query(default=settings.riot_default_region, description="Region code"),
 ):
     """
     Get clash tournament by tournament ID.
@@ -172,7 +171,7 @@ async def get_clash_tournament(
 @router.get("/tournaments/by-team/{teamId}")
 async def get_clash_tournament_by_team(
     teamId: str,
-    region: str = Query(default=settings.riot_default_region, description="Region code")
+    region: str = Query(default=settings.riot_default_region, description="Region code"),
 ):
     """
     Get clash tournament that a team is registered for.

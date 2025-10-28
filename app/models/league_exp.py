@@ -9,7 +9,7 @@ It's similar to LEAGUE-V4 but with different pagination support.
 
 from typing import Annotated, Optional
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import Field
 
 from app.models.common import Division, EnumBaseModel, QueueType, RegionQuery, Tier
 
@@ -17,18 +17,11 @@ from app.models.common import Division, EnumBaseModel, QueueType, RegionQuery, T
 class LeagueExpEntriesParams(EnumBaseModel):
     """Path parameters for GET /lol/league-exp/v4/entries/{queue}/{tier}/{division}."""
 
-    queue: Annotated[
-        QueueType,
-        Field(description="Queue type")
-    ]
+    queue: Annotated[QueueType, Field(description="Queue type")]
     tier: Annotated[
-        Tier,
-        Field(description="Tier (IRON, BRONZE, SILVER, GOLD, PLATINUM, EMERALD, DIAMOND)")
+        Tier, Field(description="Tier (IRON, BRONZE, SILVER, GOLD, PLATINUM, EMERALD, DIAMOND)")
     ]
-    division: Annotated[
-        Division,
-        Field(description="Division (I, II, III, IV)")
-    ]
+    division: Annotated[Division, Field(description="Division (I, II, III, IV)")]
 
 
 class LeagueExpEntriesQuery(RegionQuery):
@@ -36,9 +29,5 @@ class LeagueExpEntriesQuery(RegionQuery):
 
     page: Annotated[
         Optional[int],
-        Field(
-            default=1,
-            ge=1,
-            description="Page number for pagination (starts at 1)"
-        )
+        Field(default=1, ge=1, description="Page number for pagination (starts at 1)"),
     ] = 1

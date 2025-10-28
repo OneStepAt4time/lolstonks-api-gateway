@@ -58,8 +58,6 @@ async def test_app_lifespan(test_app):
 
 def test_cors_configuration(test_app):
     """Test that CORS is properly configured."""
-    # Check if CORS middleware is present
-    middleware_types = [type(m) for m in test_app.user_middleware]
     # CORS middleware should be configured
     assert len(test_app.user_middleware) >= 0  # Basic check
 

@@ -60,7 +60,9 @@ async def get_challenger_league(
     # Store in cache (1 hour - challenger changes frequently)
     await cache.set(cache_key, data, ttl=settings.cache_ttl_league)
 
-    logger.success("Challenger league fetched", queue=params.queue, entries=len(data.get("entries", [])))
+    logger.success(
+        "Challenger league fetched", queue=params.queue, entries=len(data.get("entries", []))
+    )
     return data
 
 
@@ -97,7 +99,9 @@ async def get_grandmaster_league(
     # Store in cache
     await cache.set(cache_key, data, ttl=settings.cache_ttl_league)
 
-    logger.success("Grandmaster league fetched", queue=params.queue, entries=len(data.get("entries", [])))
+    logger.success(
+        "Grandmaster league fetched", queue=params.queue, entries=len(data.get("entries", []))
+    )
     return data
 
 
@@ -134,7 +138,9 @@ async def get_master_league(
     # Store in cache
     await cache.set(cache_key, data, ttl=settings.cache_ttl_league)
 
-    logger.success("Master league fetched", queue=params.queue, entries=len(data.get("entries", [])))
+    logger.success(
+        "Master league fetched", queue=params.queue, entries=len(data.get("entries", []))
+    )
     return data
 
 
@@ -155,7 +161,11 @@ async def get_league_entries_by_summoner(
     Returns:
         Array of league entries
     """
-    logger.info("Fetching league entries by summoner", summoner_id=params.encryptedSummonerId, region=query.region)
+    logger.info(
+        "Fetching league entries by summoner",
+        summoner_id=params.encryptedSummonerId,
+        region=query.region,
+    )
 
     # Check cache first
     cache_key = f"league:entries:summoner:{query.region}:{params.encryptedSummonerId}"
@@ -208,7 +218,9 @@ async def get_league_entries(
     )
 
     # Check cache first
-    cache_key = f"league:entries:{query.region}:{params.queue}:{params.tier}:{params.division}:{query.page}"
+    cache_key = (
+        f"league:entries:{query.region}:{params.queue}:{params.tier}:{params.division}:{query.page}"
+    )
     cached_data = await cache.get(cache_key)
     if cached_data:
         logger.debug("Cache hit for league entries")
@@ -225,5 +237,11 @@ async def get_league_entries(
     # Store in cache (1 hour - league entries change frequently)
     await cache.set(cache_key, data, ttl=settings.cache_ttl_league)
 
-    logger.success("League entries fetched", queue=params.queue, tier=params.tier, division=params.division, entries=len(data))
+    logger.success(
+        "League entries fetched",
+        queue=params.queue,
+        tier=params.tier,
+        division=params.division,
+        entries=len(data),
+    )
     return data
