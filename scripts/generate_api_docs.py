@@ -17,7 +17,7 @@ import httpx
 import json
 import sys
 from pathlib import Path
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List
 from datetime import datetime
 
 
@@ -88,21 +88,25 @@ def render_table(paths: Dict[str, Any], components: Dict[str, Any]) -> List[str]
                     except Exception:
                         example = str(ex)
 
-            rows.append({
-                "tag": tag,
-                "method": method.upper(),
-                "path": path,
-                "summary": summary,
-                "path_params": ", ".join(path_params),
-                "query_params": ", ".join(query_params),
-                "request_schema": req_schema,
-                "response_schema": resp_schema,
-                "example": example,
-            })
+            rows.append(
+                {
+                    "tag": tag,
+                    "method": method.upper(),
+                    "path": path,
+                    "summary": summary,
+                    "path_params": ", ".join(path_params),
+                    "query_params": ", ".join(query_params),
+                    "request_schema": req_schema,
+                    "response_schema": resp_schema,
+                    "example": example,
+                }
+            )
 
     # render markdown table lines
     out = []
-    out.append("| Tag | Method | Path | Summary | Path params | Query params | Request | Response | Example |")
+    out.append(
+        "| Tag | Method | Path | Summary | Path params | Query params | Request | Response | Example |"
+    )
     out.append("|---|---|---|---|---|---|---|---|---|")
     for r in rows:
         out.append(
@@ -154,7 +158,7 @@ def generate_api_overview(openapi_doc: Dict[str, Any]) -> List[str]:
     md.append("")
     md.append(f"- **Total Endpoints**: {endpoint_count}")
     md.append(f"- **Total Schemas**: {schema_count}")
-    md.append(f"- **API Base URL**: `http://localhost:8080`")
+    md.append("- **API Base URL**: `http://localhost:8080`")
     md.append("")
 
     # Interactive documentation links
@@ -164,7 +168,9 @@ def generate_api_overview(openapi_doc: Dict[str, Any]) -> List[str]:
     md.append("")
     md.append("- **Swagger UI**: [http://localhost:8080/docs](http://localhost:8080/docs)")
     md.append("- **ReDoc**: [http://localhost:8080/redoc](http://localhost:8080/redoc)")
-    md.append("- **OpenAPI JSON**: [http://localhost:8080/openapi.json](http://localhost:8080/openapi.json)")
+    md.append(
+        "- **OpenAPI JSON**: [http://localhost:8080/openapi.json](http://localhost:8080/openapi.json)"
+    )
     md.append("")
 
     return md
@@ -183,11 +189,7 @@ def generate_endpoints_table(paths: Dict[str, Any], components: Dict[str, Any]) 
             if tag not in tag_groups:
                 tag_groups[tag] = []
 
-            tag_groups[tag].append({
-                "method": method.upper(),
-                "path": path,
-                "operation": op
-            })
+            tag_groups[tag].append({"method": method.upper(), "path": path, "operation": op})
 
     md = []
     md.append("## API Endpoints")
@@ -235,16 +237,12 @@ def generate_endpoints_table(paths: Dict[str, Any], components: Dict[str, Any]) 
                     resp_schema = schema["type"]
 
             # Format method with color
-            method_badges = {
-                "GET": "🟢",
-                "POST": "🔵",
-                "PUT": "🟡",
-                "DELETE": "🔴",
-                "PATCH": "🟠"
-            }
+            method_badges = {"GET": "🟢", "POST": "🔵", "PUT": "🟡", "DELETE": "🔴", "PATCH": "🟠"}
             method_display = f"{method_badges.get(method, '⚪')} {method}"
 
-            md.append(f"| {method_display} | `{path}` | {summary} | {params_str or 'None'} | {resp_schema} |")
+            md.append(
+                f"| {method_display} | `{path}` | {summary} | {params_str or 'None'} | {resp_schema} |"
+            )
 
         md.append("")
 
@@ -332,7 +330,9 @@ def generate_error_documentation(paths: Dict[str, Any]) -> List[str]:
     md = []
     md.append("## Error Handling")
     md.append("")
-    md.append("The API uses standard HTTP status codes and returns error information in the following format:")
+    md.append(
+        "The API uses standard HTTP status codes and returns error information in the following format:"
+    )
     md.append("")
     md.append("```json")
     md.append("{")
@@ -355,9 +355,13 @@ def generate_error_documentation(paths: Dict[str, Any]) -> List[str]:
     md.append("")
     md.append("The gateway includes automatic rate limiting with the following features:")
     md.append("")
-    md.append("- **Automatic Retry**: 429 responses are automatically retried with exponential backoff")
+    md.append(
+        "- **Automatic Retry**: 429 responses are automatically retried with exponential backoff"
+    )
     md.append("- **Rate Limit Headers**: All responses include rate limit information")
-    md.append("- **Graceful Degradation**: The service continues to operate during rate limit events")
+    md.append(
+        "- **Graceful Degradation**: The service continues to operate during rate limit events"
+    )
     md.append("")
 
     return md
@@ -376,33 +380,33 @@ def generate_usage_examples(paths: Dict[str, Any]) -> List[str]:
             "description": "Retrieve summoner information using their summoner name.",
             "method": "GET",
             "path": "/summoner/by-name/{summonerName}",
-            "example": "curl \"http://localhost:8080/summoner/by-name/Faker?region=kr\""
+            "example": 'curl "http://localhost:8080/summoner/by-name/Faker?region=kr"',
         },
         {
             "title": "Get Match History",
             "description": "Retrieve recent match IDs for a player using their PUUID.",
             "method": "GET",
             "path": "/match/ids/by-puuid/{puuid}",
-            "example": "curl \"http://localhost:8080/match/ids/by-puuid/puuid-here?region=kr&count=5\""
+            "example": 'curl "http://localhost:8080/match/ids/by-puuid/puuid-here?region=kr&count=5"',
         },
         {
             "title": "Get Challenger League",
             "description": "Retrieve the challenger league for a specific queue.",
             "method": "GET",
             "path": "/league/challenger/{queue}",
-            "example": "curl \"http://localhost:8080/league/challenger/RANKED_SOLO_5x5?region=kr\""
-        }
+            "example": 'curl "http://localhost:8080/league/challenger/RANKED_SOLO_5x5?region=kr"',
+        },
     ]
 
     for example in examples:
         md.append(f"### {example['title']}")
         md.append("")
-        md.append(example['description'])
+        md.append(example["description"])
         md.append("")
         md.append(f"**Endpoint**: `{example['method']} {example['path']}`")
         md.append("")
         md.append("```bash")
-        md.append(example['example'])
+        md.append(example["example"])
         md.append("```")
         md.append("")
 
@@ -415,7 +419,7 @@ def generate_usage_examples(paths: Dict[str, Any]) -> List[str]:
     md.append("async def get_summoner_data():")
     md.append('    """Get summoner information example."""')
     md.append("    async with httpx.AsyncClient() as client:")
-    md.append('        response = await client.get(')
+    md.append("        response = await client.get(")
     md.append('            "http://localhost:8080/summoner/by-name/Faker",')
     md.append('            params={"region": "kr"}')
     md.append("        )")
@@ -425,8 +429,10 @@ def generate_usage_examples(paths: Dict[str, Any]) -> List[str]:
     md.append("")
     md.append("# Usage")
     md.append("summoner = asyncio.run(get_summoner_data())")
-    md.append('if summoner:')
-    md.append('    print(f"Summoner: {summoner[\\\'name\\\']} (Level {summoner[\\\'summonerLevel\\\']})")')
+    md.append("if summoner:")
+    md.append(
+        "    print(f\"Summoner: {summoner[\\'name\\']} (Level {summoner[\\'summonerLevel\\']})\")"
+    )
     md.append("```")
     md.append("")
 
@@ -462,13 +468,15 @@ def generate(openapi_doc: Dict[str, Any], output_dir: Path) -> None:
     sections.extend(generate_usage_examples(paths))
 
     # Footer
-    sections.extend([
-        "---",
-        "",
-        f"*Documentation generated on {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC')}*",
-        "",
-        "For the most up-to-date interactive documentation, visit [Swagger UI](http://localhost:8000/docs) when the server is running."
-    ])
+    sections.extend(
+        [
+            "---",
+            "",
+            f"*Documentation generated on {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC')}*",
+            "",
+            "For the most up-to-date interactive documentation, visit [Swagger UI](http://localhost:8000/docs) when the server is running.",
+        ]
+    )
 
     # Write main API documentation
     api_file = output_dir / "api" / "overview.md"
@@ -515,5 +523,3 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
-
-

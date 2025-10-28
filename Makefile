@@ -23,46 +23,49 @@ help:
 
 # Installation
 install:
-	pip install -e .
+	uv pip install -e .
 
 install-dev:
-	pip install -e ".[dev,docs]"
-	pre-commit install
+	uv pip install -e ".[dev,docs]"
+	uv run pre-commit install
 
 # Development
 test:
-	pytest --cov=app --cov-report=html --cov-report=term -v
+	uv run pytest --cov=app --cov-report=html --cov-report=term -v
+
+test-quick:
+	uv run pytest -v
 
 test-unit:
-	pytest tests/unit/ -v
+	uv run pytest tests/unit/ -v
 
 test-integration:
-	pytest tests/integration/ -v
+	uv run pytest tests/integration/ -v
 
 test-all:
-	pytest -v
+	uv run pytest -v
 
 lint:
-	ruff check .
-	ruff format --check .
-	mypy app/ --ignore-missing-imports || true
+	uv run ruff check .
+	uv run ruff format --check .
+	uv run mypy app/ --ignore-missing-imports || true
 
 format:
-	ruff check --fix .
-	ruff format .
+	uv run ruff check --fix .
+	uv run ruff format .
 
 # Documentation
 docs:
-	python scripts/generate_api_docs.py
-	mkdocs build --strict
+	uv run python scripts/generate_api_docs.py
+	uv run mkdocs build --strict
 
 docs-serve:
-	python scripts/generate_api_docs.py
-	mkdocs serve
+	uv run python scripts/generate_api_docs.py
+	uv run mkdocs serve
 
 docs-deploy:
-	python scripts/generate_api_docs.py
-	mkdocs gh-deploy --force
+	uv run python scripts/generate_api_docs.py
+	uv run mkdocs gh-deploy --force
 
 docs-clean:
 	rm -rf site/
@@ -90,7 +93,10 @@ build: clean
 
 # Development server
 run:
-	uvicorn app.main:app --reload --host 0.0.0.0 --port 8080
+	uv run uvicorn app.main:app --reload --host 0.0.0.0 --port 8080
+
+run-prod:
+	uv run uvicorn app.main:app --host 0.0.0.0 --port 8080
 
 # Docker
 docker-build:
@@ -143,6 +149,29 @@ setup: install-dev redis-start
 	@echo "Run 'make docs-serve' to serve documentation"
 	@echo "Run 'make test' to run tests"
 
-# Full CI pipeline locally
-ci: lint test docs
-	@echo "CI pipeline completed successfully!"
+# Full CI pipeline locally (simula GitHub Actions)
+ci:
+	@echo "🚀 Running CI pipeline locally (equivalent to GitHub Actions)..."
+	@echo ""
+	@echo "1️⃣  Installing dependencies..."
+	@$(MAKE) install-dev
+	@echo ""
+	@echo "2️⃣  Running linting checks..."
+	@$(MAKE) lint
+	@echo ""
+	@echo "3️⃣  Running tests with coverage..."
+	@$(MAKE) test
+	@echo ""
+	@echo "4️⃣  Building documentation..."
+	@$(MAKE) docs
+	@echo ""
+	@echo "✅ CI pipeline completed successfully!"
+	@echo ""
+	@echo "💡 This is equivalent to what GitHub Actions will run on push/PR"
+
+# Simpler CI for quick checks
+ci-quick:
+	@echo "⚡ Running quick CI checks..."
+	@$(MAKE) lint
+	@$(MAKE) test-quick
+	@echo "✅ Quick checks passed!"
