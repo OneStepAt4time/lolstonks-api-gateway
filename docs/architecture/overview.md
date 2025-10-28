@@ -4,6 +4,19 @@ This section provides a comprehensive overview of the LOLStonks API Gateway arch
 
 ## High-Level Architecture
 
+### Simplified Request Flow
+
+```mermaid
+flowchart LR
+    Client -->|HTTP Request| Gateway[FastAPI Gateway]
+    Gateway -->|Cache Lookup| Redis[Redis Cache]
+    Gateway -->|Rate-Limited Request| Riot[Riot API]
+    Riot -->|Response| Gateway
+    Gateway -->|Store Processed Data| Redis
+```
+
+### Detailed System Architecture
+
 ```mermaid
 graph TB
     Client[Client Applications] --> Gateway[LOLStonks API Gateway]
@@ -364,5 +377,55 @@ The LOLStonks API Gateway follows these design principles:
 4. **Observability**: Built-in monitoring and debugging capabilities
 5. **Security**: Secure by design with defense in depth
 6. **Scalability**: Designed to scale horizontally and vertically
+
+## Production Deployment
+
+### Deployment Architecture
+
+For production deployments, the API Gateway should be run behind a reverse proxy with proper process management:
+
+```mermaid
+graph TB
+    Internet[Internet] --> LB[Load Balancer/Nginx]
+    LB --> Gateway1[API Gateway Instance 1]
+    LB --> Gateway2[API Gateway Instance 2]
+    LB --> GatewayN[API Gateway Instance N]
+
+    Gateway1 --> Redis[Redis Cluster]
+    Gateway2 --> Redis
+    GatewayN --> Redis
+
+    Gateway1 --> Riot[Riot API]
+    Gateway2 --> Riot
+    GatewayN --> Riot
+
+    subgraph "Monitoring"
+        Prometheus[Prometheus]
+        Grafana[Grafana]
+        Alerts[Alert Manager]
+    end
+
+    Gateway1 --> Prometheus
+    Gateway2 --> Prometheus
+    GatewayN --> Prometheus
+    Prometheus --> Grafana
+    Prometheus --> Alerts
+```
+
+### Production Requirements
+
+1. **Process Management**: Use systemd, supervisor, or similar process manager
+2. **Reverse Proxy**: Nginx or similar for SSL termination and load balancing
+3. **Environment Variables**: Secure configuration management for API keys
+4. **Monitoring**: Health checks, metrics collection, and alerting
+5. **Logging**: Centralized log aggregation and analysis
+6. **Security**: Firewall, rate limiting, and access controls
+
+### Scaling Considerations
+
+- **Horizontal Scaling**: Stateless design enables multiple instances
+- **Redis Cluster**: Distributed caching for high availability
+- **Database Connection Pooling**: Efficient resource utilization
+- **Circuit Breakers**: Fault tolerance for external dependencies
 
 This architecture provides a solid foundation for a production-ready API Gateway that can handle high traffic while maintaining reliability and performance.

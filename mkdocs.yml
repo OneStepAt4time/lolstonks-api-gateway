@@ -54,6 +54,7 @@ nav:
     - Installation: getting-started/installation.md
     - Quick Start: getting-started/quick-start.md
     - Configuration: getting-started/configuration.md
+    - Production Deployment: getting-started/deployment.md
   - API Reference:
     - Overview: api/overview.md
     - Riot Client: api/riot-client.md
@@ -62,17 +63,17 @@ nav:
     - Cache: api/cache.md
   - Architecture:
     - Overview: architecture/overview.md
+    - Data Models: architecture/models.md
     - Rate Limiting: architecture/rate-limiting.md
     - Caching Strategy: architecture/caching.md
+  - Operations:
+    - Monitoring: operations/monitoring.md
+    - Troubleshooting: operations/troubleshooting.md
+    - Security: operations/security.md
   - Development:
     - Contributing: development/contributing.md
     - Testing: development/testing.md
     - Documentation: development/documentation.md
-  - Legacy Docs:
-    - Existing API Docs: legacy/api.md
-    - Setup Guide: legacy/setup.md
-    - Architecture Notes: legacy/architecture.md
-    - Models Structure: legacy/MODELS_STRUCTURE.md
 
 markdown_extensions:
   - admonition
