@@ -1,0 +1,2062 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "LOL API Gateway",
+    "description": "Intelligent proxy for Riot Games API with caching, rate limiting, and match tracking",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": [
+          "health"
+        ],
+        "summary": "Health Check",
+        "description": "Health check endpoint.\n\nReturns:\n    dict: Simple status response",
+        "operationId": "health_check_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/riot/account/v1/accounts/by-puuid/{puuid}": {
+      "get": {
+        "tags": [
+          "account"
+        ],
+        "summary": "Get Account By Puuid",
+        "description": "Get account by PUUID.\n\nNote: This endpoint uses regional routing (americas, europe, asia, sea).\n\nAPI Reference: https://developer.riotgames.com/apis#account-v1/GET_getByPuuid\n\nReturns:\n    - puuid: Player UUID\n    - gameName: Riot ID game name\n    - tagLine: Riot ID tag line",
+        "operationId": "get_account_by_puuid_riot_account_v1_accounts_by_puuid__puuid__get",
+        "parameters": [
+          {
+            "name": "puuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100,
+              "title": "Puuid"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/PlatformRegion",
+              "default": "americas"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/riot/account/v1/accounts/by-riot-id/{gameName}/{tagLine}": {
+      "get": {
+        "tags": [
+          "account"
+        ],
+        "summary": "Get Account By Riot Id",
+        "description": "Get account by Riot ID (gameName#tagLine).\n\nNote: This endpoint uses regional routing (americas, europe, asia, sea).\n\nAPI Reference: https://developer.riotgames.com/apis#account-v1/GET_getByRiotId\n\nArgs:\n    gameName: Riot ID game name (before the #)\n    tagLine: Riot ID tag line (after the #)\n    region: Regional routing (americas, europe, asia, sea)\n\nReturns:\n    - puuid: Player UUID\n    - gameName: Riot ID game name\n    - tagLine: Riot ID tag line",
+        "operationId": "get_account_by_riot_id_riot_account_v1_accounts_by_riot_id__gameName___tagLine__get",
+        "parameters": [
+          {
+            "name": "gameName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100,
+              "title": "Gamename"
+            }
+          },
+          {
+            "name": "tagLine",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100,
+              "title": "Tagline"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/PlatformRegion",
+              "default": "americas"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/riot/account/v1/active-shards/by-game/{game}/by-puuid/{puuid}": {
+      "get": {
+        "tags": [
+          "account"
+        ],
+        "summary": "Get Active Shard",
+        "description": "Get active shard for a player (which server they're actively playing on).\n\nNote: This endpoint uses regional routing (americas, europe, asia, sea).\n\nAPI Reference: https://developer.riotgames.com/apis#account-v1/GET_getActiveShard\n\nArgs:\n    game: Game identifier (val for Valorant, lor for LoR)\n    puuid: Player UUID\n    region: Regional routing\n\nReturns:\n    - puuid: Player UUID\n    - game: Game identifier\n    - activeShard: Active shard identifier",
+        "operationId": "get_active_shard_riot_account_v1_active_shards_by_game__game__by_puuid__puuid__get",
+        "parameters": [
+          {
+            "name": "puuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100,
+              "title": "Puuid"
+            }
+          },
+          {
+            "name": "game",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^(val|lor)$",
+              "title": "Game"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/PlatformRegion",
+              "default": "americas"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/summoner/v4/summoners/by-name/{summonerName}": {
+      "get": {
+        "tags": [
+          "summoner"
+        ],
+        "summary": "Get Summoner By Name",
+        "description": "Get summoner by summoner name.\n\nThis is the primary entry point for user lookups.\n\nAPI Reference: https://developer.riotgames.com/apis#summoner-v4/GET_getBySummonerName\n\nArgs:\n    summonerName: Summoner name (URL encoded)\n    region: Region code (default: euw1)\n\nReturns:\n    Summoner object from Riot API",
+        "operationId": "get_summoner_by_name_lol_summoner_v4_summoners_by_name__summonerName__get",
+        "parameters": [
+          {
+            "name": "summonerName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100,
+              "title": "Summonername"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/GameRegion",
+              "default": "euw1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/summoner/v4/summoners/by-puuid/{encryptedPUUID}": {
+      "get": {
+        "tags": [
+          "summoner"
+        ],
+        "summary": "Get Summoner By Puuid",
+        "description": "Get summoner by PUUID.\n\nAPI Reference: https://developer.riotgames.com/apis#summoner-v4/GET_getByPUUID\n\nArgs:\n    encryptedPUUID: Encrypted PUUID\n    region: Region code\n\nReturns:\n    Summoner object from Riot API",
+        "operationId": "get_summoner_by_puuid_lol_summoner_v4_summoners_by_puuid__encryptedPUUID__get",
+        "parameters": [
+          {
+            "name": "encryptedPUUID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100,
+              "title": "Encryptedpuuid"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/GameRegion",
+              "default": "euw1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/summoner/v4/summoners/{encryptedSummonerId}": {
+      "get": {
+        "tags": [
+          "summoner"
+        ],
+        "summary": "Get Summoner By Id",
+        "description": "Get summoner by summoner ID.\n\nAPI Reference: https://developer.riotgames.com/apis#summoner-v4/GET_getBySummonerId\n\nArgs:\n    encryptedSummonerId: Encrypted summoner ID\n    region: Region code\n\nReturns:\n    Summoner object from Riot API",
+        "operationId": "get_summoner_by_id_lol_summoner_v4_summoners__encryptedSummonerId__get",
+        "parameters": [
+          {
+            "name": "encryptedSummonerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100,
+              "title": "Encryptedsummonerid"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/GameRegion",
+              "default": "euw1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/match/v5/matches/by-puuid/{puuid}/ids": {
+      "get": {
+        "tags": [
+          "match"
+        ],
+        "summary": "Get Match Ids By Puuid",
+        "description": "Get match IDs for a summoner by PUUID.\n\nThis endpoint is used for match discovery with optional filtering.\n\nAPI Reference: https://developer.riotgames.com/apis#match-v5/GET_getMatchIdsByPUUID\n\nArgs:\n    puuid: Player UUID\n    region: Region code\n    start: Start index (pagination)\n    count: Number of matches to return (1-100)\n    startTime: Optional epoch timestamp - only matches after this time\n    endTime: Optional epoch timestamp - only matches before this time\n    queue: Optional queue ID filter\n    type: Optional match type filter (ranked, normal, tourney, tutorial)\n\nReturns:\n    List of match IDs",
+        "operationId": "get_match_ids_by_puuid_lol_match_v5_matches_by_puuid__puuid__ids_get",
+        "parameters": [
+          {
+            "name": "puuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100,
+              "title": "Puuid"
+            }
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Start"
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 20,
+              "title": "Count"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/PlatformRegion",
+              "default": "americas"
+            }
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Starttime"
+            }
+          },
+          {
+            "name": "endTime",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Endtime"
+            }
+          },
+          {
+            "name": "queue",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Queue"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^(ranked|normal|tourney|tutorial)$"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Type"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/match/v5/matches/{matchId}": {
+      "get": {
+        "tags": [
+          "match"
+        ],
+        "summary": "Get Match",
+        "description": "Get match details by match ID.\n\nThis is the core match data endpoint with dual-layer caching:\n- Layer 1: Response cache (24h TTL)\n- Layer 2: Permanent tracking to prevent duplicate processing\n\nAPI Reference: https://developer.riotgames.com/apis#match-v5/GET_getMatch\n\nArgs:\n    matchId: Match ID (e.g., EUW1_123456789)\n    region: Region code\n    force: If True, bypass cache and fetch fresh data\n\nReturns:\n    Match object from Riot API",
+        "operationId": "get_match_lol_match_v5_matches__matchId__get",
+        "parameters": [
+          {
+            "name": "matchId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Z0-9]+_\\d+$",
+              "title": "Matchid"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/PlatformRegion",
+              "default": "americas"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/match/v5/matches/{matchId}/timeline": {
+      "get": {
+        "tags": [
+          "match"
+        ],
+        "summary": "Get Match Timeline",
+        "description": "Get match timeline (detailed events).\n\nPriority 4 endpoint - detailed timeline data.\n\nAPI Reference: https://developer.riotgames.com/apis#match-v5/GET_getTimeline\n\nArgs:\n    matchId: Match ID\n    region: Region code\n\nReturns:\n    Match timeline object from Riot API",
+        "operationId": "get_match_timeline_lol_match_v5_matches__matchId__timeline_get",
+        "parameters": [
+          {
+            "name": "matchId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Z0-9]+_\\d+$",
+              "title": "Matchid"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/PlatformRegion",
+              "default": "americas"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/league/v4/challengerleagues/by-queue/{queue}": {
+      "get": {
+        "tags": [
+          "league"
+        ],
+        "summary": "Get Challenger League",
+        "description": "Get challenger league entries for a queue.\n\nThis endpoint returns the top players in a region, including their summonerIds.\nUse this to get a list of high-level players to track.\n\nAPI Reference: https://developer.riotgames.com/apis#league-v4/GET_getChallengerLeague\n\nArgs:\n    queue: Queue type (RANKED_SOLO_5x5, RANKED_FLEX_SR, RANKED_FLEX_TT)\n    region: Region code (default: euw1)\n\nReturns:\n    League object with entries array containing summoner information",
+        "operationId": "get_challenger_league_lol_league_v4_challengerleagues_by_queue__queue__get",
+        "parameters": [
+          {
+            "name": "queue",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/QueueType"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/GameRegion",
+              "default": "euw1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/league/v4/grandmasterleagues/by-queue/{queue}": {
+      "get": {
+        "tags": [
+          "league"
+        ],
+        "summary": "Get Grandmaster League",
+        "description": "Get grandmaster league entries for a queue.\n\nAPI Reference: https://developer.riotgames.com/apis#league-v4/GET_getGrandmasterLeague\n\nArgs:\n    queue: Queue type (RANKED_SOLO_5x5, RANKED_FLEX_SR, RANKED_FLEX_TT)\n    region: Region code\n\nReturns:\n    League object with entries",
+        "operationId": "get_grandmaster_league_lol_league_v4_grandmasterleagues_by_queue__queue__get",
+        "parameters": [
+          {
+            "name": "queue",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/QueueType"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/GameRegion",
+              "default": "euw1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/league/v4/masterleagues/by-queue/{queue}": {
+      "get": {
+        "tags": [
+          "league"
+        ],
+        "summary": "Get Master League",
+        "description": "Get master league entries for a queue.\n\nAPI Reference: https://developer.riotgames.com/apis#league-v4/GET_getMasterLeague\n\nArgs:\n    queue: Queue type (RANKED_SOLO_5x5, RANKED_FLEX_SR, RANKED_FLEX_TT)\n    region: Region code\n\nReturns:\n    League object with entries",
+        "operationId": "get_master_league_lol_league_v4_masterleagues_by_queue__queue__get",
+        "parameters": [
+          {
+            "name": "queue",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/QueueType"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/GameRegion",
+              "default": "euw1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/league/v4/entries/by-summoner/{encryptedSummonerId}": {
+      "get": {
+        "tags": [
+          "league"
+        ],
+        "summary": "Get League Entries By Summoner",
+        "description": "Get league entries for a summoner (all queues).\n\nAPI Reference: https://developer.riotgames.com/apis#league-v4/GET_getLeagueEntriesForSummoner\n\nArgs:\n    encryptedSummonerId: Encrypted summoner ID\n    region: Region code\n\nReturns:\n    Array of league entries",
+        "operationId": "get_league_entries_by_summoner_lol_league_v4_entries_by_summoner__encryptedSummonerId__get",
+        "parameters": [
+          {
+            "name": "encryptedSummonerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100,
+              "title": "Encryptedsummonerid"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/GameRegion",
+              "default": "euw1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/league/v4/entries/{queue}/{tier}/{division}": {
+      "get": {
+        "tags": [
+          "league"
+        ],
+        "summary": "Get League Entries",
+        "description": "Get league entries by queue, tier, and division.\n\nThis endpoint provides paginated access to league entries at specific ranks.\nUse this for fetching large sets of ranked players.\n\nAPI Reference: https://developer.riotgames.com/apis#league-v4/GET_getLeagueEntries\n\nArgs:\n    queue: Queue type (RANKED_SOLO_5x5, RANKED_FLEX_SR, RANKED_FLEX_TT)\n    tier: Tier (IRON, BRONZE, SILVER, GOLD, PLATINUM, EMERALD, DIAMOND)\n    division: Division (I, II, III, IV)\n    region: Region code\n    page: Page number (starts at 1)\n\nReturns:\n    Array of league entries with summoner info, LP, win/loss stats",
+        "operationId": "get_league_entries_lol_league_v4_entries__queue___tier___division__get",
+        "parameters": [
+          {
+            "name": "queue",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/QueueType"
+            }
+          },
+          {
+            "name": "tier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Tier"
+            }
+          },
+          {
+            "name": "division",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Division"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/GameRegion",
+              "default": "euw1"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": 1,
+              "title": "Page"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/league-exp/v4/entries/{queue}/{tier}/{division}": {
+      "get": {
+        "tags": [
+          "league-exp"
+        ],
+        "summary": "Get League Exp Entries",
+        "description": "Get league entries by queue, tier, and division (experimental endpoint).\n\nThis experimental endpoint provides paginated access to league entries.\nUse this for fetching large sets of ranked players at specific ranks.\n\nAPI Reference: https://developer.riotgames.com/apis#league-exp-v4/GET_getLeagueEntries\n\nArgs:\n    queue: Queue type (RANKED_SOLO_5x5, RANKED_FLEX_SR, etc.)\n    tier: Tier (IRON through DIAMOND)\n    division: Division (I, II, III, IV)\n    region: Region code\n    page: Page number (starts at 1)\n\nReturns:\n    Array of league entries with summoner info, LP, win/loss stats",
+        "operationId": "get_league_exp_entries_lol_league_exp_v4_entries__queue___tier___division__get",
+        "parameters": [
+          {
+            "name": "queue",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/QueueType"
+            }
+          },
+          {
+            "name": "tier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Tier"
+            }
+          },
+          {
+            "name": "division",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Division"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/GameRegion",
+              "default": "euw1"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": 1,
+              "title": "Page"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/platform/v3/champion-rotations": {
+      "get": {
+        "tags": [
+          "champion"
+        ],
+        "summary": "Get Champion Rotations",
+        "description": "Get current champion rotation (free-to-play champions).\n\nAPI Reference: https://developer.riotgames.com/apis#champion-v3/GET_getChampionInfo\n\nReturns:\n    - freeChampionIds: List of free champion IDs\n    - freeChampionIdsForNewPlayers: List for new players\n    - maxNewPlayerLevel: Max level for new player rotation",
+        "operationId": "get_champion_rotations_lol_platform_v3_champion_rotations_get",
+        "parameters": [
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Region code",
+              "default": "euw1",
+              "title": "Region"
+            },
+            "description": "Region code"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}": {
+      "get": {
+        "tags": [
+          "champion-mastery"
+        ],
+        "summary": "Get All Champion Masteries",
+        "description": "Get all champion mastery entries for a summoner by PUUID.\n\nAPI Reference: https://developer.riotgames.com/apis#champion-mastery-v4/GET_getAllChampionMasteries\n\nReturns list of champion mastery objects sorted by champion level descending.",
+        "operationId": "get_all_champion_masteries_lol_champion_mastery_v4_champion_masteries_by_puuid__puuid__get",
+        "parameters": [
+          {
+            "name": "puuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Puuid"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Region code",
+              "default": "euw1",
+              "title": "Region"
+            },
+            "description": "Region code"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}/by-champion/{championId}": {
+      "get": {
+        "tags": [
+          "champion-mastery"
+        ],
+        "summary": "Get Champion Mastery",
+        "description": "Get champion mastery entry for a specific champion.\n\nAPI Reference: https://developer.riotgames.com/apis#champion-mastery-v4/GET_getChampionMastery\n\nReturns champion mastery object with level, points, tokens, etc.",
+        "operationId": "get_champion_mastery_lol_champion_mastery_v4_champion_masteries_by_puuid__puuid__by_champion__championId__get",
+        "parameters": [
+          {
+            "name": "puuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Puuid"
+            }
+          },
+          {
+            "name": "championId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Championid"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Region code",
+              "default": "euw1",
+              "title": "Region"
+            },
+            "description": "Region code"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}/top": {
+      "get": {
+        "tags": [
+          "champion-mastery"
+        ],
+        "summary": "Get Top Champion Masteries",
+        "description": "Get top N champion mastery entries for a summoner.\n\nAPI Reference: https://developer.riotgames.com/apis#champion-mastery-v4/GET_getTopChampionMasteries\n\nArgs:\n    count: Number of top champions (1-20, default 3)\n\nReturns list of top champion mastery objects.",
+        "operationId": "get_top_champion_masteries_lol_champion_mastery_v4_champion_masteries_by_puuid__puuid__top_get",
+        "parameters": [
+          {
+            "name": "puuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Puuid"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Region code",
+              "default": "euw1",
+              "title": "Region"
+            },
+            "description": "Region code"
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 20,
+              "minimum": 1,
+              "description": "Number of top champions",
+              "default": 3,
+              "title": "Count"
+            },
+            "description": "Number of top champions"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/champion-mastery/v4/scores/by-puuid/{puuid}": {
+      "get": {
+        "tags": [
+          "champion-mastery"
+        ],
+        "summary": "Get Mastery Score",
+        "description": "Get total mastery score for a summoner.\n\nAPI Reference: https://developer.riotgames.com/apis#champion-mastery-v4/GET_getChampionMasteryScore\n\nReturns integer representing total mastery points across all champions.",
+        "operationId": "get_mastery_score_lol_champion_mastery_v4_scores_by_puuid__puuid__get",
+        "parameters": [
+          {
+            "name": "puuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Puuid"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Region code",
+              "default": "euw1",
+              "title": "Region"
+            },
+            "description": "Region code"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/spectator/v5/active-games/by-summoner/{puuid}": {
+      "get": {
+        "tags": [
+          "spectator"
+        ],
+        "summary": "Get Active Game",
+        "description": "Get current game information for a summoner (if in game).\n\nReturns 404 if player is not currently in a game.\n\nAPI Reference: https://developer.riotgames.com/apis#spectator-v5/GET_getCurrentGameInfoByPuuid\n\nReturns:\n    - gameId: Current game ID\n    - gameMode: Game mode\n    - gameStartTime: Start time (epoch ms)\n    - participants: List of players in the game\n    - bannedChampions: Banned champions\n    - observers: Spectator key",
+        "operationId": "get_active_game_lol_spectator_v5_active_games_by_summoner__puuid__get",
+        "parameters": [
+          {
+            "name": "puuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Puuid"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Region code",
+              "default": "euw1",
+              "title": "Region"
+            },
+            "description": "Region code"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/spectator/v5/featured-games": {
+      "get": {
+        "tags": [
+          "spectator"
+        ],
+        "summary": "Get Featured Games",
+        "description": "Get list of featured games (high-profile matches shown in client).\n\nAPI Reference: https://developer.riotgames.com/apis#spectator-v5/GET_getFeaturedGames\n\nReturns:\n    - gameList: List of featured game objects\n    - clientRefreshInterval: Refresh interval (ms)",
+        "operationId": "get_featured_games_lol_spectator_v5_featured_games_get",
+        "parameters": [
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Region code",
+              "default": "euw1",
+              "title": "Region"
+            },
+            "description": "Region code"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/status/v4/platform-data": {
+      "get": {
+        "tags": [
+          "platform"
+        ],
+        "summary": "Get Platform Status",
+        "description": "Get League of Legends platform status for a region.\n\nAPI Reference: https://developer.riotgames.com/apis#lol-status-v4/GET_getPlatformData\n\nReturns:\n    - id: Region ID\n    - name: Region name\n    - locales: Supported locales\n    - maintenances: Scheduled maintenance events\n    - incidents: Current incidents/issues",
+        "operationId": "get_platform_status_lol_status_v4_platform_data_get",
+        "parameters": [
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Region code",
+              "default": "euw1",
+              "title": "Region"
+            },
+            "description": "Region code"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/clash/v1/players/by-puuid/{puuid}": {
+      "get": {
+        "tags": [
+          "clash"
+        ],
+        "summary": "Get Clash Player",
+        "description": "Get clash player info by PUUID.\n\nReturns list of clash tournament registrations for the player.\n\nAPI Reference: https://developer.riotgames.com/apis#clash-v1/GET_getPlayersByPUUID\n\nReturns:\n    List of player registration objects with:\n    - summonerId\n    - teamId\n    - position\n    - role",
+        "operationId": "get_clash_player_lol_clash_v1_players_by_puuid__puuid__get",
+        "parameters": [
+          {
+            "name": "puuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Puuid"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Region code",
+              "default": "euw1",
+              "title": "Region"
+            },
+            "description": "Region code"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/clash/v1/teams/{teamId}": {
+      "get": {
+        "tags": [
+          "clash"
+        ],
+        "summary": "Get Clash Team",
+        "description": "Get clash team by team ID.\n\nAPI Reference: https://developer.riotgames.com/apis#clash-v1/GET_getTeamById\n\nReturns:\n    Team object with:\n    - id: Team ID\n    - tournamentId\n    - name: Team name\n    - iconId: Team icon\n    - tier: Tournament tier\n    - captain: Captain summoner ID\n    - abbreviation: Team abbreviation\n    - players: List of player objects",
+        "operationId": "get_clash_team_lol_clash_v1_teams__teamId__get",
+        "parameters": [
+          {
+            "name": "teamId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Teamid"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Region code",
+              "default": "euw1",
+              "title": "Region"
+            },
+            "description": "Region code"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/clash/v1/tournaments": {
+      "get": {
+        "tags": [
+          "clash"
+        ],
+        "summary": "Get Clash Tournaments",
+        "description": "Get all active and upcoming clash tournaments.\n\nAPI Reference: https://developer.riotgames.com/apis#clash-v1/GET_getTournaments\n\nReturns:\n    List of tournament objects with:\n    - id: Tournament ID\n    - themeId: Theme ID\n    - nameKey: Name key for localization\n    - nameKeySecondary: Secondary name key\n    - schedule: List of tournament phase objects",
+        "operationId": "get_clash_tournaments_lol_clash_v1_tournaments_get",
+        "parameters": [
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Region code",
+              "default": "euw1",
+              "title": "Region"
+            },
+            "description": "Region code"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/clash/v1/tournaments/{tournamentId}": {
+      "get": {
+        "tags": [
+          "clash"
+        ],
+        "summary": "Get Clash Tournament",
+        "description": "Get clash tournament by tournament ID.\n\nAPI Reference: https://developer.riotgames.com/apis#clash-v1/GET_getTournamentById\n\nReturns:\n    Tournament object with:\n    - id: Tournament ID\n    - themeId: Theme ID\n    - nameKey: Name key\n    - nameKeySecondary: Secondary name key\n    - schedule: Tournament schedule phases",
+        "operationId": "get_clash_tournament_lol_clash_v1_tournaments__tournamentId__get",
+        "parameters": [
+          {
+            "name": "tournamentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Tournamentid"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Region code",
+              "default": "euw1",
+              "title": "Region"
+            },
+            "description": "Region code"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/clash/v1/tournaments/by-team/{teamId}": {
+      "get": {
+        "tags": [
+          "clash"
+        ],
+        "summary": "Get Clash Tournament By Team",
+        "description": "Get clash tournament that a team is registered for.\n\nAPI Reference: https://developer.riotgames.com/apis#clash-v1/GET_getTournamentByTeam\n\nReturns:\n    Tournament object for the team's registered tournament.",
+        "operationId": "get_clash_tournament_by_team_lol_clash_v1_tournaments_by_team__teamId__get",
+        "parameters": [
+          {
+            "name": "teamId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Teamid"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Region code",
+              "default": "euw1",
+              "title": "Region"
+            },
+            "description": "Region code"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/challenges/v1/challenges/config": {
+      "get": {
+        "tags": [
+          "challenges"
+        ],
+        "summary": "Get All Challenges Config",
+        "description": "Get configuration for all challenges.\n\nAPI Reference: https://developer.riotgames.com/apis#lol-challenges-v1/GET_getAllChallengeConfigs\n\nReturns list of all challenge configuration objects with:\n- id: Challenge ID\n- localizedNames: Localized challenge names\n- state: Challenge state (ENABLED, DISABLED, etc.)\n- leaderboard: Whether has leaderboard\n- thresholds: Thresholds for tiers",
+        "operationId": "get_all_challenges_config_lol_challenges_v1_challenges_config_get",
+        "parameters": [
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Region code",
+              "default": "euw1",
+              "title": "Region"
+            },
+            "description": "Region code"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/challenges/v1/challenges/{challengeId}/config": {
+      "get": {
+        "tags": [
+          "challenges"
+        ],
+        "summary": "Get Challenge Config",
+        "description": "Get configuration for a specific challenge.\n\nAPI Reference: https://developer.riotgames.com/apis#lol-challenges-v1/GET_getChallengeConfigs\n\nReturns:\n    Challenge configuration object with thresholds, localized names, etc.",
+        "operationId": "get_challenge_config_lol_challenges_v1_challenges__challengeId__config_get",
+        "parameters": [
+          {
+            "name": "challengeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Challengeid"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Region code",
+              "default": "euw1",
+              "title": "Region"
+            },
+            "description": "Region code"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/challenges/v1/challenges/{challengeId}/leaderboards/by-level/{level}": {
+      "get": {
+        "tags": [
+          "challenges"
+        ],
+        "summary": "Get Challenge Leaderboard",
+        "description": "Get leaderboard for a specific challenge at a specific level.\n\nAPI Reference: https://developer.riotgames.com/apis#lol-challenges-v1/GET_getChallengeLeaderboards\n\nArgs:\n    challengeId: Challenge ID\n    level: Challenge level (MASTER, GRANDMASTER, CHALLENGER)\n    limit: Optional limit on results\n\nReturns:\n    List of leaderboard entries with player PUUIDs and values.",
+        "operationId": "get_challenge_leaderboard_lol_challenges_v1_challenges__challengeId__leaderboards_by_level__level__get",
+        "parameters": [
+          {
+            "name": "challengeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Challengeid"
+            }
+          },
+          {
+            "name": "level",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Level"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Region code",
+              "default": "euw1",
+              "title": "Region"
+            },
+            "description": "Region code"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Limit results (optional)",
+              "title": "Limit"
+            },
+            "description": "Limit results (optional)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/challenges/v1/challenges/{challengeId}/percentiles": {
+      "get": {
+        "tags": [
+          "challenges"
+        ],
+        "summary": "Get Challenge Percentiles",
+        "description": "Get percentile distribution for a challenge.\n\nAPI Reference: https://developer.riotgames.com/apis#lol-challenges-v1/GET_getChallengePercentiles\n\nReturns map of challenge values to percentiles.",
+        "operationId": "get_challenge_percentiles_lol_challenges_v1_challenges__challengeId__percentiles_get",
+        "parameters": [
+          {
+            "name": "challengeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Challengeid"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Region code",
+              "default": "euw1",
+              "title": "Region"
+            },
+            "description": "Region code"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/challenges/v1/player-data/{puuid}": {
+      "get": {
+        "tags": [
+          "challenges"
+        ],
+        "summary": "Get Player Challenges",
+        "description": "Get all challenge data for a player by PUUID.\n\nAPI Reference: https://developer.riotgames.com/apis#lol-challenges-v1/GET_getPlayerData\n\nReturns:\n    - totalPoints: Total challenge points\n    - categoryPoints: Points per category\n    - challenges: List of all challenge progress\n    - preferences: Player challenge preferences",
+        "operationId": "get_player_challenges_lol_challenges_v1_player_data__puuid__get",
+        "parameters": [
+          {
+            "name": "puuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Puuid"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Region code",
+              "default": "euw1",
+              "title": "Region"
+            },
+            "description": "Region code"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Division": {
+        "type": "string",
+        "enum": [
+          "I",
+          "II",
+          "III",
+          "IV"
+        ],
+        "title": "Division",
+        "description": "Division within a tier.\n\nUsed for Iron through Diamond (and Emerald) tiers.\nMaster, Grandmaster, and Challenger don't use divisions."
+      },
+      "GameRegion": {
+        "type": "string",
+        "enum": [
+          "euw1",
+          "eun1",
+          "tr1",
+          "ru",
+          "na1",
+          "br1",
+          "la1",
+          "la2",
+          "kr",
+          "jp1",
+          "oc1",
+          "ph2",
+          "sg2",
+          "th2",
+          "tw2",
+          "vn2"
+        ],
+        "title": "GameRegion",
+        "description": "Game regions for platform-specific endpoints."
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "PlatformRegion": {
+        "type": "string",
+        "enum": [
+          "americas",
+          "europe",
+          "asia",
+          "sea"
+        ],
+        "title": "PlatformRegion",
+        "description": "Platform regions for regional routing (ACCOUNT, MATCH APIs)."
+      },
+      "QueueType": {
+        "type": "string",
+        "enum": [
+          "RANKED_SOLO_5x5",
+          "RANKED_FLEX_SR",
+          "RANKED_FLEX_TT",
+          "RANKED_TFT",
+          "RANKED_TFT_TURBO",
+          "RANKED_TFT_DOUBLE_UP"
+        ],
+        "title": "QueueType",
+        "description": "Queue types for League of Legends.\n\nIncludes ranked, normal, and special game modes."
+      },
+      "Tier": {
+        "type": "string",
+        "enum": [
+          "UNRANKED",
+          "IRON",
+          "BRONZE",
+          "SILVER",
+          "GOLD",
+          "PLATINUM",
+          "EMERALD",
+          "DIAMOND",
+          "MASTER",
+          "GRANDMASTER",
+          "CHALLENGER"
+        ],
+        "title": "Tier",
+        "description": "League tier/rank levels.\n\nUsed for:\n- Ranked league entries and progression (IRON \u2192 CHALLENGER)\n- Challenge progression (all tiers)\n- Challenge leaderboards (MASTER, GRANDMASTER, CHALLENGER only)"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}
