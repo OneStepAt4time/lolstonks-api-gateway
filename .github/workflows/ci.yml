@@ -40,16 +40,16 @@ jobs:
 
     - name: Install dependencies
       run: |
-        uv sync --all-extras --system
+        uv sync --all-extras
 
     - name: Lint with ruff
       run: |
-        ruff check --output-format=github .
-        ruff format --check .
+        uv run ruff check --output-format=github .
+        uv run ruff format --check .
 
     - name: Type checking
       run: |
-        mypy app/ --ignore-missing-imports || true
+        uv run mypy app/ --ignore-missing-imports || true
 
     - name: Test with pytest
       env:
@@ -68,13 +68,13 @@ jobs:
 
     - name: Test documentation build
       run: |
-        python scripts/generate_api_docs.py
-        mkdocs build --strict
+        uv run python scripts/generate_api_docs.py
+        uv run mkdocs build --strict
 
     - name: Check API documentation generation
       run: |
         # Verify API docs can be generated from OpenAPI
-        python -c "
+        uv run python -c "
         import asyncio
         import json
         from pathlib import Path
@@ -107,13 +107,13 @@ jobs:
 
     - name: Install dependencies
       run: |
-        uv sync --extra dev --system
+        uv sync --extra dev
         uv pip install --system safety
 
     - name: Run Bandit security linter
       run: |
-        bandit -r app/ -f json -o bandit-report.json || true
-        bandit -r app/ -f txt
+        uv run bandit -r app/ -f json -o bandit-report.json || true
+        uv run bandit -r app/ -f txt
 
     - name: Check dependencies for security vulnerabilities
       run: |

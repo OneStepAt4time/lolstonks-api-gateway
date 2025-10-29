@@ -35,11 +35,11 @@ jobs:
 
     - name: Install dependencies
       run: |
-        uv sync --extra docs --system
+        uv sync --extra docs
 
     - name: Generate API documentation
       run: |
-        python scripts/generate_api_docs.py
+        uv run python scripts/generate_api_docs.py
       continue-on-error: true  # Allow build to continue even if API docs fail
 
     - name: Configure MkDocs
@@ -48,14 +48,14 @@ jobs:
         sed -i "s|repo_url: https://github.com/yourusername/lolstonks-api-gateway|repo_url: https://github.com/${{ github.repository }}|" mkdocs.yml
 
     - name: Build documentation
-      run: mkdocs build --strict
+      run: uv run mkdocs build --strict
 
     - name: Build with review changes
       if: github.event_name == 'pull_request'
       run: |
         # Build PR preview with changes highlighted
         echo "Building documentation for PR preview"
-        mkdocs build --strict
+        uv run mkdocs build --strict
 
     - name: Setup Pages
       if: github.ref == 'refs/heads/main'
@@ -97,7 +97,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        uv sync --extra docs --system
+        uv sync --extra docs
         uv pip install --system markdownlint-cli2
 
     - name: Lint Markdown files
@@ -107,8 +107,8 @@ jobs:
 
     - name: Check MkDocs configuration
       run: |
-        mkdocs --version
-        mkdocs build --quiet --strict
+        uv run mkdocs --version
+        uv run mkdocs build --quiet --strict
 
     - name: Check links
       run: |
