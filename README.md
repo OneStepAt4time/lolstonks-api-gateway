@@ -1,7 +1,6 @@
+![LOLStonks logo](./assets/logo.png)
+
 # LOLStonks — API Gateway
-
-![LOLStonks logo](./.github/logo.png)
-
 An intelligent FastAPI-based gateway & proxy for the Riot Games League of Legends APIs with smart caching, rate limiting, and match tracking.
 
 Features · Quick Start · Usage · Configuration · Contributing · [Documentation](./docs/README.md)
