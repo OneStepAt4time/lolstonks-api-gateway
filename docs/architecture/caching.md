@@ -2,6 +2,8 @@
 
 This section details the comprehensive caching strategy implemented in the LOLStonks API Gateway, designed to optimize performance while ensuring data freshness.
 
+> **📝 Documentation Note**: This document describes the conceptual architecture, best practices, and potential implementations for caching. The actual implementation uses the [aiocache](https://github.com/aio-libs/aiocache) library with Redis backend. Many advanced features shown below (batch operations, cache warming, metrics) represent potential enhancements rather than current implementation.
+
 ## Overview
 
 The caching system uses Redis as the primary caching backend with a multi-layer approach that balances performance, data freshness, and storage efficiency.
@@ -77,9 +79,12 @@ Different data types have different TTL (Time To Live) values based on their vol
 
 ## Redis Cache Implementation
 
+> **💡 Actual Implementation**: The real code in `app/cache/redis_cache.py` uses a simple `aiocache.Cache` instance. The detailed class implementation below represents a potential custom implementation with additional features.
+
 ### Core Cache Class
 
 ```python
+# Conceptual implementation with advanced features (not actual code)
 # app/cache/redis_cache.py
 import json
 import asyncio
@@ -220,11 +225,14 @@ def cached(endpoint: str, ttl: Optional[int] = None):
 
 ## Match Tracking System
 
+> **✅ Implemented**: The match tracking system in `app/cache/tracking.py` is fully implemented but uses a simpler approach than described below. The actual implementation uses Redis SET for permanent storage without the dual-layer TTL cache optimization shown here.
+
 ### Dual Storage Approach
 
 The match tracking system uses both TTL cache and persistent storage:
 
 ```python
+# Conceptual dual-layer implementation (actual code is simpler)
 # app/cache/tracking.py
 import json
 from typing import Set

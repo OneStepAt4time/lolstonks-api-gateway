@@ -67,10 +67,12 @@ nav:
     - Cache: api/cache.md
   - Architecture:
     - Overview: architecture/overview.md
+    - Implementation Details: architecture/implementation-details.md
     - Data Models: architecture/models.md
     - Rate Limiting: architecture/rate-limiting.md
     - Caching Strategy: architecture/caching.md
   - Operations:
+    - Implementation Status: operations/implementation-status.md
     - Monitoring: operations/monitoring.md
     - Troubleshooting: operations/troubleshooting.md
     - Security: operations/security.md
