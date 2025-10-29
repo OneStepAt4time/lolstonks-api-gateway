@@ -35,7 +35,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        uv sync --extra docs
+        uv sync --extra docs --system
 
     - name: Generate API documentation
       run: |
@@ -97,7 +97,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        uv sync --extra docs
+        uv sync --extra docs --system
         uv pip install --system markdownlint-cli2
 
     - name: Lint Markdown files
