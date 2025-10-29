@@ -2067,10 +2067,16 @@
 <h3 id="simplified-request-flow">Simplified Request Flow<a class="headerlink" href="#simplified-request-flow" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>flowchart LR
     Client --&gt;|HTTP Request| Gateway[FastAPI Gateway]
-    Gateway --&gt;|Cache Lookup| Redis[Redis Cache]
-    Gateway --&gt;|Rate-Limited Request| Riot[Riot API]
+    Gateway --&gt;|Rate Limit Check| RateLimiter[Rate Limiter]
+    RateLimiter --&gt;|Cache Lookup| Redis[Redis Cache]
+    Redis --&gt;|Cache Miss| Gateway
+    Redis --&gt;|Cache Hit| Gateway
+    Gateway --&gt;|API Request| Riot[Riot API]
     Riot --&gt;|Response| Gateway
     Gateway --&gt;|Store Processed Data| Redis
+
+    Gateway -.-&gt;|Rate Limit Exceeded| Client
+    Gateway -.-&gt;|Error Response| Client
 </code></pre></div>
 <h3 id="detailed-system-architecture">Detailed System Architecture<a class="headerlink" href="#detailed-system-architecture" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>graph TB
@@ -2082,8 +2088,9 @@
     subgraph &quot;Gateway Components&quot;
         Gateway --&gt; FastAPI[FastAPI Application]
         Gateway --&gt; Routers[API Routers]
-        Gateway --&gt; Client[Riot Client]
+        Gateway --&gt; RiotClient[Riot Client]
         Gateway --&gt; MatchTracking[Match Tracking]
+        Gateway --&gt; ErrorHandler[Error Handler]
     end
 
     subgraph &quot;External Services&quot;
@@ -2093,8 +2100,9 @@
 
     Cache --&gt; Redis
     MatchTracking --&gt; Redis
-    Client --&gt; Riot
-    Client -.-&gt; Riot
+    RiotClient --&gt; Riot
+    ErrorHandler -.-&gt; Client
+    RateLimiter -.-&gt; Client
 </code></pre></div>
 <h2 id="core-components">Core Components<a class="headerlink" href="#core-components" title="Permanent link">&para;</a></h2>
 <h3 id="1-fastapi-application-appmain">1. FastAPI Application (<code>app.main</code>)<a class="headerlink" href="#1-fastapi-application-appmain" title="Permanent link">&para;</a></h3>
@@ -2221,18 +2229,28 @@
 
     C-&gt;&gt;G: HTTP Request
     G-&gt;&gt;RL: Check Rate Limit
-    RL--&gt;&gt;G: Rate Limit OK
-    G-&gt;&gt;Cache: Check Cache
-    alt Cache Hit
-        Cache--&gt;&gt;G: Cached Response
-        G--&gt;&gt;C: HTTP Response
-    else Cache Miss
-        G-&gt;&gt;RC: Make API Request
-        RC-&gt;&gt;R: Riot API Call
-        R--&gt;&gt;RC: API Response
-        RC--&gt;&gt;G: Process Response
-        G-&gt;&gt;Cache: Store in Cache
-        G--&gt;&gt;C: HTTP Response
+    alt Rate Limit Exceeded
+        RL--&gt;&gt;C: 429 Too Many Requests
+    else Rate Limit OK
+        RL--&gt;&gt;G: Rate Limit Approved
+        G-&gt;&gt;Cache: Check Cache
+        alt Cache Hit
+            Cache--&gt;&gt;G: Cached Response
+            G--&gt;&gt;C: HTTP Response
+        else Cache Miss
+            G-&gt;&gt;RC: Make API Request
+            RC-&gt;&gt;R: Riot API Call
+            alt API Success
+                R--&gt;&gt;RC: API Response
+                RC--&gt;&gt;G: Process Response
+                G-&gt;&gt;Cache: Store in Cache
+                G--&gt;&gt;C: HTTP Response
+            else API Error
+                R--&gt;&gt;RC: Error Response
+                RC--&gt;&gt;G: Process Error
+                G--&gt;&gt;C: Error Response
+            end
+        end
     end
 </code></pre></div>
 <h3 id="caching-strategy">Caching Strategy<a class="headerlink" href="#caching-strategy" title="Permanent link">&para;</a></h3>
@@ -2247,23 +2265,37 @@
 <h3 id="error-handling-flow">Error Handling Flow<a class="headerlink" href="#error-handling-flow" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>graph TD
     Request[Incoming Request] --&gt; Validation[Request Validation]
-    Validation --&gt; RateCheck[Rate Limit Check]
-    RateCheck --&gt; CacheHit{Cache Hit?}
+    Validation --&gt; ValidationError{Validation Valid?}
+
+    ValidationError --&gt;|No| ValidationResponse[Return 400 Bad Request]
+    ValidationError --&gt;|Yes| RateCheck[Rate Limit Check]
+
+    RateCheck --&gt; RateError{Rate Limited?}
+    RateError --&gt;|Yes| RateResponse[Return 429 Too Many Requests]
+    RateError --&gt;|No| CacheCheck[Cache Check]
+
+    CacheCheck --&gt; CacheError{Cache Available?}
+    CacheError --&gt;|No| CacheFail[Continue to API]
+    CacheError --&gt;|Yes| CacheHit{Cache Hit?}
 
     CacheHit --&gt;|Yes| CachedResponse[Return Cached Data]
     CacheHit --&gt;|No| APIRequest[Make Riot API Request]
 
-    APIRequest --&gt; APISuccess{API Success?}
-    APISuccess --&gt;|Yes| StoreCache[Store in Cache]
-    APISuccess --&gt;|No| APIError{Error Type?}
+    APIRequest --&gt; APIError{API Success?}
+    APIError --&gt;|Yes| StoreCache[Store in Cache]
+    APIError --&gt;|No| ErrorType{Error Type?}
 
-    APIError --&gt;|429| RetryWithBackoff[Retry with Exponential Backoff]
-    APIError --&gt;|404| NotFound[Return 404]
-    APIError --&gt;|Other| ServerError[Return 500]
+    ErrorType --&gt;|429| RetryWithBackoff[Retry with Exponential Backoff]
+    ErrorType --&gt;|404| NotFound[Return 404]
+    ErrorType --&gt;|Timeout| TimeoutError[Return 408 Request Timeout]
+    ErrorType --&gt;|Other| ServerError[Return 500]
 
-    RetryWithBackoff --&gt; APISuccess
+    RetryWithBackoff --&gt; APIError
     StoreCache --&gt; SuccessResponse[Return Success Response]
-    NotFound --&gt; ErrorResponse[Return Error Response]
+    ValidationResponse --&gt; ErrorResponse[Return Error Response]
+    RateResponse --&gt; ErrorResponse
+    NotFound --&gt; ErrorResponse
+    TimeoutError --&gt; ErrorResponse
     ServerError --&gt; ErrorResponse
 </code></pre></div>
 <h2 id="configuration-architecture">Configuration Architecture<a class="headerlink" href="#configuration-architecture" title="Permanent link">&para;</a></h2>
