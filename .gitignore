@@ -82,3 +82,4 @@ start.bat
 htmlcov/
 coverage.xml
 .secrets
+docs/data/openapi.json
