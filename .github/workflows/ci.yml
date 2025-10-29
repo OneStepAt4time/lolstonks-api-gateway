@@ -5,6 +5,7 @@ on:
     branches: [ main, develop ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   test:
@@ -55,7 +56,7 @@ jobs:
       env:
         REDIS_HOST: ${{ secrets.REDIS_HOST || 'localhost' }}
         REDIS_PORT: ${{ secrets.REDIS_PORT || '6379' }}
-        RIOT_API_KEY: ${{ secrets.RIOT_API_KEY || 'RGAPI-test-key-for-testing' }}
+        RIOT_API_KEY: ${{ secrets.RIOT_API_KEY }}
       run: |
         uv run pytest --cov=app --cov-report=xml --cov-report=html -v
 
@@ -75,7 +76,7 @@ jobs:
       env:
         REDIS_HOST: ${{ secrets.REDIS_HOST || 'localhost' }}
         REDIS_PORT: ${{ secrets.REDIS_PORT || '6379' }}
-        RIOT_API_KEY: ${{ secrets.RIOT_API_KEY || 'RGAPI-test-key-for-testing' }}
+        RIOT_API_KEY: ${{ secrets.RIOT_API_KEY }}
       run: |
         # Verify API docs can be generated from OpenAPI
         uv run python -c "

@@ -81,3 +81,4 @@ site/
 start.bat
 htmlcov/
 coverage.xml
+.secrets
