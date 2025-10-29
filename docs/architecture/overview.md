@@ -9,10 +9,16 @@ This section provides a comprehensive overview of the LOLStonks API Gateway arch
 ```mermaid
 flowchart LR
     Client -->|HTTP Request| Gateway[FastAPI Gateway]
-    Gateway -->|Cache Lookup| Redis[Redis Cache]
-    Gateway -->|Rate-Limited Request| Riot[Riot API]
+    Gateway -->|Rate Limit Check| RateLimiter[Rate Limiter]
+    RateLimiter -->|Cache Lookup| Redis[Redis Cache]
+    Redis -->|Cache Miss| Gateway
+    Redis -->|Cache Hit| Gateway
+    Gateway -->|API Request| Riot[Riot API]
     Riot -->|Response| Gateway
     Gateway -->|Store Processed Data| Redis
+
+    Gateway -.->|Rate Limit Exceeded| Client
+    Gateway -.->|Error Response| Client
 ```
 
 ### Detailed System Architecture
@@ -27,8 +33,9 @@ graph TB
     subgraph "Gateway Components"
         Gateway --> FastAPI[FastAPI Application]
         Gateway --> Routers[API Routers]
-        Gateway --> Client[Riot Client]
+        Gateway --> RiotClient[Riot Client]
         Gateway --> MatchTracking[Match Tracking]
+        Gateway --> ErrorHandler[Error Handler]
     end
 
     subgraph "External Services"
@@ -38,8 +45,9 @@ graph TB
 
     Cache --> Redis
     MatchTracking --> Redis
-    Client --> Riot
-    Client -.-> Riot
+    RiotClient --> Riot
+    ErrorHandler -.-> Client
+    RateLimiter -.-> Client
 ```
 
 ## Core Components
@@ -203,18 +211,28 @@ sequenceDiagram
 
     C->>G: HTTP Request
     G->>RL: Check Rate Limit
-    RL-->>G: Rate Limit OK
-    G->>Cache: Check Cache
-    alt Cache Hit
-        Cache-->>G: Cached Response
-        G-->>C: HTTP Response
-    else Cache Miss
-        G->>RC: Make API Request
-        RC->>R: Riot API Call
-        R-->>RC: API Response
-        RC-->>G: Process Response
-        G->>Cache: Store in Cache
-        G-->>C: HTTP Response
+    alt Rate Limit Exceeded
+        RL-->>C: 429 Too Many Requests
+    else Rate Limit OK
+        RL-->>G: Rate Limit Approved
+        G->>Cache: Check Cache
+        alt Cache Hit
+            Cache-->>G: Cached Response
+            G-->>C: HTTP Response
+        else Cache Miss
+            G->>RC: Make API Request
+            RC->>R: Riot API Call
+            alt API Success
+                R-->>RC: API Response
+                RC-->>G: Process Response
+                G->>Cache: Store in Cache
+                G-->>C: HTTP Response
+            else API Error
+                R-->>RC: Error Response
+                RC-->>G: Process Error
+                G-->>C: Error Response
+            end
+        end
     end
 ```
 
@@ -236,23 +254,37 @@ lolstonks:{endpoint}:{region}:{identifier}
 ```mermaid
 graph TD
     Request[Incoming Request] --> Validation[Request Validation]
-    Validation --> RateCheck[Rate Limit Check]
-    RateCheck --> CacheHit{Cache Hit?}
+    Validation --> ValidationError{Validation Valid?}
+
+    ValidationError -->|No| ValidationResponse[Return 400 Bad Request]
+    ValidationError -->|Yes| RateCheck[Rate Limit Check]
+
+    RateCheck --> RateError{Rate Limited?}
+    RateError -->|Yes| RateResponse[Return 429 Too Many Requests]
+    RateError -->|No| CacheCheck[Cache Check]
+
+    CacheCheck --> CacheError{Cache Available?}
+    CacheError -->|No| CacheFail[Continue to API]
+    CacheError -->|Yes| CacheHit{Cache Hit?}
 
     CacheHit -->|Yes| CachedResponse[Return Cached Data]
     CacheHit -->|No| APIRequest[Make Riot API Request]
 
-    APIRequest --> APISuccess{API Success?}
-    APISuccess -->|Yes| StoreCache[Store in Cache]
-    APISuccess -->|No| APIError{Error Type?}
+    APIRequest --> APIError{API Success?}
+    APIError -->|Yes| StoreCache[Store in Cache]
+    APIError -->|No| ErrorType{Error Type?}
 
-    APIError -->|429| RetryWithBackoff[Retry with Exponential Backoff]
-    APIError -->|404| NotFound[Return 404]
-    APIError -->|Other| ServerError[Return 500]
+    ErrorType -->|429| RetryWithBackoff[Retry with Exponential Backoff]
+    ErrorType -->|404| NotFound[Return 404]
+    ErrorType -->|Timeout| TimeoutError[Return 408 Request Timeout]
+    ErrorType -->|Other| ServerError[Return 500]
 
-    RetryWithBackoff --> APISuccess
+    RetryWithBackoff --> APIError
     StoreCache --> SuccessResponse[Return Success Response]
-    NotFound --> ErrorResponse[Return Error Response]
+    ValidationResponse --> ErrorResponse[Return Error Response]
+    RateResponse --> ErrorResponse
+    NotFound --> ErrorResponse
+    TimeoutError --> ErrorResponse
     ServerError --> ErrorResponse
 ```
 
