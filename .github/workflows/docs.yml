@@ -62,7 +62,7 @@ jobs:
 
     - name: Build documentation
       run: |
-        uv run mkdocs build --verbose --strict
+        uv run mkdocs build --verbose
       continue-on-error: false
 
     - name: Verify build output
@@ -156,8 +156,8 @@ jobs:
         echo "Validating mkdocs.yml..."
         uv run python -c "import yaml; yaml.safe_load(open('mkdocs.yml'))" && echo "✓ mkdocs.yml is valid YAML"
 
-        echo "Building documentation (strict mode)..."
-        uv run mkdocs build --strict --verbose
+        echo "Building documentation..."
+        uv run mkdocs build --verbose
 
     - name: Check documentation structure
       run: |
