@@ -9,7 +9,7 @@
 
 **Production-grade Riot Games API Gateway** engineered for high-performance applications with intelligent caching, automatic rate limiting, and comprehensive observability.
 
-![LOLStonks logo](../.github/logo.png)
+![LOLStonks logo](assets/logo.png)
 
 ## Enterprise Features
 
