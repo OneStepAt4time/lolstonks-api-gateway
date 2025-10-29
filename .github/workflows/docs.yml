@@ -7,18 +7,15 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 concurrency:
-  group: "pages"
+  group: "pages-${{ github.ref }}"
   cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Needed for peaceiris/actions-gh-pages
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -80,10 +77,6 @@ jobs:
         echo "Building documentation preview for PR"
         uv run mkdocs build --verbose
 
-    - name: Setup Pages
-      if: github.ref == 'refs/heads/main'
-      uses: actions/configure-pages@v4
-
     - name: Generate build report
       if: always()
       run: |
@@ -96,22 +89,18 @@ jobs:
         echo "- **Build time:** $(date)" >> build-report.md
         cat build-report.md
 
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v4
-      with:
-        path: ./site
-
-  deploy:
-    environment:
-      name: pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    if: github.ref == 'refs/heads/main'
-    steps:
     - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
+      if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./site
+        destination_dir: ${{ github.ref == 'refs/heads/main' && '.' || 'dev' }}
+        keep_files: true
+        enable_jekyll: false
+        commit_message: 'docs: deploy ${{ github.ref_name }} documentation'
+
+  # Remove old deploy job as we now deploy directly in build job
 
   # Lint documentation
   lint:
