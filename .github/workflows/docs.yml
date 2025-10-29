@@ -89,14 +89,58 @@ jobs:
         echo "- **Build time:** $(date)" >> build-report.md
         cat build-report.md
 
+    - name: Prepare deployment structure for develop
+      if: github.ref == 'refs/heads/develop'
+      run: |
+        # Create root index.html that redirects to /dev/
+        cat > index.html << 'EOF'
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="refresh" content="0; url=./dev/">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>LOLStonks API Gateway Documentation</title>
+            <style>
+                body {
+                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+                    display: flex; justify-content: center; align-items: center;
+                    height: 100vh; margin: 0;
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    color: white;
+                }
+                .container { text-align: center; padding: 2rem; }
+                h1 { margin: 0 0 1rem 0; }
+                p { margin: 0.5rem 0; opacity: 0.9; }
+                a { color: white; text-decoration: underline; }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <h1>LOLStonks API Gateway</h1>
+                <p>Redirecting to development documentation...</p>
+                <p><a href="./dev/">Click here if not redirected</a></p>
+                <p style="margin-top: 2rem; font-size: 0.9rem;">
+                    Production docs will be at root after merging to main.
+                </p>
+            </div>
+        </body>
+        </html>
+        EOF
+
+        # Move site/ to dev/ and add index.html at root
+        mkdir -p deploy_root
+        mv site deploy_root/dev
+        mv index.html deploy_root/
+
     - name: Deploy to GitHub Pages
       if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
       uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./site
-        destination_dir: ${{ github.ref == 'refs/heads/main' && '.' || 'dev' }}
-        keep_files: true
+        publish_dir: ${{ github.ref == 'refs/heads/develop' && './deploy_root' || './site' }}
+        destination_dir: ${{ github.ref == 'refs/heads/main' && '.' || '.' }}
+        keep_files: ${{ github.ref == 'refs/heads/main' }}
         enable_jekyll: false
         commit_message: 'docs: deploy ${{ github.ref_name }} documentation'
 
