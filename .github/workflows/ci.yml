@@ -53,9 +53,9 @@ jobs:
 
     - name: Test with pytest
       env:
-        REDIS_HOST: localhost
-        REDIS_PORT: 6379
-        RIOT_API_KEY: RGAPI-test-key-for-testing
+        REDIS_HOST: ${{ secrets.REDIS_HOST || 'localhost' }}
+        REDIS_PORT: ${{ secrets.REDIS_PORT || '6379' }}
+        RIOT_API_KEY: ${{ secrets.RIOT_API_KEY || 'RGAPI-test-key-for-testing' }}
       run: |
         uv run pytest --cov=app --cov-report=xml --cov-report=html -v
 
@@ -73,9 +73,9 @@ jobs:
 
     - name: Check API documentation generation
       env:
-        REDIS_HOST: localhost
-        REDIS_PORT: 6379
-        RIOT_API_KEY: RGAPI-test-key-for-testing
+        REDIS_HOST: ${{ secrets.REDIS_HOST || 'localhost' }}
+        REDIS_PORT: ${{ secrets.REDIS_PORT || '6379' }}
+        RIOT_API_KEY: ${{ secrets.RIOT_API_KEY || 'RGAPI-test-key-for-testing' }}
       run: |
         # Verify API docs can be generated from OpenAPI
         uv run python -c "
