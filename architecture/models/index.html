@@ -1,0 +1,2417 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Riot Games API Gateway with caching, rate limiting, and match tracking">
+      
+      
+      
+      
+        <link rel="prev" href="../overview/">
+      
+      
+        <link rel="next" href="../rate-limiting/">
+      
+      
+      <link rel="icon" href="../../assets/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+    
+    
+      
+        <title>Data Models - LOLStonks API Gateway</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.84d31ad4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#data-models-validation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="LOLStonks API Gateway" class="md-header__button md-logo" aria-label="LOLStonks API Gateway" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            LOLStonks API Gateway
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Data Models
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/OneStepAt4time/lolstonks-api-gateway" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../getting-started/installation/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../api/openapi-spec/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Architecture
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../operations/monitoring/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Operations
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../development/contributing/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Development
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="LOLStonks API Gateway" class="md-nav__button md-logo" aria-label="LOLStonks API Gateway" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    LOLStonks API Gateway
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/OneStepAt4time/lolstonks-api-gateway" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Quick Start
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Production Deployment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/openapi-spec/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OpenAPI Specification
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/riot-client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Riot Client
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Models
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/routers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Routers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/cache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cache
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Architecture
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Data Models
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data Models
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#model-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Model Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#directory-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Directory Structure
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Components
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#regional-routing-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      Regional Routing Models
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Regional Routing Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#platform-regions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Platform Regions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#game-regions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Game Regions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#base-query-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      Base Query Models
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Base Query Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#region-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Region Query
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#platform-region-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Platform Region Query
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pagination-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pagination Query
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specialized-enums" class="md-nav__link">
+    <span class="md-ellipsis">
+      Specialized Enums
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Specialized Enums">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#queue-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Queue Types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#challenge-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      Challenge Levels
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage Patterns
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#router-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Router Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-naming-conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model Naming Conventions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-specific-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      API-Specific Examples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API-Specific Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#match-v5-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      Match V5 Models
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#account-v1-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      Account V1 Models
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#league-v4-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      League V4 Models
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validation-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validation Features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Validation Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-validation-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Validation Patterns
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Validation Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#string-length-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      String Length Validation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#numeric-range-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Numeric Range Validation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern-matching" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pattern Matching
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enum-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enum Validation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migration-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Migration Status
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Migration Status">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#completed-migrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Completed Migrations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pending-migrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔄 Pending Migrations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Benefits
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Benefits">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-type-safety-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Type Safety &amp; Validation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-automatic-openapi-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Automatic OpenAPI Documentation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-code-reusability" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Code Reusability
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-easy-extension" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Easy Extension
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error Handling
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rate-limiting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Rate Limiting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../caching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Caching Strategy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Operations
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Operations
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operations/monitoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Monitoring
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operations/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operations/security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Security
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Development
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Testing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#model-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Model Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#directory-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Directory Structure
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Components
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#regional-routing-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      Regional Routing Models
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Regional Routing Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#platform-regions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Platform Regions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#game-regions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Game Regions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#base-query-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      Base Query Models
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Base Query Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#region-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Region Query
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#platform-region-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Platform Region Query
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pagination-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pagination Query
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specialized-enums" class="md-nav__link">
+    <span class="md-ellipsis">
+      Specialized Enums
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Specialized Enums">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#queue-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Queue Types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#challenge-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      Challenge Levels
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage Patterns
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#router-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Router Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-naming-conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model Naming Conventions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-specific-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      API-Specific Examples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API-Specific Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#match-v5-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      Match V5 Models
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#account-v1-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      Account V1 Models
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#league-v4-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      League V4 Models
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validation-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validation Features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Validation Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-validation-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Validation Patterns
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Validation Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#string-length-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      String Length Validation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#numeric-range-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Numeric Range Validation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern-matching" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pattern Matching
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enum-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enum Validation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migration-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Migration Status
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Migration Status">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#completed-migrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Completed Migrations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pending-migrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔄 Pending Migrations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Benefits
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Benefits">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-type-safety-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Type Safety &amp; Validation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-automatic-openapi-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Automatic OpenAPI Documentation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-code-reusability" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Code Reusability
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-easy-extension" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Easy Extension
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error Handling
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="data-models-validation">Data Models &amp; Validation<a class="headerlink" href="#data-models-validation" title="Permanent link">&para;</a></h1>
+<p>This section describes the comprehensive Pydantic V2 input validation system used throughout the LOLStonks API Gateway.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>All API endpoints use Pydantic V2 models for input validation, providing:</p>
+<ul>
+<li><strong>Type Safety</strong>: Automatic validation of input types and constraints</li>
+<li><strong>Self-Documenting API</strong>: Automatic OpenAPI schema generation</li>
+<li><strong>Reusability</strong>: Shared models reduce code duplication</li>
+<li><strong>Extensibility</strong>: Easy to add new validation rules and constraints</li>
+<li><strong>Better Error Handling</strong>: Detailed validation error messages</li>
+</ul>
+<h2 id="model-architecture">Model Architecture<a class="headerlink" href="#model-architecture" title="Permanent link">&para;</a></h2>
+<h3 id="directory-structure">Directory Structure<a class="headerlink" href="#directory-structure" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>app/models/
+├── __init__.py          # Central exports and registry
+├── common.py            # Base models, enums, and shared utilities
+├── account.py           # ACCOUNT-V1 (Riot ID) models
+├── summoner.py          # SUMMONER-V4 models
+├── match.py             # MATCH-V5 models
+├── league.py            # LEAGUE-V4 models
+├── champion_mastery.py  # CHAMPION-MASTERY-V4 models
+├── challenges.py        # CHALLENGES-V1 models
+├── clash.py             # CLASH-V1 models
+├── spectator.py         # SPECTATOR-V5 models
+├── platform.py          # LOL-STATUS-V4 models
+└── champion.py          # CHAMPION-V3 models
+</code></pre></div>
+<h2 id="core-components">Core Components<a class="headerlink" href="#core-components" title="Permanent link">&para;</a></h2>
+<h3 id="regional-routing-models">Regional Routing Models<a class="headerlink" href="#regional-routing-models" title="Permanent link">&para;</a></h3>
+<h4 id="platform-regions">Platform Regions<a class="headerlink" href="#platform-regions" title="Permanent link">&para;</a></h4>
+<p>Used for Account-V1 and Match-V5 APIs that require regional routing:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">PlatformRegion</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Regional routing for platform endpoints.&quot;&quot;&quot;</span>
+    <span class="n">AMERICAS</span> <span class="o">=</span> <span class="s2">&quot;americas&quot;</span>
+    <span class="n">EUROPE</span> <span class="o">=</span> <span class="s2">&quot;europe&quot;</span>
+    <span class="n">ASIA</span> <span class="o">=</span> <span class="s2">&quot;asia&quot;</span>
+    <span class="n">SEA</span> <span class="o">=</span> <span class="s2">&quot;sea&quot;</span>
+</code></pre></div>
+<h4 id="game-regions">Game Regions<a class="headerlink" href="#game-regions" title="Permanent link">&para;</a></h4>
+<p>Used for game-specific endpoints (summoner, league, etc.):</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">GameRegion</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Game-specific regions.&quot;&quot;&quot;</span>
+    <span class="c1"># Europe</span>
+    <span class="n">EUW1</span> <span class="o">=</span> <span class="s2">&quot;euw1&quot;</span>     <span class="c1"># Europe West</span>
+    <span class="n">EUN1</span> <span class="o">=</span> <span class="s2">&quot;eun1&quot;</span>     <span class="c1"># Europe Nordic &amp; East</span>
+    <span class="n">TR1</span> <span class="o">=</span> <span class="s2">&quot;tr1&quot;</span>       <span class="c1"># Turkey</span>
+    <span class="n">RU</span> <span class="o">=</span> <span class="s2">&quot;ru&quot;</span>         <span class="c1"># Russia</span>
+
+    <span class="c1"># Americas</span>
+    <span class="n">NA1</span> <span class="o">=</span> <span class="s2">&quot;na1&quot;</span>       <span class="c1"># North America</span>
+    <span class="n">BR1</span> <span class="o">=</span> <span class="s2">&quot;br1&quot;</span>       <span class="c1"># Brazil</span>
+    <span class="n">LA1</span> <span class="o">=</span> <span class="s2">&quot;la1&quot;</span>       <span class="c1"># Latin America North</span>
+    <span class="n">LA2</span> <span class="o">=</span> <span class="s2">&quot;la2&quot;</span>       <span class="c1"># Latin America South</span>
+
+    <span class="c1"># Asia</span>
+    <span class="n">KR</span> <span class="o">=</span> <span class="s2">&quot;kr&quot;</span>         <span class="c1"># Korea</span>
+    <span class="n">JP1</span> <span class="o">=</span> <span class="s2">&quot;jp1&quot;</span>       <span class="c1"># Japan</span>
+
+    <span class="c1"># SEA/Oceania</span>
+    <span class="n">OC1</span> <span class="o">=</span> <span class="s2">&quot;oc1&quot;</span>       <span class="c1"># Oceania</span>
+    <span class="n">PH2</span> <span class="o">=</span> <span class="s2">&quot;ph2&quot;</span>       <span class="c1"># Philippines</span>
+    <span class="n">SG2</span> <span class="o">=</span> <span class="s2">&quot;sg2&quot;</span>       <span class="c1"># Singapore</span>
+    <span class="n">TH2</span> <span class="o">=</span> <span class="s2">&quot;th2&quot;</span>       <span class="c1"># Thailand</span>
+    <span class="n">TW2</span> <span class="o">=</span> <span class="s2">&quot;tw2&quot;</span>       <span class="c1"># Taiwan</span>
+    <span class="n">VN2</span> <span class="o">=</span> <span class="s2">&quot;vn2&quot;</span>       <span class="c1"># Vietnam</span>
+</code></pre></div>
+<h3 id="base-query-models">Base Query Models<a class="headerlink" href="#base-query-models" title="Permanent link">&para;</a></h3>
+<h4 id="region-query">Region Query<a class="headerlink" href="#region-query" title="Permanent link">&para;</a></h4>
+<p>Standard region parameter for game-specific endpoints:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">RegionQuery</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Standard region parameter for game-specific endpoints.&quot;&quot;&quot;</span>
+    <span class="n">region</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">GameRegion</span><span class="p">,</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">GameRegion</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">riot_default_region</span><span class="p">),</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Riot API game region&quot;</span>
+    <span class="p">)]</span>
+</code></pre></div>
+<h4 id="platform-region-query">Platform Region Query<a class="headerlink" href="#platform-region-query" title="Permanent link">&para;</a></h4>
+<p>Regional routing for platform endpoints:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">PlatformRegionQuery</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Regional routing for platform endpoints (ACCOUNT, MATCH APIs).&quot;&quot;&quot;</span>
+    <span class="n">region</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">PlatformRegion</span><span class="p">,</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">PlatformRegion</span><span class="o">.</span><span class="n">AMERICAS</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Riot API platform region&quot;</span>
+    <span class="p">)]</span>
+</code></pre></div>
+<h4 id="pagination-query">Pagination Query<a class="headerlink" href="#pagination-query" title="Permanent link">&para;</a></h4>
+<p>Standard pagination parameters for list endpoints:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">PaginationQuery</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Pagination parameters for list endpoints.&quot;&quot;&quot;</span>
+    <span class="n">start</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Start index for pagination&quot;</span>
+    <span class="p">)]</span>
+    <span class="n">count</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+        <span class="n">ge</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">le</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Number of items to return (1-100)&quot;</span>
+    <span class="p">)]</span>
+</code></pre></div>
+<h3 id="specialized-enums">Specialized Enums<a class="headerlink" href="#specialized-enums" title="Permanent link">&para;</a></h3>
+<h4 id="queue-types">Queue Types<a class="headerlink" href="#queue-types" title="Permanent link">&para;</a></h4>
+<p>Ranked queue identifiers:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">QueueType</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Ranked queue types.&quot;&quot;&quot;</span>
+    <span class="n">RANKED_SOLO_5x5</span> <span class="o">=</span> <span class="s2">&quot;RANKED_SOLO_5x5&quot;</span>
+    <span class="n">RANKED_FLEX_SR</span> <span class="o">=</span> <span class="s2">&quot;RANKED_FLEX_SR&quot;</span>
+    <span class="n">RANKED_FLEX_TT</span> <span class="o">=</span> <span class="s2">&quot;RANKED_FLEX_TT&quot;</span>
+</code></pre></div>
+<h4 id="challenge-levels">Challenge Levels<a class="headerlink" href="#challenge-levels" title="Permanent link">&para;</a></h4>
+<p>Challenge tier levels:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ChallengeLevel</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Challenge tier levels.&quot;&quot;&quot;</span>
+    <span class="n">MASTER</span> <span class="o">=</span> <span class="s2">&quot;MASTER&quot;</span>
+    <span class="n">GRANDMASTER</span> <span class="o">=</span> <span class="s2">&quot;GRANDMASTER&quot;</span>
+    <span class="n">CHALLENGER</span> <span class="o">=</span> <span class="s2">&quot;CHALLENGER&quot;</span>
+</code></pre></div>
+<h2 id="usage-patterns">Usage Patterns<a class="headerlink" href="#usage-patterns" title="Permanent link">&para;</a></h2>
+<h3 id="router-implementation">Router Implementation<a class="headerlink" href="#router-implementation" title="Permanent link">&para;</a></h3>
+<p>Endpoints use FastAPI's dependency injection system with Pydantic models:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Annotated</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">APIRouter</span><span class="p">,</span> <span class="n">Depends</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">app.models.match</span><span class="w"> </span><span class="kn">import</span> <span class="n">MatchIdsByPuuidParams</span><span class="p">,</span> <span class="n">MatchIdsByPuuidQuery</span>
+
+<span class="n">router</span> <span class="o">=</span> <span class="n">APIRouter</span><span class="p">()</span>
+
+<span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/matches/by-puuid/</span><span class="si">{puuid}</span><span class="s2">/ids&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_match_ids_by_puuid</span><span class="p">(</span>
+    <span class="n">params</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">MatchIdsByPuuidParams</span><span class="p">,</span> <span class="n">Depends</span><span class="p">()],</span>
+    <span class="n">query</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">MatchIdsByPuuidQuery</span><span class="p">,</span> <span class="n">Depends</span><span class="p">()],</span>
+<span class="p">):</span>
+    <span class="c1"># Access validated parameters</span>
+    <span class="n">puuid</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">puuid</span>
+    <span class="n">region</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">region</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">start</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">count</span>
+
+    <span class="c1"># Optional filtering parameters</span>
+    <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">startTime</span><span class="p">:</span>
+        <span class="c1"># Filter by start time</span>
+        <span class="k">pass</span>
+</code></pre></div>
+<h3 id="model-naming-conventions">Model Naming Conventions<a class="headerlink" href="#model-naming-conventions" title="Permanent link">&para;</a></h3>
+<p>Models follow consistent naming patterns:</p>
+<ul>
+<li><strong>Path Parameters</strong>: <code>{EndpointName}Params</code></li>
+<li>
+<p>Examples: <code>MatchIdsByPuuidParams</code>, <code>AccountByPuuidParams</code></p>
+</li>
+<li>
+<p><strong>Query Parameters</strong>: <code>{EndpointName}Query</code></p>
+</li>
+<li>Examples: <code>MatchIdsByPuuidQuery</code>, <code>AccountByPuuidQuery</code></li>
+</ul>
+<h2 id="api-specific-examples">API-Specific Examples<a class="headerlink" href="#api-specific-examples" title="Permanent link">&para;</a></h2>
+<h3 id="match-v5-models">Match V5 Models<a class="headerlink" href="#match-v5-models" title="Permanent link">&para;</a></h3>
+<p>Enhanced query parameters for match history:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">MatchIdsByPuuidQuery</span><span class="p">(</span><span class="n">PlatformRegionQuery</span><span class="p">,</span> <span class="n">PaginationQuery</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Match history query parameters with comprehensive filtering.&quot;&quot;&quot;</span>
+    <span class="n">startTime</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Filter matches after this timestamp (epoch milliseconds)&quot;</span>
+    <span class="p">)]</span>
+    <span class="n">endTime</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Filter matches before this timestamp (epoch milliseconds)&quot;</span>
+    <span class="p">)]</span>
+    <span class="n">queue</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Filter by queue ID (420 for Ranked Solo)&quot;</span>
+    <span class="p">)]</span>
+    <span class="nb">type</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Match type: ranked, normal, tourney, tutorial&quot;</span>
+    <span class="p">)]</span>
+</code></pre></div>
+<p><strong>Example Usage:</strong>
+<div class="highlight"><pre><span></span><code>GET<span class="w"> </span>/lol/match/v5/matches/by-puuid/<span class="o">{</span>puuid<span class="o">}</span>/ids?region<span class="o">=</span>europe<span class="p">&amp;</span><span class="nv">start</span><span class="o">=</span><span class="m">0</span><span class="p">&amp;</span><span class="nv">count</span><span class="o">=</span><span class="m">20</span><span class="p">&amp;</span><span class="nv">startTime</span><span class="o">=</span><span class="m">1640000000</span><span class="p">&amp;</span><span class="nv">queue</span><span class="o">=</span><span class="m">420</span><span class="p">&amp;</span><span class="nv">type</span><span class="o">=</span>ranked
+</code></pre></div></p>
+<h3 id="account-v1-models">Account V1 Models<a class="headerlink" href="#account-v1-models" title="Permanent link">&para;</a></h3>
+<p>Riot ID validation with proper constraints:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">AccountByRiotIdParams</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Riot ID components with validation.&quot;&quot;&quot;</span>
+    <span class="n">gameName</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">min_length</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Summoner name (1-100 characters)&quot;</span>
+    <span class="p">)]</span>
+    <span class="n">tagLine</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">min_length</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Tag line (1-100 characters)&quot;</span>
+    <span class="p">)]</span>
+</code></pre></div>
+<h3 id="league-v4-models">League V4 Models<a class="headerlink" href="#league-v4-models" title="Permanent link">&para;</a></h3>
+<p>Enum-based queue validation:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">LeagueByQueueParams</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;League parameters with queue type validation.&quot;&quot;&quot;</span>
+    <span class="n">queue</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">QueueType</span><span class="p">,</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Ranked queue type&quot;</span>
+    <span class="p">)]</span>
+</code></pre></div>
+<h2 id="validation-features">Validation Features<a class="headerlink" href="#validation-features" title="Permanent link">&para;</a></h2>
+<h3 id="common-validation-patterns">Common Validation Patterns<a class="headerlink" href="#common-validation-patterns" title="Permanent link">&para;</a></h3>
+<h4 id="string-length-validation">String Length Validation<a class="headerlink" href="#string-length-validation" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">puuid</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Field</span><span class="p">(</span>
+    <span class="n">min_length</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Player UUID (1-100 characters)&quot;</span>
+<span class="p">)]</span>
+</code></pre></div>
+<h4 id="numeric-range-validation">Numeric Range Validation<a class="headerlink" href="#numeric-range-validation" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">count</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Field</span><span class="p">(</span>
+    <span class="n">ge</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">le</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Number of items (1-100)&quot;</span>
+<span class="p">)]</span>
+</code></pre></div>
+<h4 id="pattern-matching">Pattern Matching<a class="headerlink" href="#pattern-matching" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">matchId</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Field</span><span class="p">(</span>
+    <span class="n">pattern</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;^[A-Z0-9]+_\d+$&quot;</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Match ID format: TRAILING_NUMBER&quot;</span>
+<span class="p">)]</span>
+</code></pre></div>
+<h4 id="enum-validation">Enum Validation<a class="headerlink" href="#enum-validation" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">queue</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">QueueType</span><span class="p">,</span> <span class="n">Field</span><span class="p">(</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Queue type for ranked play&quot;</span>
+<span class="p">)]</span>
+</code></pre></div>
+<h2 id="migration-status">Migration Status<a class="headerlink" href="#migration-status" title="Permanent link">&para;</a></h2>
+<h3 id="completed-migrations">✅ Completed Migrations<a class="headerlink" href="#completed-migrations" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Account-V1</strong>: All endpoints migrated to PlatformRegionQuery</li>
+<li><strong>Match-V5</strong>: All endpoints migrated with enhanced filtering parameters</li>
+</ul>
+<h3 id="pending-migrations">🔄 Pending Migrations<a class="headerlink" href="#pending-migrations" title="Permanent link">&para;</a></h3>
+<p>The following endpoints are scheduled for migration to Pydantic models:</p>
+<ul>
+<li>SUMMONER-V4 (summonerByName, summonerByPuuid, etc.)</li>
+<li>LEAGUE-V4 (challengerByQueue, grandmasterByQueue, etc.)</li>
+<li>CHAMPION-MASTERY-V4 (all mastery endpoints)</li>
+<li>CHALLENGES-V1 (player challenges)</li>
+<li>CLASH-V1 (tournament information)</li>
+<li>SPECTATOR-V5 (live game data)</li>
+<li>LOL-STATUS-V4 (platform status)</li>
+<li>CHAMPION-V3 (champion information)</li>
+</ul>
+<h2 id="benefits">Benefits<a class="headerlink" href="#benefits" title="Permanent link">&para;</a></h2>
+<h3 id="1-type-safety-validation">1. Type Safety &amp; Validation<a class="headerlink" href="#1-type-safety-validation" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Before: No validation</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_summoner</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">region</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;euw1&quot;</span><span class="p">):</span>
+    <span class="k">pass</span>  <span class="c1"># Any string accepted, no validation</span>
+
+<span class="c1"># After: Comprehensive validation</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_summoner</span><span class="p">(</span>
+    <span class="n">params</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">SummonerByNameParams</span><span class="p">,</span> <span class="n">Depends</span><span class="p">()],</span>
+    <span class="n">query</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">RegionQuery</span><span class="p">,</span> <span class="n">Depends</span><span class="p">()],</span>
+<span class="p">):</span>
+    <span class="k">pass</span>  <span class="c1"># Validated summoner name and region</span>
+</code></pre></div>
+<h3 id="2-automatic-openapi-documentation">2. Automatic OpenAPI Documentation<a class="headerlink" href="#2-automatic-openapi-documentation" title="Permanent link">&para;</a></h3>
+<p>FastAPI generates detailed API documentation from Pydantic models:
+- Field types and constraints
+- Default values and descriptions
+- Enum values and meanings
+- Validation rules and error messages</p>
+<h3 id="3-code-reusability">3. Code Reusability<a class="headerlink" href="#3-code-reusability" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Region query used across multiple endpoints</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SummonerByNameQuery</span><span class="p">(</span><span class="n">RegionQuery</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">SummonerByPuuidQuery</span><span class="p">(</span><span class="n">RegionQuery</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="c1"># Both inherit region validation automatically</span>
+</code></pre></div>
+<h3 id="4-easy-extension">4. Easy Extension<a class="headerlink" href="#4-easy-extension" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Add new optional parameter without breaking changes</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MatchIdsByPuuidQuery</span><span class="p">(</span><span class="n">PlatformRegionQuery</span><span class="p">,</span> <span class="n">PaginationQuery</span><span class="p">):</span>
+    <span class="c1"># Future extensions</span>
+    <span class="n">champion</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Filter by champion ID&quot;</span>
+    <span class="p">)]</span>
+    <span class="n">role</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Filter by role&quot;</span>
+    <span class="p">)]</span>
+</code></pre></div>
+<h2 id="error-handling">Error Handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h2>
+<p>Pydantic provides detailed validation errors:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;loc&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;count&quot;</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;msg&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ensure this value is less than or equal to 100&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;value_error.number.not_le&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;ctx&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;limit_value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>This validation system ensures API reliability, developer productivity, and excellent user experience through clear error messages and comprehensive API documentation.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>
