@@ -72,6 +72,10 @@ jobs:
         uv run mkdocs build
 
     - name: Check API documentation generation
+      env:
+        REDIS_HOST: localhost
+        REDIS_PORT: 6379
+        RIOT_API_KEY: RGAPI-test-key-for-testing
       run: |
         # Verify API docs can be generated from OpenAPI
         uv run python -c "
