@@ -34,6 +34,7 @@ theme:
 
 plugins:
   - search
+  - swagger-ui-tag
   - mkdocstrings:
       handlers:
         python:
@@ -56,6 +57,7 @@ nav:
     - Configuration: getting-started/configuration.md
     - Production Deployment: getting-started/deployment.md
   - API Reference:
+    - OpenAPI Specification: api/openapi-spec.md
     - Overview: api/overview.md
     - Riot Client: api/riot-client.md
     - Models: api/models.md
