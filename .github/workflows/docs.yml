@@ -35,7 +35,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        uv pip install -e ".[docs]"
+        uv sync --extra docs
 
     - name: Generate API documentation
       run: |
@@ -97,8 +97,8 @@ jobs:
 
     - name: Install dependencies
       run: |
-        uv pip install -e ".[docs]"
-        uv pip install markdownlint-cli2
+        uv sync --extra docs
+        uv pip install --system markdownlint-cli2
 
     - name: Lint Markdown files
       run: |
@@ -112,5 +112,5 @@ jobs:
 
     - name: Check links
       run: |
-        uv pip install lychee
+        uv pip install --system lychee
         lychee docs/**/*.md --verbose --no-progress --exclude-mail
