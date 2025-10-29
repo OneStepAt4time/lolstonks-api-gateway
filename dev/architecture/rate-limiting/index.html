@@ -307,7 +307,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../operations/monitoring/" class="md-tabs__link">
+        <a href="../../operations/implementation-status/" class="md-tabs__link">
           
   
   
@@ -792,6 +792,8 @@
       
         
       
+        
+      
     
     
     
@@ -844,6 +846,29 @@
   
   <span class="md-ellipsis">
     Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../implementation-details/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Implementation Details
     
   </span>
   
@@ -1260,6 +1285,8 @@
       
         
       
+        
+      
     
     
     
@@ -1297,6 +1324,29 @@
             Operations
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operations/implementation-status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Implementation Status
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -1823,6 +1873,9 @@
 
 <h1 id="rate-limiting-architecture">Rate Limiting Architecture<a class="headerlink" href="#rate-limiting-architecture" title="Permanent link">&para;</a></h1>
 <p>This section details the rate limiting implementation in the LOLStonks API Gateway, designed to ensure compliance with Riot Games API rate limits while providing optimal performance.</p>
+<blockquote>
+<p><strong>📝 Documentation Note</strong>: This document describes the conceptual architecture and best practices for rate limiting. The actual implementation uses the <a href="https://github.com/mjpieters/aiolimiter">aiolimiter</a> library, which provides a production-ready token bucket algorithm. Some code examples below are simplified for educational purposes.</p>
+</blockquote>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p>The rate limiting system uses a <strong>token bucket algorithm</strong> to control the flow of requests to the Riot Games API, preventing rate limit violations and ensuring fair usage.</p>
 <h2 id="token-bucket-algorithm">Token Bucket Algorithm<a class="headerlink" href="#token-bucket-algorithm" title="Permanent link">&para;</a></h2>
@@ -1853,7 +1906,10 @@
     Process --&gt; Bucket
 </code></pre></div>
 <h3 id="implementation-details">Implementation Details<a class="headerlink" href="#implementation-details" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># app/riot/rate_limiter.py</span>
+<blockquote>
+<p><strong>💡 Actual Implementation</strong>: The real code in <code>app/riot/rate_limiter.py</code> uses <code>aiolimiter.AsyncLimiter</code> for simplicity and reliability. The example below shows a conceptual implementation for educational purposes.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="c1"># Conceptual implementation (not actual code)</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>

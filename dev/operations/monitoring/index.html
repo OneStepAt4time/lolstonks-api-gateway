@@ -11,7 +11,7 @@
       
       
       
-        <link rel="prev" href="../../architecture/caching/">
+        <link rel="prev" href="../implementation-status/">
       
       
         <link rel="next" href="../troubleshooting/">
@@ -307,7 +307,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+        <a href="../implementation-status/" class="md-tabs__link">
           
   
   
@@ -790,6 +790,8 @@
       
         
       
+        
+      
     
     
     
@@ -841,6 +843,29 @@
   
   <span class="md-ellipsis">
     Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/implementation-details/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Implementation Details
     
   </span>
   
@@ -944,6 +969,8 @@
       
         
       
+        
+      
     
     
     
@@ -982,6 +1009,29 @@
             Operations
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../implementation-status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Implementation Status
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -1102,9 +1152,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#comprehensive-health-endpoint" class="md-nav__link">
+  <a href="#current-implementation" class="md-nav__link">
     <span class="md-ellipsis">
-      Comprehensive Health Endpoint
+      Current Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comprehensive-health-endpoint-potential-enhancement" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comprehensive Health Endpoint (Potential Enhancement)
     </span>
   </a>
   
@@ -1126,9 +1185,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#structured-logging-configuration" class="md-nav__link">
+  <a href="#current-implementation_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Structured Logging Configuration
+      Current Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structured-logging-configuration-potential-enhancement" class="md-nav__link">
+    <span class="md-ellipsis">
+      Structured Logging Configuration (Potential Enhancement)
     </span>
   </a>
   
@@ -1174,9 +1242,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#prometheusyml" class="md-nav__link">
+  <a href="#prometheusyml-example-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      prometheus.yml
+      prometheus.yml (Example Configuration)
     </span>
   </a>
   
@@ -1207,9 +1275,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#dashboard-configuration" class="md-nav__link">
+  <a href="#dashboard-configuration-example" class="md-nav__link">
     <span class="md-ellipsis">
-      Dashboard Configuration
+      Dashboard Configuration (Example)
     </span>
   </a>
   
@@ -1236,19 +1304,19 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#log-aggregation-with-elk-stack" class="md-nav__link">
+  <a href="#log-aggregation-with-elk-stack-example" class="md-nav__link">
     <span class="md-ellipsis">
-      Log Aggregation with ELK Stack
+      Log Aggregation with ELK Stack (Example)
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Log Aggregation with ELK Stack">
+    <nav class="md-nav" aria-label="Log Aggregation with ELK Stack (Example)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#logstash-configuration" class="md-nav__link">
+  <a href="#logstash-configuration-example" class="md-nav__link">
     <span class="md-ellipsis">
-      Logstash Configuration
+      Logstash Configuration (Example)
     </span>
   </a>
   
@@ -1284,18 +1352,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#distributed-tracing-with-opentelemetry" class="md-nav__link">
+  <a href="#distributed-tracing-with-opentelemetry-potential-enhancement" class="md-nav__link">
     <span class="md-ellipsis">
-      Distributed Tracing with OpenTelemetry
+      Distributed Tracing with OpenTelemetry (Potential Enhancement)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#custom-metrics" class="md-nav__link">
+  <a href="#custom-metrics-potential-enhancement" class="md-nav__link">
     <span class="md-ellipsis">
-      Custom Metrics
+      Custom Metrics (Potential Enhancement)
     </span>
   </a>
   
@@ -1317,9 +1385,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#alert-configuration" class="md-nav__link">
+  <a href="#alert-configuration-example" class="md-nav__link">
     <span class="md-ellipsis">
-      Alert Configuration
+      Alert Configuration (Example)
     </span>
   </a>
   
@@ -1336,6 +1404,15 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
   
 </li>
       
@@ -1619,9 +1696,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#comprehensive-health-endpoint" class="md-nav__link">
+  <a href="#current-implementation" class="md-nav__link">
     <span class="md-ellipsis">
-      Comprehensive Health Endpoint
+      Current Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comprehensive-health-endpoint-potential-enhancement" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comprehensive Health Endpoint (Potential Enhancement)
     </span>
   </a>
   
@@ -1643,9 +1729,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#structured-logging-configuration" class="md-nav__link">
+  <a href="#current-implementation_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Structured Logging Configuration
+      Current Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structured-logging-configuration-potential-enhancement" class="md-nav__link">
+    <span class="md-ellipsis">
+      Structured Logging Configuration (Potential Enhancement)
     </span>
   </a>
   
@@ -1691,9 +1786,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#prometheusyml" class="md-nav__link">
+  <a href="#prometheusyml-example-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      prometheus.yml
+      prometheus.yml (Example Configuration)
     </span>
   </a>
   
@@ -1724,9 +1819,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#dashboard-configuration" class="md-nav__link">
+  <a href="#dashboard-configuration-example" class="md-nav__link">
     <span class="md-ellipsis">
-      Dashboard Configuration
+      Dashboard Configuration (Example)
     </span>
   </a>
   
@@ -1753,19 +1848,19 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#log-aggregation-with-elk-stack" class="md-nav__link">
+  <a href="#log-aggregation-with-elk-stack-example" class="md-nav__link">
     <span class="md-ellipsis">
-      Log Aggregation with ELK Stack
+      Log Aggregation with ELK Stack (Example)
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Log Aggregation with ELK Stack">
+    <nav class="md-nav" aria-label="Log Aggregation with ELK Stack (Example)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#logstash-configuration" class="md-nav__link">
+  <a href="#logstash-configuration-example" class="md-nav__link">
     <span class="md-ellipsis">
-      Logstash Configuration
+      Logstash Configuration (Example)
     </span>
   </a>
   
@@ -1801,18 +1896,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#distributed-tracing-with-opentelemetry" class="md-nav__link">
+  <a href="#distributed-tracing-with-opentelemetry-potential-enhancement" class="md-nav__link">
     <span class="md-ellipsis">
-      Distributed Tracing with OpenTelemetry
+      Distributed Tracing with OpenTelemetry (Potential Enhancement)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#custom-metrics" class="md-nav__link">
+  <a href="#custom-metrics-potential-enhancement" class="md-nav__link">
     <span class="md-ellipsis">
-      Custom Metrics
+      Custom Metrics (Potential Enhancement)
     </span>
   </a>
   
@@ -1834,9 +1929,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#alert-configuration" class="md-nav__link">
+  <a href="#alert-configuration-example" class="md-nav__link">
     <span class="md-ellipsis">
-      Alert Configuration
+      Alert Configuration (Example)
     </span>
   </a>
   
@@ -1853,6 +1948,15 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
   
 </li>
       
@@ -1877,6 +1981,21 @@
 
 <h1 id="monitoring-and-observability">Monitoring and Observability<a class="headerlink" href="#monitoring-and-observability" title="Permanent link">&para;</a></h1>
 <p>This guide covers monitoring, logging, and observability for the LOLStonks API Gateway in production environments.</p>
+<blockquote>
+<p><strong>📝 Documentation Note</strong>: This document describes <strong>best practices and potential implementations</strong> for production monitoring. Many of these features represent future enhancements rather than current implementation.</p>
+<p><strong>Currently Implemented</strong> ✅:
+- Basic health check endpoint (<code>/health</code> returns <code>{"status": "ok"}</code>)
+- Loguru logging to stderr
+- Basic application startup/shutdown logging</p>
+<p><strong>Not Yet Implemented</strong> ❌ (Potential Future Enhancements):
+- Prometheus metrics collection
+- Grafana dashboards
+- ELK stack integration
+- OpenTelemetry distributed tracing
+- Advanced health checks (Redis/Riot API status)
+- Custom metrics middleware</p>
+<p>For actual implementation details, see <a href="../../architecture/implementation-details/">Implementation Details</a>.</p>
+</blockquote>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p>Effective monitoring ensures:
 - <strong>Proactive Issue Detection</strong>: Identify problems before users notice
@@ -1935,7 +2054,10 @@
 </tbody>
 </table>
 <h4 id="custom-metrics-implementation">Custom Metrics Implementation<a class="headerlink" href="#custom-metrics-implementation" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="c1"># app/monitoring.py</span>
+<blockquote>
+<p><strong>💡 Potential Implementation</strong>: The code below shows how to implement Prometheus metrics. This is <strong>not currently implemented</strong> in the codebase.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="c1"># Example: app/monitoring.py (NOT IMPLEMENTED)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">prometheus_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">Histogram</span><span class="p">,</span> <span class="n">Gauge</span><span class="p">,</span> <span class="n">generate_latest</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
@@ -1990,8 +2112,19 @@
             <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="n">receive</span><span class="p">,</span> <span class="n">send</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="2-health-checks">2. Health Checks<a class="headerlink" href="#2-health-checks" title="Permanent link">&para;</a></h3>
-<h4 id="comprehensive-health-endpoint">Comprehensive Health Endpoint<a class="headerlink" href="#comprehensive-health-endpoint" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="c1"># app/health.py</span>
+<h4 id="current-implementation">Current Implementation<a class="headerlink" href="#current-implementation" title="Permanent link">&para;</a></h4>
+<p>The actual health check endpoint is very simple:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># app/routers/health.py (ACTUAL IMPLEMENTATION)</span>
+<span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/health&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">health</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Health check endpoint.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;ok&quot;</span><span class="p">}</span>
+</code></pre></div>
+<h4 id="comprehensive-health-endpoint-potential-enhancement">Comprehensive Health Endpoint (Potential Enhancement)<a class="headerlink" href="#comprehensive-health-endpoint-potential-enhancement" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p><strong>💡 Potential Implementation</strong>: Below is an example of an advanced health check. This is <strong>not currently implemented</strong>.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="c1"># Example: Comprehensive health check (NOT IMPLEMENTED)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">APIRouter</span><span class="p">,</span> <span class="n">Depends</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">app.cache.redis_cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">RedisCache</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">app.riot.client</span><span class="w"> </span><span class="kn">import</span> <span class="n">RiotClient</span>
@@ -2135,8 +2268,24 @@
     <span class="k">return</span> <span class="n">system_health</span>
 </code></pre></div>
 <h3 id="3-logging-strategy">3. Logging Strategy<a class="headerlink" href="#3-logging-strategy" title="Permanent link">&para;</a></h3>
-<h4 id="structured-logging-configuration">Structured Logging Configuration<a class="headerlink" href="#structured-logging-configuration" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="c1"># app/logging_config.py</span>
+<h4 id="current-implementation_1">Current Implementation<a class="headerlink" href="#current-implementation_1" title="Permanent link">&para;</a></h4>
+<p>The application uses Loguru for logging:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># app/main.py (ACTUAL IMPLEMENTATION)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">loguru</span><span class="w"> </span><span class="kn">import</span> <span class="n">logger</span>
+
+<span class="n">logger</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>  <span class="c1"># Remove default handler</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span>
+    <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;&lt;green&gt;{time:YYYY-MM-DD HH:mm:ss}&lt;/green&gt; | &lt;level&gt;</span><span class="si">{level: &lt;8}</span><span class="s2">&lt;/level&gt; | &lt;cyan&gt;</span><span class="si">{name}</span><span class="s2">&lt;/cyan&gt;:&lt;cyan&gt;</span><span class="si">{function}</span><span class="s2">&lt;/cyan&gt; - &lt;level&gt;</span><span class="si">{message}</span><span class="s2">&lt;/level&gt;&quot;</span><span class="p">,</span>
+    <span class="n">level</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">log_level</span><span class="p">,</span>
+    <span class="n">colorize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+<h4 id="structured-logging-configuration-potential-enhancement">Structured Logging Configuration (Potential Enhancement)<a class="headerlink" href="#structured-logging-configuration-potential-enhancement" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p><strong>💡 Potential Implementation</strong>: Below is an example of JSON structured logging. This is <strong>not currently implemented</strong>.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="c1"># Example: app/logging_config.py (NOT IMPLEMENTED)</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
@@ -2271,8 +2420,14 @@
             <span class="k">raise</span>
 </code></pre></div>
 <h2 id="monitoring-setup">Monitoring Setup<a class="headerlink" href="#monitoring-setup" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>💡 Section Note</strong>: The monitoring tools described below (Prometheus, Grafana, ELK, OpenTelemetry) are <strong>not currently implemented</strong>. These are best practices and examples for potential future implementation.</p>
+</blockquote>
 <h3 id="prometheus-configuration">Prometheus Configuration<a class="headerlink" href="#prometheus-configuration" title="Permanent link">&para;</a></h3>
-<h4 id="prometheusyml">prometheus.yml<a class="headerlink" href="#prometheusyml" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p><strong>Not Implemented</strong>: Prometheus is not currently set up for this project.</p>
+</blockquote>
+<h4 id="prometheusyml-example-configuration">prometheus.yml (Example Configuration)<a class="headerlink" href="#prometheusyml-example-configuration" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="nt">global</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15s</span>
 <span class="w">  </span><span class="nt">evaluation_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15s</span>
@@ -2353,7 +2508,10 @@
 <span class="w">          </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;LOLStonks</span><span class="nv"> </span><span class="s">API</span><span class="nv"> </span><span class="s">Gateway</span><span class="nv"> </span><span class="s">has</span><span class="nv"> </span><span class="s">been</span><span class="nv"> </span><span class="s">down</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">more</span><span class="nv"> </span><span class="s">than</span><span class="nv"> </span><span class="s">1</span><span class="nv"> </span><span class="s">minute&quot;</span>
 </code></pre></div>
 <h3 id="grafana-dashboard">Grafana Dashboard<a class="headerlink" href="#grafana-dashboard" title="Permanent link">&para;</a></h3>
-<h4 id="dashboard-configuration">Dashboard Configuration<a class="headerlink" href="#dashboard-configuration" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p><strong>Not Implemented</strong>: Grafana dashboards are not currently configured.</p>
+</blockquote>
+<h4 id="dashboard-configuration-example">Dashboard Configuration (Example)<a class="headerlink" href="#dashboard-configuration-example" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;dashboard&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
@@ -2471,8 +2629,11 @@
 <span class="p">}</span>
 </code></pre></div>
 <h2 id="log-management">Log Management<a class="headerlink" href="#log-management" title="Permanent link">&para;</a></h2>
-<h3 id="log-aggregation-with-elk-stack">Log Aggregation with ELK Stack<a class="headerlink" href="#log-aggregation-with-elk-stack" title="Permanent link">&para;</a></h3>
-<h4 id="logstash-configuration">Logstash Configuration<a class="headerlink" href="#logstash-configuration" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p><strong>Not Implemented</strong>: ELK Stack (Elasticsearch, Logstash, Kibana) is not currently configured.</p>
+</blockquote>
+<h3 id="log-aggregation-with-elk-stack-example">Log Aggregation with ELK Stack (Example)<a class="headerlink" href="#log-aggregation-with-elk-stack-example" title="Permanent link">&para;</a></h3>
+<h4 id="logstash-configuration-example">Logstash Configuration (Example)<a class="headerlink" href="#logstash-configuration-example" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="c1"># logstash.conf</span>
 <span class="n">input</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="n">file</span><span class="w"> </span><span class="p">{</span>
@@ -2557,8 +2718,14 @@
 <span class="p">}</span>
 </code></pre></div>
 <h2 id="advanced-monitoring">Advanced Monitoring<a class="headerlink" href="#advanced-monitoring" title="Permanent link">&para;</a></h2>
-<h3 id="distributed-tracing-with-opentelemetry">Distributed Tracing with OpenTelemetry<a class="headerlink" href="#distributed-tracing-with-opentelemetry" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># app/tracing.py</span>
+<blockquote>
+<p><strong>Not Implemented</strong>: The advanced monitoring features below are not currently implemented.</p>
+</blockquote>
+<h3 id="distributed-tracing-with-opentelemetry-potential-enhancement">Distributed Tracing with OpenTelemetry (Potential Enhancement)<a class="headerlink" href="#distributed-tracing-with-opentelemetry-potential-enhancement" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>Not Implemented</strong>: OpenTelemetry tracing is not currently configured.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="c1"># Example: app/tracing.py (NOT IMPLEMENTED)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">opentelemetry</span><span class="w"> </span><span class="kn">import</span> <span class="n">trace</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">opentelemetry.exporter.jaeger.thrift</span><span class="w"> </span><span class="kn">import</span> <span class="n">JaegerExporter</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">opentelemetry.sdk.trace</span><span class="w"> </span><span class="kn">import</span> <span class="n">TracerProvider</span>
@@ -2593,8 +2760,11 @@
     <span class="c1"># Instrument Redis</span>
     <span class="n">RedisInstrumentor</span><span class="o">.</span><span class="n">instrument</span><span class="p">()</span>
 </code></pre></div>
-<h3 id="custom-metrics">Custom Metrics<a class="headerlink" href="#custom-metrics" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># app/custom_metrics.py</span>
+<h3 id="custom-metrics-potential-enhancement">Custom Metrics (Potential Enhancement)<a class="headerlink" href="#custom-metrics-potential-enhancement" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>Not Implemented</strong>: Custom business metrics are not currently tracked.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="c1"># Example: app/custom_metrics.py (NOT IMPLEMENTED)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">prometheus_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">Histogram</span><span class="p">,</span> <span class="n">Gauge</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">functools</span>
@@ -2641,7 +2811,10 @@
     <span class="k">return</span> <span class="n">decorator</span>
 </code></pre></div>
 <h2 id="alerting">Alerting<a class="headerlink" href="#alerting" title="Permanent link">&para;</a></h2>
-<h3 id="alert-configuration">Alert Configuration<a class="headerlink" href="#alert-configuration" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>Not Implemented</strong>: Alerting is not currently configured. The examples below show potential configurations.</p>
+</blockquote>
+<h3 id="alert-configuration-example">Alert Configuration (Example)<a class="headerlink" href="#alert-configuration-example" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># alerts.yml</span>
 <span class="nt">groups</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lolstonks_critical</span>
@@ -2714,7 +2887,12 @@
 <span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;LOLStonks</span><span class="nv"> </span><span class="s">Alert&#39;</span>
 <span class="w">        </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{{</span><span class="nv"> </span><span class="s">range</span><span class="nv"> </span><span class="s">.Alerts</span><span class="nv"> </span><span class="s">}}{{</span><span class="nv"> </span><span class="s">.Annotations.description</span><span class="nv"> </span><span class="s">}}{{</span><span class="nv"> </span><span class="s">end</span><span class="nv"> </span><span class="s">}}&#39;</span>
 </code></pre></div>
-<p>This comprehensive monitoring setup provides full observability into the LOLStonks API Gateway, enabling proactive issue detection and performance optimization.</p>
+<hr />
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<p>This document outlines <strong>best practices and potential implementations</strong> for comprehensive monitoring.</p>
+<p><strong>Current State</strong>: The API Gateway has basic logging (Loguru) and a simple health check endpoint.</p>
+<p><strong>Future Enhancements</strong>: Implementing Prometheus metrics, Grafana dashboards, ELK stack, and OpenTelemetry would provide full observability and enable proactive issue detection and performance optimization.</p>
+<p>For the actual implementation status, see <a href="../implementation-status/">Implementation Status</a>.</p>
 
 
 
