@@ -1,4 +1,8 @@
-"""Platform-V4 / LOL-STATUS-V4 API endpoints."""
+"""Platform-V4 / LOL-STATUS-V4 API endpoints.
+
+Riot Developer Portal API Reference:
+https://developer.riotgames.com/apis#lol-status-v4
+"""
 
 from fastapi import APIRouter, Query
 from loguru import logger
@@ -12,10 +16,12 @@ router = APIRouter(prefix="/lol/status/v4", tags=["platform"])
 
 @router.get("/platform-data")
 async def get_platform_status(
-    region: str = Query(default=settings.riot_default_region, description="Region code")
+    region: str = Query(default=settings.riot_default_region, description="Region code"),
 ):
     """
     Get League of Legends platform status for a region.
+
+    API Reference: https://developer.riotgames.com/apis#lol-status-v4/GET_getPlatformData
 
     Returns:
         - id: Region ID
@@ -37,14 +43,14 @@ async def get_platform_status(
     path = "/lol/status/v4/platform-data"
     data = await riot_client.get(path, region, is_platform_endpoint=False)
 
-    # Cache with short TTL (5 minutes - status can change quickly)
-    await cache.set(cache_key, data, ttl=300)
+    # Cache with configured TTL
+    await cache.set(cache_key, data, ttl=settings.cache_ttl_platform_status)
 
     logger.success(
         "Platform status fetched",
         region=region,
         maintenances=len(data.get("maintenances", [])),
-        incidents=len(data.get("incidents", []))
+        incidents=len(data.get("incidents", [])),
     )
 
     return data

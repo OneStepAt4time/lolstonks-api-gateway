@@ -1,4 +1,8 @@
-"""Clash-V1 API endpoints (Clash tournament data)."""
+"""Clash-V1 API endpoints (Clash tournament data).
+
+Riot Developer Portal API Reference:
+https://developer.riotgames.com/apis#clash-v1
+"""
 
 from fastapi import APIRouter, Query
 from loguru import logger
@@ -12,13 +16,14 @@ router = APIRouter(prefix="/lol/clash/v1", tags=["clash"])
 
 @router.get("/players/by-puuid/{puuid}")
 async def get_clash_player(
-    puuid: str,
-    region: str = Query(default=settings.riot_default_region, description="Region code")
+    puuid: str, region: str = Query(default=settings.riot_default_region, description="Region code")
 ):
     """
     Get clash player info by PUUID.
 
     Returns list of clash tournament registrations for the player.
+
+    API Reference: https://developer.riotgames.com/apis#clash-v1/GET_getPlayersByPUUID
 
     Returns:
         List of player registration objects with:
@@ -40,8 +45,8 @@ async def get_clash_player(
     path = f"/lol/clash/v1/players/by-puuid/{puuid}"
     data = await riot_client.get(path, region, is_platform_endpoint=False)
 
-    # Cache with short TTL (5 minutes)
-    await cache.set(cache_key, data, ttl=300)
+    # Cache with configured TTL
+    await cache.set(cache_key, data, ttl=settings.cache_ttl_clash_player)
     logger.success("Clash player data fetched", puuid=puuid[:8], registrations=len(data))
 
     return data
@@ -50,10 +55,12 @@ async def get_clash_player(
 @router.get("/teams/{teamId}")
 async def get_clash_team(
     teamId: str,
-    region: str = Query(default=settings.riot_default_region, description="Region code")
+    region: str = Query(default=settings.riot_default_region, description="Region code"),
 ):
     """
     Get clash team by team ID.
+
+    API Reference: https://developer.riotgames.com/apis#clash-v1/GET_getTeamById
 
     Returns:
         Team object with:
@@ -79,8 +86,8 @@ async def get_clash_team(
     path = f"/lol/clash/v1/teams/{teamId}"
     data = await riot_client.get(path, region, is_platform_endpoint=False)
 
-    # Cache with short TTL (5 minutes)
-    await cache.set(cache_key, data, ttl=300)
+    # Cache with configured TTL
+    await cache.set(cache_key, data, ttl=settings.cache_ttl_clash_team)
     logger.success("Clash team data fetched", teamId=teamId, name=data.get("name"))
 
     return data
@@ -88,10 +95,12 @@ async def get_clash_team(
 
 @router.get("/tournaments")
 async def get_clash_tournaments(
-    region: str = Query(default=settings.riot_default_region, description="Region code")
+    region: str = Query(default=settings.riot_default_region, description="Region code"),
 ):
     """
     Get all active and upcoming clash tournaments.
+
+    API Reference: https://developer.riotgames.com/apis#clash-v1/GET_getTournaments
 
     Returns:
         List of tournament objects with:
@@ -114,8 +123,8 @@ async def get_clash_tournaments(
     path = "/lol/clash/v1/tournaments"
     data = await riot_client.get(path, region, is_platform_endpoint=False)
 
-    # Cache with short TTL (10 minutes)
-    await cache.set(cache_key, data, ttl=600)
+    # Cache with configured TTL
+    await cache.set(cache_key, data, ttl=settings.cache_ttl_clash_tournament)
     logger.success("Clash tournaments fetched", region=region, count=len(data))
 
     return data
@@ -124,10 +133,12 @@ async def get_clash_tournaments(
 @router.get("/tournaments/{tournamentId}")
 async def get_clash_tournament(
     tournamentId: int,
-    region: str = Query(default=settings.riot_default_region, description="Region code")
+    region: str = Query(default=settings.riot_default_region, description="Region code"),
 ):
     """
     Get clash tournament by tournament ID.
+
+    API Reference: https://developer.riotgames.com/apis#clash-v1/GET_getTournamentById
 
     Returns:
         Tournament object with:
@@ -150,8 +161,8 @@ async def get_clash_tournament(
     path = f"/lol/clash/v1/tournaments/{tournamentId}"
     data = await riot_client.get(path, region, is_platform_endpoint=False)
 
-    # Cache with short TTL (10 minutes)
-    await cache.set(cache_key, data, ttl=600)
+    # Cache with configured TTL
+    await cache.set(cache_key, data, ttl=settings.cache_ttl_clash_tournament)
     logger.success("Clash tournament fetched", tournamentId=tournamentId)
 
     return data
@@ -160,10 +171,12 @@ async def get_clash_tournament(
 @router.get("/tournaments/by-team/{teamId}")
 async def get_clash_tournament_by_team(
     teamId: str,
-    region: str = Query(default=settings.riot_default_region, description="Region code")
+    region: str = Query(default=settings.riot_default_region, description="Region code"),
 ):
     """
     Get clash tournament that a team is registered for.
+
+    API Reference: https://developer.riotgames.com/apis#clash-v1/GET_getTournamentByTeam
 
     Returns:
         Tournament object for the team's registered tournament.
@@ -181,8 +194,8 @@ async def get_clash_tournament_by_team(
     path = f"/lol/clash/v1/tournaments/by-team/{teamId}"
     data = await riot_client.get(path, region, is_platform_endpoint=False)
 
-    # Cache with short TTL (5 minutes)
-    await cache.set(cache_key, data, ttl=300)
+    # Cache with configured TTL
+    await cache.set(cache_key, data, ttl=settings.cache_ttl_clash_team)
     logger.success("Clash tournament by team fetched", teamId=teamId)
 
     return data

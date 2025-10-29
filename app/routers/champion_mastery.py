@@ -1,4 +1,8 @@
-"""Champion-Mastery-V4 API endpoints."""
+"""Champion-Mastery-V4 API endpoints.
+
+Riot Developer Portal API Reference:
+https://developer.riotgames.com/apis#champion-mastery-v4
+"""
 
 from fastapi import APIRouter, Query
 from loguru import logger
@@ -12,11 +16,12 @@ router = APIRouter(prefix="/lol/champion-mastery/v4", tags=["champion-mastery"])
 
 @router.get("/champion-masteries/by-puuid/{puuid}")
 async def get_all_champion_masteries(
-    puuid: str,
-    region: str = Query(default=settings.riot_default_region, description="Region code")
+    puuid: str, region: str = Query(default=settings.riot_default_region, description="Region code")
 ):
     """
     Get all champion mastery entries for a summoner by PUUID.
+
+    API Reference: https://developer.riotgames.com/apis#champion-mastery-v4/GET_getAllChampionMasteries
 
     Returns list of champion mastery objects sorted by champion level descending.
     """
@@ -44,10 +49,12 @@ async def get_all_champion_masteries(
 async def get_champion_mastery(
     puuid: str,
     championId: int,
-    region: str = Query(default=settings.riot_default_region, description="Region code")
+    region: str = Query(default=settings.riot_default_region, description="Region code"),
 ):
     """
     Get champion mastery entry for a specific champion.
+
+    API Reference: https://developer.riotgames.com/apis#champion-mastery-v4/GET_getChampionMastery
 
     Returns champion mastery object with level, points, tokens, etc.
     """
@@ -75,10 +82,12 @@ async def get_champion_mastery(
 async def get_top_champion_masteries(
     puuid: str,
     region: str = Query(default=settings.riot_default_region, description="Region code"),
-    count: int = Query(default=3, ge=1, le=20, description="Number of top champions")
+    count: int = Query(default=3, ge=1, le=20, description="Number of top champions"),
 ):
     """
     Get top N champion mastery entries for a summoner.
+
+    API Reference: https://developer.riotgames.com/apis#champion-mastery-v4/GET_getTopChampionMasteries
 
     Args:
         count: Number of top champions (1-20, default 3)
@@ -107,11 +116,12 @@ async def get_top_champion_masteries(
 
 @router.get("/scores/by-puuid/{puuid}")
 async def get_mastery_score(
-    puuid: str,
-    region: str = Query(default=settings.riot_default_region, description="Region code")
+    puuid: str, region: str = Query(default=settings.riot_default_region, description="Region code")
 ):
     """
     Get total mastery score for a summoner.
+
+    API Reference: https://developer.riotgames.com/apis#champion-mastery-v4/GET_getChampionMasteryScore
 
     Returns integer representing total mastery points across all champions.
     """

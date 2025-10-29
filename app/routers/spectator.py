@@ -1,4 +1,8 @@
-"""Spectator-V5 API endpoints."""
+"""Spectator-V5 API endpoints.
+
+Riot Developer Portal API Reference:
+https://developer.riotgames.com/apis#spectator-v5
+"""
 
 from fastapi import APIRouter, Query
 from loguru import logger
@@ -12,13 +16,14 @@ router = APIRouter(prefix="/lol/spectator/v5", tags=["spectator"])
 
 @router.get("/active-games/by-summoner/{puuid}")
 async def get_active_game(
-    puuid: str,
-    region: str = Query(default=settings.riot_default_region, description="Region code")
+    puuid: str, region: str = Query(default=settings.riot_default_region, description="Region code")
 ):
     """
     Get current game information for a summoner (if in game).
 
     Returns 404 if player is not currently in a game.
+
+    API Reference: https://developer.riotgames.com/apis#spectator-v5/GET_getCurrentGameInfoByPuuid
 
     Returns:
         - gameId: Current game ID
@@ -42,8 +47,8 @@ async def get_active_game(
     path = f"/lol/spectator/v5/active-games/by-summoner/{puuid}"
     data = await riot_client.get(path, region, is_platform_endpoint=False)
 
-    # Cache with very short TTL (30 seconds - game state changes quickly)
-    await cache.set(cache_key, data, ttl=30)
+    # Cache with configured TTL
+    await cache.set(cache_key, data, ttl=settings.cache_ttl_spectator_active)
     logger.success("Active game fetched", puuid=puuid[:8], gameId=data.get("gameId"))
 
     return data
@@ -51,10 +56,12 @@ async def get_active_game(
 
 @router.get("/featured-games")
 async def get_featured_games(
-    region: str = Query(default=settings.riot_default_region, description="Region code")
+    region: str = Query(default=settings.riot_default_region, description="Region code"),
 ):
     """
     Get list of featured games (high-profile matches shown in client).
+
+    API Reference: https://developer.riotgames.com/apis#spectator-v5/GET_getFeaturedGames
 
     Returns:
         - gameList: List of featured game objects
@@ -73,8 +80,8 @@ async def get_featured_games(
     path = "/lol/spectator/v5/featured-games"
     data = await riot_client.get(path, region, is_platform_endpoint=False)
 
-    # Cache with short TTL (2 minutes - featured games change frequently)
-    await cache.set(cache_key, data, ttl=120)
+    # Cache with configured TTL
+    await cache.set(cache_key, data, ttl=settings.cache_ttl_spectator_featured)
     logger.success("Featured games fetched", region=region, count=len(data.get("gameList", [])))
 
     return data

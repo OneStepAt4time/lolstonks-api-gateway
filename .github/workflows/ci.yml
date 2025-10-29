@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+
+    - name: Install UV
+      uses: astral-sh/setup-uv@v4
+      with:
+        version: "latest"
+
+    - name: Install dependencies
+      run: |
+        uv sync --extra dev
+
+    - name: Lint with ruff
+      run: |
+        uv run ruff check --output-format=github .
+        uv run ruff format --check .
+
+    - name: Test with pytest
+      env:
+        REDIS_HOST: ${{ secrets.REDIS_HOST || 'localhost' }}
+        REDIS_PORT: ${{ secrets.REDIS_PORT || '6379' }}
+        RIOT_API_KEY: ${{ secrets.RIOT_API_KEY }}
+      run: |
+        uv run pytest --cov=app --cov-report=term-missing -v

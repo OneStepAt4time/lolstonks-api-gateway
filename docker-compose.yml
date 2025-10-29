@@ -40,6 +40,24 @@ services:
       - lol-network
     restart: unless-stopped
 
+  # RedisInsight - GUI for Redis
+  redis-insight:
+      image: "redis/redisinsight:latest"
+      container_name: lol-redis-insight
+      ports:
+        - "8001:5540"  # RedisInsight listens on 5540, expose as 8001
+      volumes:
+        - redis-insight-data:/data # Volume per salvare le connessioni
+      networks:
+        - lol-network
+      depends_on:
+        redis:
+          condition: service_healthy # Parte solo quando redis è pronto
+      restart: unless-stopped
+
 networks:
   lol-network:
     driver: bridge
+
+volumes:
+  redis-insight-data:

@@ -1,4 +1,8 @@
-"""Champion-V3 API endpoints."""
+"""Champion-V3 API endpoints.
+
+Riot Developer Portal API Reference:
+https://developer.riotgames.com/apis#champion-v3
+"""
 
 from fastapi import APIRouter, Query
 from loguru import logger
@@ -12,10 +16,12 @@ router = APIRouter(prefix="/lol/platform/v3", tags=["champion"])
 
 @router.get("/champion-rotations")
 async def get_champion_rotations(
-    region: str = Query(default=settings.riot_default_region, description="Region code")
+    region: str = Query(default=settings.riot_default_region, description="Region code"),
 ):
     """
     Get current champion rotation (free-to-play champions).
+
+    API Reference: https://developer.riotgames.com/apis#champion-v3/GET_getChampionInfo
 
     Returns:
         - freeChampionIds: List of free champion IDs
@@ -35,8 +41,8 @@ async def get_champion_rotations(
     path = "/lol/platform/v3/champion-rotations"
     data = await riot_client.get(path, region, is_platform_endpoint=False)
 
-    # Cache with 24 hour TTL (rotations change weekly)
-    await cache.set(cache_key, data, ttl=86400)
+    # Cache with configured TTL
+    await cache.set(cache_key, data, ttl=settings.cache_ttl_champion_rotation)
     logger.success("Champion rotation fetched", region=region)
 
     return data

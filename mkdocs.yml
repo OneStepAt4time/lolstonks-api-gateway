@@ -1,0 +1,94 @@
+site_name: LOLStonks API Gateway
+site_description: Riot Games API Gateway with caching, rate limiting, and match tracking
+repo_url: https://github.com/OneStepAt4time/lolstonks-api-gateway
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.indexes
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+
+plugins:
+  - search
+  - swagger-ui-tag
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            show_source: true
+            show_root_heading: true
+            show_root_members_full_path: false
+            show_signature_annotations: true
+            signature_crossrefs: true
+            merge_init_into_class: true
+            members_order: source
+          paths: [.]
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Installation: getting-started/installation.md
+    - Quick Start: getting-started/quick-start.md
+    - Configuration: getting-started/configuration.md
+    - Production Deployment: getting-started/deployment.md
+  - API Reference:
+    - OpenAPI Specification: api/openapi-spec.md
+    - Overview: api/overview.md
+    - Riot Client: api/riot-client.md
+    - Models: api/models.md
+    - Routers: api/routers.md
+    - Cache: api/cache.md
+  - Architecture:
+    - Overview: architecture/overview.md
+    - Data Models: architecture/models.md
+    - Rate Limiting: architecture/rate-limiting.md
+    - Caching Strategy: architecture/caching.md
+  - Operations:
+    - Monitoring: operations/monitoring.md
+    - Troubleshooting: operations/troubleshooting.md
+    - Security: operations/security.md
+  - Development:
+    - Contributing: development/contributing.md
+    - Testing: development/testing.md
+    - Documentation: development/documentation.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - toc:
+      permalink: true
+
+watch:
+  - app

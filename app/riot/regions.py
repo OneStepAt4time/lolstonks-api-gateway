@@ -55,10 +55,10 @@ def get_regional_url(region: str) -> str:
 
 def get_platform_url(region: str) -> str:
     """
-    Get platform base URL for Match API endpoints.
+    Get platform base URL for Match API and Account API endpoints.
 
     Args:
-        region: Region code (e.g., 'euw1', 'kr', 'na1')
+        region: Region code (e.g., 'euw1', 'kr', 'na1') OR platform region (e.g., 'americas', 'europe', 'asia', 'sea')
 
     Returns:
         Base URL for platform endpoints
@@ -68,9 +68,19 @@ def get_platform_url(region: str) -> str:
         'https://europe.api.riotgames.com'
         >>> get_platform_url("kr")
         'https://asia.api.riotgames.com'
+        >>> get_platform_url("americas")
+        'https://americas.api.riotgames.com'
     """
+    # If it's already a platform region, use it directly
+    platform_regions_list = ["americas", "europe", "asia", "sea"]
+    if region in platform_regions_list:
+        return f"https://{region}.api.riotgames.com"
+
+    # Otherwise, it's a game region code, map it to platform
     if region not in SUPPORTED_REGIONS:
-        raise ValueError(f"Unsupported region: {region}. Supported: {SUPPORTED_REGIONS}")
+        raise ValueError(
+            f"Unsupported region: {region}. Supported: {SUPPORTED_REGIONS + platform_regions_list}"
+        )
 
     platform = PLATFORM_REGIONS[region]
     return f"https://{platform}.api.riotgames.com"
