@@ -2,15 +2,34 @@
 
 This guide covers security considerations and best practices for deploying and operating the LOLStonks API Gateway in production environments.
 
+> **📝 Documentation Note**: This document describes **security best practices and potential implementations**. Many advanced security features represent future enhancements rather than current implementation.
+>
+> **Currently Implemented** ✅:
+> - Input validation using Pydantic models
+> - Basic rate limiting (Riot API level with aiolimiter)
+> - API key loading from environment variables
+> - Redis password authentication (if configured)
+>
+> **Not Yet Implemented** ❌ (Potential Future Enhancements):
+> - API key rotation system
+> - IP-based rate limiting and blocking
+> - Advanced input sanitization
+> - CORS middleware
+> - HTTPS redirect middleware
+> - Security event logging
+> - Prometheus security metrics
+>
+> For actual implementation details, see [Implementation Details](../architecture/implementation-details.md).
+
 ## Overview
 
 Security is implemented through multiple layers of protection:
 
-1. **Input Validation**: Comprehensive request validation using Pydantic models
-2. **Rate Limiting**: Protection against abuse and DoS attacks
-3. **Authentication & Authorization**: Secure API key management
-4. **Network Security**: Firewall rules and secure communications
-5. **Monitoring & Auditing**: Comprehensive logging and threat detection
+1. **Input Validation**: Comprehensive request validation using Pydantic models ✅
+2. **Rate Limiting**: Protection against abuse and DoS attacks ⚠️ (Riot API level only)
+3. **Authentication & Authorization**: Secure API key management ⚠️ (Basic environment variable)
+4. **Network Security**: Firewall rules and secure communications ⚠️ (Infrastructure level)
+5. **Monitoring & Auditing**: Comprehensive logging and threat detection ❌ (Not implemented)
 
 ## API Key Security
 
@@ -28,10 +47,27 @@ RIOT_API_KEY_STAGING=RGAPI-staging-key
 RIOT_API_KEY_PROD=RGAPI-production-key
 ```
 
-#### Key Rotation Strategy
+#### Current Implementation
+
+```env
+# .env file (ACTUAL IMPLEMENTATION)
+RIOT_API_KEY=RGAPI-your-secure-api-key
+```
+
+The API key is loaded from environment variables using Pydantic Settings:
 
 ```python
-# app/security.py
+# app/config.py (ACTUAL IMPLEMENTATION)
+class Settings(BaseSettings):
+    riot_api_key: str  # Required from environment
+```
+
+#### Key Rotation Strategy (Potential Enhancement)
+
+> **Not Implemented**: API key rotation is not currently automated. Keys must be rotated manually.
+
+```python
+# Example: app/security.py (NOT IMPLEMENTED)
 import os
 from datetime import datetime, timedelta
 from typing import Optional
@@ -73,9 +109,9 @@ class APIKeyManager:
 
 ## Input Validation & Sanitization
 
-### Pydantic Model Validation
+### Pydantic Model Validation (Currently Implemented ✅)
 
-All API inputs are validated using Pydantic models:
+All API inputs are validated using Pydantic models. This is **currently implemented** in the codebase:
 
 ```python
 # app/models/security.py
@@ -128,12 +164,14 @@ class SecureRegionQuery(BaseModel):
         return v.lower()
 ```
 
-### SQL Injection Prevention
+### Advanced Input Sanitization (Potential Enhancement)
 
-Although this API doesn't use SQL databases directly, similar principles apply:
+> **Not Implemented**: Advanced input sanitization beyond Pydantic validation is not currently implemented.
+
+The current implementation relies on Pydantic validators (shown above). More advanced sanitization could be added:
 
 ```python
-# app/security/validation.py
+# Example: app/security/validation.py (NOT IMPLEMENTED)
 import re
 from typing import Any, Dict, List
 
@@ -169,10 +207,34 @@ class SecurityValidator:
 
 ## Rate Limiting & DDoS Protection
 
-### Multi-Level Rate Limiting
+### Current Implementation
+
+The application implements rate limiting **only at the Riot API level** using aiolimiter:
 
 ```python
-# app/security/rate_limiting.py
+# app/riot/rate_limiter.py (ACTUAL IMPLEMENTATION)
+from aiolimiter import AsyncLimiter
+
+class RiotRateLimiter:
+    def __init__(self):
+        self.limiter_1s = AsyncLimiter(
+            max_rate=settings.riot_rate_limit_per_second,
+            time_period=1,
+        )
+        self.limiter_2min = AsyncLimiter(
+            max_rate=settings.riot_rate_limit_per_2min,
+            time_period=120,
+        )
+```
+
+> **Limitation**: This only limits requests to the Riot API, not incoming requests from clients.
+
+### IP-Based Rate Limiting (Potential Enhancement)
+
+> **Not Implemented**: Per-IP rate limiting and DDoS protection are not currently implemented.
+
+```python
+# Example: app/security/rate_limiting.py (NOT IMPLEMENTED)
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
@@ -221,10 +283,12 @@ async def get_summoner_by_name(
     pass
 ```
 
-### IP-Based Blocking
+### IP-Based Blocking (Potential Enhancement)
+
+> **Not Implemented**: IP blocking is not currently implemented.
 
 ```python
-# app/security/ip_blocking.py
+# Example: app/security/ip_blocking.py (NOT IMPLEMENTED)
 from typing import Set, Dict
 from datetime import datetime, timedelta
 import json
@@ -291,9 +355,11 @@ async def ip_blocking_middleware(request: Request, call_next):
 
 ## Network Security
 
+> **Infrastructure Level**: Network security is typically handled at the infrastructure/deployment level, not in application code.
+
 ### SSL/TLS Configuration
 
-#### Nginx SSL Configuration
+#### Nginx SSL Configuration (Deployment Best Practice ✅)
 
 ```nginx
 # /etc/nginx/sites-available/lolstonks-api
@@ -334,10 +400,12 @@ server {
 }
 ```
 
-#### Application SSL Settings
+#### Application SSL Settings (Potential Enhancement)
+
+> **Not Implemented**: HTTPS redirect and trusted host middleware are not currently configured in the application.
 
 ```python
-# app/security/ssl.py
+# Example: app/security/ssl.py (NOT IMPLEMENTED)
 from fastapi import FastAPI
 from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
@@ -359,11 +427,13 @@ def configure_security_middleware(app: FastAPI):
     return app
 ```
 
-### Firewall Configuration
+### Firewall Configuration (Deployment Best Practice ✅)
+
+> **Infrastructure Level**: Firewall configuration is handled at the system/deployment level.
 
 ```bash
 #!/bin/bash
-# firewall_setup.sh
+# Example: firewall_setup.sh
 
 # Reset firewall rules
 sudo ufw --force reset
@@ -395,10 +465,16 @@ sudo ufw status verbose
 
 ## Authentication & Authorization
 
-### API Key Authentication
+> **Not Implemented**: Advanced authentication for admin endpoints is not currently implemented.
+
+The current implementation only uses the Riot API key for accessing Riot's services. There is no authentication for accessing the gateway itself.
+
+### API Key Authentication (Potential Enhancement)
+
+> **Not Implemented**: API key authentication for gateway endpoints is not currently implemented.
 
 ```python
-# app/security/auth.py
+# Example: app/security/auth.py (NOT IMPLEMENTED)
 from fastapi import HTTPException, Security, Depends
 from fastapi.security import APIKeyHeader
 import os
@@ -440,10 +516,12 @@ async def get_admin_stats(api_key: str = Depends(verify_api_key)):
     pass
 ```
 
-### CORS Configuration
+### CORS Configuration (Potential Enhancement)
+
+> **Not Implemented**: CORS middleware is not currently configured.
 
 ```python
-# app/security/cors.py
+# Example: app/security/cors.py (NOT IMPLEMENTED)
 from fastapi.middleware.cors import CORSMiddleware
 import os
 
@@ -474,10 +552,16 @@ def configure_cors(app: FastAPI):
 
 ## Logging & Monitoring
 
-### Security Logging
+### Current Implementation
+
+The application uses basic Loguru logging (see monitoring.md). Security-specific logging is not currently implemented.
+
+### Security Logging (Potential Enhancement)
+
+> **Not Implemented**: Dedicated security event logging is not currently implemented.
 
 ```python
-# app/security/logging.py
+# Example: app/security/logging.py (NOT IMPLEMENTED)
 import logging
 import json
 from datetime import datetime
@@ -534,10 +618,12 @@ class SecurityLogger:
 security_logger = SecurityLogger()
 ```
 
-### Security Monitoring
+### Security Monitoring (Potential Enhancement)
+
+> **Not Implemented**: Security metrics are not currently tracked.
 
 ```python
-# app/security/monitoring.py
+# Example: app/security/monitoring.py (NOT IMPLEMENTED)
 from prometheus_client import Counter, Histogram
 import time
 import hashlib
@@ -594,11 +680,13 @@ class SecurityMonitor:
 
 ## Security Auditing
 
-### Regular Security Checks
+### Regular Security Checks (Best Practice ✅)
+
+> **Recommended Practice**: These scripts are examples for manual or automated security audits.
 
 ```bash
 #!/bin/bash
-# security_audit.sh
+# Example: security_audit.sh
 
 echo "=== LOLStonks Security Audit ==="
 echo "Date: $(date)"
@@ -688,4 +776,29 @@ echo -e "\n=== Audit Complete ==="
   - [ ] SSL certificates monitored for expiry
   - [ ] Backup and recovery procedures tested
 
-This comprehensive security framework ensures the LOLStonks API Gateway remains secure against common threats while maintaining high performance and reliability.
+---
+
+## Summary
+
+This document outlines **security best practices and potential implementations** for production deployments.
+
+**Current Security Measures** ✅:
+- Pydantic input validation on all endpoints
+- Riot API rate limiting (prevents excessive API usage)
+- Environment-based API key management
+- Basic logging with Loguru
+
+**Recommended Infrastructure Security** (handled at deployment level):
+- Firewall configuration (ufw/iptables)
+- SSL/TLS termination (Nginx)
+- System-level hardening
+
+**Future Security Enhancements** ❌ (Not Implemented):
+- IP-based rate limiting and blocking
+- CORS middleware
+- Security event logging
+- Prometheus security metrics
+- API key rotation automation
+- Admin endpoint authentication
+
+For the actual implementation status, see [Implementation Status](implementation-status.md).

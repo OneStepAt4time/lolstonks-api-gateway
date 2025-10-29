@@ -2,6 +2,23 @@
 
 This guide covers monitoring, logging, and observability for the LOLStonks API Gateway in production environments.
 
+> **📝 Documentation Note**: This document describes **best practices and potential implementations** for production monitoring. Many of these features represent future enhancements rather than current implementation.
+>
+> **Currently Implemented** ✅:
+> - Basic health check endpoint (`/health` returns `{"status": "ok"}`)
+> - Loguru logging to stderr
+> - Basic application startup/shutdown logging
+>
+> **Not Yet Implemented** ❌ (Potential Future Enhancements):
+> - Prometheus metrics collection
+> - Grafana dashboards
+> - ELK stack integration
+> - OpenTelemetry distributed tracing
+> - Advanced health checks (Redis/Riot API status)
+> - Custom metrics middleware
+>
+> For actual implementation details, see [Implementation Details](../architecture/implementation-details.md).
+
 ## Overview
 
 Effective monitoring ensures:
@@ -27,8 +44,10 @@ Effective monitoring ensures:
 
 #### Custom Metrics Implementation
 
+> **💡 Potential Implementation**: The code below shows how to implement Prometheus metrics. This is **not currently implemented** in the codebase.
+
 ```python
-# app/monitoring.py
+# Example: app/monitoring.py (NOT IMPLEMENTED)
 from prometheus_client import Counter, Histogram, Gauge, generate_latest
 import time
 import logging
@@ -85,10 +104,24 @@ class MetricsMiddleware:
 
 ### 2. Health Checks
 
-#### Comprehensive Health Endpoint
+#### Current Implementation
+
+The actual health check endpoint is very simple:
 
 ```python
-# app/health.py
+# app/routers/health.py (ACTUAL IMPLEMENTATION)
+@router.get("/health")
+async def health():
+    """Health check endpoint."""
+    return {"status": "ok"}
+```
+
+#### Comprehensive Health Endpoint (Potential Enhancement)
+
+> **💡 Potential Implementation**: Below is an example of an advanced health check. This is **not currently implemented**.
+
+```python
+# Example: Comprehensive health check (NOT IMPLEMENTED)
 from fastapi import APIRouter, Depends
 from app.cache.redis_cache import RedisCache
 from app.riot.client import RiotClient
@@ -234,10 +267,29 @@ def check_system_health():
 
 ### 3. Logging Strategy
 
-#### Structured Logging Configuration
+#### Current Implementation
+
+The application uses Loguru for logging:
 
 ```python
-# app/logging_config.py
+# app/main.py (ACTUAL IMPLEMENTATION)
+from loguru import logger
+
+logger.remove()  # Remove default handler
+logger.add(
+    sys.stderr,
+    format="<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan> - <level>{message}</level>",
+    level=settings.log_level,
+    colorize=True,
+)
+```
+
+#### Structured Logging Configuration (Potential Enhancement)
+
+> **💡 Potential Implementation**: Below is an example of JSON structured logging. This is **not currently implemented**.
+
+```python
+# Example: app/logging_config.py (NOT IMPLEMENTED)
 import logging
 import json
 import sys
@@ -377,9 +429,13 @@ class RequestLoggingMiddleware(BaseHTTPMiddleware):
 
 ## Monitoring Setup
 
+> **💡 Section Note**: The monitoring tools described below (Prometheus, Grafana, ELK, OpenTelemetry) are **not currently implemented**. These are best practices and examples for potential future implementation.
+
 ### Prometheus Configuration
 
-#### prometheus.yml
+> **Not Implemented**: Prometheus is not currently set up for this project.
+
+#### prometheus.yml (Example Configuration)
 
 ```yaml
 global:
@@ -467,7 +523,9 @@ groups:
 
 ### Grafana Dashboard
 
-#### Dashboard Configuration
+> **Not Implemented**: Grafana dashboards are not currently configured.
+
+#### Dashboard Configuration (Example)
 
 ```json
 {
@@ -589,9 +647,11 @@ groups:
 
 ## Log Management
 
-### Log Aggregation with ELK Stack
+> **Not Implemented**: ELK Stack (Elasticsearch, Logstash, Kibana) is not currently configured.
 
-#### Logstash Configuration
+### Log Aggregation with ELK Stack (Example)
+
+#### Logstash Configuration (Example)
 
 ```ruby
 # logstash.conf
@@ -683,10 +743,14 @@ output {
 
 ## Advanced Monitoring
 
-### Distributed Tracing with OpenTelemetry
+> **Not Implemented**: The advanced monitoring features below are not currently implemented.
+
+### Distributed Tracing with OpenTelemetry (Potential Enhancement)
+
+> **Not Implemented**: OpenTelemetry tracing is not currently configured.
 
 ```python
-# app/tracing.py
+# Example: app/tracing.py (NOT IMPLEMENTED)
 from opentelemetry import trace
 from opentelemetry.exporter.jaeger.thrift import JaegerExporter
 from opentelemetry.sdk.trace import TracerProvider
@@ -722,10 +786,12 @@ def setup_tracing():
     RedisInstrumentor.instrument()
 ```
 
-### Custom Metrics
+### Custom Metrics (Potential Enhancement)
+
+> **Not Implemented**: Custom business metrics are not currently tracked.
 
 ```python
-# app/custom_metrics.py
+# Example: app/custom_metrics.py (NOT IMPLEMENTED)
 from prometheus_client import Counter, Histogram, Gauge
 import time
 import functools
@@ -774,7 +840,9 @@ def timed(histogram):
 
 ## Alerting
 
-### Alert Configuration
+> **Not Implemented**: Alerting is not currently configured. The examples below show potential configurations.
+
+### Alert Configuration (Example)
 
 ```yaml
 # alerts.yml
@@ -853,4 +921,14 @@ receivers:
         text: '{{ range .Alerts }}{{ .Annotations.description }}{{ end }}'
 ```
 
-This comprehensive monitoring setup provides full observability into the LOLStonks API Gateway, enabling proactive issue detection and performance optimization.
+---
+
+## Summary
+
+This document outlines **best practices and potential implementations** for comprehensive monitoring.
+
+**Current State**: The API Gateway has basic logging (Loguru) and a simple health check endpoint.
+
+**Future Enhancements**: Implementing Prometheus metrics, Grafana dashboards, ELK stack, and OpenTelemetry would provide full observability and enable proactive issue detection and performance optimization.
+
+For the actual implementation status, see [Implementation Status](implementation-status.md).

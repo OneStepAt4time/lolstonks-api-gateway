@@ -2,6 +2,8 @@
 
 This section details the rate limiting implementation in the LOLStonks API Gateway, designed to ensure compliance with Riot Games API rate limits while providing optimal performance.
 
+> **📝 Documentation Note**: This document describes the conceptual architecture and best practices for rate limiting. The actual implementation uses the [aiolimiter](https://github.com/mjpieters/aiolimiter) library, which provides a production-ready token bucket algorithm. Some code examples below are simplified for educational purposes.
+
 ## Overview
 
 The rate limiting system uses a **token bucket algorithm** to control the flow of requests to the Riot Games API, preventing rate limit violations and ensuring fair usage.
@@ -39,8 +41,10 @@ graph TD
 
 ### Implementation Details
 
+> **💡 Actual Implementation**: The real code in `app/riot/rate_limiter.py` uses `aiolimiter.AsyncLimiter` for simplicity and reliability. The example below shows a conceptual implementation for educational purposes.
+
 ```python
-# app/riot/rate_limiter.py
+# Conceptual implementation (not actual code)
 import asyncio
 from datetime import datetime, timedelta
 from typing import Optional

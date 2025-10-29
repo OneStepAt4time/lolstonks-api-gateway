@@ -39,34 +39,72 @@ REDIS_HOST=redis
 REDIS_PORT=6379
 REDIS_DB=0
 REDIS_PASSWORD=
-
-# Redis connection pool settings
-REDIS_POOL_SIZE=10
-REDIS_POOL_TIMEOUT=30
 ```
+
+> **Note**: Connection pooling is handled automatically by aiocache library.
 
 #### Rate Limiting Configuration
 
 ```env
-# Rate limiting settings
-RATE_LIMIT_RPS=20           # Requests per second
-RATE_LIMIT_BURST=100        # Burst capacity
-RATE_LIMIT_PERIOD=120       # Period in seconds for burst refill
+# Rate limiting settings (Riot API compliance)
+RIOT_RATE_LIMIT_PER_SECOND=20    # Requests per second (short-term limit)
+RIOT_RATE_LIMIT_PER_2MIN=100     # Requests per 2 minutes (long-term limit)
+RIOT_REQUEST_TIMEOUT=10          # HTTP request timeout in seconds
 ```
+
+> **Note**: These limits use a dual-layer token bucket algorithm. Both limits must be satisfied for a request to proceed.
 
 #### Caching Configuration
 
 ```env
-# Cache TTL settings (in seconds)
-CACHE_TTL_SUMMONER=3600     # 1 hour
-CACHE_TTL_MATCH=86400       # 24 hours
-CACHE_TTL_LEAGUE=1800       # 30 minutes
-CACHE_TTL_MASTERY=7200      # 2 hours
-CACHE_TTL_CHAMPION=604800   # 1 week
+# Cache TTL settings (in seconds) - Organized by API service
 
-# Match tracking TTL
-MATCH_TRACKING_TTL=604800   # 1 week
+# ACCOUNT-V1: Account and active shard endpoints
+CACHE_TTL_ACCOUNT=3600              # 1 hour - Account data (by puuid/riotId)
+CACHE_TTL_ACCOUNT_SHARD=600         # 10 minutes - Active shard (can change)
+
+# SUMMONER-V4: Summoner profile data
+CACHE_TTL_SUMMONER=3600             # 1 hour
+
+# MATCH-V5: Match history and details
+CACHE_TTL_MATCH=86400               # 24 hours - Match data (immutable)
+CACHE_TTL_TIMELINE=86400            # 24 hours - Match timeline (immutable)
+
+# LEAGUE-V4: Ranked league data
+CACHE_TTL_LEAGUE=3600               # 1 hour
+
+# CHAMPION-MASTERY-V4: Champion mastery points
+CACHE_TTL_MASTERY=3600              # 1 hour
+
+# CHALLENGES-V1: Player challenges and leaderboards
+CACHE_TTL_CHALLENGES_CONFIG=86400   # 24 hours - Challenge configs (static)
+CACHE_TTL_CHALLENGES_LEADERBOARD=600    # 10 minutes - Leaderboards (dynamic)
+CACHE_TTL_CHALLENGES_PERCENTILES=3600   # 1 hour - Percentile data
+CACHE_TTL_CHALLENGES_PLAYER=3600    # 1 hour - Player challenges
+
+# CLASH-V1: Clash tournament data
+CACHE_TTL_CLASH_PLAYER=300          # 5 minutes - Player info (changes during tournaments)
+CACHE_TTL_CLASH_TEAM=300            # 5 minutes - Team info (changes during tournaments)
+CACHE_TTL_CLASH_TOURNAMENT=600      # 10 minutes - Tournament schedule
+
+# CHAMPION-V3: Champion rotation
+CACHE_TTL_CHAMPION_ROTATION=86400   # 24 hours - Rotation changes weekly
+
+# LOL-STATUS-V4: Platform status
+CACHE_TTL_PLATFORM_STATUS=300       # 5 minutes - Status can change frequently
+
+# SPECTATOR-V5: Live game data
+CACHE_TTL_SPECTATOR_ACTIVE=30       # 30 seconds - Active game (very dynamic)
+CACHE_TTL_SPECTATOR_FEATURED=120    # 2 minutes - Featured games
+
+# DATA-DRAGON: Static game data (champions, items, etc.)
+CACHE_TTL_DDRAGON=604800            # 7 days - Static data updated per patch
+
+# Default TTL for any uncategorized cache
+CACHE_TTL_DEFAULT=3600              # 1 hour
 ```
+
+> **Note**: Match tracking uses Redis SET with NO TTL for permanent storage. These are separate from TTL cache entries.
 
 ## Complete .env Example
 
@@ -76,6 +114,7 @@ MATCH_TRACKING_TTL=604800   # 1 week
 # =============================================================================
 RIOT_API_KEY=RGAPI-your-actual-api-key-here
 RIOT_DEFAULT_REGION=euw1
+RIOT_REQUEST_TIMEOUT=10
 
 # =============================================================================
 # Server Configuration
@@ -91,25 +130,60 @@ REDIS_HOST=localhost
 REDIS_PORT=6379
 REDIS_DB=0
 REDIS_PASSWORD=
-REDIS_POOL_SIZE=10
-REDIS_POOL_TIMEOUT=30
 
 # =============================================================================
 # Rate Limiting Configuration
 # =============================================================================
-RATE_LIMIT_RPS=20
-RATE_LIMIT_BURST=100
-RATE_LIMIT_PERIOD=120
+RIOT_RATE_LIMIT_PER_SECOND=20
+RIOT_RATE_LIMIT_PER_2MIN=100
 
 # =============================================================================
-# Caching Configuration
+# Caching Configuration (All TTL values in seconds)
 # =============================================================================
+
+# ACCOUNT-V1
+CACHE_TTL_ACCOUNT=3600
+CACHE_TTL_ACCOUNT_SHARD=600
+
+# SUMMONER-V4
 CACHE_TTL_SUMMONER=3600
+
+# MATCH-V5
 CACHE_TTL_MATCH=86400
-CACHE_TTL_LEAGUE=1800
-CACHE_TTL_MASTERY=7200
-CACHE_TTL_CHAMPION=604800
-MATCH_TRACKING_TTL=604800
+CACHE_TTL_TIMELINE=86400
+
+# LEAGUE-V4
+CACHE_TTL_LEAGUE=3600
+
+# CHAMPION-MASTERY-V4
+CACHE_TTL_MASTERY=3600
+
+# CHALLENGES-V1
+CACHE_TTL_CHALLENGES_CONFIG=86400
+CACHE_TTL_CHALLENGES_LEADERBOARD=600
+CACHE_TTL_CHALLENGES_PERCENTILES=3600
+CACHE_TTL_CHALLENGES_PLAYER=3600
+
+# CLASH-V1
+CACHE_TTL_CLASH_PLAYER=300
+CACHE_TTL_CLASH_TEAM=300
+CACHE_TTL_CLASH_TOURNAMENT=600
+
+# CHAMPION-V3
+CACHE_TTL_CHAMPION_ROTATION=86400
+
+# LOL-STATUS-V4
+CACHE_TTL_PLATFORM_STATUS=300
+
+# SPECTATOR-V5
+CACHE_TTL_SPECTATOR_ACTIVE=30
+CACHE_TTL_SPECTATOR_FEATURED=120
+
+# DATA-DRAGON
+CACHE_TTL_DDRAGON=604800
+
+# Default
+CACHE_TTL_DEFAULT=3600
 ```
 
 ## Configuration Files
@@ -156,37 +230,33 @@ services:
 
 ### Custom Rate Limiting
 
-You can customize rate limiting per endpoint or per region:
-
-```python
-# In your custom configuration
-CUSTOM_RATE_LIMITS = {
-    "summoner": {"rps": 30, "burst": 150},
-    "match": {"rps": 10, "burst": 50},
-    "league": {"rps": 20, "burst": 100}
-}
-```
-
-### Redis Cluster Configuration
-
-For production deployments, you can use Redis Cluster:
+You can customize rate limiting by modifying the environment variables:
 
 ```env
-# Redis Cluster configuration
-REDIS_CLUSTER_ENABLED=true
-REDIS_CLUSTER_NODES=redis-node1:6379,redis-node2:6379,redis-node3:6379
-REDIS_CLUSTER_PASSWORD=your-cluster-password
+# For high-traffic production API key
+RIOT_RATE_LIMIT_PER_SECOND=50
+RIOT_RATE_LIMIT_PER_2MIN=500
+
+# For development/testing with personal API key
+RIOT_RATE_LIMIT_PER_SECOND=20
+RIOT_RATE_LIMIT_PER_2MIN=100
 ```
 
-### Custom Cache Keys
+> **Note**: Ensure your custom limits comply with your Riot API key tier restrictions.
 
-Customize cache key patterns:
+### Redis Configuration Notes
+
+For production deployments with Redis:
 
 ```env
-# Cache key patterns
-CACHE_KEY_PREFIX=lolstonks
-CACHE_KEY_VERSION=v1
+# Standard Redis configuration (current implementation uses aiocache)
+REDIS_HOST=redis.example.com
+REDIS_PORT=6379
+REDIS_DB=0
+REDIS_PASSWORD=your-secure-password
 ```
+
+> **Note**: The current implementation uses aiocache library which handles connection pooling automatically. Redis Cluster support would require custom implementation.
 
 ## Environment-Specific Configuration
 
@@ -196,8 +266,10 @@ CACHE_KEY_VERSION=v1
 # .env.development
 LOG_LEVEL=DEBUG
 REDIS_HOST=localhost
-CACHE_TTL_SUMMONER=300      # 5 minutes for development
-RATE_LIMIT_RPS=100          # Higher limits for testing
+CACHE_TTL_SUMMONER=300                 # 5 minutes for development
+CACHE_TTL_MATCH=3600                   # 1 hour (faster refresh)
+RIOT_RATE_LIMIT_PER_SECOND=100         # Higher limits for testing
+RIOT_RATE_LIMIT_PER_2MIN=500
 ```
 
 ### Production
@@ -205,10 +277,12 @@ RATE_LIMIT_RPS=100          # Higher limits for testing
 ```env
 # .env.production
 LOG_LEVEL=WARNING
-REDIS_HOST=redis-cluster.example.com
+REDIS_HOST=redis.example.com
 REDIS_PASSWORD=strong-redis-password
-CACHE_TTL_SUMMONER=3600     # Longer cache for production
-RATE_LIMIT_RPS=20           # Conservative limits
+CACHE_TTL_SUMMONER=3600                # 1 hour
+CACHE_TTL_MATCH=86400                  # 24 hours
+RIOT_RATE_LIMIT_PER_SECOND=20          # Conservative limits
+RIOT_RATE_LIMIT_PER_2MIN=100
 ```
 
 ### Testing
@@ -217,8 +291,10 @@ RATE_LIMIT_RPS=20           # Conservative limits
 # .env.testing
 LOG_LEVEL=ERROR
 REDIS_HOST=localhost
-CACHE_TTL_SUMMONER=1        # Very short cache for tests
-RATE_LIMIT_RPS=1000         # Very high limits for tests
+CACHE_TTL_SUMMONER=1                   # Very short cache for tests
+CACHE_TTL_MATCH=1
+RIOT_RATE_LIMIT_PER_SECOND=1000        # Very high limits for tests
+RIOT_RATE_LIMIT_PER_2MIN=5000
 ```
 
 ## Configuration Validation
@@ -251,42 +327,34 @@ The gateway validates configuration on startup. Here are common validation check
 ### Rate Limiting Optimization
 
 ```env
-# For high-traffic applications
-RATE_LIMIT_RPS=50
-RATE_LIMIT_BURST=500
-RATE_LIMIT_PERIOD=60
+# For high-traffic applications (production API key)
+RIOT_RATE_LIMIT_PER_SECOND=50
+RIOT_RATE_LIMIT_PER_2MIN=500
 
-# For low-traffic applications
-RATE_LIMIT_RPS=5
-RATE_LIMIT_BURST=20
-RATE_LIMIT_PERIOD=300
+# For low-traffic applications (development API key)
+RIOT_RATE_LIMIT_PER_SECOND=20
+RIOT_RATE_LIMIT_PER_2MIN=100
 ```
 
 ### Cache Optimization
 
 ```env
-# Aggressive caching for better performance
-CACHE_TTL_SUMMONER=7200     # 2 hours
-CACHE_TTL_MATCH=172800      # 2 days
-CACHE_TTL_LEAGUE=3600       # 1 hour
+# Aggressive caching for better performance (fewer API calls)
+CACHE_TTL_SUMMONER=7200                    # 2 hours
+CACHE_TTL_MATCH=172800                     # 2 days
+CACHE_TTL_LEAGUE=7200                      # 2 hours
+CACHE_TTL_SPECTATOR_ACTIVE=60              # 1 minute
+CACHE_TTL_CHALLENGES_LEADERBOARD=1800      # 30 minutes
 
-# Minimal caching for fresh data
-CACHE_TTL_SUMMONER=300      # 5 minutes
-CACHE_TTL_MATCH=1800        # 30 minutes
-CACHE_TTL_LEAGUE=600        # 10 minutes
+# Minimal caching for fresh data (more accurate, more API calls)
+CACHE_TTL_SUMMONER=300                     # 5 minutes
+CACHE_TTL_MATCH=3600                       # 1 hour
+CACHE_TTL_LEAGUE=600                       # 10 minutes
+CACHE_TTL_SPECTATOR_ACTIVE=10              # 10 seconds
+CACHE_TTL_CHALLENGES_LEADERBOARD=60        # 1 minute
 ```
 
-### Redis Performance
-
-```env
-# Connection pool optimization
-REDIS_POOL_SIZE=20          # Increase for high concurrency
-REDIS_POOL_TIMEOUT=10       # Lower timeout for faster failover
-
-# Memory optimization
-REDIS_MAXMEMORY=1gb
-REDIS_MAXMEMORY_POLICY=allkeys-lru
-```
+> **Note**: Longer cache TTL improves performance but may show slightly outdated data. Balance based on your application's needs.
 
 ## Security Configuration
 
@@ -356,9 +424,9 @@ METRICS_PATH=/metrics
 
 3. **Rate Limiting Too Aggressive**
    ```env
-   # Adjust rate limits based on your usage
-   RATE_LIMIT_RPS=10
-   RATE_LIMIT_BURST=50
+   # Adjust rate limits based on your Riot API key tier
+   RIOT_RATE_LIMIT_PER_SECOND=20
+   RIOT_RATE_LIMIT_PER_2MIN=100
    ```
 
 4. **Cache Not Working**
