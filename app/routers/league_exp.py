@@ -21,8 +21,8 @@ router = APIRouter(prefix="/lol/league-exp/v4", tags=["league-exp"])
 
 @router.get("/entries/{queue}/{tier}/{division}")
 async def get_league_exp_entries(
-    params: Annotated[LeagueExpEntriesParams, Depends()],
-    query: Annotated[LeagueExpEntriesQuery, Depends()],
+    params: LeagueExpEntriesParams = Depends(),
+    query: LeagueExpEntriesQuery = Depends(),
 ):
     """
     Retrieves league entries from the experimental endpoint.
