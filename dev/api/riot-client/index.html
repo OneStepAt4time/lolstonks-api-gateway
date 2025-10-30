@@ -1687,7 +1687,11 @@ on 429 responses according to Retry-After header.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Make GET request to Riot API with rate limiting and retry.</p>
+        <p>Makes a GET request to the Riot API with rate limiting and retry logic.</p>
+<p>This method handles the entire process of making a GET request, including
+acquiring a rate limit token, constructing the appropriate URL, and
+handling potential 429 (rate limited) responses by retrying after a
+specified delay.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -1710,7 +1714,7 @@ on 429 responses according to Retry-After header.</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>API path (e.g., '/lol/summoner/v4/summoners/by-name/Faker')</p>
+                <p>The API path for the request.</p>
               </div>
             </td>
             <td>
@@ -1726,7 +1730,7 @@ on 429 responses according to Retry-After header.</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Region code (e.g., 'euw1', 'kr')</p>
+                <p>The region to target for the request.</p>
               </div>
             </td>
             <td>
@@ -1742,7 +1746,7 @@ on 429 responses according to Retry-After header.</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>True for Match API, False for Summoner/League/Mastery</p>
+                <p>A flag indicating whether to use the platform-specific or regional endpoint.</p>
               </div>
             </td>
             <td>
@@ -1754,11 +1758,11 @@ on 429 responses according to Retry-After header.</p>
                 <code>params</code>
             </td>
             <td>
-                  <code><span title="dict">dict</span> | None</code>
+                  <code><span title="dict">dict</span></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Optional query parameters</p>
+                <p>A dictionary of query parameters to include in the request. Defaults to None.</p>
               </div>
             </td>
             <td>
@@ -1773,18 +1777,18 @@ on 429 responses according to Retry-After header.</p>
     <table>
       <thead>
         <tr>
-          <th>Type</th>
+<th>Name</th>          <th>Type</th>
           <th>Description</th>
         </tr>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td>
+<td><code>dict</code></td>            <td>
                   <code><span title="dict">dict</span></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>JSON response as dictionary</p>
+                <p>The JSON response from the API as a dictionary.</p>
               </div>
             </td>
           </tr>
@@ -1807,7 +1811,7 @@ on 429 responses according to Retry-After header.</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>On non-retryable HTTP errors</p>
+                <p>If the API returns a non-2xx and non-429 status code.</p>
               </div>
             </td>
           </tr>
@@ -1817,7 +1821,7 @@ on 429 responses according to Retry-After header.</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>On invalid region</p>
+                <p>If an invalid region is provided.</p>
               </div>
             </td>
           </tr>
@@ -1842,64 +1846,69 @@ on 429 responses according to Retry-After header.</p>
 
             <details class="quote">
               <summary>Source code in <code>app/riot/client.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span>
-<span class="normal">72</span>
-<span class="normal">73</span>
-<span class="normal">74</span>
-<span class="normal">75</span>
-<span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span>
-<span class="normal">80</span>
-<span class="normal">81</span>
-<span class="normal">82</span>
-<span class="normal">83</span>
-<span class="normal">84</span>
-<span class="normal">85</span>
-<span class="normal">86</span>
-<span class="normal">87</span>
-<span class="normal">88</span>
-<span class="normal">89</span>
-<span class="normal">90</span>
-<span class="normal">91</span>
-<span class="normal">92</span>
-<span class="normal">93</span>
-<span class="normal">94</span>
-<span class="normal">95</span>
-<span class="normal">96</span>
-<span class="normal">97</span>
-<span class="normal">98</span>
-<span class="normal">99</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">region</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -1907,20 +1916,25 @@ on 429 responses according to Retry-After header.</p>
     <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Make GET request to Riot API with rate limiting and retry.</span>
+<span class="sd">    Makes a GET request to the Riot API with rate limiting and retry logic.</span>
+
+<span class="sd">    This method handles the entire process of making a GET request, including</span>
+<span class="sd">    acquiring a rate limit token, constructing the appropriate URL, and</span>
+<span class="sd">    handling potential 429 (rate limited) responses by retrying after a</span>
+<span class="sd">    specified delay.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        path: API path (e.g., &#39;/lol/summoner/v4/summoners/by-name/Faker&#39;)</span>
-<span class="sd">        region: Region code (e.g., &#39;euw1&#39;, &#39;kr&#39;)</span>
-<span class="sd">        is_platform_endpoint: True for Match API, False for Summoner/League/Mastery</span>
-<span class="sd">        params: Optional query parameters</span>
+<span class="sd">        path (str): The API path for the request.</span>
+<span class="sd">        region (str): The region to target for the request.</span>
+<span class="sd">        is_platform_endpoint (bool): A flag indicating whether to use the platform-specific or regional endpoint.</span>
+<span class="sd">        params (dict, optional): A dictionary of query parameters to include in the request. Defaults to None.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        JSON response as dictionary</span>
+<span class="sd">        dict: The JSON response from the API as a dictionary.</span>
 
 <span class="sd">    Raises:</span>
-<span class="sd">        httpx.HTTPStatusError: On non-retryable HTTP errors</span>
-<span class="sd">        ValueError: On invalid region</span>
+<span class="sd">        httpx.HTTPStatusError: If the API returns a non-2xx and non-429 status code.</span>
+<span class="sd">        ValueError: If an invalid region is provided.</span>
 
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; await riot_client.get(</span>

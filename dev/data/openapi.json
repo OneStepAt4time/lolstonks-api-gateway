@@ -12,7 +12,7 @@
           "health"
         ],
         "summary": "Health Check",
-        "description": "Health check endpoint.\n\nReturns:\n    dict: Simple status response",
+        "description": "Performs a health check of the application.\n\nThis endpoint can be used to monitor the application's status. It\nreturns a simple JSON response to indicate that the service is\nrunning.\n\nReturns:\n    dict: A dictionary with a status of \"ok\".\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/health\"",
         "operationId": "health_check_health_get",
         "responses": {
           "200": {
@@ -32,7 +32,7 @@
           "account"
         ],
         "summary": "Get Account By Puuid",
-        "description": "Get account by PUUID.\n\nNote: This endpoint uses regional routing (americas, europe, asia, sea).\n\nAPI Reference: https://developer.riotgames.com/apis#account-v1/GET_getByPuuid\n\nReturns:\n    - puuid: Player UUID\n    - gameName: Riot ID game name\n    - tagLine: Riot ID tag line",
+        "description": "Retrieves an account by its PUUID.\n\nThis endpoint fetches account information, including the game name and tag line,\nbased on a player's unique PUUID. It supports regional routing and caches\nthe results to improve performance.\n\nAPI Reference: https://developer.riotgames.com/apis#account-v1/GET_getByPuuid\n\nArgs:\n    params (AccountByPuuidParams): The path parameters, containing the PUUID.\n    query (AccountByPuuidQuery): The query parameters, specifying the region.\n\nReturns:\n    dict: A dictionary containing the account's PUUID, game name, and tag line.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/riot/account/v1/accounts/by-puuid/{puuid}?region=americas\"",
         "operationId": "get_account_by_puuid_riot_account_v1_accounts_by_puuid__puuid__get",
         "parameters": [
           {
@@ -84,7 +84,7 @@
           "account"
         ],
         "summary": "Get Account By Riot Id",
-        "description": "Get account by Riot ID (gameName#tagLine).\n\nNote: This endpoint uses regional routing (americas, europe, asia, sea).\n\nAPI Reference: https://developer.riotgames.com/apis#account-v1/GET_getByRiotId\n\nArgs:\n    gameName: Riot ID game name (before the #)\n    tagLine: Riot ID tag line (after the #)\n    region: Regional routing (americas, europe, asia, sea)\n\nReturns:\n    - puuid: Player UUID\n    - gameName: Riot ID game name\n    - tagLine: Riot ID tag line",
+        "description": "Retrieves an account by its Riot ID.\n\nThis endpoint fetches account information based on a player's game name and\ntag line. It supports regional routing and caches the results to optimize\nperformance.\n\nAPI Reference: https://developer.riotgames.com/apis#account-v1/GET_getByRiotId\n\nArgs:\n    params (AccountByRiotIdParams): The path parameters, containing the game name and tag line.\n    query (AccountByRiotIdQuery): The query parameters, specifying the region.\n\nReturns:\n    dict: A dictionary containing the account's PUUID, game name, and tag line.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/riot/account/v1/accounts/by-riot-id/Faker/KR1?region=americas\"",
         "operationId": "get_account_by_riot_id_riot_account_v1_accounts_by_riot_id__gameName___tagLine__get",
         "parameters": [
           {
@@ -147,7 +147,7 @@
           "account"
         ],
         "summary": "Get Active Shard",
-        "description": "Get active shard for a player (which server they're actively playing on).\n\nNote: This endpoint uses regional routing (americas, europe, asia, sea).\n\nAPI Reference: https://developer.riotgames.com/apis#account-v1/GET_getActiveShard\n\nArgs:\n    game: Game identifier (val for Valorant, lor for LoR)\n    puuid: Player UUID\n    region: Regional routing\n\nReturns:\n    - puuid: Player UUID\n    - game: Game identifier\n    - activeShard: Active shard identifier",
+        "description": "Retrieves the active shard for a player.\n\nThis endpoint identifies the active game server for a player based on their\nPUUID and the specified game. It supports regional routing and uses a short\ncache TTL to ensure the data remains current.\n\nAPI Reference: https://developer.riotgames.com/apis#account-v1/GET_getActiveShard\n\nArgs:\n    params (ActiveShardParams): The path parameters, containing the game and PUUID.\n    query (ActiveShardQuery): The query parameters, specifying the region.\n\nReturns:\n    dict: A dictionary containing the PUUID, game, and active shard.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/riot/account/v1/active-shards/by-game/val/by-puuid/{puuid}?region=americas\"",
         "operationId": "get_active_shard_riot_account_v1_active_shards_by_game__game__by_puuid__puuid__get",
         "parameters": [
           {
@@ -209,7 +209,7 @@
           "summoner"
         ],
         "summary": "Get Summoner By Name",
-        "description": "Get summoner by summoner name.\n\nThis is the primary entry point for user lookups.\n\nAPI Reference: https://developer.riotgames.com/apis#summoner-v4/GET_getBySummonerName\n\nArgs:\n    summonerName: Summoner name (URL encoded)\n    region: Region code (default: euw1)\n\nReturns:\n    Summoner object from Riot API",
+        "description": "Retrieves a summoner by their summoner name.\n\nThis endpoint is the primary method for looking up a player by their in-game\nname. It is a foundational part of the API, providing the necessary IDs for\nfurther queries.\n\nAPI Reference: https://developer.riotgames.com/apis#summoner-v4/GET_getBySummonerName\n\nArgs:\n    params (SummonerByNameParams): The path parameters, containing the summoner name.\n    query (SummonerByNameQuery): The query parameters, specifying the region.\n\nReturns:\n    dict: A dictionary containing the summoner's information.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/summoner/v4/summoners/by-name/Faker?region=kr\"",
         "operationId": "get_summoner_by_name_lol_summoner_v4_summoners_by_name__summonerName__get",
         "parameters": [
           {
@@ -261,7 +261,7 @@
           "summoner"
         ],
         "summary": "Get Summoner By Puuid",
-        "description": "Get summoner by PUUID.\n\nAPI Reference: https://developer.riotgames.com/apis#summoner-v4/GET_getByPUUID\n\nArgs:\n    encryptedPUUID: Encrypted PUUID\n    region: Region code\n\nReturns:\n    Summoner object from Riot API",
+        "description": "Retrieves a summoner by their PUUID.\n\nThis endpoint fetches summoner information using a player's unique PUUID,\nwhich is a persistent and globally unique identifier.\n\nAPI Reference: https://developer.riotgames.com/apis#summoner-v4/GET_getByPUUID\n\nArgs:\n    params (SummonerByPuuidParams): The path parameters, containing the encrypted PUUID.\n    query (SummonerByPuuidQuery): The query parameters, specifying the region.\n\nReturns:\n    dict: A dictionary containing the summoner's information.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/summoner/v4/summoners/by-puuid/{encryptedPUUID}?region=euw1\"",
         "operationId": "get_summoner_by_puuid_lol_summoner_v4_summoners_by_puuid__encryptedPUUID__get",
         "parameters": [
           {
@@ -313,7 +313,7 @@
           "summoner"
         ],
         "summary": "Get Summoner By Id",
-        "description": "Get summoner by summoner ID.\n\nAPI Reference: https://developer.riotgames.com/apis#summoner-v4/GET_getBySummonerId\n\nArgs:\n    encryptedSummonerId: Encrypted summoner ID\n    region: Region code\n\nReturns:\n    Summoner object from Riot API",
+        "description": "Retrieves a summoner by their summoner ID.\n\nThis endpoint fetches summoner information using a player's encrypted\nsummoner ID, which is a region-specific identifier.\n\nAPI Reference: https://developer.riotgames.com/apis#summoner-v4/GET_getBySummonerId\n\nArgs:\n    params (SummonerByIdParams): The path parameters, containing the encrypted summoner ID.\n    query (SummonerByIdQuery): The query parameters, specifying the region.\n\nReturns:\n    dict: A dictionary containing the summoner's information.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/summoner/v4/summoners/{encryptedSummonerId}?region=euw1\"",
         "operationId": "get_summoner_by_id_lol_summoner_v4_summoners__encryptedSummonerId__get",
         "parameters": [
           {
@@ -365,7 +365,7 @@
           "match"
         ],
         "summary": "Get Match Ids By Puuid",
-        "description": "Get match IDs for a summoner by PUUID.\n\nThis endpoint is used for match discovery with optional filtering.\n\nAPI Reference: https://developer.riotgames.com/apis#match-v5/GET_getMatchIdsByPUUID\n\nArgs:\n    puuid: Player UUID\n    region: Region code\n    start: Start index (pagination)\n    count: Number of matches to return (1-100)\n    startTime: Optional epoch timestamp - only matches after this time\n    endTime: Optional epoch timestamp - only matches before this time\n    queue: Optional queue ID filter\n    type: Optional match type filter (ranked, normal, tourney, tutorial)\n\nReturns:\n    List of match IDs",
+        "description": "Retrieves a list of match IDs for a summoner.\n\nThis endpoint fetches a list of match IDs based on a player's PUUID, with\noptions for pagination and filtering by time, queue, and match type.\n\nAPI Reference: https://developer.riotgames.com/apis#match-v5/GET_getMatchIdsByPUUID\n\nArgs:\n    params (MatchIdsByPuuidParams): The path parameters, containing the PUUID.\n    query (MatchIdsByPuuidQuery): The query parameters, for pagination and filtering.\n\nReturns:\n    list: A list of match IDs.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/match/v5/matches/by-puuid/{puuid}/ids?region=americas&count=20\"",
         "operationId": "get_match_ids_by_puuid_lol_match_v5_matches_by_puuid__puuid__ids_get",
         "parameters": [
           {
@@ -508,7 +508,7 @@
           "match"
         ],
         "summary": "Get Match",
-        "description": "Get match details by match ID.\n\nThis is the core match data endpoint with dual-layer caching:\n- Layer 1: Response cache (24h TTL)\n- Layer 2: Permanent tracking to prevent duplicate processing\n\nAPI Reference: https://developer.riotgames.com/apis#match-v5/GET_getMatch\n\nArgs:\n    matchId: Match ID (e.g., EUW1_123456789)\n    region: Region code\n    force: If True, bypass cache and fetch fresh data\n\nReturns:\n    Match object from Riot API",
+        "description": "Retrieves match details by match ID.\n\nThis endpoint fetches the core data for a specific match. It employs a\ndual-layer caching strategy, with a response cache and permanent tracking,\nto minimize redundant API calls.\n\nAPI Reference: https://developer.riotgames.com/apis#match-v5/GET_getMatch\n\nArgs:\n    params (MatchParams): The path parameters, containing the match ID.\n    query (MatchQuery): The query parameters, specifying the region and an\n                       optional force refresh flag.\n\nReturns:\n    dict: A dictionary containing the match details.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/match/v5/matches/EUW1_123456789?region=americas\"",
         "operationId": "get_match_lol_match_v5_matches__matchId__get",
         "parameters": [
           {
@@ -569,7 +569,7 @@
           "match"
         ],
         "summary": "Get Match Timeline",
-        "description": "Get match timeline (detailed events).\n\nPriority 4 endpoint - detailed timeline data.\n\nAPI Reference: https://developer.riotgames.com/apis#match-v5/GET_getTimeline\n\nArgs:\n    matchId: Match ID\n    region: Region code\n\nReturns:\n    Match timeline object from Riot API",
+        "description": "Retrieves the timeline for a specific match.\n\nThis endpoint fetches a detailed timeline of events for a given match,\nproviding in-depth data for analysis.\n\nAPI Reference: https://developer.riotgames.com/apis#match-v5/GET_getTimeline\n\nArgs:\n    params (MatchTimelineParams): The path parameters, containing the match ID.\n    query (MatchTimelineQuery): The query parameters, specifying the region.\n\nReturns:\n    dict: A dictionary containing the match timeline data.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/match/v5/matches/EUW1_123456789/timeline?region=americas\"",
         "operationId": "get_match_timeline_lol_match_v5_matches__matchId__timeline_get",
         "parameters": [
           {
@@ -620,7 +620,7 @@
           "league"
         ],
         "summary": "Get Challenger League",
-        "description": "Get challenger league entries for a queue.\n\nThis endpoint returns the top players in a region, including their summonerIds.\nUse this to get a list of high-level players to track.\n\nAPI Reference: https://developer.riotgames.com/apis#league-v4/GET_getChallengerLeague\n\nArgs:\n    queue: Queue type (RANKED_SOLO_5x5, RANKED_FLEX_SR, RANKED_FLEX_TT)\n    region: Region code (default: euw1)\n\nReturns:\n    League object with entries array containing summoner information",
+        "description": "Retrieves the Challenger league for a specific queue.\n\nThis endpoint fetches a list of all players in the Challenger league for a\ngiven queue, providing a snapshot of the top-ranked players in a region.\n\nAPI Reference: https://developer.riotgames.com/apis#league-v4/GET_getChallengerLeague\n\nArgs:\n    params (LeagueByQueueParams): The path parameters, containing the queue type.\n    query (LeagueByQueueQuery): The query parameters, specifying the region.\n\nReturns:\n    dict: A league object containing an array of summoner entries.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/league/v4/challengerleagues/by-queue/RANKED_SOLO_5x5?region=euw1\"",
         "operationId": "get_challenger_league_lol_league_v4_challengerleagues_by_queue__queue__get",
         "parameters": [
           {
@@ -669,7 +669,7 @@
           "league"
         ],
         "summary": "Get Grandmaster League",
-        "description": "Get grandmaster league entries for a queue.\n\nAPI Reference: https://developer.riotgames.com/apis#league-v4/GET_getGrandmasterLeague\n\nArgs:\n    queue: Queue type (RANKED_SOLO_5x5, RANKED_FLEX_SR, RANKED_FLEX_TT)\n    region: Region code\n\nReturns:\n    League object with entries",
+        "description": "Retrieves the Grandmaster league for a specific queue.\n\nThis endpoint fetches a list of all players in the Grandmaster league for a\ngiven queue, providing a snapshot of the top-ranked players in a region.\n\nAPI Reference: https://developer.riotgames.com/apis#league-v4/GET_getGrandmasterLeague\n\nArgs:\n    params (LeagueByQueueParams): The path parameters, containing the queue type.\n    query (LeagueByQueueQuery): The query parameters, specifying the region.\n\nReturns:\n    dict: A league object containing an array of summoner entries.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/league/v4/grandmasterleagues/by-queue/RANKED_SOLO_5x5?region=euw1\"",
         "operationId": "get_grandmaster_league_lol_league_v4_grandmasterleagues_by_queue__queue__get",
         "parameters": [
           {
@@ -718,7 +718,7 @@
           "league"
         ],
         "summary": "Get Master League",
-        "description": "Get master league entries for a queue.\n\nAPI Reference: https://developer.riotgames.com/apis#league-v4/GET_getMasterLeague\n\nArgs:\n    queue: Queue type (RANKED_SOLO_5x5, RANKED_FLEX_SR, RANKED_FLEX_TT)\n    region: Region code\n\nReturns:\n    League object with entries",
+        "description": "Retrieves the Master league for a specific queue.\n\nThis endpoint fetches a list of all players in the Master league for a\ngiven queue, providing a snapshot of the top-ranked players in a region.\n\nAPI Reference: https://developer.riotgames.com/apis#league-v4/GET_getMasterLeague\n\nArgs:\n    params (LeagueByQueueParams): The path parameters, containing the queue type.\n    query (LeagueByQueueQuery): The query parameters, specifying the region.\n\nReturns:\n    dict: A league object containing an array of summoner entries.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/league/v4/masterleagues/by-queue/RANKED_SOLO_5x5?region=euw1\"",
         "operationId": "get_master_league_lol_league_v4_masterleagues_by_queue__queue__get",
         "parameters": [
           {
@@ -767,7 +767,7 @@
           "league"
         ],
         "summary": "Get League Entries By Summoner",
-        "description": "Get league entries for a summoner (all queues).\n\nAPI Reference: https://developer.riotgames.com/apis#league-v4/GET_getLeagueEntriesForSummoner\n\nArgs:\n    encryptedSummonerId: Encrypted summoner ID\n    region: Region code\n\nReturns:\n    Array of league entries",
+        "description": "Retrieves the league entries for a summoner across all queues.\n\nThis endpoint fetches a list of a summoner's league entries, providing\ndetails about their rank in each queue they participate in.\n\nAPI Reference: https://developer.riotgames.com/apis#league-v4/GET_getLeagueEntriesForSummoner\n\nArgs:\n    params (LeagueEntriesBySummonerParams): The path parameters, containing the encrypted summoner ID.\n    query (LeagueEntriesBySummonerQuery): The query parameters, specifying the region.\n\nReturns:\n    list: A list of league entry objects.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/league/v4/entries/by-summoner/{encryptedSummonerId}?region=euw1\"",
         "operationId": "get_league_entries_by_summoner_lol_league_v4_entries_by_summoner__encryptedSummonerId__get",
         "parameters": [
           {
@@ -819,7 +819,7 @@
           "league"
         ],
         "summary": "Get League Entries",
-        "description": "Get league entries by queue, tier, and division.\n\nThis endpoint provides paginated access to league entries at specific ranks.\nUse this for fetching large sets of ranked players.\n\nAPI Reference: https://developer.riotgames.com/apis#league-v4/GET_getLeagueEntries\n\nArgs:\n    queue: Queue type (RANKED_SOLO_5x5, RANKED_FLEX_SR, RANKED_FLEX_TT)\n    tier: Tier (IRON, BRONZE, SILVER, GOLD, PLATINUM, EMERALD, DIAMOND)\n    division: Division (I, II, III, IV)\n    region: Region code\n    page: Page number (starts at 1)\n\nReturns:\n    Array of league entries with summoner info, LP, win/loss stats",
+        "description": "Retrieves league entries by queue, tier, and division.\n\nThis endpoint provides paginated access to league entries for a specific\nrank, allowing for the retrieval of large sets of ranked players.\n\nAPI Reference: https://developer.riotgames.com/apis#league-v4/GET_getLeagueEntries\n\nArgs:\n    params (LeagueEntriesParams): The path parameters, containing the queue, tier, and division.\n    query (LeagueEntriesQuery): The query parameters, specifying the region and page number.\n\nReturns:\n    list: A list of league entry objects, including summoner info, LP, and win/loss stats.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/league/v4/entries/RANKED_SOLO_5x5/DIAMOND/I?region=euw1&page=1\"",
         "operationId": "get_league_entries_lol_league_v4_entries__queue___tier___division__get",
         "parameters": [
           {
@@ -902,7 +902,7 @@
           "league-exp"
         ],
         "summary": "Get League Exp Entries",
-        "description": "Get league entries by queue, tier, and division (experimental endpoint).\n\nThis experimental endpoint provides paginated access to league entries.\nUse this for fetching large sets of ranked players at specific ranks.\n\nAPI Reference: https://developer.riotgames.com/apis#league-exp-v4/GET_getLeagueEntries\n\nArgs:\n    queue: Queue type (RANKED_SOLO_5x5, RANKED_FLEX_SR, etc.)\n    tier: Tier (IRON through DIAMOND)\n    division: Division (I, II, III, IV)\n    region: Region code\n    page: Page number (starts at 1)\n\nReturns:\n    Array of league entries with summoner info, LP, win/loss stats",
+        "description": "Retrieves league entries from the experimental endpoint.\n\nThis endpoint provides paginated access to league entries for a specific\nrank, allowing for the retrieval of large sets of ranked players.\n\nAPI Reference: https://developer.riotgames.com/apis#league-exp-v4/GET_getLeagueEntries\n\nArgs:\n    params (LeagueExpEntriesParams): The path parameters, containing the queue, tier, and division.\n    query (LeagueExpEntriesQuery): The query parameters, specifying the region and page number.\n\nReturns:\n    list: A list of league entry objects, including summoner info, LP, and win/loss stats.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/league-exp/v4/entries/RANKED_SOLO_5x5/DIAMOND/I?region=euw1&page=1\"",
         "operationId": "get_league_exp_entries_lol_league_exp_v4_entries__queue___tier___division__get",
         "parameters": [
           {
@@ -985,7 +985,7 @@
           "champion"
         ],
         "summary": "Get Champion Rotations",
-        "description": "Get current champion rotation (free-to-play champions).\n\nAPI Reference: https://developer.riotgames.com/apis#champion-v3/GET_getChampionInfo\n\nReturns:\n    - freeChampionIds: List of free champion IDs\n    - freeChampionIdsForNewPlayers: List for new players\n    - maxNewPlayerLevel: Max level for new player rotation",
+        "description": "Retrieves the current champion rotation.\n\nThis endpoint fetches the list of free-to-play champions, including those\navailable for new players. The results are cached to optimize performance.\n\nAPI Reference: https://developer.riotgames.com/apis#champion-v3/GET_getChampionInfo\n\nArgs:\n    region (str): The region to fetch the champion rotation from.\n\nReturns:\n    dict: A dictionary containing the list of free champion IDs, a separate\n          list for new players, and the maximum level for the new player rotation.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/platform/v3/champion-rotations?region=euw1\"",
         "operationId": "get_champion_rotations_lol_platform_v3_champion_rotations_get",
         "parameters": [
           {
@@ -1029,7 +1029,7 @@
           "champion-mastery"
         ],
         "summary": "Get All Champion Masteries",
-        "description": "Get all champion mastery entries for a summoner by PUUID.\n\nAPI Reference: https://developer.riotgames.com/apis#champion-mastery-v4/GET_getAllChampionMasteries\n\nReturns list of champion mastery objects sorted by champion level descending.",
+        "description": "Retrieves all champion mastery entries for a summoner.\n\nThis endpoint fetches a list of all champion mastery objects for a given\nplayer, sorted by champion level in descending order. The results are\ncached to optimize performance.\n\nAPI Reference: https://developer.riotgames.com/apis#champion-mastery-v4/GET_getAllChampionMasteries\n\nArgs:\n    puuid (str): The player's unique PUUID.\n    region (str): The region to fetch the champion mastery data from.\n\nReturns:\n    list: A list of champion mastery objects.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}?region=euw1\"",
         "operationId": "get_all_champion_masteries_lol_champion_mastery_v4_champion_masteries_by_puuid__puuid__get",
         "parameters": [
           {
@@ -1082,7 +1082,7 @@
           "champion-mastery"
         ],
         "summary": "Get Champion Mastery",
-        "description": "Get champion mastery entry for a specific champion.\n\nAPI Reference: https://developer.riotgames.com/apis#champion-mastery-v4/GET_getChampionMastery\n\nReturns champion mastery object with level, points, tokens, etc.",
+        "description": "Retrieves the champion mastery entry for a specific champion.\n\nThis endpoint fetches a single champion mastery object, which includes\ndetails like level, points, and tokens. The results are cached for\nimproved performance.\n\nAPI Reference: https://developer.riotgames.com/apis#champion-mastery-v4/GET_getChampionMastery\n\nArgs:\n    puuid (str): The player's unique PUUID.\n    championId (int): The ID of the champion.\n    region (str): The region to fetch the mastery data from.\n\nReturns:\n    dict: A dictionary containing the champion mastery information.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}/by-champion/1?region=euw1\"",
         "operationId": "get_champion_mastery_lol_champion_mastery_v4_champion_masteries_by_puuid__puuid__by_champion__championId__get",
         "parameters": [
           {
@@ -1144,7 +1144,7 @@
           "champion-mastery"
         ],
         "summary": "Get Top Champion Masteries",
-        "description": "Get top N champion mastery entries for a summoner.\n\nAPI Reference: https://developer.riotgames.com/apis#champion-mastery-v4/GET_getTopChampionMasteries\n\nArgs:\n    count: Number of top champions (1-20, default 3)\n\nReturns list of top champion mastery objects.",
+        "description": "Retrieves the top N champion mastery entries for a summoner.\n\nThis endpoint fetches a list of the highest-scoring champion mastery\nobjects for a player. The number of champions to return can be specified\nwith the `count` parameter.\n\nAPI Reference: https://developer.riotgames.com/apis#champion-mastery-v4/GET_getTopChampionMasteries\n\nArgs:\n    puuid (str): The player's unique PUUID.\n    region (str): The region to fetch the mastery data from.\n    count (int): The number of top champions to retrieve (1-20, default 3).\n\nReturns:\n    list: A list of the top champion mastery objects.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}/top?region=euw1&count=5\"",
         "operationId": "get_top_champion_masteries_lol_champion_mastery_v4_champion_masteries_by_puuid__puuid__top_get",
         "parameters": [
           {
@@ -1211,7 +1211,7 @@
           "champion-mastery"
         ],
         "summary": "Get Mastery Score",
-        "description": "Get total mastery score for a summoner.\n\nAPI Reference: https://developer.riotgames.com/apis#champion-mastery-v4/GET_getChampionMasteryScore\n\nReturns integer representing total mastery points across all champions.",
+        "description": "Retrieves the total mastery score for a summoner.\n\nThis endpoint calculates and returns the total mastery score, which is the\nsum of all individual champion mastery levels.\n\nAPI Reference: https://developer.riotgames.com/apis#champion-mastery-v4/GET_getChampionMasteryScore\n\nArgs:\n    puuid (str): The player's unique PUUID.\n    region (str): The region to fetch the mastery score from.\n\nReturns:\n    int: The total mastery score for the summoner.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/champion-mastery/v4/scores/by-puuid/{puuid}?region=euw1\"",
         "operationId": "get_mastery_score_lol_champion_mastery_v4_scores_by_puuid__puuid__get",
         "parameters": [
           {
@@ -1264,7 +1264,7 @@
           "spectator"
         ],
         "summary": "Get Active Game",
-        "description": "Get current game information for a summoner (if in game).\n\nReturns 404 if player is not currently in a game.\n\nAPI Reference: https://developer.riotgames.com/apis#spectator-v5/GET_getCurrentGameInfoByPuuid\n\nReturns:\n    - gameId: Current game ID\n    - gameMode: Game mode\n    - gameStartTime: Start time (epoch ms)\n    - participants: List of players in the game\n    - bannedChampions: Banned champions\n    - observers: Spectator key",
+        "description": "Retrieves the active game for a summoner.\n\nThis endpoint fetches the current game information for a player, if they\nare currently in a game. It returns a 404 error if the player is not in a\ngame.\n\nAPI Reference: https://developer.riotgames.com/apis#spectator-v5/GET_getCurrentGameInfoByPuuid\n\nArgs:\n    puuid (str): The player's unique PUUID.\n    region (str): The region to fetch the game data from.\n\nReturns:\n    dict: A dictionary containing the active game information, including\n          game mode, start time, participants, and banned champions.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/spectator/v5/active-games/by-summoner/{puuid}?region=euw1\"",
         "operationId": "get_active_game_lol_spectator_v5_active_games_by_summoner__puuid__get",
         "parameters": [
           {
@@ -1317,7 +1317,7 @@
           "spectator"
         ],
         "summary": "Get Featured Games",
-        "description": "Get list of featured games (high-profile matches shown in client).\n\nAPI Reference: https://developer.riotgames.com/apis#spectator-v5/GET_getFeaturedGames\n\nReturns:\n    - gameList: List of featured game objects\n    - clientRefreshInterval: Refresh interval (ms)",
+        "description": "Retrieves a list of featured games.\n\nThis endpoint fetches a list of high-profile matches that are currently\nfeatured in the League of Legends client.\n\nAPI Reference: https://developer.riotgames.com/apis#spectator-v5/GET_getFeaturedGames\n\nArgs:\n    region (str): The region to fetch the featured games from.\n\nReturns:\n    dict: A dictionary containing the list of featured games and the\n          client refresh interval.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/spectator/v5/featured-games?region=euw1\"",
         "operationId": "get_featured_games_lol_spectator_v5_featured_games_get",
         "parameters": [
           {
@@ -1361,7 +1361,7 @@
           "platform"
         ],
         "summary": "Get Platform Status",
-        "description": "Get League of Legends platform status for a region.\n\nAPI Reference: https://developer.riotgames.com/apis#lol-status-v4/GET_getPlatformData\n\nReturns:\n    - id: Region ID\n    - name: Region name\n    - locales: Supported locales\n    - maintenances: Scheduled maintenance events\n    - incidents: Current incidents/issues",
+        "description": "Retrieves the platform status for a specific region.\n\nThis endpoint fetches the current status of the League of Legends platform,\nincluding any ongoing maintenance or incidents.\n\nAPI Reference: https://developer.riotgames.com/apis#lol-status-v4/GET_getPlatformData\n\nArgs:\n    region (str): The region to fetch the platform status for.\n\nReturns:\n    dict: A dictionary containing the platform status, including region ID,\n          name, locales, maintenances, and incidents.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/status/v4/platform-data?region=euw1\"",
         "operationId": "get_platform_status_lol_status_v4_platform_data_get",
         "parameters": [
           {
@@ -1405,7 +1405,7 @@
           "clash"
         ],
         "summary": "Get Clash Player",
-        "description": "Get clash player info by PUUID.\n\nReturns list of clash tournament registrations for the player.\n\nAPI Reference: https://developer.riotgames.com/apis#clash-v1/GET_getPlayersByPUUID\n\nReturns:\n    List of player registration objects with:\n    - summonerId\n    - teamId\n    - position\n    - role",
+        "description": "Retrieves Clash player information by PUUID.\n\nThis endpoint fetches a list of a player's Clash tournament registrations.\nDue to the dynamic nature of tournament data, it uses a short cache TTL.\n\nAPI Reference: https://developer.riotgames.com/apis#clash-v1/GET_getPlayersByPUUID\n\nArgs:\n    puuid (str): The player's unique PUUID.\n    region (str): The region to fetch the Clash player data from.\n\nReturns:\n    list: A list of player registration objects, each containing details\n          like summonerId, teamId, position, and role.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/clash/v1/players/by-puuid/{puuid}?region=euw1\"",
         "operationId": "get_clash_player_lol_clash_v1_players_by_puuid__puuid__get",
         "parameters": [
           {
@@ -1458,7 +1458,7 @@
           "clash"
         ],
         "summary": "Get Clash Team",
-        "description": "Get clash team by team ID.\n\nAPI Reference: https://developer.riotgames.com/apis#clash-v1/GET_getTeamById\n\nReturns:\n    Team object with:\n    - id: Team ID\n    - tournamentId\n    - name: Team name\n    - iconId: Team icon\n    - tier: Tournament tier\n    - captain: Captain summoner ID\n    - abbreviation: Team abbreviation\n    - players: List of player objects",
+        "description": "Retrieves Clash team information by team ID.\n\nThis endpoint fetches detailed information about a Clash team, including\nits tournament ID, name, icon, tier, and list of players.\n\nAPI Reference: https://developer.riotgames.com/apis#clash-v1/GET_getTeamById\n\nArgs:\n    teamId (str): The ID of the Clash team.\n    region (str): The region to fetch the team data from.\n\nReturns:\n    dict: A dictionary containing the Clash team's details.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/clash/v1/teams/{teamId}?region=euw1\"",
         "operationId": "get_clash_team_lol_clash_v1_teams__teamId__get",
         "parameters": [
           {
@@ -1511,7 +1511,7 @@
           "clash"
         ],
         "summary": "Get Clash Tournaments",
-        "description": "Get all active and upcoming clash tournaments.\n\nAPI Reference: https://developer.riotgames.com/apis#clash-v1/GET_getTournaments\n\nReturns:\n    List of tournament objects with:\n    - id: Tournament ID\n    - themeId: Theme ID\n    - nameKey: Name key for localization\n    - nameKeySecondary: Secondary name key\n    - schedule: List of tournament phase objects",
+        "description": "Retrieves all active and upcoming Clash tournaments.\n\nThis endpoint fetches a list of all current and future Clash tournaments,\nincluding their schedules and themes.\n\nAPI Reference: https://developer.riotgames.com/apis#clash-v1/GET_getTournaments\n\nArgs:\n    region (str): The region to fetch the tournament data from.\n\nReturns:\n    list: A list of tournament objects.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/clash/v1/tournaments?region=euw1\"",
         "operationId": "get_clash_tournaments_lol_clash_v1_tournaments_get",
         "parameters": [
           {
@@ -1555,7 +1555,7 @@
           "clash"
         ],
         "summary": "Get Clash Tournament",
-        "description": "Get clash tournament by tournament ID.\n\nAPI Reference: https://developer.riotgames.com/apis#clash-v1/GET_getTournamentById\n\nReturns:\n    Tournament object with:\n    - id: Tournament ID\n    - themeId: Theme ID\n    - nameKey: Name key\n    - nameKeySecondary: Secondary name key\n    - schedule: Tournament schedule phases",
+        "description": "Retrieves a Clash tournament by its ID.\n\nThis endpoint fetches detailed information about a specific Clash\ntournament, including its schedule and theme.\n\nAPI Reference: https://developer.riotgames.com/apis#clash-v1/GET_getTournamentById\n\nArgs:\n    tournamentId (int): The ID of the tournament.\n    region (str): The region to fetch the tournament data from.\n\nReturns:\n    dict: A dictionary containing the tournament's details.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/clash/v1/tournaments/{tournamentId}?region=euw1\"",
         "operationId": "get_clash_tournament_lol_clash_v1_tournaments__tournamentId__get",
         "parameters": [
           {
@@ -1608,7 +1608,7 @@
           "clash"
         ],
         "summary": "Get Clash Tournament By Team",
-        "description": "Get clash tournament that a team is registered for.\n\nAPI Reference: https://developer.riotgames.com/apis#clash-v1/GET_getTournamentByTeam\n\nReturns:\n    Tournament object for the team's registered tournament.",
+        "description": "Retrieves the Clash tournament a team is registered for.\n\nThis endpoint fetches the tournament object for the tournament that the\nspecified team is a part of.\n\nAPI Reference: https://developer.riotgames.com/apis#clash-v1/GET_getTournamentByTeam\n\nArgs:\n    teamId (str): The ID of the team.\n    region (str): The region to fetch the tournament data from.\n\nReturns:\n    dict: A dictionary containing the tournament's details.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/clash/v1/tournaments/by-team/{teamId}?region=euw1\"",
         "operationId": "get_clash_tournament_by_team_lol_clash_v1_tournaments_by_team__teamId__get",
         "parameters": [
           {
@@ -1661,7 +1661,7 @@
           "challenges"
         ],
         "summary": "Get All Challenges Config",
-        "description": "Get configuration for all challenges.\n\nAPI Reference: https://developer.riotgames.com/apis#lol-challenges-v1/GET_getAllChallengeConfigs\n\nReturns list of all challenge configuration objects with:\n- id: Challenge ID\n- localizedNames: Localized challenge names\n- state: Challenge state (ENABLED, DISABLED, etc.)\n- leaderboard: Whether has leaderboard\n- thresholds: Thresholds for tiers",
+        "description": "Retrieves the configuration for all challenges.\n\nThis endpoint fetches a list of all available challenge configurations,\nincluding their IDs, localized names, and thresholds. The results are\ncached to optimize performance.\n\nAPI Reference: https://developer.riotgames.com/apis#lol-challenges-v1/GET_getAllChallengeConfigs\n\nArgs:\n    region (str): The region to fetch the challenges configuration for.\n\nReturns:\n    list: A list of challenge configuration objects.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/challenges/v1/challenges/config?region=euw1\"",
         "operationId": "get_all_challenges_config_lol_challenges_v1_challenges_config_get",
         "parameters": [
           {
@@ -1705,7 +1705,7 @@
           "challenges"
         ],
         "summary": "Get Challenge Config",
-        "description": "Get configuration for a specific challenge.\n\nAPI Reference: https://developer.riotgames.com/apis#lol-challenges-v1/GET_getChallengeConfigs\n\nReturns:\n    Challenge configuration object with thresholds, localized names, etc.",
+        "description": "Retrieves the configuration for a specific challenge.\n\nThis endpoint fetches the configuration for a single challenge by its ID,\nincluding details like thresholds and localized names. The results are\ncached for better performance.\n\nAPI Reference: https://developer.riotgames.com/apis#lol-challenges-v1/GET_getChallengeConfigs\n\nArgs:\n    challengeId (int): The ID of the challenge to retrieve.\n    region (str): The region to fetch the challenge configuration from.\n\nReturns:\n    dict: A dictionary containing the challenge configuration.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/challenges/v1/challenges/1/config?region=euw1\"",
         "operationId": "get_challenge_config_lol_challenges_v1_challenges__challengeId__config_get",
         "parameters": [
           {
@@ -1758,7 +1758,7 @@
           "challenges"
         ],
         "summary": "Get Challenge Leaderboard",
-        "description": "Get leaderboard for a specific challenge at a specific level.\n\nAPI Reference: https://developer.riotgames.com/apis#lol-challenges-v1/GET_getChallengeLeaderboards\n\nArgs:\n    challengeId: Challenge ID\n    level: Challenge level (MASTER, GRANDMASTER, CHALLENGER)\n    limit: Optional limit on results\n\nReturns:\n    List of leaderboard entries with player PUUIDs and values.",
+        "description": "Retrieves the leaderboard for a specific challenge and level.\n\nThis endpoint fetches the leaderboard for a given challenge, filtered by\na specific competitive level (e.g., MASTER, GRANDMASTER). It supports an\noptional limit on the number of results and uses a short cache TTL to\nkeep the data fresh.\n\nAPI Reference: https://developer.riotgames.com/apis#lol-challenges-v1/GET_getChallengeLeaderboards\n\nArgs:\n    challengeId (int): The ID of the challenge.\n    level (str): The competitive level to retrieve the leaderboard for.\n    region (str): The region to fetch the leaderboard from.\n    limit (int, optional): The maximum number of leaderboard entries to return.\n\nReturns:\n    list: A list of leaderboard entries, each containing player PUUIDs and their values.\n\nExample:\n    >>> curl \"http://1227.0.0.1:8080/lol/challenges/v1/challenges/1/leaderboards/by-level/CHALLENGER?region=euw1&limit=10\"",
         "operationId": "get_challenge_leaderboard_lol_challenges_v1_challenges__challengeId__leaderboards_by_level__level__get",
         "parameters": [
           {
@@ -1832,7 +1832,7 @@
           "challenges"
         ],
         "summary": "Get Challenge Percentiles",
-        "description": "Get percentile distribution for a challenge.\n\nAPI Reference: https://developer.riotgames.com/apis#lol-challenges-v1/GET_getChallengePercentiles\n\nReturns map of challenge values to percentiles.",
+        "description": "Retrieves the percentile distribution for a challenge.\n\nThis endpoint fetches a map of percentile values for a specific challenge,\nallowing for a detailed statistical overview. The results are cached to\noptimize performance.\n\nAPI Reference: https://developer.riotgames.com/apis#lol-challenges-v1/GET_getChallengePercentiles\n\nArgs:\n    challengeId (int): The ID of the challenge.\n    region (str): The region to fetch the percentiles from.\n\nReturns:\n    dict: A dictionary mapping challenge values to their corresponding percentiles.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/challenges/v1/challenges/1/percentiles?region=euw1\"",
         "operationId": "get_challenge_percentiles_lol_challenges_v1_challenges__challengeId__percentiles_get",
         "parameters": [
           {
@@ -1885,7 +1885,7 @@
           "challenges"
         ],
         "summary": "Get Player Challenges",
-        "description": "Get all challenge data for a player by PUUID.\n\nAPI Reference: https://developer.riotgames.com/apis#lol-challenges-v1/GET_getPlayerData\n\nReturns:\n    - totalPoints: Total challenge points\n    - categoryPoints: Points per category\n    - challenges: List of all challenge progress\n    - preferences: Player challenge preferences",
+        "description": "Retrieves all challenge data for a player.\n\nThis endpoint fetches a comprehensive overview of a player's challenge\nprogression, including their total points, category points, and individual\nchallenge progress. The results are cached to optimize performance.\n\nAPI Reference: https://developer.riotgames.com/apis#lol-challenges-v1/GET_getPlayerData\n\nArgs:\n    puuid (str): The player's unique PUUID.\n    region (str): The region to fetch the player's challenge data from.\n\nReturns:\n    dict: A dictionary containing the player's total points, category points,\n          challenge progress, and preferences.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/challenges/v1/player-data/{puuid}?region=euw1\"",
         "operationId": "get_player_challenges_lol_challenges_v1_player_data__puuid__get",
         "parameters": [
           {
