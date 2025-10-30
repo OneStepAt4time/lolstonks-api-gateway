@@ -1887,7 +1887,7 @@
 <li><strong>Token Consumption</strong>: Each request consumes one token</li>
 <li><strong>Wait Strategy</strong>: Requests wait when tokens are unavailable</li>
 </ol>
-<div class="highlight"><pre><span></span><code>graph TD
+<pre class="mermaid"><code>graph TD
     Bucket[Token Bucket] --&gt; Refill[Refill: 20 tokens/sec]
     Bucket --&gt; Capacity[Max Capacity: 100 tokens]
 
@@ -1903,8 +1903,7 @@
     Available --&gt;|No| Wait[Wait for Refill]
 
     Wait --&gt; Available
-    Process --&gt; Bucket
-</code></pre></div>
+    Process --&gt; Bucket</code></pre>
 <h3 id="implementation-details">Implementation Details<a class="headerlink" href="#implementation-details" title="Permanent link">&para;</a></h3>
 <blockquote>
 <p><strong>💡 Actual Implementation</strong>: The real code in <code>app/riot/rate_limiter.py</code> uses <code>aiolimiter.AsyncLimiter</code> for simplicity and reliability. The example below shows a conceptual implementation for educational purposes.</p>

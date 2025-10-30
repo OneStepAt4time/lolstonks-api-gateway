@@ -2115,7 +2115,7 @@
 <p>This section provides a comprehensive overview of the LOLStonks API Gateway architecture, its components, and design principles.</p>
 <h2 id="high-level-architecture">High-Level Architecture<a class="headerlink" href="#high-level-architecture" title="Permanent link">&para;</a></h2>
 <h3 id="simplified-request-flow">Simplified Request Flow<a class="headerlink" href="#simplified-request-flow" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>flowchart LR
+<pre class="mermaid"><code>flowchart LR
     Client --&gt;|HTTP Request| Gateway[FastAPI Gateway]
     Gateway --&gt;|Rate Limit Check| RateLimiter[Rate Limiter]
     RateLimiter --&gt;|Cache Lookup| Redis[Redis Cache]
@@ -2126,16 +2126,15 @@
     Gateway --&gt;|Store Processed Data| Redis
 
     Gateway -.-&gt;|Rate Limit Exceeded| Client
-    Gateway -.-&gt;|Error Response| Client
-</code></pre></div>
+    Gateway -.-&gt;|Error Response| Client</code></pre>
 <h3 id="detailed-system-architecture">Detailed System Architecture<a class="headerlink" href="#detailed-system-architecture" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>graph TB
+<pre class="mermaid"><code>graph TB
     Client[Client Applications] --&gt; Gateway[LOLStonks API Gateway]
     Gateway --&gt; RateLimiter[Rate Limiter]
     Gateway --&gt; Cache[Redis Cache]
     Gateway --&gt; RiotAPI[Riot Games API]
 
-    subgraph &quot;Gateway Components&quot;
+    subgraph "Gateway Components"
         Gateway --&gt; FastAPI[FastAPI Application]
         Gateway --&gt; Routers[API Routers]
         Gateway --&gt; RiotClient[Riot Client]
@@ -2143,7 +2142,7 @@
         Gateway --&gt; ErrorHandler[Error Handler]
     end
 
-    subgraph &quot;External Services&quot;
+    subgraph "External Services"
         Redis[(Redis Server)]
         Riot[Riot Developer Portal]
     end
@@ -2152,8 +2151,7 @@
     MatchTracking --&gt; Redis
     RiotClient --&gt; Riot
     ErrorHandler -.-&gt; Client
-    RateLimiter -.-&gt; Client
-</code></pre></div>
+    RateLimiter -.-&gt; Client</code></pre>
 <h2 id="core-components">Core Components<a class="headerlink" href="#core-components" title="Permanent link">&para;</a></h2>
 <h3 id="1-fastapi-application-appmain">1. FastAPI Application (<code>app.main</code>)<a class="headerlink" href="#1-fastapi-application-appmain" title="Permanent link">&para;</a></h3>
 <p>The main entry point that provides:
@@ -2233,7 +2231,7 @@
 - <strong>Automatic Cleanup</strong>: Removal of expired TTL entries</p>
 <h2 id="api-router-architecture">API Router Architecture<a class="headerlink" href="#api-router-architecture" title="Permanent link">&para;</a></h2>
 <h3 id="router-organization">Router Organization<a class="headerlink" href="#router-organization" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>graph LR
+<pre class="mermaid"><code>graph LR
     Gateway --&gt; Routers
     Routers --&gt; Summoner[Summoner Router]
     Routers --&gt; Match[Match Router]
@@ -2244,8 +2242,7 @@
     Routers --&gt; Champion[Champion Router]
     Routers --&gt; Clash[Clash Router]
     Routers --&gt; Challenges[Challenges Router]
-    Routers --&gt; Platform[Platform Router]
-</code></pre></div>
+    Routers --&gt; Platform[Platform Router]</code></pre>
 <h3 id="router-responsibilities">Router Responsibilities<a class="headerlink" href="#router-responsibilities" title="Permanent link">&para;</a></h3>
 <p>Each router handles:
 - <strong>Path Parameter Validation</strong>: Pydantic models for route parameters
@@ -2269,7 +2266,7 @@
 </code></pre></div>
 <h2 id="data-flow-architecture">Data Flow Architecture<a class="headerlink" href="#data-flow-architecture" title="Permanent link">&para;</a></h2>
 <h3 id="request-processing-flow">Request Processing Flow<a class="headerlink" href="#request-processing-flow" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant C as Client
     participant G as Gateway
     participant RL as Rate Limiter
@@ -2301,8 +2298,7 @@
                 G--&gt;&gt;C: Error Response
             end
         end
-    end
-</code></pre></div>
+    end</code></pre>
 <h3 id="caching-strategy">Caching Strategy<a class="headerlink" href="#caching-strategy" title="Permanent link">&para;</a></h3>
 <p><strong>Cache Key Pattern:</strong>
 <div class="highlight"><pre><span></span><code>lolstonks:{endpoint}:{region}:{identifier}
@@ -2313,7 +2309,7 @@
 - <strong>League Data</strong>: 30 minutes (competitive data)
 - <strong>Champion Data</strong>: 1 week (static data)</p>
 <h3 id="error-handling-flow">Error Handling Flow<a class="headerlink" href="#error-handling-flow" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>graph TD
+<pre class="mermaid"><code>graph TD
     Request[Incoming Request] --&gt; Validation[Request Validation]
     Validation --&gt; ValidationError{Validation Valid?}
 
@@ -2346,8 +2342,7 @@
     RateResponse --&gt; ErrorResponse
     NotFound --&gt; ErrorResponse
     TimeoutError --&gt; ErrorResponse
-    ServerError --&gt; ErrorResponse
-</code></pre></div>
+    ServerError --&gt; ErrorResponse</code></pre>
 <h2 id="configuration-architecture">Configuration Architecture<a class="headerlink" href="#configuration-architecture" title="Permanent link">&para;</a></h2>
 <h3 id="configuration-hierarchy">Configuration Hierarchy<a class="headerlink" href="#configuration-hierarchy" title="Permanent link">&para;</a></h3>
 <ol>
@@ -2461,7 +2456,7 @@
 <h2 id="production-deployment">Production Deployment<a class="headerlink" href="#production-deployment" title="Permanent link">&para;</a></h2>
 <h3 id="deployment-architecture">Deployment Architecture<a class="headerlink" href="#deployment-architecture" title="Permanent link">&para;</a></h3>
 <p>For production deployments, the API Gateway should be run behind a reverse proxy with proper process management:</p>
-<div class="highlight"><pre><span></span><code>graph TB
+<pre class="mermaid"><code>graph TB
     Internet[Internet] --&gt; LB[Load Balancer/Nginx]
     LB --&gt; Gateway1[API Gateway Instance 1]
     LB --&gt; Gateway2[API Gateway Instance 2]
@@ -2475,7 +2470,7 @@
     Gateway2 --&gt; Riot
     GatewayN --&gt; Riot
 
-    subgraph &quot;Monitoring&quot;
+    subgraph "Monitoring"
         Prometheus[Prometheus]
         Grafana[Grafana]
         Alerts[Alert Manager]
@@ -2485,8 +2480,7 @@
     Gateway2 --&gt; Prometheus
     GatewayN --&gt; Prometheus
     Prometheus --&gt; Grafana
-    Prometheus --&gt; Alerts
-</code></pre></div>
+    Prometheus --&gt; Alerts</code></pre>
 <h3 id="production-requirements">Production Requirements<a class="headerlink" href="#production-requirements" title="Permanent link">&para;</a></h3>
 <ol>
 <li><strong>Process Management</strong>: Use systemd, supervisor, or similar process manager</li>

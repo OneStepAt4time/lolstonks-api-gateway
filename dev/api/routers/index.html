@@ -4054,7 +4054,7 @@ https://developer.riotgames.com/apis#league-v4</p>
 
 
 <h3 id="app.routers.league.get_challenger_league" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">get_challenger_league</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">LeagueByQueueParams</span><span class="p">,</span> <span class="n">Depends</span><span class="p">()],</span> <span class="n">query</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">LeagueByQueueQuery</span><span class="p">,</span> <span class="n">Depends</span><span class="p">()])</span></code>
+            <code class="highlight language-python"><span class="n">get_challenger_league</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">LeagueByQueueParams</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(),</span> <span class="n">query</span><span class="p">:</span> <span class="n">LeagueByQueueQuery</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">())</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
@@ -4095,7 +4095,7 @@ given queue, providing a snapshot of the top-ranked players in a region.</p>
               </div>
             </td>
             <td>
-                <em>required</em>
+                  <code><span title="fastapi.Depends">Depends</span>()</code>
             </td>
           </tr>
           <tr class="doc-section-item">
@@ -4111,7 +4111,7 @@ given queue, providing a snapshot of the top-ranked players in a region.</p>
               </div>
             </td>
             <td>
-                <em>required</em>
+                  <code><span title="fastapi.Depends">Depends</span>()</code>
             </td>
           </tr>
       </tbody>
@@ -4197,8 +4197,8 @@ given queue, providing a snapshot of the top-ranked players in a region.</p>
 <span class="normal">68</span>
 <span class="normal">69</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/challengerleagues/by-queue/</span><span class="si">{queue}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_challenger_league</span><span class="p">(</span>
-    <span class="n">params</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">LeagueByQueueParams</span><span class="p">,</span> <span class="n">Depends</span><span class="p">()],</span>
-    <span class="n">query</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">LeagueByQueueQuery</span><span class="p">,</span> <span class="n">Depends</span><span class="p">()],</span>
+    <span class="n">params</span><span class="p">:</span> <span class="n">LeagueByQueueParams</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(),</span>
+    <span class="n">query</span><span class="p">:</span> <span class="n">LeagueByQueueQuery</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(),</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Retrieves the Challenger league for a specific queue.</span>
@@ -4248,7 +4248,7 @@ given queue, providing a snapshot of the top-ranked players in a region.</p>
 
 
 <h3 id="app.routers.league.get_grandmaster_league" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">get_grandmaster_league</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">LeagueByQueueParams</span><span class="p">,</span> <span class="n">Depends</span><span class="p">()],</span> <span class="n">query</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">LeagueByQueueQuery</span><span class="p">,</span> <span class="n">Depends</span><span class="p">()])</span></code>
+            <code class="highlight language-python"><span class="n">get_grandmaster_league</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">LeagueByQueueParams</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(),</span> <span class="n">query</span><span class="p">:</span> <span class="n">LeagueByQueueQuery</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">())</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
@@ -4289,7 +4289,7 @@ given queue, providing a snapshot of the top-ranked players in a region.</p>
               </div>
             </td>
             <td>
-                <em>required</em>
+                  <code><span title="fastapi.Depends">Depends</span>()</code>
             </td>
           </tr>
           <tr class="doc-section-item">
@@ -4305,7 +4305,7 @@ given queue, providing a snapshot of the top-ranked players in a region.</p>
               </div>
             </td>
             <td>
-                <em>required</em>
+                  <code><span title="fastapi.Depends">Depends</span>()</code>
             </td>
           </tr>
       </tbody>
@@ -4391,8 +4391,8 @@ given queue, providing a snapshot of the top-ranked players in a region.</p>
 <span class="normal">113</span>
 <span class="normal">114</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/grandmasterleagues/by-queue/</span><span class="si">{queue}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_grandmaster_league</span><span class="p">(</span>
-    <span class="n">params</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">LeagueByQueueParams</span><span class="p">,</span> <span class="n">Depends</span><span class="p">()],</span>
-    <span class="n">query</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">LeagueByQueueQuery</span><span class="p">,</span> <span class="n">Depends</span><span class="p">()],</span>
+    <span class="n">params</span><span class="p">:</span> <span class="n">LeagueByQueueParams</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(),</span>
+    <span class="n">query</span><span class="p">:</span> <span class="n">LeagueByQueueQuery</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(),</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Retrieves the Grandmaster league for a specific queue.</span>
@@ -4442,7 +4442,7 @@ given queue, providing a snapshot of the top-ranked players in a region.</p>
 
 
 <h3 id="app.routers.league.get_master_league" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">get_master_league</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">LeagueByQueueParams</span><span class="p">,</span> <span class="n">Depends</span><span class="p">()],</span> <span class="n">query</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">LeagueByQueueQuery</span><span class="p">,</span> <span class="n">Depends</span><span class="p">()])</span></code>
+            <code class="highlight language-python"><span class="n">get_master_league</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">LeagueByQueueParams</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(),</span> <span class="n">query</span><span class="p">:</span> <span class="n">LeagueByQueueQuery</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">())</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
@@ -4483,7 +4483,7 @@ given queue, providing a snapshot of the top-ranked players in a region.</p>
               </div>
             </td>
             <td>
-                <em>required</em>
+                  <code><span title="fastapi.Depends">Depends</span>()</code>
             </td>
           </tr>
           <tr class="doc-section-item">
@@ -4499,7 +4499,7 @@ given queue, providing a snapshot of the top-ranked players in a region.</p>
               </div>
             </td>
             <td>
-                <em>required</em>
+                  <code><span title="fastapi.Depends">Depends</span>()</code>
             </td>
           </tr>
       </tbody>
@@ -4585,8 +4585,8 @@ given queue, providing a snapshot of the top-ranked players in a region.</p>
 <span class="normal">158</span>
 <span class="normal">159</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/masterleagues/by-queue/</span><span class="si">{queue}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_master_league</span><span class="p">(</span>
-    <span class="n">params</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">LeagueByQueueParams</span><span class="p">,</span> <span class="n">Depends</span><span class="p">()],</span>
-    <span class="n">query</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">LeagueByQueueQuery</span><span class="p">,</span> <span class="n">Depends</span><span class="p">()],</span>
+    <span class="n">params</span><span class="p">:</span> <span class="n">LeagueByQueueParams</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(),</span>
+    <span class="n">query</span><span class="p">:</span> <span class="n">LeagueByQueueQuery</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(),</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Retrieves the Master league for a specific queue.</span>
@@ -4636,7 +4636,7 @@ given queue, providing a snapshot of the top-ranked players in a region.</p>
 
 
 <h3 id="app.routers.league.get_league_entries_by_summoner" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">get_league_entries_by_summoner</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">LeagueEntriesBySummonerParams</span><span class="p">,</span> <span class="n">Depends</span><span class="p">()],</span> <span class="n">query</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">LeagueEntriesBySummonerQuery</span><span class="p">,</span> <span class="n">Depends</span><span class="p">()])</span></code>
+            <code class="highlight language-python"><span class="n">get_league_entries_by_summoner</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">LeagueEntriesBySummonerParams</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(),</span> <span class="n">query</span><span class="p">:</span> <span class="n">LeagueEntriesBySummonerQuery</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">())</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
@@ -4677,7 +4677,7 @@ details about their rank in each queue they participate in.</p>
               </div>
             </td>
             <td>
-                <em>required</em>
+                  <code><span title="fastapi.Depends">Depends</span>()</code>
             </td>
           </tr>
           <tr class="doc-section-item">
@@ -4693,7 +4693,7 @@ details about their rank in each queue they participate in.</p>
               </div>
             </td>
             <td>
-                <em>required</em>
+                  <code><span title="fastapi.Depends">Depends</span>()</code>
             </td>
           </tr>
       </tbody>
@@ -4781,8 +4781,8 @@ details about their rank in each queue they participate in.</p>
 <span class="normal">205</span>
 <span class="normal">206</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/entries/by-summoner/</span><span class="si">{encryptedSummonerId}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_league_entries_by_summoner</span><span class="p">(</span>
-    <span class="n">params</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">LeagueEntriesBySummonerParams</span><span class="p">,</span> <span class="n">Depends</span><span class="p">()],</span>
-    <span class="n">query</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">LeagueEntriesBySummonerQuery</span><span class="p">,</span> <span class="n">Depends</span><span class="p">()],</span>
+    <span class="n">params</span><span class="p">:</span> <span class="n">LeagueEntriesBySummonerParams</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(),</span>
+    <span class="n">query</span><span class="p">:</span> <span class="n">LeagueEntriesBySummonerQuery</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(),</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Retrieves the league entries for a summoner across all queues.</span>
@@ -4834,7 +4834,7 @@ details about their rank in each queue they participate in.</p>
 
 
 <h3 id="app.routers.league.get_league_entries" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">get_league_entries</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">LeagueEntriesParams</span><span class="p">,</span> <span class="n">Depends</span><span class="p">()],</span> <span class="n">query</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">LeagueEntriesQuery</span><span class="p">,</span> <span class="n">Depends</span><span class="p">()])</span></code>
+            <code class="highlight language-python"><span class="n">get_league_entries</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">LeagueEntriesParams</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(),</span> <span class="n">query</span><span class="p">:</span> <span class="n">LeagueEntriesQuery</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">())</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
@@ -4875,7 +4875,7 @@ rank, allowing for the retrieval of large sets of ranked players.</p>
               </div>
             </td>
             <td>
-                <em>required</em>
+                  <code><span title="fastapi.Depends">Depends</span>()</code>
             </td>
           </tr>
           <tr class="doc-section-item">
@@ -4891,7 +4891,7 @@ rank, allowing for the retrieval of large sets of ranked players.</p>
               </div>
             </td>
             <td>
-                <em>required</em>
+                  <code><span title="fastapi.Depends">Depends</span>()</code>
             </td>
           </tr>
       </tbody>
@@ -4994,8 +4994,8 @@ rank, allowing for the retrieval of large sets of ranked players.</p>
 <span class="normal">267</span>
 <span class="normal">268</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/entries/</span><span class="si">{queue}</span><span class="s2">/</span><span class="si">{tier}</span><span class="s2">/</span><span class="si">{division}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_league_entries</span><span class="p">(</span>
-    <span class="n">params</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">LeagueEntriesParams</span><span class="p">,</span> <span class="n">Depends</span><span class="p">()],</span>
-    <span class="n">query</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">LeagueEntriesQuery</span><span class="p">,</span> <span class="n">Depends</span><span class="p">()],</span>
+    <span class="n">params</span><span class="p">:</span> <span class="n">LeagueEntriesParams</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(),</span>
+    <span class="n">query</span><span class="p">:</span> <span class="n">LeagueEntriesQuery</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(),</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Retrieves league entries by queue, tier, and division.</span>
@@ -5108,7 +5108,7 @@ https://developer.riotgames.com/apis#league-exp-v4</p>
 
 
 <h3 id="app.routers.league_exp.get_league_exp_entries" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">get_league_exp_entries</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">LeagueExpEntriesParams</span><span class="p">,</span> <span class="n">Depends</span><span class="p">()],</span> <span class="n">query</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">LeagueExpEntriesQuery</span><span class="p">,</span> <span class="n">Depends</span><span class="p">()])</span></code>
+            <code class="highlight language-python"><span class="n">get_league_exp_entries</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">LeagueExpEntriesParams</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(),</span> <span class="n">query</span><span class="p">:</span> <span class="n">LeagueExpEntriesQuery</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">())</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
@@ -5149,7 +5149,7 @@ rank, allowing for the retrieval of large sets of ranked players.</p>
               </div>
             </td>
             <td>
-                <em>required</em>
+                  <code><span title="fastapi.Depends">Depends</span>()</code>
             </td>
           </tr>
           <tr class="doc-section-item">
@@ -5165,7 +5165,7 @@ rank, allowing for the retrieval of large sets of ranked players.</p>
               </div>
             </td>
             <td>
-                <em>required</em>
+                  <code><span title="fastapi.Depends">Depends</span>()</code>
             </td>
           </tr>
       </tbody>
@@ -5266,8 +5266,8 @@ rank, allowing for the retrieval of large sets of ranked players.</p>
 <span class="normal">78</span>
 <span class="normal">79</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/entries/</span><span class="si">{queue}</span><span class="s2">/</span><span class="si">{tier}</span><span class="s2">/</span><span class="si">{division}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_league_exp_entries</span><span class="p">(</span>
-    <span class="n">params</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">LeagueExpEntriesParams</span><span class="p">,</span> <span class="n">Depends</span><span class="p">()],</span>
-    <span class="n">query</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">LeagueExpEntriesQuery</span><span class="p">,</span> <span class="n">Depends</span><span class="p">()],</span>
+    <span class="n">params</span><span class="p">:</span> <span class="n">LeagueExpEntriesParams</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(),</span>
+    <span class="n">query</span><span class="p">:</span> <span class="n">LeagueExpEntriesQuery</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(),</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Retrieves league entries from the experimental endpoint.</span>

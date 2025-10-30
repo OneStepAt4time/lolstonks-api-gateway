@@ -1879,7 +1879,7 @@
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p>The caching system uses Redis as the primary caching backend with a multi-layer approach that balances performance, data freshness, and storage efficiency.</p>
 <h2 id="caching-architecture_1">Caching Architecture<a class="headerlink" href="#caching-architecture_1" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>graph TB
+<pre class="mermaid"><code>graph TB
     Request[Client Request] --&gt; Gateway[API Gateway]
     Gateway --&gt; CheckCache{Check Cache}
 
@@ -1894,7 +1894,7 @@
     ReturnCached --&gt; Client[Client Response]
     ReturnResponse --&gt; Client
 
-    subgraph &quot;Cache Layers&quot;
+    subgraph "Cache Layers"
         L1[TTL Cache - Fast Access]
         L2[Persistent Storage]
         L3[Match Tracking Set]
@@ -1902,8 +1902,7 @@
 
     StoreCache --&gt; L1
     StoreCache --&gt; L2
-    StoreCache --&gt; L3
-</code></pre></div>
+    StoreCache --&gt; L3</code></pre>
 <h2 id="cache-configuration">Cache Configuration<a class="headerlink" href="#cache-configuration" title="Permanent link">&para;</a></h2>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code># Redis connection settings
