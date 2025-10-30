@@ -4,8 +4,6 @@ Riot Developer Portal API Reference:
 https://developer.riotgames.com/apis#league-v4
 """
 
-from typing import Annotated
-
 from fastapi import APIRouter, Depends
 from loguru import logger
 
@@ -26,8 +24,8 @@ router = APIRouter(prefix="/lol/league/v4", tags=["league"])
 
 @router.get("/challengerleagues/by-queue/{queue}")
 async def get_challenger_league(
-    params: Annotated[LeagueByQueueParams, Depends()],
-    query: Annotated[LeagueByQueueQuery, Depends()],
+    params: LeagueByQueueParams = Depends(),
+    query: LeagueByQueueQuery = Depends(),
 ):
     """
     Retrieves the Challenger league for a specific queue.
@@ -71,8 +69,8 @@ async def get_challenger_league(
 
 @router.get("/grandmasterleagues/by-queue/{queue}")
 async def get_grandmaster_league(
-    params: Annotated[LeagueByQueueParams, Depends()],
-    query: Annotated[LeagueByQueueQuery, Depends()],
+    params: LeagueByQueueParams = Depends(),
+    query: LeagueByQueueQuery = Depends(),
 ):
     """
     Retrieves the Grandmaster league for a specific queue.
@@ -116,8 +114,8 @@ async def get_grandmaster_league(
 
 @router.get("/masterleagues/by-queue/{queue}")
 async def get_master_league(
-    params: Annotated[LeagueByQueueParams, Depends()],
-    query: Annotated[LeagueByQueueQuery, Depends()],
+    params: LeagueByQueueParams = Depends(),
+    query: LeagueByQueueQuery = Depends(),
 ):
     """
     Retrieves the Master league for a specific queue.
@@ -161,8 +159,8 @@ async def get_master_league(
 
 @router.get("/entries/by-summoner/{encryptedSummonerId}")
 async def get_league_entries_by_summoner(
-    params: Annotated[LeagueEntriesBySummonerParams, Depends()],
-    query: Annotated[LeagueEntriesBySummonerQuery, Depends()],
+    params: LeagueEntriesBySummonerParams = Depends(),
+    query: LeagueEntriesBySummonerQuery = Depends(),
 ):
     """
     Retrieves the league entries for a summoner across all queues.
@@ -208,8 +206,8 @@ async def get_league_entries_by_summoner(
 
 @router.get("/entries/{queue}/{tier}/{division}")
 async def get_league_entries(
-    params: Annotated[LeagueEntriesParams, Depends()],
-    query: Annotated[LeagueEntriesQuery, Depends()],
+    params: LeagueEntriesParams = Depends(),
+    query: LeagueEntriesQuery = Depends(),
 ):
     """
     Retrieves league entries by queue, tier, and division.

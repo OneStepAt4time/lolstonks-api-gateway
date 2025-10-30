@@ -6,8 +6,6 @@ https://developer.riotgames.com/apis#league-exp-v4
 Note: This is an experimental API providing paginated league entries.
 """
 
-from typing import Annotated
-
 from fastapi import APIRouter, Depends
 from loguru import logger
 
@@ -21,8 +19,8 @@ router = APIRouter(prefix="/lol/league-exp/v4", tags=["league-exp"])
 
 @router.get("/entries/{queue}/{tier}/{division}")
 async def get_league_exp_entries(
-    params: Annotated[LeagueExpEntriesParams, Depends()],
-    query: Annotated[LeagueExpEntriesQuery, Depends()],
+    params: LeagueExpEntriesParams = Depends(),
+    query: LeagueExpEntriesQuery = Depends(),
 ):
     """
     Retrieves league entries from the experimental endpoint.
