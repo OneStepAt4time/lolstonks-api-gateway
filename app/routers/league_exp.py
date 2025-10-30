@@ -25,22 +25,22 @@ async def get_league_exp_entries(
     query: Annotated[LeagueExpEntriesQuery, Depends()],
 ):
     """
-    Get league entries by queue, tier, and division (experimental endpoint).
+    Retrieves league entries from the experimental endpoint.
 
-    This experimental endpoint provides paginated access to league entries.
-    Use this for fetching large sets of ranked players at specific ranks.
+    This endpoint provides paginated access to league entries for a specific
+    rank, allowing for the retrieval of large sets of ranked players.
 
     API Reference: https://developer.riotgames.com/apis#league-exp-v4/GET_getLeagueEntries
 
     Args:
-        queue: Queue type (RANKED_SOLO_5x5, RANKED_FLEX_SR, etc.)
-        tier: Tier (IRON through DIAMOND)
-        division: Division (I, II, III, IV)
-        region: Region code
-        page: Page number (starts at 1)
+        params (LeagueExpEntriesParams): The path parameters, containing the queue, tier, and division.
+        query (LeagueExpEntriesQuery): The query parameters, specifying the region and page number.
 
     Returns:
-        Array of league entries with summoner info, LP, win/loss stats
+        list: A list of league entry objects, including summoner info, LP, and win/loss stats.
+
+    Example:
+        >>> curl "http://127.0.0.1:8080/lol/league-exp/v4/entries/RANKED_SOLO_5x5/DIAMOND/I?region=euw1&page=1"
     """
     logger.info(
         "Fetching league exp entries",

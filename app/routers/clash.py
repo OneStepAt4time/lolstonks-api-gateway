@@ -19,18 +19,23 @@ async def get_clash_player(
     puuid: str, region: str = Query(default=settings.riot_default_region, description="Region code")
 ):
     """
-    Get clash player info by PUUID.
+    Retrieves Clash player information by PUUID.
 
-    Returns list of clash tournament registrations for the player.
+    This endpoint fetches a list of a player's Clash tournament registrations.
+    Due to the dynamic nature of tournament data, it uses a short cache TTL.
 
     API Reference: https://developer.riotgames.com/apis#clash-v1/GET_getPlayersByPUUID
 
+    Args:
+        puuid (str): The player's unique PUUID.
+        region (str): The region to fetch the Clash player data from.
+
     Returns:
-        List of player registration objects with:
-        - summonerId
-        - teamId
-        - position
-        - role
+        list: A list of player registration objects, each containing details
+              like summonerId, teamId, position, and role.
+
+    Example:
+        >>> curl "http://127.0.0.1:8080/lol/clash/v1/players/by-puuid/{puuid}?region=euw1"
     """
     cache_key = f"clash:player:{region}:{puuid}"
 
@@ -58,20 +63,22 @@ async def get_clash_team(
     region: str = Query(default=settings.riot_default_region, description="Region code"),
 ):
     """
-    Get clash team by team ID.
+    Retrieves Clash team information by team ID.
+
+    This endpoint fetches detailed information about a Clash team, including
+    its tournament ID, name, icon, tier, and list of players.
 
     API Reference: https://developer.riotgames.com/apis#clash-v1/GET_getTeamById
 
+    Args:
+        teamId (str): The ID of the Clash team.
+        region (str): The region to fetch the team data from.
+
     Returns:
-        Team object with:
-        - id: Team ID
-        - tournamentId
-        - name: Team name
-        - iconId: Team icon
-        - tier: Tournament tier
-        - captain: Captain summoner ID
-        - abbreviation: Team abbreviation
-        - players: List of player objects
+        dict: A dictionary containing the Clash team's details.
+
+    Example:
+        >>> curl "http://127.0.0.1:8080/lol/clash/v1/teams/{teamId}?region=euw1"
     """
     cache_key = f"clash:team:{region}:{teamId}"
 
@@ -98,17 +105,21 @@ async def get_clash_tournaments(
     region: str = Query(default=settings.riot_default_region, description="Region code"),
 ):
     """
-    Get all active and upcoming clash tournaments.
+    Retrieves all active and upcoming Clash tournaments.
+
+    This endpoint fetches a list of all current and future Clash tournaments,
+    including their schedules and themes.
 
     API Reference: https://developer.riotgames.com/apis#clash-v1/GET_getTournaments
 
+    Args:
+        region (str): The region to fetch the tournament data from.
+
     Returns:
-        List of tournament objects with:
-        - id: Tournament ID
-        - themeId: Theme ID
-        - nameKey: Name key for localization
-        - nameKeySecondary: Secondary name key
-        - schedule: List of tournament phase objects
+        list: A list of tournament objects.
+
+    Example:
+        >>> curl "http://127.0.0.1:8080/lol/clash/v1/tournaments?region=euw1"
     """
     cache_key = f"clash:tournaments:{region}"
 
@@ -136,17 +147,22 @@ async def get_clash_tournament(
     region: str = Query(default=settings.riot_default_region, description="Region code"),
 ):
     """
-    Get clash tournament by tournament ID.
+    Retrieves a Clash tournament by its ID.
+
+    This endpoint fetches detailed information about a specific Clash
+    tournament, including its schedule and theme.
 
     API Reference: https://developer.riotgames.com/apis#clash-v1/GET_getTournamentById
 
+    Args:
+        tournamentId (int): The ID of the tournament.
+        region (str): The region to fetch the tournament data from.
+
     Returns:
-        Tournament object with:
-        - id: Tournament ID
-        - themeId: Theme ID
-        - nameKey: Name key
-        - nameKeySecondary: Secondary name key
-        - schedule: Tournament schedule phases
+        dict: A dictionary containing the tournament's details.
+
+    Example:
+        >>> curl "http://127.0.0.1:8080/lol/clash/v1/tournaments/{tournamentId}?region=euw1"
     """
     cache_key = f"clash:tournament:{region}:{tournamentId}"
 
@@ -174,12 +190,22 @@ async def get_clash_tournament_by_team(
     region: str = Query(default=settings.riot_default_region, description="Region code"),
 ):
     """
-    Get clash tournament that a team is registered for.
+    Retrieves the Clash tournament a team is registered for.
+
+    This endpoint fetches the tournament object for the tournament that the
+    specified team is a part of.
 
     API Reference: https://developer.riotgames.com/apis#clash-v1/GET_getTournamentByTeam
 
+    Args:
+        teamId (str): The ID of the team.
+        region (str): The region to fetch the tournament data from.
+
     Returns:
-        Tournament object for the team's registered tournament.
+        dict: A dictionary containing the tournament's details.
+
+    Example:
+        >>> curl "http://127.0.0.1:8080/lol/clash/v1/tournaments/by-team/{teamId}?region=euw1"
     """
     cache_key = f"clash:tournament:team:{region}:{teamId}"
 

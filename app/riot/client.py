@@ -47,20 +47,25 @@ class RiotClient:
         params: dict | None = None,
     ) -> dict:
         """
-        Make GET request to Riot API with rate limiting and retry.
+        Makes a GET request to the Riot API with rate limiting and retry logic.
+
+        This method handles the entire process of making a GET request, including
+        acquiring a rate limit token, constructing the appropriate URL, and
+        handling potential 429 (rate limited) responses by retrying after a
+        specified delay.
 
         Args:
-            path: API path (e.g., '/lol/summoner/v4/summoners/by-name/Faker')
-            region: Region code (e.g., 'euw1', 'kr')
-            is_platform_endpoint: True for Match API, False for Summoner/League/Mastery
-            params: Optional query parameters
+            path (str): The API path for the request.
+            region (str): The region to target for the request.
+            is_platform_endpoint (bool): A flag indicating whether to use the platform-specific or regional endpoint.
+            params (dict, optional): A dictionary of query parameters to include in the request. Defaults to None.
 
         Returns:
-            JSON response as dictionary
+            dict: The JSON response from the API as a dictionary.
 
         Raises:
-            httpx.HTTPStatusError: On non-retryable HTTP errors
-            ValueError: On invalid region
+            httpx.HTTPStatusError: If the API returns a non-2xx and non-429 status code.
+            ValueError: If an invalid region is provided.
 
         Example:
             >>> await riot_client.get(

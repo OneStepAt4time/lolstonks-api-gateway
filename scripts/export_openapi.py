@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Export OpenAPI schema from FastAPI app."""
+"""
+Exports the OpenAPI schema from the FastAPI application.
+
+This script generates the OpenAPI schema from the main FastAPI application
+and saves it to a JSON file. This is useful for generating documentation,
+API clients, or for any other purpose that requires the API definition.
+"""
 
 import json
 from pathlib import Path
@@ -7,7 +13,13 @@ from app.main import app
 
 
 def export_openapi():
-    """Export OpenAPI schema to JSON file."""
+    """
+    Exports the OpenAPI schema to a JSON file.
+
+    This function retrieves the OpenAPI schema from the FastAPI application and
+    writes it to `docs/data/openapi.json`. It also prints a confirmation
+    message to the console with some basic statistics about the exported schema.
+    """
     openapi_schema = app.openapi()
 
     # Save to docs/data/openapi.json

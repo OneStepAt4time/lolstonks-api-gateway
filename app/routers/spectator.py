@@ -19,19 +19,24 @@ async def get_active_game(
     puuid: str, region: str = Query(default=settings.riot_default_region, description="Region code")
 ):
     """
-    Get current game information for a summoner (if in game).
+    Retrieves the active game for a summoner.
 
-    Returns 404 if player is not currently in a game.
+    This endpoint fetches the current game information for a player, if they
+    are currently in a game. It returns a 404 error if the player is not in a
+    game.
 
     API Reference: https://developer.riotgames.com/apis#spectator-v5/GET_getCurrentGameInfoByPuuid
 
+    Args:
+        puuid (str): The player's unique PUUID.
+        region (str): The region to fetch the game data from.
+
     Returns:
-        - gameId: Current game ID
-        - gameMode: Game mode
-        - gameStartTime: Start time (epoch ms)
-        - participants: List of players in the game
-        - bannedChampions: Banned champions
-        - observers: Spectator key
+        dict: A dictionary containing the active game information, including
+              game mode, start time, participants, and banned champions.
+
+    Example:
+        >>> curl "http://127.0.0.1:8080/lol/spectator/v5/active-games/by-summoner/{puuid}?region=euw1"
     """
     # Note: Active games should not be cached heavily as they change quickly
     cache_key = f"spectator:active:{region}:{puuid}"
@@ -59,13 +64,22 @@ async def get_featured_games(
     region: str = Query(default=settings.riot_default_region, description="Region code"),
 ):
     """
-    Get list of featured games (high-profile matches shown in client).
+    Retrieves a list of featured games.
+
+    This endpoint fetches a list of high-profile matches that are currently
+    featured in the League of Legends client.
 
     API Reference: https://developer.riotgames.com/apis#spectator-v5/GET_getFeaturedGames
 
+    Args:
+        region (str): The region to fetch the featured games from.
+
     Returns:
-        - gameList: List of featured game objects
-        - clientRefreshInterval: Refresh interval (ms)
+        dict: A dictionary containing the list of featured games and the
+              client refresh interval.
+
+    Example:
+        >>> curl "http://127.0.0.1:8080/lol/spectator/v5/featured-games?region=euw1"
     """
     cache_key = f"spectator:featured:{region}"
 
