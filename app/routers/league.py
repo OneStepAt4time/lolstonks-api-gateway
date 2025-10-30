@@ -4,8 +4,6 @@ Riot Developer Portal API Reference:
 https://developer.riotgames.com/apis#league-v4
 """
 
-from typing import Annotated
-
 from fastapi import APIRouter, Depends
 from loguru import logger
 

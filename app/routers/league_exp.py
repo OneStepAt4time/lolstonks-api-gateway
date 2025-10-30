@@ -6,8 +6,6 @@ https://developer.riotgames.com/apis#league-exp-v4
 Note: This is an experimental API providing paginated league entries.
 """
 
-from typing import Annotated
-
 from fastapi import APIRouter, Depends
 from loguru import logger
 

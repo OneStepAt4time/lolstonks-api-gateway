@@ -40,7 +40,7 @@ class MatchTracker:
     async def close(self):
         """Close Redis connection."""
         if self.redis:
-            await self.redis.aclose()  # type: ignore[attr-defined]
+            await self.redis.aclose()
             logger.info("Match tracker connection closed")
 
     async def is_processed(self, region: str, match_id: str) -> bool:
@@ -59,7 +59,7 @@ class MatchTracker:
             return False
 
         key = f"processed_matches:{region}"
-        is_member = await self.redis.sismember(key, match_id)
+        is_member = await self.redis.sismember(key, match_id)  # type: ignore[misc]
         return bool(is_member)
 
     async def mark_processed(self, region: str, match_id: str):
@@ -75,7 +75,7 @@ class MatchTracker:
             return
 
         key = f"processed_matches:{region}"
-        await self.redis.sadd(key, match_id)
+        await self.redis.sadd(key, match_id)  # type: ignore[misc]
         logger.debug("Marked match as processed: {}/{}", region, match_id)
 
     async def get_processed_count(self, region: str) -> int:
@@ -92,7 +92,7 @@ class MatchTracker:
             return 0
 
         key = f"processed_matches:{region}"
-        return await self.redis.scard(key)
+        return await self.redis.scard(key)  # type: ignore[no-any-return, misc]
 
 
 # Global tracker instance
