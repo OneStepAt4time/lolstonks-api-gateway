@@ -9,7 +9,47 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    """Application settings loaded from environment variables."""
+    """
+    Application settings loaded from environment variables.
+
+    This class defines all the configuration parameters for the application.
+    It uses Pydantic's BaseSettings to automatically load settings from
+    environment variables and a .env file.
+
+    Attributes:
+        riot_api_key (str): The API key for accessing the Riot Games API.
+        riot_default_region (str): The default region to use for API requests.
+        riot_request_timeout (int): The timeout for HTTP requests to the Riot API.
+        riot_rate_limit_per_second (int): The number of requests per second allowed by the rate limiter.
+        riot_rate_limit_per_2min (int): The number of requests per 2 minutes allowed by the rate limiter.
+        redis_host (str): The hostname of the Redis server.
+        redis_port (int): The port of the Redis server.
+        redis_db (int): The Redis database to use.
+        redis_password (str): The password for the Redis server.
+        cache_ttl_account (int): The cache TTL for account data.
+        cache_ttl_account_shard (int): The cache TTL for active shard data.
+        cache_ttl_summoner (int): The cache TTL for summoner data.
+        cache_ttl_match (int): The cache TTL for match data.
+        cache_ttl_timeline (int): The cache TTL for match timeline data.
+        cache_ttl_league (int): The cache TTL for league data.
+        cache_ttl_mastery (int): The cache TTL for champion mastery data.
+        cache_ttl_challenges_config (int): The cache TTL for challenges config data.
+        cache_ttl_challenges_leaderboard (int): The cache TTL for challenges leaderboard data.
+        cache_ttl_challenges_percentiles (int): The cache TTL for challenges percentiles data.
+        cache_ttl_challenges_player (int): The cache TTL for player challenges data.
+        cache_ttl_clash_player (int): The cache TTL for Clash player data.
+        cache_ttl_clash_team (int): The cache TTL for Clash team data.
+        cache_ttl_clash_tournament (int): The cache TTL for Clash tournament data.
+        cache_ttl_champion_rotation (int): The cache TTL for champion rotation data.
+        cache_ttl_platform_status (int): The cache TTL for platform status data.
+        cache_ttl_spectator_active (int): The cache TTL for active spectator data.
+        cache_ttl_spectator_featured (int): The cache TTL for featured spectator data.
+        cache_ttl_ddragon (int): The cache TTL for Data Dragon data.
+        cache_ttl_default (int): The default cache TTL.
+        host (str): The host to bind the server to.
+        port (int): The port to bind the server to.
+        log_level (str): The logging level for the application.
+    """
 
     # Riot API Configuration
     riot_api_key: str

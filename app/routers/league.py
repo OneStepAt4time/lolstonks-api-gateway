@@ -30,19 +30,22 @@ async def get_challenger_league(
     query: Annotated[LeagueByQueueQuery, Depends()],
 ):
     """
-    Get challenger league entries for a queue.
+    Retrieves the Challenger league for a specific queue.
 
-    This endpoint returns the top players in a region, including their summonerIds.
-    Use this to get a list of high-level players to track.
+    This endpoint fetches a list of all players in the Challenger league for a
+    given queue, providing a snapshot of the top-ranked players in a region.
 
     API Reference: https://developer.riotgames.com/apis#league-v4/GET_getChallengerLeague
 
     Args:
-        queue: Queue type (RANKED_SOLO_5x5, RANKED_FLEX_SR, RANKED_FLEX_TT)
-        region: Region code (default: euw1)
+        params (LeagueByQueueParams): The path parameters, containing the queue type.
+        query (LeagueByQueueQuery): The query parameters, specifying the region.
 
     Returns:
-        League object with entries array containing summoner information
+        dict: A league object containing an array of summoner entries.
+
+    Example:
+        >>> curl "http://127.0.0.1:8080/lol/league/v4/challengerleagues/by-queue/RANKED_SOLO_5x5?region=euw1"
     """
     logger.info("Fetching challenger league", queue=params.queue, region=query.region)
 
@@ -72,16 +75,22 @@ async def get_grandmaster_league(
     query: Annotated[LeagueByQueueQuery, Depends()],
 ):
     """
-    Get grandmaster league entries for a queue.
+    Retrieves the Grandmaster league for a specific queue.
+
+    This endpoint fetches a list of all players in the Grandmaster league for a
+    given queue, providing a snapshot of the top-ranked players in a region.
 
     API Reference: https://developer.riotgames.com/apis#league-v4/GET_getGrandmasterLeague
 
     Args:
-        queue: Queue type (RANKED_SOLO_5x5, RANKED_FLEX_SR, RANKED_FLEX_TT)
-        region: Region code
+        params (LeagueByQueueParams): The path parameters, containing the queue type.
+        query (LeagueByQueueQuery): The query parameters, specifying the region.
 
     Returns:
-        League object with entries
+        dict: A league object containing an array of summoner entries.
+
+    Example:
+        >>> curl "http://127.0.0.1:8080/lol/league/v4/grandmasterleagues/by-queue/RANKED_SOLO_5x5?region=euw1"
     """
     logger.info("Fetching grandmaster league", queue=params.queue, region=query.region)
 
@@ -111,16 +120,22 @@ async def get_master_league(
     query: Annotated[LeagueByQueueQuery, Depends()],
 ):
     """
-    Get master league entries for a queue.
+    Retrieves the Master league for a specific queue.
+
+    This endpoint fetches a list of all players in the Master league for a
+    given queue, providing a snapshot of the top-ranked players in a region.
 
     API Reference: https://developer.riotgames.com/apis#league-v4/GET_getMasterLeague
 
     Args:
-        queue: Queue type (RANKED_SOLO_5x5, RANKED_FLEX_SR, RANKED_FLEX_TT)
-        region: Region code
+        params (LeagueByQueueParams): The path parameters, containing the queue type.
+        query (LeagueByQueueQuery): The query parameters, specifying the region.
 
     Returns:
-        League object with entries
+        dict: A league object containing an array of summoner entries.
+
+    Example:
+        >>> curl "http://127.0.0.1:8080/lol/league/v4/masterleagues/by-queue/RANKED_SOLO_5x5?region=euw1"
     """
     logger.info("Fetching master league", queue=params.queue, region=query.region)
 
@@ -150,16 +165,22 @@ async def get_league_entries_by_summoner(
     query: Annotated[LeagueEntriesBySummonerQuery, Depends()],
 ):
     """
-    Get league entries for a summoner (all queues).
+    Retrieves the league entries for a summoner across all queues.
+
+    This endpoint fetches a list of a summoner's league entries, providing
+    details about their rank in each queue they participate in.
 
     API Reference: https://developer.riotgames.com/apis#league-v4/GET_getLeagueEntriesForSummoner
 
     Args:
-        encryptedSummonerId: Encrypted summoner ID
-        region: Region code
+        params (LeagueEntriesBySummonerParams): The path parameters, containing the encrypted summoner ID.
+        query (LeagueEntriesBySummonerQuery): The query parameters, specifying the region.
 
     Returns:
-        Array of league entries
+        list: A list of league entry objects.
+
+    Example:
+        >>> curl "http://127.0.0.1:8080/lol/league/v4/entries/by-summoner/{encryptedSummonerId}?region=euw1"
     """
     logger.info(
         "Fetching league entries by summoner",
@@ -191,22 +212,22 @@ async def get_league_entries(
     query: Annotated[LeagueEntriesQuery, Depends()],
 ):
     """
-    Get league entries by queue, tier, and division.
+    Retrieves league entries by queue, tier, and division.
 
-    This endpoint provides paginated access to league entries at specific ranks.
-    Use this for fetching large sets of ranked players.
+    This endpoint provides paginated access to league entries for a specific
+    rank, allowing for the retrieval of large sets of ranked players.
 
     API Reference: https://developer.riotgames.com/apis#league-v4/GET_getLeagueEntries
 
     Args:
-        queue: Queue type (RANKED_SOLO_5x5, RANKED_FLEX_SR, RANKED_FLEX_TT)
-        tier: Tier (IRON, BRONZE, SILVER, GOLD, PLATINUM, EMERALD, DIAMOND)
-        division: Division (I, II, III, IV)
-        region: Region code
-        page: Page number (starts at 1)
+        params (LeagueEntriesParams): The path parameters, containing the queue, tier, and division.
+        query (LeagueEntriesQuery): The query parameters, specifying the region and page number.
 
     Returns:
-        Array of league entries with summoner info, LP, win/loss stats
+        list: A list of league entry objects, including summoner info, LP, and win/loss stats.
+
+    Example:
+        >>> curl "http://127.0.0.1:8080/lol/league/v4/entries/RANKED_SOLO_5x5/DIAMOND/I?region=euw1&page=1"
     """
     logger.info(
         "Fetching league entries",
