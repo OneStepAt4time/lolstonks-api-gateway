@@ -30,18 +30,23 @@ async def get_summoner_by_name(
     query: Annotated[SummonerByNameQuery, Depends()],
 ):
     """
-    Get summoner by summoner name.
+    Retrieves a summoner by their summoner name.
 
-    This is the primary entry point for user lookups.
+    This endpoint is the primary method for looking up a player by their in-game
+    name. It is a foundational part of the API, providing the necessary IDs for
+    further queries.
 
     API Reference: https://developer.riotgames.com/apis#summoner-v4/GET_getBySummonerName
 
     Args:
-        summonerName: Summoner name (URL encoded)
-        region: Region code (default: euw1)
+        params (SummonerByNameParams): The path parameters, containing the summoner name.
+        query (SummonerByNameQuery): The query parameters, specifying the region.
 
     Returns:
-        Summoner object from Riot API
+        dict: A dictionary containing the summoner's information.
+
+    Example:
+        >>> curl "http://127.0.0.1:8080/lol/summoner/v4/summoners/by-name/Faker?region=kr"
     """
     logger.info("Fetching summoner by name", summoner=params.summonerName, region=query.region)
 
@@ -73,16 +78,22 @@ async def get_summoner_by_puuid(
     query: Annotated[SummonerByPuuidQuery, Depends()],
 ):
     """
-    Get summoner by PUUID.
+    Retrieves a summoner by their PUUID.
+
+    This endpoint fetches summoner information using a player's unique PUUID,
+    which is a persistent and globally unique identifier.
 
     API Reference: https://developer.riotgames.com/apis#summoner-v4/GET_getByPUUID
 
     Args:
-        encryptedPUUID: Encrypted PUUID
-        region: Region code
+        params (SummonerByPuuidParams): The path parameters, containing the encrypted PUUID.
+        query (SummonerByPuuidQuery): The query parameters, specifying the region.
 
     Returns:
-        Summoner object from Riot API
+        dict: A dictionary containing the summoner's information.
+
+    Example:
+        >>> curl "http://127.0.0.1:8080/lol/summoner/v4/summoners/by-puuid/{encryptedPUUID}?region=euw1"
     """
     logger.info("Fetching summoner by PUUID", puuid=params.encryptedPUUID, region=query.region)
 
@@ -110,16 +121,22 @@ async def get_summoner_by_id(
     query: Annotated[SummonerByIdQuery, Depends()],
 ):
     """
-    Get summoner by summoner ID.
+    Retrieves a summoner by their summoner ID.
+
+    This endpoint fetches summoner information using a player's encrypted
+    summoner ID, which is a region-specific identifier.
 
     API Reference: https://developer.riotgames.com/apis#summoner-v4/GET_getBySummonerId
 
     Args:
-        encryptedSummonerId: Encrypted summoner ID
-        region: Region code
+        params (SummonerByIdParams): The path parameters, containing the encrypted summoner ID.
+        query (SummonerByIdQuery): The query parameters, specifying the region.
 
     Returns:
-        Summoner object from Riot API
+        dict: A dictionary containing the summoner's information.
+
+    Example:
+        >>> curl "http://127.0.0.1:8080/lol/summoner/v4/summoners/{encryptedSummonerId}?region=euw1"
     """
     logger.info(
         "Fetching summoner by ID", summoner_id=params.encryptedSummonerId, region=query.region

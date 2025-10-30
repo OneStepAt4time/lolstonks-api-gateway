@@ -30,16 +30,23 @@ async def get_account_by_puuid(
     query: Annotated[AccountByPuuidQuery, Depends()],
 ):
     """
-    Get account by PUUID.
+    Retrieves an account by its PUUID.
 
-    Note: This endpoint uses regional routing (americas, europe, asia, sea).
+    This endpoint fetches account information, including the game name and tag line,
+    based on a player's unique PUUID. It supports regional routing and caches
+    the results to improve performance.
 
     API Reference: https://developer.riotgames.com/apis#account-v1/GET_getByPuuid
 
+    Args:
+        params (AccountByPuuidParams): The path parameters, containing the PUUID.
+        query (AccountByPuuidQuery): The query parameters, specifying the region.
+
     Returns:
-        - puuid: Player UUID
-        - gameName: Riot ID game name
-        - tagLine: Riot ID tag line
+        dict: A dictionary containing the account's PUUID, game name, and tag line.
+
+    Example:
+        >>> curl "http://127.0.0.1:8080/riot/account/v1/accounts/by-puuid/{puuid}?region=americas"
     """
     cache_key = f"account:puuid:{query.region}:{params.puuid}"
 
@@ -69,21 +76,23 @@ async def get_account_by_riot_id(
     query: Annotated[AccountByRiotIdQuery, Depends()],
 ):
     """
-    Get account by Riot ID (gameName#tagLine).
+    Retrieves an account by its Riot ID.
 
-    Note: This endpoint uses regional routing (americas, europe, asia, sea).
+    This endpoint fetches account information based on a player's game name and
+    tag line. It supports regional routing and caches the results to optimize
+    performance.
 
     API Reference: https://developer.riotgames.com/apis#account-v1/GET_getByRiotId
 
     Args:
-        gameName: Riot ID game name (before the #)
-        tagLine: Riot ID tag line (after the #)
-        region: Regional routing (americas, europe, asia, sea)
+        params (AccountByRiotIdParams): The path parameters, containing the game name and tag line.
+        query (AccountByRiotIdQuery): The query parameters, specifying the region.
 
     Returns:
-        - puuid: Player UUID
-        - gameName: Riot ID game name
-        - tagLine: Riot ID tag line
+        dict: A dictionary containing the account's PUUID, game name, and tag line.
+
+    Example:
+        >>> curl "http://127.0.0.1:8080/riot/account/v1/accounts/by-riot-id/Faker/KR1?region=americas"
     """
     cache_key = f"account:riotid:{query.region}:{params.gameName}:{params.tagLine}"
 
@@ -120,21 +129,23 @@ async def get_active_shard(
     query: Annotated[ActiveShardQuery, Depends()],
 ):
     """
-    Get active shard for a player (which server they're actively playing on).
+    Retrieves the active shard for a player.
 
-    Note: This endpoint uses regional routing (americas, europe, asia, sea).
+    This endpoint identifies the active game server for a player based on their
+    PUUID and the specified game. It supports regional routing and uses a short
+    cache TTL to ensure the data remains current.
 
     API Reference: https://developer.riotgames.com/apis#account-v1/GET_getActiveShard
 
     Args:
-        game: Game identifier (val for Valorant, lor for LoR)
-        puuid: Player UUID
-        region: Regional routing
+        params (ActiveShardParams): The path parameters, containing the game and PUUID.
+        query (ActiveShardQuery): The query parameters, specifying the region.
 
     Returns:
-        - puuid: Player UUID
-        - game: Game identifier
-        - activeShard: Active shard identifier
+        dict: A dictionary containing the PUUID, game, and active shard.
+
+    Example:
+        >>> curl "http://127.0.0.1:8080/riot/account/v1/active-shards/by-game/val/by-puuid/{puuid}?region=americas"
     """
     cache_key = f"account:shard:{query.region}:{params.game}:{params.puuid}"
 

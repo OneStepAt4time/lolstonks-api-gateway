@@ -37,7 +37,16 @@ logger.add(
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Lifespan context manager for startup and shutdown events."""
+    """Lifespan context manager for startup and shutdown events.
+
+    Handles application startup and shutdown events.
+
+    Args:
+        app (FastAPI): The FastAPI application instance.
+
+    Yields:
+        None: Yields control back to the application.
+    """
     # Startup
     logger.info("Starting LOL API Gateway")
     logger.info(
