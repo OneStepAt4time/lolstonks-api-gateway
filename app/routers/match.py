@@ -31,24 +31,22 @@ async def get_match_ids_by_puuid(
     query: Annotated[MatchIdsByPuuidQuery, Depends()],
 ):
     """
-    Get match IDs for a summoner by PUUID.
+    Retrieves a list of match IDs for a summoner.
 
-    This endpoint is used for match discovery with optional filtering.
+    This endpoint fetches a list of match IDs based on a player's PUUID, with
+    options for pagination and filtering by time, queue, and match type.
 
     API Reference: https://developer.riotgames.com/apis#match-v5/GET_getMatchIdsByPUUID
 
     Args:
-        puuid: Player UUID
-        region: Region code
-        start: Start index (pagination)
-        count: Number of matches to return (1-100)
-        startTime: Optional epoch timestamp - only matches after this time
-        endTime: Optional epoch timestamp - only matches before this time
-        queue: Optional queue ID filter
-        type: Optional match type filter (ranked, normal, tourney, tutorial)
+        params (MatchIdsByPuuidParams): The path parameters, containing the PUUID.
+        query (MatchIdsByPuuidQuery): The query parameters, for pagination and filtering.
 
     Returns:
-        List of match IDs
+        list: A list of match IDs.
+
+    Example:
+        >>> curl "http://127.0.0.1:8080/lol/match/v5/matches/by-puuid/{puuid}/ids?region=americas&count=20"
     """
     logger.info(
         "Fetching match IDs",
@@ -89,21 +87,24 @@ async def get_match(
     query: Annotated[MatchQuery, Depends()],
 ):
     """
-    Get match details by match ID.
+    Retrieves match details by match ID.
 
-    This is the core match data endpoint with dual-layer caching:
-    - Layer 1: Response cache (24h TTL)
-    - Layer 2: Permanent tracking to prevent duplicate processing
+    This endpoint fetches the core data for a specific match. It employs a
+    dual-layer caching strategy, with a response cache and permanent tracking,
+    to minimize redundant API calls.
 
     API Reference: https://developer.riotgames.com/apis#match-v5/GET_getMatch
 
     Args:
-        matchId: Match ID (e.g., EUW1_123456789)
-        region: Region code
-        force: If True, bypass cache and fetch fresh data
+        params (MatchParams): The path parameters, containing the match ID.
+        query (MatchQuery): The query parameters, specifying the region and an
+                           optional force refresh flag.
 
     Returns:
-        Match object from Riot API
+        dict: A dictionary containing the match details.
+
+    Example:
+        >>> curl "http://127.0.0.1:8080/lol/match/v5/matches/EUW1_123456789?region=americas"
     """
     logger.info(
         "Match request received", match_id=params.matchId, region=query.region, force=query.force
@@ -156,18 +157,22 @@ async def get_match_timeline(
     query: Annotated[MatchTimelineQuery, Depends()],
 ):
     """
-    Get match timeline (detailed events).
+    Retrieves the timeline for a specific match.
 
-    Priority 4 endpoint - detailed timeline data.
+    This endpoint fetches a detailed timeline of events for a given match,
+    providing in-depth data for analysis.
 
     API Reference: https://developer.riotgames.com/apis#match-v5/GET_getTimeline
 
     Args:
-        matchId: Match ID
-        region: Region code
+        params (MatchTimelineParams): The path parameters, containing the match ID.
+        query (MatchTimelineQuery): The query parameters, specifying the region.
 
     Returns:
-        Match timeline object from Riot API
+        dict: A dictionary containing the match timeline data.
+
+    Example:
+        >>> curl "http://127.0.0.1:8080/lol/match/v5/matches/EUW1_123456789/timeline?region=americas"
     """
     logger.info("Fetching match timeline", match_id=params.matchId, region=query.region)
 

@@ -19,11 +19,23 @@ async def get_all_champion_masteries(
     puuid: str, region: str = Query(default=settings.riot_default_region, description="Region code")
 ):
     """
-    Get all champion mastery entries for a summoner by PUUID.
+    Retrieves all champion mastery entries for a summoner.
+
+    This endpoint fetches a list of all champion mastery objects for a given
+    player, sorted by champion level in descending order. The results are
+    cached to optimize performance.
 
     API Reference: https://developer.riotgames.com/apis#champion-mastery-v4/GET_getAllChampionMasteries
 
-    Returns list of champion mastery objects sorted by champion level descending.
+    Args:
+        puuid (str): The player's unique PUUID.
+        region (str): The region to fetch the champion mastery data from.
+
+    Returns:
+        list: A list of champion mastery objects.
+
+    Example:
+        >>> curl "http://127.0.0.1:8080/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}?region=euw1"
     """
     cache_key = f"mastery:all:{region}:{puuid}"
 
@@ -52,11 +64,24 @@ async def get_champion_mastery(
     region: str = Query(default=settings.riot_default_region, description="Region code"),
 ):
     """
-    Get champion mastery entry for a specific champion.
+    Retrieves the champion mastery entry for a specific champion.
+
+    This endpoint fetches a single champion mastery object, which includes
+    details like level, points, and tokens. The results are cached for
+    improved performance.
 
     API Reference: https://developer.riotgames.com/apis#champion-mastery-v4/GET_getChampionMastery
 
-    Returns champion mastery object with level, points, tokens, etc.
+    Args:
+        puuid (str): The player's unique PUUID.
+        championId (int): The ID of the champion.
+        region (str): The region to fetch the mastery data from.
+
+    Returns:
+        dict: A dictionary containing the champion mastery information.
+
+    Example:
+        >>> curl "http://127.0.0.1:8080/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}/by-champion/1?region=euw1"
     """
     cache_key = f"mastery:champion:{region}:{puuid}:{championId}"
 
@@ -85,14 +110,24 @@ async def get_top_champion_masteries(
     count: int = Query(default=3, ge=1, le=20, description="Number of top champions"),
 ):
     """
-    Get top N champion mastery entries for a summoner.
+    Retrieves the top N champion mastery entries for a summoner.
+
+    This endpoint fetches a list of the highest-scoring champion mastery
+    objects for a player. The number of champions to return can be specified
+    with the `count` parameter.
 
     API Reference: https://developer.riotgames.com/apis#champion-mastery-v4/GET_getTopChampionMasteries
 
     Args:
-        count: Number of top champions (1-20, default 3)
+        puuid (str): The player's unique PUUID.
+        region (str): The region to fetch the mastery data from.
+        count (int): The number of top champions to retrieve (1-20, default 3).
 
-    Returns list of top champion mastery objects.
+    Returns:
+        list: A list of the top champion mastery objects.
+
+    Example:
+        >>> curl "http://127.0.0.1:8080/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}/top?region=euw1&count=5"
     """
     cache_key = f"mastery:top:{region}:{puuid}:{count}"
 
@@ -119,11 +154,22 @@ async def get_mastery_score(
     puuid: str, region: str = Query(default=settings.riot_default_region, description="Region code")
 ):
     """
-    Get total mastery score for a summoner.
+    Retrieves the total mastery score for a summoner.
+
+    This endpoint calculates and returns the total mastery score, which is the
+    sum of all individual champion mastery levels.
 
     API Reference: https://developer.riotgames.com/apis#champion-mastery-v4/GET_getChampionMasteryScore
 
-    Returns integer representing total mastery points across all champions.
+    Args:
+        puuid (str): The player's unique PUUID.
+        region (str): The region to fetch the mastery score from.
+
+    Returns:
+        int: The total mastery score for the summoner.
+
+    Example:
+        >>> curl "http://127.0.0.1:8080/lol/champion-mastery/v4/scores/by-puuid/{puuid}?region=euw1"
     """
     cache_key = f"mastery:score:{region}:{puuid}"
 

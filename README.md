@@ -18,6 +18,7 @@ Features · Quick Start · Usage · Configuration · Contributing · [Documentat
 
 - [About the Project](#about-the-project)
 - [Features](#features)
+- [API Endpoints](#api-endpoints)
 - [Quick Start](#quick-start)
    - [Prerequisites](#prerequisites)
    - [Local (Docker) Run](#local-docker-run)
@@ -57,6 +58,25 @@ This gateway is intended for use by any application interacting with Riot Games'
 - Multi-region support (EUW1, KR, NA1, BR1, and others)
 - Docker Compose ready for easy deployment
 - Comprehensive router coverage for Riot LoL endpoints
+
+---
+
+## API Endpoints
+
+The gateway provides comprehensive coverage of the Riot Games API for League of Legends. The available endpoints are organized into the following routers:
+
+- **Account**: Manage player accounts and Riot IDs.
+- **Challenges**: Track player progress in in-game challenges.
+- **Champion**: Access champion-related data, including rotations.
+- **Champion Mastery**: Retrieve champion mastery scores and levels.
+- **Clash**: Get information about Clash tournaments, teams, and players.
+- **League**: Fetch data on ranked leagues, divisions, and standings.
+- **Match**: Access detailed match information, timelines, and histories.
+- **Spectator**: View live game data and featured matches.
+- **Summoner**: Look up summoner profiles by name, PUUID, or ID.
+- **Platform**: Check the status of the League of Legends platform.
+
+For a detailed list of all available endpoints, please refer to the interactive API documentation at `/docs`.
 
 ---
 

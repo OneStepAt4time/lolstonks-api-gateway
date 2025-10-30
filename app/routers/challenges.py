@@ -19,16 +19,22 @@ async def get_all_challenges_config(
     region: str = Query(default=settings.riot_default_region, description="Region code"),
 ):
     """
-    Get configuration for all challenges.
+    Retrieves the configuration for all challenges.
+
+    This endpoint fetches a list of all available challenge configurations,
+    including their IDs, localized names, and thresholds. The results are
+    cached to optimize performance.
 
     API Reference: https://developer.riotgames.com/apis#lol-challenges-v1/GET_getAllChallengeConfigs
 
-    Returns list of all challenge configuration objects with:
-    - id: Challenge ID
-    - localizedNames: Localized challenge names
-    - state: Challenge state (ENABLED, DISABLED, etc.)
-    - leaderboard: Whether has leaderboard
-    - thresholds: Thresholds for tiers
+    Args:
+        region (str): The region to fetch the challenges configuration for.
+
+    Returns:
+        list: A list of challenge configuration objects.
+
+    Example:
+        >>> curl "http://127.0.0.1:8080/lol/challenges/v1/challenges/config?region=euw1"
     """
     cache_key = f"challenges:config:{region}"
 
@@ -56,12 +62,23 @@ async def get_challenge_config(
     region: str = Query(default=settings.riot_default_region, description="Region code"),
 ):
     """
-    Get configuration for a specific challenge.
+    Retrieves the configuration for a specific challenge.
+
+    This endpoint fetches the configuration for a single challenge by its ID,
+    including details like thresholds and localized names. The results are
+    cached for better performance.
 
     API Reference: https://developer.riotgames.com/apis#lol-challenges-v1/GET_getChallengeConfigs
 
+    Args:
+        challengeId (int): The ID of the challenge to retrieve.
+        region (str): The region to fetch the challenge configuration from.
+
     Returns:
-        Challenge configuration object with thresholds, localized names, etc.
+        dict: A dictionary containing the challenge configuration.
+
+    Example:
+        >>> curl "http://127.0.0.1:8080/lol/challenges/v1/challenges/1/config?region=euw1"
     """
     cache_key = f"challenges:config:{region}:{challengeId}"
 
@@ -91,17 +108,26 @@ async def get_challenge_leaderboard(
     limit: int = Query(default=None, ge=1, description="Limit results (optional)"),
 ):
     """
-    Get leaderboard for a specific challenge at a specific level.
+    Retrieves the leaderboard for a specific challenge and level.
+
+    This endpoint fetches the leaderboard for a given challenge, filtered by
+    a specific competitive level (e.g., MASTER, GRANDMASTER). It supports an
+    optional limit on the number of results and uses a short cache TTL to
+    keep the data fresh.
 
     API Reference: https://developer.riotgames.com/apis#lol-challenges-v1/GET_getChallengeLeaderboards
 
     Args:
-        challengeId: Challenge ID
-        level: Challenge level (MASTER, GRANDMASTER, CHALLENGER)
-        limit: Optional limit on results
+        challengeId (int): The ID of the challenge.
+        level (str): The competitive level to retrieve the leaderboard for.
+        region (str): The region to fetch the leaderboard from.
+        limit (int, optional): The maximum number of leaderboard entries to return.
 
     Returns:
-        List of leaderboard entries with player PUUIDs and values.
+        list: A list of leaderboard entries, each containing player PUUIDs and their values.
+
+    Example:
+        >>> curl "http://1227.0.0.1:8080/lol/challenges/v1/challenges/1/leaderboards/by-level/CHALLENGER?region=euw1&limit=10"
     """
     cache_key = f"challenges:leaderboard:{region}:{challengeId}:{level}:{limit}"
 
@@ -132,11 +158,23 @@ async def get_challenge_percentiles(
     region: str = Query(default=settings.riot_default_region, description="Region code"),
 ):
     """
-    Get percentile distribution for a challenge.
+    Retrieves the percentile distribution for a challenge.
+
+    This endpoint fetches a map of percentile values for a specific challenge,
+    allowing for a detailed statistical overview. The results are cached to
+    optimize performance.
 
     API Reference: https://developer.riotgames.com/apis#lol-challenges-v1/GET_getChallengePercentiles
 
-    Returns map of challenge values to percentiles.
+    Args:
+        challengeId (int): The ID of the challenge.
+        region (str): The region to fetch the percentiles from.
+
+    Returns:
+        dict: A dictionary mapping challenge values to their corresponding percentiles.
+
+    Example:
+        >>> curl "http://127.0.0.1:8080/lol/challenges/v1/challenges/1/percentiles?region=euw1"
     """
     cache_key = f"challenges:percentiles:{region}:{challengeId}"
 
@@ -163,15 +201,24 @@ async def get_player_challenges(
     puuid: str, region: str = Query(default=settings.riot_default_region, description="Region code")
 ):
     """
-    Get all challenge data for a player by PUUID.
+    Retrieves all challenge data for a player.
+
+    This endpoint fetches a comprehensive overview of a player's challenge
+    progression, including their total points, category points, and individual
+    challenge progress. The results are cached to optimize performance.
 
     API Reference: https://developer.riotgames.com/apis#lol-challenges-v1/GET_getPlayerData
 
+    Args:
+        puuid (str): The player's unique PUUID.
+        region (str): The region to fetch the player's challenge data from.
+
     Returns:
-        - totalPoints: Total challenge points
-        - categoryPoints: Points per category
-        - challenges: List of all challenge progress
-        - preferences: Player challenge preferences
+        dict: A dictionary containing the player's total points, category points,
+              challenge progress, and preferences.
+
+    Example:
+        >>> curl "http://127.0.0.1:8080/lol/challenges/v1/player-data/{puuid}?region=euw1"
     """
     cache_key = f"challenges:player:{region}:{puuid}"
 
