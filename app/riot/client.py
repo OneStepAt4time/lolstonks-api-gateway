@@ -9,6 +9,7 @@ Provides a wrapper around httpx for making requests to Riot API with:
 """
 
 import asyncio
+from typing import TYPE_CHECKING
 
 import httpx
 from loguru import logger
@@ -17,6 +18,9 @@ from app.config import settings
 from app.riot.key_rotator import KeyRotator
 from app.riot.rate_limiter import rate_limiter
 from app.riot.regions import get_base_url
+
+if TYPE_CHECKING:
+    from app.config import Settings
 
 
 class RiotClient:
@@ -29,16 +33,24 @@ class RiotClient:
     Supports multiple API keys with round-robin rotation for load distribution.
     """
 
-    def __init__(self):
-        """Initialize HTTP client with key rotation support."""
+    def __init__(self, settings_override: "Settings | None" = None):
+        """Initialize HTTP client with key rotation support.
+
+        Args:
+            settings_override: Optional Settings instance to use instead of global settings.
+                             Useful for testing with custom configurations.
+        """
+        # Use provided settings or fall back to global settings
+        config = settings_override if settings_override is not None else settings
+
         # Initialize key rotator with configured API keys
-        api_keys = settings.get_api_keys()
+        api_keys = config.get_api_keys()
         self.key_rotator = KeyRotator(api_keys)
 
         # Create HTTP client without static auth header
         # (will be added per-request from key rotator)
         self.client = httpx.AsyncClient(
-            timeout=settings.riot_request_timeout,
+            timeout=config.riot_request_timeout,
         )
 
         key_count = len(api_keys)

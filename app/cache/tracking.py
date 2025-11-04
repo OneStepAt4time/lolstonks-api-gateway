@@ -59,7 +59,7 @@ class MatchTracker:
             return False
 
         key = f"processed_matches:{region}"
-        is_member = await self.redis.sismember(key, match_id)
+        is_member: int = await self.redis.sismember(key, match_id)
         return bool(is_member)
 
     async def mark_processed(self, region: str, match_id: str):

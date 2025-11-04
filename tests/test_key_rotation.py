@@ -165,23 +165,19 @@ class TestRiotClientKeyRotation:
     @pytest.mark.asyncio
     async def test_riot_client_uses_rotated_keys(self, monkeypatch):
         """Test RiotClient rotates through multiple keys."""
-        # Import and patch settings before creating client
-        from app import config as app_config
         from pydantic_settings import SettingsConfigDict
 
         class TestSettings(Settings):
             model_config = SettingsConfigDict(env_file=None, extra="ignore")
 
-        monkeypatch.setenv("RIOT_API_KEYS", "key1,key2,key3")
-        monkeypatch.delenv("RIOT_API_KEY", raising=False)
+        # Pass values directly to constructor instead of relying on env vars
+        test_settings = TestSettings(riot_api_keys="key1,key2,key3", riot_api_key=None)  # type: ignore[call-arg]
 
-        test_settings = TestSettings()  # type: ignore[call-arg]
-        monkeypatch.setattr(app_config, "settings", test_settings)
-
-        # Import after patching
+        # Import RiotClient
         from app.riot.client import RiotClient
 
-        client = RiotClient()
+        # Create client with test settings
+        client = RiotClient(settings_override=test_settings)
 
         # Verify key rotator is initialized
         assert client.key_rotator.get_key_count() == 3
@@ -199,22 +195,19 @@ class TestRiotClientKeyRotation:
     @pytest.mark.asyncio
     async def test_riot_client_backward_compatible(self, monkeypatch):
         """Test RiotClient works with single RIOT_API_KEY (backward compatible)."""
-        # Import and patch settings before creating client
-        from app import config as app_config
         from pydantic_settings import SettingsConfigDict
 
         class TestSettings(Settings):
             model_config = SettingsConfigDict(env_file=None, extra="ignore")
 
-        monkeypatch.setenv("RIOT_API_KEY", "single_key")
-        monkeypatch.delenv("RIOT_API_KEYS", raising=False)
+        # Pass values directly to constructor instead of relying on env vars
+        test_settings = TestSettings(riot_api_key="single_key", riot_api_keys=None)  # type: ignore[call-arg]
 
-        test_settings = TestSettings()  # type: ignore[call-arg]
-        monkeypatch.setattr(app_config, "settings", test_settings)
-
+        # Import RiotClient
         from app.riot.client import RiotClient
 
-        client = RiotClient()
+        # Create client with test settings
+        client = RiotClient(settings_override=test_settings)
 
         # Verify single key mode
         assert client.key_rotator.get_key_count() == 1
