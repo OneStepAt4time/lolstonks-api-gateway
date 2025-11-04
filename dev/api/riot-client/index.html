@@ -828,6 +828,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#app.riot.regions.Region" class="md-nav__link">
+    <span class="md-ellipsis">
+      Region
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#app.riot.regions.get_regional_url" class="md-nav__link">
     <span class="md-ellipsis">
       get_regional_url
@@ -1527,6 +1536,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#app.riot.regions.Region" class="md-nav__link">
+    <span class="md-ellipsis">
+      Region
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#app.riot.regions.get_regional_url" class="md-nav__link">
     <span class="md-ellipsis">
       get_regional_url
@@ -1598,8 +1616,9 @@
         <p>HTTP client for Riot API with rate limiting and retry logic.</p>
 <p>Automatically applies rate limiting before each request and retries
 on 429 responses according to Retry-After header.</p>
+<p>Supports multiple API keys with round-robin rotation for load distribution.</p>
 
-        <p>Initialize HTTP client with authentication headers.</p>
+        <p>Initialize HTTP client with key rotation support.</p>
 
 
 
@@ -1610,19 +1629,37 @@ on 429 responses according to Retry-After header.</p>
 
                   <details class="quote">
                     <summary>Source code in <code>app/riot/client.py</code></summary>
-                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">32</span>
 <span class="normal">33</span>
 <span class="normal">34</span>
-<span class="normal">35</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize HTTP client with authentication headers.&quot;&quot;&quot;</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize HTTP client with key rotation support.&quot;&quot;&quot;</span>
+    <span class="c1"># Initialize key rotator with configured API keys</span>
+    <span class="n">api_keys</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">get_api_keys</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">key_rotator</span> <span class="o">=</span> <span class="n">KeyRotator</span><span class="p">(</span><span class="n">api_keys</span><span class="p">)</span>
+
+    <span class="c1"># Create HTTP client without static auth header</span>
+    <span class="c1"># (will be added per-request from key rotator)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">httpx</span><span class="o">.</span><span class="n">AsyncClient</span><span class="p">(</span>
         <span class="n">timeout</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">riot_request_timeout</span><span class="p">,</span>
-        <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;X-Riot-Token&quot;</span><span class="p">:</span> <span class="n">settings</span><span class="o">.</span><span class="n">riot_api_key</span><span class="p">},</span>
     <span class="p">)</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Riot API client initialized&quot;</span><span class="p">)</span>
+
+    <span class="n">key_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">api_keys</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Riot API client initialized with </span><span class="si">{</span><span class="n">key_count</span><span class="si">}</span><span class="s2"> API key</span><span class="si">{</span><span class="s1">&#39;s&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">key_count</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
 </code></pre></div></td></tr></table></div>
                   </details>
 
@@ -1659,10 +1696,10 @@ on 429 responses according to Retry-After header.</p>
 
             <details class="quote">
               <summary>Source code in <code>app/riot/client.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Close HTTP client connection.&quot;&quot;&quot;</span>
     <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">aclose</span><span class="p">()</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Riot API client closed&quot;</span><span class="p">)</span>
@@ -1676,7 +1713,7 @@ on 429 responses according to Retry-After header.</p>
 
 
 <h3 id="app.riot.client.RiotClient.get" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">get</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">region</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">is_platform_endpoint</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span></code>
+            <code class="highlight language-python"><span class="n">get</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">region</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">is_platform_endpoint</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">_attempted_keys</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
@@ -1687,11 +1724,13 @@ on 429 responses according to Retry-After header.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Makes a GET request to the Riot API with rate limiting and retry logic.</p>
+        <p>Makes a GET request to the Riot API with rate limiting and smart key fallback.</p>
 <p>This method handles the entire process of making a GET request, including
 acquiring a rate limit token, constructing the appropriate URL, and
-handling potential 429 (rate limited) responses by retrying after a
-specified delay.</p>
+handling potential 429 (rate limited) responses by trying all available
+keys before waiting.</p>
+<p>If one key is rate limited, it immediately tries the next available key.
+Only if ALL keys are exhausted does it wait for the Retry-After period.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -1714,7 +1753,7 @@ specified delay.</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>The API path for the request.</p>
+                <p>The API path for the request (e.g., "/lol/match/v5/matches/EUW1_123").</p>
               </div>
             </td>
             <td>
@@ -1767,6 +1806,22 @@ specified delay.</p>
             </td>
             <td>
                   <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>_attempted_keys</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Internal counter for tracking key fallback attempts. Do not set manually.</p>
+              </div>
+            </td>
+            <td>
+                  <code>0</code>
             </td>
           </tr>
       </tbody>
@@ -1844,21 +1899,17 @@ specified delay.</p>
 </blockquote>
 </details>
 
+<details class="key-fallback-example" open>
+  <summary>Key Fallback Example</summary>
+  <p>Request for Match EUW1_123456789:
+1. Try Key 1 → 429 (rate limited)
+2. Try Key 2 immediately → 200 OK ✓ (no wait!)</p>
+<p>Same match ID is preserved across all retry attempts.</p>
+</details>
+
             <details class="quote">
               <summary>Source code in <code>app/riot/client.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 42</span>
-<span class="normal"> 43</span>
-<span class="normal"> 44</span>
-<span class="normal"> 45</span>
-<span class="normal"> 46</span>
-<span class="normal"> 47</span>
-<span class="normal"> 48</span>
-<span class="normal"> 49</span>
-<span class="normal"> 50</span>
-<span class="normal"> 51</span>
-<span class="normal"> 52</span>
-<span class="normal"> 53</span>
-<span class="normal"> 54</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 54</span>
 <span class="normal"> 55</span>
 <span class="normal"> 56</span>
 <span class="normal"> 57</span>
@@ -1908,26 +1959,72 @@ specified delay.</p>
 <span class="normal">101</span>
 <span class="normal">102</span>
 <span class="normal">103</span>
-<span class="normal">104</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">region</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">is_platform_endpoint</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">_attempted_keys</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Makes a GET request to the Riot API with rate limiting and retry logic.</span>
+<span class="sd">    Makes a GET request to the Riot API with rate limiting and smart key fallback.</span>
 
 <span class="sd">    This method handles the entire process of making a GET request, including</span>
 <span class="sd">    acquiring a rate limit token, constructing the appropriate URL, and</span>
-<span class="sd">    handling potential 429 (rate limited) responses by retrying after a</span>
-<span class="sd">    specified delay.</span>
+<span class="sd">    handling potential 429 (rate limited) responses by trying all available</span>
+<span class="sd">    keys before waiting.</span>
+
+<span class="sd">    If one key is rate limited, it immediately tries the next available key.</span>
+<span class="sd">    Only if ALL keys are exhausted does it wait for the Retry-After period.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        path (str): The API path for the request.</span>
+<span class="sd">        path (str): The API path for the request (e.g., &quot;/lol/match/v5/matches/EUW1_123&quot;).</span>
 <span class="sd">        region (str): The region to target for the request.</span>
 <span class="sd">        is_platform_endpoint (bool): A flag indicating whether to use the platform-specific or regional endpoint.</span>
 <span class="sd">        params (dict, optional): A dictionary of query parameters to include in the request. Defaults to None.</span>
+<span class="sd">        _attempted_keys (int): Internal counter for tracking key fallback attempts. Do not set manually.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        dict: The JSON response from the API as a dictionary.</span>
@@ -1942,9 +2039,19 @@ specified delay.</p>
 <span class="sd">        ...     region=&quot;kr&quot;,</span>
 <span class="sd">        ...     is_platform_endpoint=False</span>
 <span class="sd">        ... )</span>
+
+<span class="sd">    Key Fallback Example:</span>
+<span class="sd">        Request for Match EUW1_123456789:</span>
+<span class="sd">        1. Try Key 1 → 429 (rate limited)</span>
+<span class="sd">        2. Try Key 2 immediately → 200 OK ✓ (no wait!)</span>
+
+<span class="sd">        Same match ID is preserved across all retry attempts.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Acquire rate limit tokens (blocks until available)</span>
     <span class="k">await</span> <span class="n">rate_limiter</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
+
+    <span class="c1"># Get next API key from rotator</span>
+    <span class="n">api_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key_rotator</span><span class="o">.</span><span class="n">get_next_key</span><span class="p">()</span>
 
     <span class="c1"># Build full URL</span>
     <span class="n">base_url</span> <span class="o">=</span> <span class="n">get_base_url</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">is_platform_endpoint</span><span class="p">)</span>
@@ -1952,19 +2059,33 @@ specified delay.</p>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Requesting Riot API: </span><span class="si">{}</span><span class="s2"> [region=</span><span class="si">{}</span><span class="s2">]&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">region</span><span class="p">)</span>
 
-    <span class="c1"># Make request</span>
-    <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+    <span class="c1"># Make request with rotated API key</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;X-Riot-Token&quot;</span><span class="p">:</span> <span class="n">api_key</span><span class="p">}</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
 
-    <span class="c1"># Handle 429 (rate limited) - should be rare due to our rate limiter</span>
+    <span class="c1"># Handle 429 (rate limited) - try next key or wait if all exhausted</span>
     <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">429</span><span class="p">:</span>
         <span class="n">retry_after</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Retry-After&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">total_keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key_rotator</span><span class="o">.</span><span class="n">get_key_count</span><span class="p">()</span>
+
+        <span class="c1"># If we haven&#39;t tried all keys yet, try the next one immediately</span>
+        <span class="k">if</span> <span class="n">_attempted_keys</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">total_keys</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Rate limited (429), trying next key (</span><span class="si">{</span><span class="n">_attempted_keys</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">total_keys</span><span class="si">}</span><span class="s2"> keys attempted)&quot;</span>
+            <span class="p">)</span>
+            <span class="c1"># Immediately retry with next key (no sleep!)</span>
+            <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                <span class="n">path</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">is_platform_endpoint</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">_attempted_keys</span><span class="o">=</span><span class="n">_attempted_keys</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="p">)</span>
+
+        <span class="c1"># All keys exhausted - wait before trying again</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-            <span class="s2">&quot;Rate limited by Riot API (429), retrying after </span><span class="si">{}</span><span class="s2">s&quot;</span><span class="p">,</span>
-            <span class="n">retry_after</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;All </span><span class="si">{</span><span class="n">total_keys</span><span class="si">}</span><span class="s2"> keys rate limited (429), waiting </span><span class="si">{</span><span class="n">retry_after</span><span class="si">}</span><span class="s2">s before retry&quot;</span>
         <span class="p">)</span>
         <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">retry_after</span><span class="p">)</span>
-        <span class="c1"># Retry the request (recursive call)</span>
-        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">is_platform_endpoint</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+
+        <span class="c1"># Reset counter and try again from first key</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">is_platform_endpoint</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">_attempted_keys</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
     <span class="c1"># Raise on other HTTP errors</span>
     <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
@@ -2128,10 +2249,18 @@ Uses nested context managers to ensure both limits are respected.</p>
     <div class="doc doc-contents first">
 
         <p>Region routing configuration for Riot API.</p>
-<p>Maps regions to their appropriate API base URLs.
-Different endpoints use different routing:
-- Regional endpoints (Summoner, League, Mastery): region-specific
-- Platform endpoints (Match): platform-specific (europe, americas, asia, sea)</p>
+<p>This module defines the data structures and functions for routing requests to the correct
+Riot API endpoints. It includes a Pydantic model for representing regions and a dictionary
+that maps region names to their corresponding data.</p>
+<p>The main components are:
+- Region: A Pydantic model that defines the data structure for a single region, including
+          its platform, hostname, and regional routing value.
+- REGIONS: A dictionary that maps region names (e.g., "euw1", "na1") to instances of the
+           Region model.
+- get_regional_url: A function that returns the regional base URL for a given region.
+- get_platform_url: A function that returns the platform base URL for a given region.
+- get_base_url: A function that returns the appropriate base URL for a given region and
+                endpoint type.</p>
 
 
 
@@ -2151,6 +2280,53 @@ Different endpoints use different routing:
 
 
 
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="app.riot.regions.Region" class="doc doc-heading">
+            <code>Region</code>
+
+
+<a href="#app.riot.regions.Region" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
+
+
+        <p>Pydantic model for a Riot API region.</p>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
 
 
 <div class="doc doc-object doc-function">
@@ -2231,26 +2407,26 @@ Different endpoints use different routing:
 
             <details class="quote">
               <summary>Source code in <code>app/riot/regions.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_regional_url</span><span class="p">(</span><span class="n">region</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_regional_url</span><span class="p">(</span><span class="n">region</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get regional base URL for endpoints like Summoner, League, Mastery.</span>
 
@@ -2269,7 +2445,7 @@ Different endpoints use different routing:
     <span class="k">if</span> <span class="n">region</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">SUPPORTED_REGIONS</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported region: </span><span class="si">{</span><span class="n">region</span><span class="si">}</span><span class="s2">. Supported: </span><span class="si">{</span><span class="n">SUPPORTED_REGIONS</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;https://</span><span class="si">{</span><span class="n">region</span><span class="si">}</span><span class="s2">.api.riotgames.com&quot;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;https://</span><span class="si">{</span><span class="n">REGIONS</span><span class="p">[</span><span class="n">region</span><span class="p">]</span><span class="o">.</span><span class="n">hostname</span><span class="si">}</span><span class="s2">&quot;</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -2356,37 +2532,36 @@ Different endpoints use different routing:
 
             <details class="quote">
               <summary>Source code in <code>app/riot/regions.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span>
-<span class="normal">72</span>
-<span class="normal">73</span>
-<span class="normal">74</span>
-<span class="normal">75</span>
-<span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span>
-<span class="normal">80</span>
-<span class="normal">81</span>
-<span class="normal">82</span>
-<span class="normal">83</span>
-<span class="normal">84</span>
-<span class="normal">85</span>
-<span class="normal">86</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_platform_url</span><span class="p">(</span><span class="n">region</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_platform_url</span><span class="p">(</span><span class="n">region</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get platform base URL for Match API and Account API endpoints.</span>
 
@@ -2415,8 +2590,7 @@ Different endpoints use different routing:
             <span class="sa">f</span><span class="s2">&quot;Unsupported region: </span><span class="si">{</span><span class="n">region</span><span class="si">}</span><span class="s2">. Supported: </span><span class="si">{</span><span class="n">SUPPORTED_REGIONS</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">platform_regions_list</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="p">)</span>
 
-    <span class="n">platform</span> <span class="o">=</span> <span class="n">PLATFORM_REGIONS</span><span class="p">[</span><span class="n">region</span><span class="p">]</span>
-    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;https://</span><span class="si">{</span><span class="n">platform</span><span class="si">}</span><span class="s2">.api.riotgames.com&quot;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;https://</span><span class="si">{</span><span class="n">REGIONS</span><span class="p">[</span><span class="n">region</span><span class="p">]</span><span class="o">.</span><span class="n">regional_routing</span><span class="si">}</span><span class="s2">&quot;</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -2517,27 +2691,27 @@ Different endpoints use different routing:
 
             <details class="quote">
               <summary>Source code in <code>app/riot/regions.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 89</span>
-<span class="normal"> 90</span>
-<span class="normal"> 91</span>
-<span class="normal"> 92</span>
-<span class="normal"> 93</span>
-<span class="normal"> 94</span>
-<span class="normal"> 95</span>
-<span class="normal"> 96</span>
-<span class="normal"> 97</span>
-<span class="normal"> 98</span>
-<span class="normal"> 99</span>
-<span class="normal">100</span>
-<span class="normal">101</span>
-<span class="normal">102</span>
-<span class="normal">103</span>
-<span class="normal">104</span>
-<span class="normal">105</span>
-<span class="normal">106</span>
-<span class="normal">107</span>
-<span class="normal">108</span>
-<span class="normal">109</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_base_url</span><span class="p">(</span><span class="n">region</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">is_platform_endpoint</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_base_url</span><span class="p">(</span><span class="n">region</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">is_platform_endpoint</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get the appropriate base URL based on endpoint type.</span>
 
