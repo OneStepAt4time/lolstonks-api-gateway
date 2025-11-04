@@ -5,11 +5,10 @@ https://developer.riotgames.com/apis#spectator-v5
 """
 
 from fastapi import APIRouter, Query
-from loguru import logger
 
+from app.cache.helpers import fetch_with_cache
 from app.config import settings
 from app.riot.client import riot_client
-from app.cache.redis_cache import cache
 
 router = APIRouter(prefix="/lol/spectator/v5", tags=["spectator"])
 
@@ -38,25 +37,15 @@ async def get_active_game(
     Example:
         >>> curl "http://127.0.0.1:8080/lol/spectator/v5/active-games/by-summoner/{puuid}?region=euw1"
     """
-    # Note: Active games should not be cached heavily as they change quickly
-    cache_key = f"spectator:active:{region}:{puuid}"
-
-    # Check cache with short TTL
-    cached_data = await cache.get(cache_key)
-    if cached_data:
-        logger.debug("Cache hit for active game", puuid=puuid[:8])
-        return cached_data
-
-    # Fetch from Riot API
-    logger.info("Fetching active game", puuid=puuid[:8], region=region)
-    path = f"/lol/spectator/v5/active-games/by-summoner/{puuid}"
-    data = await riot_client.get(path, region, is_platform_endpoint=False)
-
-    # Cache with configured TTL
-    await cache.set(cache_key, data, ttl=settings.cache_ttl_spectator_active)
-    logger.success("Active game fetched", puuid=puuid[:8], gameId=data.get("gameId"))
-
-    return data
+    return await fetch_with_cache(
+        cache_key=f"spectator:active:{region}:{puuid}",
+        resource_name="Active game",
+        fetch_fn=lambda: riot_client.get(
+            f"/lol/spectator/v5/active-games/by-summoner/{puuid}", region, False
+        ),
+        ttl=settings.cache_ttl_spectator_active,
+        context={"puuid": puuid[:8], "region": region},
+    )
 
 
 @router.get("/featured-games")
@@ -81,21 +70,10 @@ async def get_featured_games(
     Example:
         >>> curl "http://127.0.0.1:8080/lol/spectator/v5/featured-games?region=euw1"
     """
-    cache_key = f"spectator:featured:{region}"
-
-    # Check cache
-    cached_data = await cache.get(cache_key)
-    if cached_data:
-        logger.debug("Cache hit for featured games", region=region)
-        return cached_data
-
-    # Fetch from Riot API
-    logger.info("Fetching featured games", region=region)
-    path = "/lol/spectator/v5/featured-games"
-    data = await riot_client.get(path, region, is_platform_endpoint=False)
-
-    # Cache with configured TTL
-    await cache.set(cache_key, data, ttl=settings.cache_ttl_spectator_featured)
-    logger.success("Featured games fetched", region=region, count=len(data.get("gameList", [])))
-
-    return data
+    return await fetch_with_cache(
+        cache_key=f"spectator:featured:{region}",
+        resource_name="Featured games",
+        fetch_fn=lambda: riot_client.get("/lol/spectator/v5/featured-games", region, False),
+        ttl=settings.cache_ttl_spectator_featured,
+        context={"region": region},
+    )

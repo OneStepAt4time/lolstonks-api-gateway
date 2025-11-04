@@ -5,9 +5,8 @@ https://developer.riotgames.com/apis#league-v4
 """
 
 from fastapi import APIRouter, Depends
-from loguru import logger
 
-from app.cache.redis_cache import cache
+from app.cache.helpers import fetch_with_cache
 from app.config import settings
 from app.models.league import (
     LeagueByQueueParams,
@@ -45,26 +44,15 @@ async def get_challenger_league(
     Example:
         >>> curl "http://127.0.0.1:8080/lol/league/v4/challengerleagues/by-queue/RANKED_SOLO_5x5?region=euw1"
     """
-    logger.info("Fetching challenger league", queue=params.queue, region=query.region)
-
-    # Check cache first
-    cache_key = f"league:challenger:{query.region}:{params.queue}"
-    cached_data = await cache.get(cache_key)
-    if cached_data:
-        logger.debug("Cache hit for challenger league", queue=params.queue)
-        return cached_data
-
-    # Fetch from Riot API
-    path = f"/lol/league/v4/challengerleagues/by-queue/{params.queue}"
-    data = await riot_client.get(path, query.region, is_platform_endpoint=False)
-
-    # Store in cache (1 hour - challenger changes frequently)
-    await cache.set(cache_key, data, ttl=settings.cache_ttl_league)
-
-    logger.success(
-        "Challenger league fetched", queue=params.queue, entries=len(data.get("entries", []))
+    return await fetch_with_cache(
+        cache_key=f"league:challenger:{query.region}:{params.queue}",
+        resource_name="Challenger league",
+        fetch_fn=lambda: riot_client.get(
+            f"/lol/league/v4/challengerleagues/by-queue/{params.queue}", query.region, False
+        ),
+        ttl=settings.cache_ttl_league,
+        context={"queue": params.queue, "region": query.region},
     )
-    return data
 
 
 @router.get("/grandmasterleagues/by-queue/{queue}")
@@ -90,26 +78,15 @@ async def get_grandmaster_league(
     Example:
         >>> curl "http://127.0.0.1:8080/lol/league/v4/grandmasterleagues/by-queue/RANKED_SOLO_5x5?region=euw1"
     """
-    logger.info("Fetching grandmaster league", queue=params.queue, region=query.region)
-
-    # Check cache first
-    cache_key = f"league:grandmaster:{query.region}:{params.queue}"
-    cached_data = await cache.get(cache_key)
-    if cached_data:
-        logger.debug("Cache hit for grandmaster league", queue=params.queue)
-        return cached_data
-
-    # Fetch from Riot API
-    path = f"/lol/league/v4/grandmasterleagues/by-queue/{params.queue}"
-    data = await riot_client.get(path, query.region, is_platform_endpoint=False)
-
-    # Store in cache
-    await cache.set(cache_key, data, ttl=settings.cache_ttl_league)
-
-    logger.success(
-        "Grandmaster league fetched", queue=params.queue, entries=len(data.get("entries", []))
+    return await fetch_with_cache(
+        cache_key=f"league:grandmaster:{query.region}:{params.queue}",
+        resource_name="Grandmaster league",
+        fetch_fn=lambda: riot_client.get(
+            f"/lol/league/v4/grandmasterleagues/by-queue/{params.queue}", query.region, False
+        ),
+        ttl=settings.cache_ttl_league,
+        context={"queue": params.queue, "region": query.region},
     )
-    return data
 
 
 @router.get("/masterleagues/by-queue/{queue}")
@@ -135,26 +112,15 @@ async def get_master_league(
     Example:
         >>> curl "http://127.0.0.1:8080/lol/league/v4/masterleagues/by-queue/RANKED_SOLO_5x5?region=euw1"
     """
-    logger.info("Fetching master league", queue=params.queue, region=query.region)
-
-    # Check cache first
-    cache_key = f"league:master:{query.region}:{params.queue}"
-    cached_data = await cache.get(cache_key)
-    if cached_data:
-        logger.debug("Cache hit for master league", queue=params.queue)
-        return cached_data
-
-    # Fetch from Riot API
-    path = f"/lol/league/v4/masterleagues/by-queue/{params.queue}"
-    data = await riot_client.get(path, query.region, is_platform_endpoint=False)
-
-    # Store in cache
-    await cache.set(cache_key, data, ttl=settings.cache_ttl_league)
-
-    logger.success(
-        "Master league fetched", queue=params.queue, entries=len(data.get("entries", []))
+    return await fetch_with_cache(
+        cache_key=f"league:master:{query.region}:{params.queue}",
+        resource_name="Master league",
+        fetch_fn=lambda: riot_client.get(
+            f"/lol/league/v4/masterleagues/by-queue/{params.queue}", query.region, False
+        ),
+        ttl=settings.cache_ttl_league,
+        context={"queue": params.queue, "region": query.region},
     )
-    return data
 
 
 @router.get("/entries/by-summoner/{encryptedSummonerId}")
@@ -180,28 +146,15 @@ async def get_league_entries_by_summoner(
     Example:
         >>> curl "http://127.0.0.1:8080/lol/league/v4/entries/by-summoner/{encryptedSummonerId}?region=euw1"
     """
-    logger.info(
-        "Fetching league entries by summoner",
-        summoner_id=params.encryptedSummonerId,
-        region=query.region,
+    return await fetch_with_cache(
+        cache_key=f"league:entries:summoner:{query.region}:{params.encryptedSummonerId}",
+        resource_name="League entries",
+        fetch_fn=lambda: riot_client.get(
+            f"/lol/league/v4/entries/by-summoner/{params.encryptedSummonerId}", query.region, False
+        ),
+        ttl=settings.cache_ttl_league,
+        context={"summoner_id": params.encryptedSummonerId, "region": query.region},
     )
-
-    # Check cache first
-    cache_key = f"league:entries:summoner:{query.region}:{params.encryptedSummonerId}"
-    cached_data = await cache.get(cache_key)
-    if cached_data:
-        logger.debug("Cache hit for league entries")
-        return cached_data
-
-    # Fetch from Riot API
-    path = f"/lol/league/v4/entries/by-summoner/{params.encryptedSummonerId}"
-    data = await riot_client.get(path, query.region, is_platform_endpoint=False)
-
-    # Store in cache
-    await cache.set(cache_key, data, ttl=settings.cache_ttl_league)
-
-    logger.success("League entries fetched", entries=len(data))
-    return data
 
 
 @router.get("/entries/{queue}/{tier}/{division}")
@@ -227,40 +180,21 @@ async def get_league_entries(
     Example:
         >>> curl "http://127.0.0.1:8080/lol/league/v4/entries/RANKED_SOLO_5x5/DIAMOND/I?region=euw1&page=1"
     """
-    logger.info(
-        "Fetching league entries",
-        queue=params.queue,
-        tier=params.tier,
-        division=params.division,
-        region=query.region,
-        page=query.page,
-    )
-
-    # Check cache first
-    cache_key = (
-        f"league:entries:{query.region}:{params.queue}:{params.tier}:{params.division}:{query.page}"
-    )
-    cached_data = await cache.get(cache_key)
-    if cached_data:
-        logger.debug("Cache hit for league entries")
-        return cached_data
-
-    # Fetch from Riot API
+    # Build path with page parameter if not default
     path = f"/lol/league/v4/entries/{params.queue}/{params.tier}/{params.division}"
-    # Add page parameter if not default
     if query.page != 1:
         path += f"?page={query.page}"
 
-    data = await riot_client.get(path, query.region, is_platform_endpoint=False)
-
-    # Store in cache (1 hour - league entries change frequently)
-    await cache.set(cache_key, data, ttl=settings.cache_ttl_league)
-
-    logger.success(
-        "League entries fetched",
-        queue=params.queue,
-        tier=params.tier,
-        division=params.division,
-        entries=len(data),
+    return await fetch_with_cache(
+        cache_key=f"league:entries:{query.region}:{params.queue}:{params.tier}:{params.division}:{query.page}",
+        resource_name="League entries",
+        fetch_fn=lambda: riot_client.get(path, query.region, False),
+        ttl=settings.cache_ttl_league,
+        context={
+            "queue": params.queue,
+            "tier": params.tier,
+            "division": params.division,
+            "page": query.page,
+            "region": query.region,
+        },
     )
-    return data

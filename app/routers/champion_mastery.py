@@ -5,11 +5,10 @@ https://developer.riotgames.com/apis#champion-mastery-v4
 """
 
 from fastapi import APIRouter, Query
-from loguru import logger
 
+from app.cache.helpers import fetch_with_cache
 from app.config import settings
 from app.riot.client import riot_client
-from app.cache.redis_cache import cache
 
 router = APIRouter(prefix="/lol/champion-mastery/v4", tags=["champion-mastery"])
 
@@ -37,24 +36,15 @@ async def get_all_champion_masteries(
     Example:
         >>> curl "http://127.0.0.1:8080/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}?region=euw1"
     """
-    cache_key = f"mastery:all:{region}:{puuid}"
-
-    # Check cache
-    cached_data = await cache.get(cache_key)
-    if cached_data:
-        logger.debug("Cache hit for champion masteries", puuid=puuid[:8])
-        return cached_data
-
-    # Fetch from Riot API
-    logger.info("Fetching all champion masteries", puuid=puuid[:8], region=region)
-    path = f"/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}"
-    data = await riot_client.get(path, region, is_platform_endpoint=False)
-
-    # Cache with 1 hour TTL
-    await cache.set(cache_key, data, ttl=settings.cache_ttl_mastery)
-    logger.success("Champion masteries fetched", puuid=puuid[:8], count=len(data))
-
-    return data
+    return await fetch_with_cache(
+        cache_key=f"mastery:all:{region}:{puuid}",
+        resource_name="Champion masteries",
+        fetch_fn=lambda: riot_client.get(
+            f"/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}", region, False
+        ),
+        ttl=settings.cache_ttl_mastery,
+        context={"puuid": puuid[:8], "region": region},
+    )
 
 
 @router.get("/champion-masteries/by-puuid/{puuid}/by-champion/{championId}")
@@ -83,24 +73,17 @@ async def get_champion_mastery(
     Example:
         >>> curl "http://127.0.0.1:8080/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}/by-champion/1?region=euw1"
     """
-    cache_key = f"mastery:champion:{region}:{puuid}:{championId}"
-
-    # Check cache
-    cached_data = await cache.get(cache_key)
-    if cached_data:
-        logger.debug("Cache hit for champion mastery", puuid=puuid[:8], championId=championId)
-        return cached_data
-
-    # Fetch from Riot API
-    logger.info("Fetching champion mastery", puuid=puuid[:8], championId=championId, region=region)
-    path = f"/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}/by-champion/{championId}"
-    data = await riot_client.get(path, region, is_platform_endpoint=False)
-
-    # Cache with 1 hour TTL
-    await cache.set(cache_key, data, ttl=settings.cache_ttl_mastery)
-    logger.success("Champion mastery fetched", puuid=puuid[:8], championId=championId)
-
-    return data
+    return await fetch_with_cache(
+        cache_key=f"mastery:champion:{region}:{puuid}:{championId}",
+        resource_name="Champion mastery",
+        fetch_fn=lambda: riot_client.get(
+            f"/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}/by-champion/{championId}",
+            region,
+            False,
+        ),
+        ttl=settings.cache_ttl_mastery,
+        context={"puuid": puuid[:8], "championId": championId, "region": region},
+    )
 
 
 @router.get("/champion-masteries/by-puuid/{puuid}/top")
@@ -129,24 +112,18 @@ async def get_top_champion_masteries(
     Example:
         >>> curl "http://127.0.0.1:8080/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}/top?region=euw1&count=5"
     """
-    cache_key = f"mastery:top:{region}:{puuid}:{count}"
-
-    # Check cache
-    cached_data = await cache.get(cache_key)
-    if cached_data:
-        logger.debug("Cache hit for top masteries", puuid=puuid[:8], count=count)
-        return cached_data
-
-    # Fetch from Riot API
-    logger.info("Fetching top champion masteries", puuid=puuid[:8], count=count, region=region)
-    path = f"/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}/top"
-    data = await riot_client.get(path, region, is_platform_endpoint=False, params={"count": count})
-
-    # Cache with 1 hour TTL
-    await cache.set(cache_key, data, ttl=settings.cache_ttl_mastery)
-    logger.success("Top champion masteries fetched", puuid=puuid[:8], count=len(data))
-
-    return data
+    return await fetch_with_cache(
+        cache_key=f"mastery:top:{region}:{puuid}:{count}",
+        resource_name="Top champion masteries",
+        fetch_fn=lambda: riot_client.get(
+            f"/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}/top",
+            region,
+            False,
+            params={"count": count},
+        ),
+        ttl=settings.cache_ttl_mastery,
+        context={"puuid": puuid[:8], "count": count, "region": region},
+    )
 
 
 @router.get("/scores/by-puuid/{puuid}")
@@ -171,21 +148,12 @@ async def get_mastery_score(
     Example:
         >>> curl "http://127.0.0.1:8080/lol/champion-mastery/v4/scores/by-puuid/{puuid}?region=euw1"
     """
-    cache_key = f"mastery:score:{region}:{puuid}"
-
-    # Check cache
-    cached_data = await cache.get(cache_key)
-    if cached_data is not None:  # Score can be 0
-        logger.debug("Cache hit for mastery score", puuid=puuid[:8])
-        return cached_data
-
-    # Fetch from Riot API
-    logger.info("Fetching mastery score", puuid=puuid[:8], region=region)
-    path = f"/lol/champion-mastery/v4/scores/by-puuid/{puuid}"
-    data = await riot_client.get(path, region, is_platform_endpoint=False)
-
-    # Cache with 1 hour TTL
-    await cache.set(cache_key, data, ttl=settings.cache_ttl_mastery)
-    logger.success("Mastery score fetched", puuid=puuid[:8], score=data)
-
-    return data
+    return await fetch_with_cache(
+        cache_key=f"mastery:score:{region}:{puuid}",
+        resource_name="Mastery score",
+        fetch_fn=lambda: riot_client.get(
+            f"/lol/champion-mastery/v4/scores/by-puuid/{puuid}", region, False
+        ),
+        ttl=settings.cache_ttl_mastery,
+        context={"puuid": puuid[:8], "region": region},
+    )

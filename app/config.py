@@ -51,9 +51,35 @@ class Settings(BaseSettings):
     """
 
     # Riot API Configuration
-    riot_api_key: str
+    riot_api_key: str | None = None  # Backward compatible - single key
+    riot_api_keys: str | None = None  # New - comma-separated keys for rotation
     riot_default_region: str = "euw1"
     riot_request_timeout: int = 10
+
+    def get_api_keys(self) -> list[str]:
+        """
+        Get list of API keys with priority: RIOT_API_KEYS > RIOT_API_KEY.
+
+        Returns:
+            list[str]: List of API keys for rotation
+
+        Raises:
+            ValueError: If no API keys are configured
+        """
+        # Priority 1: Multiple keys (comma-separated)
+        # Handle both None and empty string as "not configured"
+        if self.riot_api_keys and self.riot_api_keys.strip():
+            keys = [k.strip() for k in self.riot_api_keys.split(",") if k.strip()]
+            if keys:
+                return keys
+
+        # Priority 2: Single key (backward compatibility)
+        # Handle both None and empty string as "not configured"
+        if self.riot_api_key and self.riot_api_key.strip():
+            return [self.riot_api_key.strip()]
+
+        # No keys configured
+        raise ValueError("No Riot API keys configured. Set RIOT_API_KEY or RIOT_API_KEYS")
 
     # Rate Limits (Riot API compliance)
     riot_rate_limit_per_second: int = 20
@@ -124,4 +150,4 @@ class Settings(BaseSettings):
 
 
 # Global settings instance
-settings = Settings()  # type: ignore[call-arg]
+settings = Settings()

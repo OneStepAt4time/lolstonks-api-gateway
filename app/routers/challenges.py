@@ -5,11 +5,10 @@ https://developer.riotgames.com/apis#lol-challenges-v1
 """
 
 from fastapi import APIRouter, Query
-from loguru import logger
 
+from app.cache.helpers import fetch_with_cache
 from app.config import settings
 from app.riot.client import riot_client
-from app.cache.redis_cache import cache
 
 router = APIRouter(prefix="/lol/challenges/v1", tags=["challenges"])
 
@@ -36,24 +35,13 @@ async def get_all_challenges_config(
     Example:
         >>> curl "http://127.0.0.1:8080/lol/challenges/v1/challenges/config?region=euw1"
     """
-    cache_key = f"challenges:config:{region}"
-
-    # Check cache (challenges config changes rarely)
-    cached_data = await cache.get(cache_key)
-    if cached_data:
-        logger.debug("Cache hit for challenges config", region=region)
-        return cached_data
-
-    # Fetch from Riot API
-    logger.info("Fetching challenges config", region=region)
-    path = "/lol/challenges/v1/challenges/config"
-    data = await riot_client.get(path, region, is_platform_endpoint=False)
-
-    # Cache with configured TTL
-    await cache.set(cache_key, data, ttl=settings.cache_ttl_challenges_config)
-    logger.success("Challenges config fetched", region=region, count=len(data))
-
-    return data
+    return await fetch_with_cache(
+        cache_key=f"challenges:config:{region}",
+        resource_name="Challenges config",
+        fetch_fn=lambda: riot_client.get("/lol/challenges/v1/challenges/config", region, False),
+        ttl=settings.cache_ttl_challenges_config,
+        context={"region": region},
+    )
 
 
 @router.get("/challenges/{challengeId}/config")
@@ -80,24 +68,15 @@ async def get_challenge_config(
     Example:
         >>> curl "http://127.0.0.1:8080/lol/challenges/v1/challenges/1/config?region=euw1"
     """
-    cache_key = f"challenges:config:{region}:{challengeId}"
-
-    # Check cache
-    cached_data = await cache.get(cache_key)
-    if cached_data:
-        logger.debug("Cache hit for challenge config", challengeId=challengeId)
-        return cached_data
-
-    # Fetch from Riot API
-    logger.info("Fetching challenge config", challengeId=challengeId, region=region)
-    path = f"/lol/challenges/v1/challenges/{challengeId}/config"
-    data = await riot_client.get(path, region, is_platform_endpoint=False)
-
-    # Cache with configured TTL
-    await cache.set(cache_key, data, ttl=settings.cache_ttl_challenges_config)
-    logger.success("Challenge config fetched", challengeId=challengeId)
-
-    return data
+    return await fetch_with_cache(
+        cache_key=f"challenges:config:{region}:{challengeId}",
+        resource_name="Challenge config",
+        fetch_fn=lambda: riot_client.get(
+            f"/lol/challenges/v1/challenges/{challengeId}/config", region, False
+        ),
+        ttl=settings.cache_ttl_challenges_config,
+        context={"challengeId": challengeId, "region": region},
+    )
 
 
 @router.get("/challenges/{challengeId}/leaderboards/by-level/{level}")
@@ -129,27 +108,16 @@ async def get_challenge_leaderboard(
     Example:
         >>> curl "http://1227.0.0.1:8080/lol/challenges/v1/challenges/1/leaderboards/by-level/CHALLENGER?region=euw1&limit=10"
     """
-    cache_key = f"challenges:leaderboard:{region}:{challengeId}:{level}:{limit}"
-
-    # Check cache (short TTL as leaderboards change frequently)
-    cached_data = await cache.get(cache_key)
-    if cached_data:
-        logger.debug("Cache hit for challenge leaderboard", challengeId=challengeId, level=level)
-        return cached_data
-
-    # Fetch from Riot API
-    logger.info(
-        "Fetching challenge leaderboard", challengeId=challengeId, level=level, region=region
-    )
     path = f"/lol/challenges/v1/challenges/{challengeId}/leaderboards/by-level/{level}"
     params = {"limit": limit} if limit else None
-    data = await riot_client.get(path, region, is_platform_endpoint=False, params=params)
 
-    # Cache with configured TTL
-    await cache.set(cache_key, data, ttl=settings.cache_ttl_challenges_leaderboard)
-    logger.success("Challenge leaderboard fetched", challengeId=challengeId, level=level)
-
-    return data
+    return await fetch_with_cache(
+        cache_key=f"challenges:leaderboard:{region}:{challengeId}:{level}:{limit}",
+        resource_name="Challenge leaderboard",
+        fetch_fn=lambda: riot_client.get(path, region, False, params=params),
+        ttl=settings.cache_ttl_challenges_leaderboard,
+        context={"challengeId": challengeId, "level": level, "region": region},
+    )
 
 
 @router.get("/challenges/{challengeId}/percentiles")
@@ -176,24 +144,15 @@ async def get_challenge_percentiles(
     Example:
         >>> curl "http://127.0.0.1:8080/lol/challenges/v1/challenges/1/percentiles?region=euw1"
     """
-    cache_key = f"challenges:percentiles:{region}:{challengeId}"
-
-    # Check cache
-    cached_data = await cache.get(cache_key)
-    if cached_data:
-        logger.debug("Cache hit for challenge percentiles", challengeId=challengeId)
-        return cached_data
-
-    # Fetch from Riot API
-    logger.info("Fetching challenge percentiles", challengeId=challengeId, region=region)
-    path = f"/lol/challenges/v1/challenges/{challengeId}/percentiles"
-    data = await riot_client.get(path, region, is_platform_endpoint=False)
-
-    # Cache with configured TTL
-    await cache.set(cache_key, data, ttl=settings.cache_ttl_challenges_percentiles)
-    logger.success("Challenge percentiles fetched", challengeId=challengeId)
-
-    return data
+    return await fetch_with_cache(
+        cache_key=f"challenges:percentiles:{region}:{challengeId}",
+        resource_name="Challenge percentiles",
+        fetch_fn=lambda: riot_client.get(
+            f"/lol/challenges/v1/challenges/{challengeId}/percentiles", region, False
+        ),
+        ttl=settings.cache_ttl_challenges_percentiles,
+        context={"challengeId": challengeId, "region": region},
+    )
 
 
 @router.get("/player-data/{puuid}")
@@ -220,25 +179,10 @@ async def get_player_challenges(
     Example:
         >>> curl "http://127.0.0.1:8080/lol/challenges/v1/player-data/{puuid}?region=euw1"
     """
-    cache_key = f"challenges:player:{region}:{puuid}"
-
-    # Check cache
-    cached_data = await cache.get(cache_key)
-    if cached_data:
-        logger.debug("Cache hit for player challenges", puuid=puuid[:8])
-        return cached_data
-
-    # Fetch from Riot API
-    logger.info("Fetching player challenges", puuid=puuid[:8], region=region)
-    path = f"/lol/challenges/v1/player-data/{puuid}"
-    data = await riot_client.get(path, region, is_platform_endpoint=False)
-
-    # Cache with configured TTL
-    await cache.set(cache_key, data, ttl=settings.cache_ttl_challenges_player)
-    logger.success(
-        "Player challenges fetched",
-        puuid=puuid[:8],
-        totalPoints=data.get("totalPoints", {}).get("current", 0),
+    return await fetch_with_cache(
+        cache_key=f"challenges:player:{region}:{puuid}",
+        resource_name="Player challenges",
+        fetch_fn=lambda: riot_client.get(f"/lol/challenges/v1/player-data/{puuid}", region, False),
+        ttl=settings.cache_ttl_challenges_player,
+        context={"puuid": puuid[:8], "region": region},
     )
-
-    return data
