@@ -1605,7 +1605,7 @@
 
 
 <h2 id="app.riot.client.RiotClient" class="doc doc-heading">
-              <code class="highlight language-python"><span class="n">app</span><span class="o">.</span><span class="n">riot</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">RiotClient</span><span class="p">()</span></code>
+              <code class="highlight language-python"><span class="n">app</span><span class="o">.</span><span class="n">riot</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">RiotClient</span><span class="p">(</span><span class="n">settings_override</span><span class="p">:</span> <span class="n">Settings</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span></code>
 
 <a href="#app.riot.client.RiotClient" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -1621,6 +1621,38 @@ on 429 responses according to Retry-After header.</p>
         <p>Initialize HTTP client with key rotation support.</p>
 
 
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>settings_override</code>
+            </td>
+            <td>
+                  <code><span title="app.config.Settings">Settings</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional Settings instance to use instead of global settings.
+             Useful for testing with custom configurations.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
 
 
 
@@ -1629,11 +1661,7 @@ on 429 responses according to Retry-After header.</p>
 
                   <details class="quote">
                     <summary>Source code in <code>app/riot/client.py</code></summary>
-                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">36</span>
 <span class="normal">37</span>
 <span class="normal">38</span>
 <span class="normal">39</span>
@@ -1644,16 +1672,36 @@ on 429 responses according to Retry-After header.</p>
 <span class="normal">44</span>
 <span class="normal">45</span>
 <span class="normal">46</span>
-<span class="normal">47</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize HTTP client with key rotation support.&quot;&quot;&quot;</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">settings_override</span><span class="p">:</span> <span class="s2">&quot;Settings | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize HTTP client with key rotation support.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        settings_override: Optional Settings instance to use instead of global settings.</span>
+<span class="sd">                         Useful for testing with custom configurations.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Use provided settings or fall back to global settings</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">settings_override</span> <span class="k">if</span> <span class="n">settings_override</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">settings</span>
+
     <span class="c1"># Initialize key rotator with configured API keys</span>
-    <span class="n">api_keys</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">get_api_keys</span><span class="p">()</span>
+    <span class="n">api_keys</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get_api_keys</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">key_rotator</span> <span class="o">=</span> <span class="n">KeyRotator</span><span class="p">(</span><span class="n">api_keys</span><span class="p">)</span>
 
     <span class="c1"># Create HTTP client without static auth header</span>
     <span class="c1"># (will be added per-request from key rotator)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">httpx</span><span class="o">.</span><span class="n">AsyncClient</span><span class="p">(</span>
-        <span class="n">timeout</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">riot_request_timeout</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">riot_request_timeout</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="n">key_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">api_keys</span><span class="p">)</span>
@@ -1696,10 +1744,10 @@ on 429 responses according to Retry-After header.</p>
 
             <details class="quote">
               <summary>Source code in <code>app/riot/client.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Close HTTP client connection.&quot;&quot;&quot;</span>
     <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">aclose</span><span class="p">()</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Riot API client closed&quot;</span><span class="p">)</span>
@@ -1909,19 +1957,7 @@ Only if ALL keys are exhausted does it wait for the Retry-After period.</p>
 
             <details class="quote">
               <summary>Source code in <code>app/riot/client.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 54</span>
-<span class="normal"> 55</span>
-<span class="normal"> 56</span>
-<span class="normal"> 57</span>
-<span class="normal"> 58</span>
-<span class="normal"> 59</span>
-<span class="normal"> 60</span>
-<span class="normal"> 61</span>
-<span class="normal"> 62</span>
-<span class="normal"> 63</span>
-<span class="normal"> 64</span>
-<span class="normal"> 65</span>
-<span class="normal"> 66</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 66</span>
 <span class="normal"> 67</span>
 <span class="normal"> 68</span>
 <span class="normal"> 69</span>
@@ -2000,7 +2036,19 @@ Only if ALL keys are exhausted does it wait for the Retry-After period.</p>
 <span class="normal">142</span>
 <span class="normal">143</span>
 <span class="normal">144</span>
-<span class="normal">145</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">region</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
