@@ -97,3 +97,45 @@ def test_config_validation():
     assert settings.riot_api_key is not None
     assert settings.redis_host is not None
     assert settings.redis_port > 0
+
+
+def test_get_api_keys_handles_empty_strings(monkeypatch):
+    """Test that get_api_keys() treats empty strings as missing values (GitHub Actions compatibility)."""
+    from app.config import Settings
+    from pydantic_settings import SettingsConfigDict
+
+    # Simulate GitHub Actions setting empty strings when secrets are not configured
+    class TestSettings(Settings):
+        model_config = SettingsConfigDict(env_file=None, extra="ignore")
+
+    # Test empty RIOT_API_KEY should raise ValueError
+    test_settings = TestSettings(riot_api_key="", riot_api_keys=None)  # type: ignore[call-arg]
+    try:
+        test_settings.get_api_keys()
+        assert False, "Should have raised ValueError for empty string"
+    except ValueError as e:
+        assert "No Riot API keys configured" in str(e)
+
+    # Test empty RIOT_API_KEYS should raise ValueError
+    test_settings = TestSettings(riot_api_key=None, riot_api_keys="")  # type: ignore[call-arg]
+    try:
+        test_settings.get_api_keys()
+        assert False, "Should have raised ValueError for empty string"
+    except ValueError as e:
+        assert "No Riot API keys configured" in str(e)
+
+    # Test both empty should raise ValueError
+    test_settings = TestSettings(riot_api_key="", riot_api_keys="")  # type: ignore[call-arg]
+    try:
+        test_settings.get_api_keys()
+        assert False, "Should have raised ValueError for both empty"
+    except ValueError as e:
+        assert "No Riot API keys configured" in str(e)
+
+    # Test whitespace-only should also raise ValueError
+    test_settings = TestSettings(riot_api_key="   ", riot_api_keys="  ")  # type: ignore[call-arg]
+    try:
+        test_settings.get_api_keys()
+        assert False, "Should have raised ValueError for whitespace"
+    except ValueError as e:
+        assert "No Riot API keys configured" in str(e)

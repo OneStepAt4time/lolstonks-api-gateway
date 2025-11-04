@@ -67,14 +67,16 @@ class Settings(BaseSettings):
             ValueError: If no API keys are configured
         """
         # Priority 1: Multiple keys (comma-separated)
-        if self.riot_api_keys:
+        # Handle both None and empty string as "not configured"
+        if self.riot_api_keys and self.riot_api_keys.strip():
             keys = [k.strip() for k in self.riot_api_keys.split(",") if k.strip()]
             if keys:
                 return keys
 
         # Priority 2: Single key (backward compatibility)
-        if self.riot_api_key:
-            return [self.riot_api_key]
+        # Handle both None and empty string as "not configured"
+        if self.riot_api_key and self.riot_api_key.strip():
+            return [self.riot_api_key.strip()]
 
         # No keys configured
         raise ValueError("No Riot API keys configured. Set RIOT_API_KEY or RIOT_API_KEYS")
