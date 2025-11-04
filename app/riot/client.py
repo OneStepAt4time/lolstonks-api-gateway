@@ -57,20 +57,25 @@ class RiotClient:
         region: str,
         is_platform_endpoint: bool = False,
         params: dict | None = None,
+        _attempted_keys: int = 0,
     ) -> dict:
         """
-        Makes a GET request to the Riot API with rate limiting and retry logic.
+        Makes a GET request to the Riot API with rate limiting and smart key fallback.
 
         This method handles the entire process of making a GET request, including
         acquiring a rate limit token, constructing the appropriate URL, and
-        handling potential 429 (rate limited) responses by retrying after a
-        specified delay.
+        handling potential 429 (rate limited) responses by trying all available
+        keys before waiting.
+
+        If one key is rate limited, it immediately tries the next available key.
+        Only if ALL keys are exhausted does it wait for the Retry-After period.
 
         Args:
-            path (str): The API path for the request.
+            path (str): The API path for the request (e.g., "/lol/match/v5/matches/EUW1_123").
             region (str): The region to target for the request.
             is_platform_endpoint (bool): A flag indicating whether to use the platform-specific or regional endpoint.
             params (dict, optional): A dictionary of query parameters to include in the request. Defaults to None.
+            _attempted_keys (int): Internal counter for tracking key fallback attempts. Do not set manually.
 
         Returns:
             dict: The JSON response from the API as a dictionary.
@@ -85,6 +90,13 @@ class RiotClient:
             ...     region="kr",
             ...     is_platform_endpoint=False
             ... )
+
+        Key Fallback Example:
+            Request for Match EUW1_123456789:
+            1. Try Key 1 → 429 (rate limited)
+            2. Try Key 2 immediately → 200 OK ✓ (no wait!)
+
+            Same match ID is preserved across all retry attempts.
         """
         # Acquire rate limit tokens (blocks until available)
         await rate_limiter.acquire()
@@ -102,16 +114,29 @@ class RiotClient:
         headers = {"X-Riot-Token": api_key}
         response = await self.client.get(url, params=params, headers=headers)
 
-        # Handle 429 (rate limited) - should be rare due to our rate limiter
+        # Handle 429 (rate limited) - try next key or wait if all exhausted
         if response.status_code == 429:
             retry_after = int(response.headers.get("Retry-After", 1))
+            total_keys = self.key_rotator.get_key_count()
+
+            # If we haven't tried all keys yet, try the next one immediately
+            if _attempted_keys + 1 < total_keys:
+                logger.warning(
+                    f"Rate limited (429), trying next key ({_attempted_keys + 1}/{total_keys} keys attempted)"
+                )
+                # Immediately retry with next key (no sleep!)
+                return await self.get(
+                    path, region, is_platform_endpoint, params, _attempted_keys=_attempted_keys + 1
+                )
+
+            # All keys exhausted - wait before trying again
             logger.warning(
-                "Rate limited by Riot API (429), retrying after {}s",
-                retry_after,
+                f"All {total_keys} keys rate limited (429), waiting {retry_after}s before retry"
             )
             await asyncio.sleep(retry_after)
-            # Retry the request (recursive call)
-            return await self.get(path, region, is_platform_endpoint, params)
+
+            # Reset counter and try again from first key
+            return await self.get(path, region, is_platform_endpoint, params, _attempted_keys=0)
 
         # Raise on other HTTP errors
         response.raise_for_status()

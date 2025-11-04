@@ -221,3 +221,159 @@ class TestRiotClientKeyRotation:
         assert client.key_rotator.get_next_key() == "single_key"
 
         await client.close()
+
+
+class TestSmartKeyFallback:
+    """Test suite for smart key fallback on 429 responses."""
+
+    @pytest.mark.asyncio
+    async def test_fallback_to_next_key_on_429(self, monkeypatch):
+        """Test that 429 on Key 1 immediately tries Key 2 (no wait)."""
+        from unittest.mock import AsyncMock, Mock
+        from app import config as app_config
+        from pydantic_settings import SettingsConfigDict
+        import httpx
+
+        class TestSettings(Settings):
+            model_config = SettingsConfigDict(env_file=None, extra="ignore")
+
+        monkeypatch.setenv("RIOT_API_KEYS", "key1,key2")
+        monkeypatch.delenv("RIOT_API_KEY", raising=False)
+
+        test_settings = TestSettings()  # type: ignore[call-arg]
+        monkeypatch.setattr(app_config, "settings", test_settings)
+
+        from app.riot.client import RiotClient
+
+        client = RiotClient()
+
+        # Mock responses: Key 1 gets 429, Key 2 succeeds
+        response_429 = Mock(spec=httpx.Response)
+        response_429.status_code = 429
+        response_429.headers = {"Retry-After": "5"}
+
+        response_200 = Mock(spec=httpx.Response)
+        response_200.status_code = 200
+        response_200.json = Mock(return_value={"success": True})
+
+        # Mock the client.get method to return responses in sequence
+        client.client.get = AsyncMock(side_effect=[response_429, response_200])
+
+        # Make request
+        import time
+
+        start = time.time()
+        result = await client.get("/test", region="euw1")
+        elapsed = time.time() - start
+
+        # Verify success and NO sleep happened (should be < 1 second)
+        assert result == {"success": True}
+        assert elapsed < 1.0, f"Request took {elapsed}s, should be immediate (no 5s wait)"
+
+        await client.close()
+
+    @pytest.mark.asyncio
+    async def test_all_keys_rate_limited_waits(self, monkeypatch):
+        """Test that if ALL keys are 429, it waits before retrying."""
+        from unittest.mock import AsyncMock, Mock
+        from app import config as app_config
+        from pydantic_settings import SettingsConfigDict
+        import httpx
+
+        class TestSettings(Settings):
+            model_config = SettingsConfigDict(env_file=None, extra="ignore")
+
+        monkeypatch.setenv("RIOT_API_KEYS", "key1,key2")
+        monkeypatch.delenv("RIOT_API_KEY", raising=False)
+
+        test_settings = TestSettings()  # type: ignore[call-arg]
+        monkeypatch.setattr(app_config, "settings", test_settings)
+
+        from app.riot.client import RiotClient
+
+        client = RiotClient()
+
+        # Mock responses: Both keys get 429, then Key 1 succeeds
+        response_429_key1 = Mock(spec=httpx.Response)
+        response_429_key1.status_code = 429
+        response_429_key1.headers = {"Retry-After": "1"}
+
+        response_429_key2 = Mock(spec=httpx.Response)
+        response_429_key2.status_code = 429
+        response_429_key2.headers = {"Retry-After": "1"}
+
+        response_200 = Mock(spec=httpx.Response)
+        response_200.status_code = 200
+        response_200.json = Mock(return_value={"success": True})
+
+        client.client.get = AsyncMock(
+            side_effect=[response_429_key1, response_429_key2, response_200]
+        )
+
+        # Make request
+        import time
+
+        start = time.time()
+        result = await client.get("/test", region="euw1")
+        elapsed = time.time() - start
+
+        # Verify success and sleep DID happen (should be ~1 second)
+        assert result == {"success": True}
+        assert elapsed >= 1.0, f"Request took {elapsed}s, should wait ~1s when all keys exhausted"
+
+        await client.close()
+
+    @pytest.mark.asyncio
+    async def test_preserves_match_id_across_retries(self, monkeypatch):
+        """Test that the same match ID is used across all retry attempts (no data loss)."""
+        from unittest.mock import AsyncMock, Mock
+        from app import config as app_config
+        from pydantic_settings import SettingsConfigDict
+        import httpx
+
+        class TestSettings(Settings):
+            model_config = SettingsConfigDict(env_file=None, extra="ignore")
+
+        monkeypatch.setenv("RIOT_API_KEYS", "key1,key2")
+        monkeypatch.delenv("RIOT_API_KEY", raising=False)
+
+        test_settings = TestSettings()  # type: ignore[call-arg]
+        monkeypatch.setattr(app_config, "settings", test_settings)
+
+        from app.riot.client import RiotClient
+
+        client = RiotClient()
+
+        match_id = "EUW1_123456789"
+        requests_made = []
+
+        # Create a mock function that captures URLs
+        async def mock_get(url, **kwargs):
+            requests_made.append(url)
+            if len(requests_made) == 1:
+                # First request: 429
+                response = Mock(spec=httpx.Response)
+                response.status_code = 429
+                response.headers = {"Retry-After": "1"}
+                return response
+            else:
+                # Second request: Success
+                response = Mock(spec=httpx.Response)
+                response.status_code = 200
+                response.json = Mock(return_value={"matchId": match_id})
+                return response
+
+        client.client.get = AsyncMock(side_effect=mock_get)
+
+        # Make request
+        result = await client.get(
+            f"/lol/match/v5/matches/{match_id}", region="europe", is_platform_endpoint=True
+        )
+
+        # Verify both requests used the SAME match ID
+        assert len(requests_made) == 2
+        assert match_id in requests_made[0], "First request should contain match ID"
+        assert match_id in requests_made[1], "Retry should contain SAME match ID"
+        assert result["matchId"] == match_id
+
+        await client.close()
