@@ -223,22 +223,17 @@ class TestSmartKeyFallback:
     async def test_fallback_to_next_key_on_429(self, monkeypatch):
         """Test that 429 on Key 1 immediately tries Key 2 (no wait)."""
         from unittest.mock import AsyncMock, Mock
-        from app import config as app_config
         from pydantic_settings import SettingsConfigDict
         import httpx
 
         class TestSettings(Settings):
             model_config = SettingsConfigDict(env_file=None, extra="ignore")
 
-        monkeypatch.setenv("RIOT_API_KEYS", "key1,key2")
-        monkeypatch.delenv("RIOT_API_KEY", raising=False)
-
-        test_settings = TestSettings()  # type: ignore[call-arg]
-        monkeypatch.setattr(app_config, "settings", test_settings)
+        test_settings = TestSettings(riot_api_keys="key1,key2", riot_api_key=None)  # type: ignore[call-arg]
 
         from app.riot.client import RiotClient
 
-        client = RiotClient()
+        client = RiotClient(settings_override=test_settings)
 
         # Mock responses: Key 1 gets 429, Key 2 succeeds
         response_429 = Mock(spec=httpx.Response)
@@ -269,22 +264,17 @@ class TestSmartKeyFallback:
     async def test_all_keys_rate_limited_waits(self, monkeypatch):
         """Test that if ALL keys are 429, it waits before retrying."""
         from unittest.mock import AsyncMock, Mock
-        from app import config as app_config
         from pydantic_settings import SettingsConfigDict
         import httpx
 
         class TestSettings(Settings):
             model_config = SettingsConfigDict(env_file=None, extra="ignore")
 
-        monkeypatch.setenv("RIOT_API_KEYS", "key1,key2")
-        monkeypatch.delenv("RIOT_API_KEY", raising=False)
-
-        test_settings = TestSettings()  # type: ignore[call-arg]
-        monkeypatch.setattr(app_config, "settings", test_settings)
+        test_settings = TestSettings(riot_api_keys="key1,key2", riot_api_key=None)  # type: ignore[call-arg]
 
         from app.riot.client import RiotClient
 
-        client = RiotClient()
+        client = RiotClient(settings_override=test_settings)
 
         # Mock responses: Both keys get 429, then Key 1 succeeds
         response_429_key1 = Mock(spec=httpx.Response)
@@ -320,22 +310,17 @@ class TestSmartKeyFallback:
     async def test_preserves_match_id_across_retries(self, monkeypatch):
         """Test that the same match ID is used across all retry attempts (no data loss)."""
         from unittest.mock import AsyncMock, Mock
-        from app import config as app_config
         from pydantic_settings import SettingsConfigDict
         import httpx
 
         class TestSettings(Settings):
             model_config = SettingsConfigDict(env_file=None, extra="ignore")
 
-        monkeypatch.setenv("RIOT_API_KEYS", "key1,key2")
-        monkeypatch.delenv("RIOT_API_KEY", raising=False)
-
-        test_settings = TestSettings()  # type: ignore[call-arg]
-        monkeypatch.setattr(app_config, "settings", test_settings)
+        test_settings = TestSettings(riot_api_keys="key1,key2", riot_api_key=None)  # type: ignore[call-arg]
 
         from app.riot.client import RiotClient
 
-        client = RiotClient()
+        client = RiotClient(settings_override=test_settings)
 
         match_id = "EUW1_123456789"
         requests_made = []
