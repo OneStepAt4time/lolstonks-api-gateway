@@ -2,7 +2,7 @@
 name = "lolstonks-api-gateway"
 version = "1.0.0"
 description = "Riot Games API Gateway with caching, rate limiting, and match tracking"
-readme = "README.md"
+readme = "docs/index.md"
 requires-python = ">=3.12"
 dependencies = [
     "fastapi>=0.115.0",

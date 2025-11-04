@@ -1,34 +1,101 @@
 """
 Region routing configuration for Riot API.
 
-Maps regions to their appropriate API base URLs.
-Different endpoints use different routing:
-- Regional endpoints (Summoner, League, Mastery): region-specific
-- Platform endpoints (Match): platform-specific (europe, americas, asia, sea)
+This module defines the data structures and functions for routing requests to the correct
+Riot API endpoints. It includes a Pydantic model for representing regions and a dictionary
+that maps region names to their corresponding data.
+
+The main components are:
+- Region: A Pydantic model that defines the data structure for a single region, including
+          its platform, hostname, and regional routing value.
+- REGIONS: A dictionary that maps region names (e.g., "euw1", "na1") to instances of the
+           Region model.
+- get_regional_url: A function that returns the regional base URL for a given region.
+- get_platform_url: A function that returns the platform base URL for a given region.
+- get_base_url: A function that returns the appropriate base URL for a given region and
+                endpoint type.
 """
 
-# Mapping of regions to platform routing endpoints
-PLATFORM_REGIONS = {
-    "br1": "americas",
-    "eun1": "europe",
-    "euw1": "europe",
-    "jp1": "asia",
-    "kr": "asia",
-    "la1": "americas",
-    "la2": "americas",
-    "na1": "americas",
-    "oc1": "sea",
-    "ph2": "sea",
-    "ru": "europe",
-    "sg2": "sea",
-    "th2": "sea",
-    "tr1": "europe",
-    "tw2": "sea",
-    "vn2": "sea",
+from pydantic import BaseModel
+
+
+class Region(BaseModel):
+    """Pydantic model for a Riot API region."""
+
+    platform: str
+    hostname: str
+    regional_routing: str
+
+
+REGIONS = {
+    "br1": Region(
+        platform="americas",
+        hostname="br1.api.riotgames.com",
+        regional_routing="americas.api.riotgames.com",
+    ),
+    "eun1": Region(
+        platform="europe",
+        hostname="eun1.api.riotgames.com",
+        regional_routing="europe.api.riotgames.com",
+    ),
+    "euw1": Region(
+        platform="europe",
+        hostname="euw1.api.riotgames.com",
+        regional_routing="europe.api.riotgames.com",
+    ),
+    "jp1": Region(
+        platform="asia", hostname="jp1.api.riotgames.com", regional_routing="asia.api.riotgames.com"
+    ),
+    "kr": Region(
+        platform="asia", hostname="kr.api.riotgames.com", regional_routing="asia.api.riotgames.com"
+    ),
+    "la1": Region(
+        platform="americas",
+        hostname="la1.api.riotgames.com",
+        regional_routing="americas.api.riotgames.com",
+    ),
+    "la2": Region(
+        platform="americas",
+        hostname="la2.api.riotgames.com",
+        regional_routing="americas.api.riotgames.com",
+    ),
+    "na1": Region(
+        platform="americas",
+        hostname="na1.api.riotgames.com",
+        regional_routing="americas.api.riotgames.com",
+    ),
+    "oc1": Region(
+        platform="sea", hostname="oc1.api.riotgames.com", regional_routing="sea.api.riotgames.com"
+    ),
+    "tr1": Region(
+        platform="europe",
+        hostname="tr1.api.riotgames.com",
+        regional_routing="europe.api.riotgames.com",
+    ),
+    "ru": Region(
+        platform="europe",
+        hostname="ru.api.riotgames.com",
+        regional_routing="europe.api.riotgames.com",
+    ),
+    "ph2": Region(
+        platform="sea", hostname="ph2.api.riotgames.com", regional_routing="sea.api.riotgames.com"
+    ),
+    "sg2": Region(
+        platform="sea", hostname="sg2.api.riotgames.com", regional_routing="sea.api.riotgames.com"
+    ),
+    "th2": Region(
+        platform="sea", hostname="th2.api.riotgames.com", regional_routing="sea.api.riotgames.com"
+    ),
+    "tw2": Region(
+        platform="sea", hostname="tw2.api.riotgames.com", regional_routing="sea.api.riotgames.com"
+    ),
+    "vn2": Region(
+        platform="sea", hostname="vn2.api.riotgames.com", regional_routing="sea.api.riotgames.com"
+    ),
 }
 
 # All supported regions
-SUPPORTED_REGIONS = list(PLATFORM_REGIONS.keys())
+SUPPORTED_REGIONS = list(REGIONS.keys())
 
 
 def get_regional_url(region: str) -> str:
@@ -50,7 +117,7 @@ def get_regional_url(region: str) -> str:
     if region not in SUPPORTED_REGIONS:
         raise ValueError(f"Unsupported region: {region}. Supported: {SUPPORTED_REGIONS}")
 
-    return f"https://{region}.api.riotgames.com"
+    return f"https://{REGIONS[region].hostname}"
 
 
 def get_platform_url(region: str) -> str:
@@ -82,8 +149,7 @@ def get_platform_url(region: str) -> str:
             f"Unsupported region: {region}. Supported: {SUPPORTED_REGIONS + platform_regions_list}"
         )
 
-    platform = PLATFORM_REGIONS[region]
-    return f"https://{platform}.api.riotgames.com"
+    return f"https://{REGIONS[region].regional_routing}"
 
 
 def get_base_url(region: str, is_platform_endpoint: bool = False) -> str:
