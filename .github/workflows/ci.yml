@@ -49,6 +49,6 @@ jobs:
       env:
         REDIS_HOST: ${{ secrets.REDIS_HOST || 'localhost' }}
         REDIS_PORT: ${{ secrets.REDIS_PORT || '6379' }}
-        RIOT_API_KEY: ${{ secrets.RIOT_API_KEY}}
+        RIOT_API_KEY: ${{ secrets.RIOT_API_KEY }}
       run: |
         uv run pytest --cov=app --cov-report=term-missing -v
