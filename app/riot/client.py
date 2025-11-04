@@ -14,6 +14,7 @@ import httpx
 from loguru import logger
 
 from app.config import settings
+from app.riot.key_rotator import KeyRotator
 from app.riot.rate_limiter import rate_limiter
 from app.riot.regions import get_base_url
 
@@ -24,15 +25,26 @@ class RiotClient:
 
     Automatically applies rate limiting before each request and retries
     on 429 responses according to Retry-After header.
+
+    Supports multiple API keys with round-robin rotation for load distribution.
     """
 
     def __init__(self):
-        """Initialize HTTP client with authentication headers."""
+        """Initialize HTTP client with key rotation support."""
+        # Initialize key rotator with configured API keys
+        api_keys = settings.get_api_keys()
+        self.key_rotator = KeyRotator(api_keys)
+
+        # Create HTTP client without static auth header
+        # (will be added per-request from key rotator)
         self.client = httpx.AsyncClient(
             timeout=settings.riot_request_timeout,
-            headers={"X-Riot-Token": settings.riot_api_key},
         )
-        logger.info("Riot API client initialized")
+
+        key_count = len(api_keys)
+        logger.info(
+            f"Riot API client initialized with {key_count} API key{'s' if key_count > 1 else ''}"
+        )
 
     async def close(self):
         """Close HTTP client connection."""
@@ -77,14 +89,18 @@ class RiotClient:
         # Acquire rate limit tokens (blocks until available)
         await rate_limiter.acquire()
 
+        # Get next API key from rotator
+        api_key = self.key_rotator.get_next_key()
+
         # Build full URL
         base_url = get_base_url(region, is_platform_endpoint)
         url = f"{base_url}{path}"
 
         logger.debug("Requesting Riot API: {} [region={}]", path, region)
 
-        # Make request
-        response = await self.client.get(url, params=params)
+        # Make request with rotated API key
+        headers = {"X-Riot-Token": api_key}
+        response = await self.client.get(url, params=params, headers=headers)
 
         # Handle 429 (rate limited) - should be rare due to our rate limiter
         if response.status_code == 429:
