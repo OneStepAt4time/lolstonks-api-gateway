@@ -5,11 +5,10 @@ https://developer.riotgames.com/apis#champion-v3
 """
 
 from fastapi import APIRouter, Query
-from loguru import logger
 
+from app.cache.helpers import fetch_with_cache
 from app.config import settings
 from app.riot.client import riot_client
-from app.cache.redis_cache import cache
 
 router = APIRouter(prefix="/lol/platform/v3", tags=["champion"])
 
@@ -36,21 +35,10 @@ async def get_champion_rotations(
     Example:
         >>> curl "http://127.0.0.1:8080/lol/platform/v3/champion-rotations?region=euw1"
     """
-    cache_key = f"champion:rotation:{region}"
-
-    # Check cache
-    cached_data = await cache.get(cache_key)
-    if cached_data:
-        logger.debug("Cache hit for champion rotation", region=region)
-        return cached_data
-
-    # Fetch from Riot API
-    logger.info("Fetching champion rotation from Riot API", region=region)
-    path = "/lol/platform/v3/champion-rotations"
-    data = await riot_client.get(path, region, is_platform_endpoint=False)
-
-    # Cache with configured TTL
-    await cache.set(cache_key, data, ttl=settings.cache_ttl_champion_rotation)
-    logger.success("Champion rotation fetched", region=region)
-
-    return data
+    return await fetch_with_cache(
+        cache_key=f"champion:rotation:{region}",
+        resource_name="Champion rotation",
+        fetch_fn=lambda: riot_client.get("/lol/platform/v3/champion-rotations", region, False),
+        ttl=settings.cache_ttl_champion_rotation,
+        context={"region": region},
+    )

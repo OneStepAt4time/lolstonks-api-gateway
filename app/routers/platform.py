@@ -5,11 +5,10 @@ https://developer.riotgames.com/apis#lol-status-v4
 """
 
 from fastapi import APIRouter, Query
-from loguru import logger
 
+from app.cache.helpers import fetch_with_cache
 from app.config import settings
 from app.riot.client import riot_client
-from app.cache.redis_cache import cache
 
 router = APIRouter(prefix="/lol/status/v4", tags=["platform"])
 
@@ -36,27 +35,10 @@ async def get_platform_status(
     Example:
         >>> curl "http://127.0.0.1:8080/lol/status/v4/platform-data?region=euw1"
     """
-    cache_key = f"platform:status:{region}"
-
-    # Check cache
-    cached_data = await cache.get(cache_key)
-    if cached_data:
-        logger.debug("Cache hit for platform status", region=region)
-        return cached_data
-
-    # Fetch from Riot API
-    logger.info("Fetching platform status", region=region)
-    path = "/lol/status/v4/platform-data"
-    data = await riot_client.get(path, region, is_platform_endpoint=False)
-
-    # Cache with configured TTL
-    await cache.set(cache_key, data, ttl=settings.cache_ttl_platform_status)
-
-    logger.success(
-        "Platform status fetched",
-        region=region,
-        maintenances=len(data.get("maintenances", [])),
-        incidents=len(data.get("incidents", [])),
+    return await fetch_with_cache(
+        cache_key=f"platform:status:{region}",
+        resource_name="Platform status",
+        fetch_fn=lambda: riot_client.get("/lol/status/v4/platform-data", region, False),
+        ttl=settings.cache_ttl_platform_status,
+        context={"region": region},
     )
-
-    return data

@@ -7,9 +7,8 @@ https://developer.riotgames.com/apis#summoner-v4
 from typing import Annotated
 
 from fastapi import APIRouter, Depends
-from loguru import logger
 
-from app.cache.redis_cache import cache
+from app.cache.helpers import fetch_with_cache
 from app.config import settings
 from app.models.summoner import (
     SummonerByIdParams,
@@ -48,28 +47,15 @@ async def get_summoner_by_name(
     Example:
         >>> curl "http://127.0.0.1:8080/lol/summoner/v4/summoners/by-name/Faker?region=kr"
     """
-    logger.info("Fetching summoner by name", summoner=params.summonerName, region=query.region)
-
-    # Check cache first
-    cache_key = f"summoner:name:{query.region}:{params.summonerName}"
-    cached_data = await cache.get(cache_key)
-    if cached_data:
-        logger.debug("Cache hit for summoner", summoner=params.summonerName)
-        return cached_data
-
-    # Fetch from Riot API
-    path = f"/lol/summoner/v4/summoners/by-name/{params.summonerName}"
-    data = await riot_client.get(path, query.region, is_platform_endpoint=False)
-
-    # Store in cache
-    await cache.set(cache_key, data, ttl=settings.cache_ttl_summoner)
-
-    logger.success(
-        "Summoner fetched successfully",
-        summoner=params.summonerName,
-        puuid=data.get("puuid", "unknown"),
+    return await fetch_with_cache(
+        cache_key=f"summoner:name:{query.region}:{params.summonerName}",
+        resource_name="Summoner",
+        fetch_fn=lambda: riot_client.get(
+            f"/lol/summoner/v4/summoners/by-name/{params.summonerName}", query.region, False
+        ),
+        ttl=settings.cache_ttl_summoner,
+        context={"summoner": params.summonerName, "region": query.region},
     )
-    return data
 
 
 @router.get("/summoners/by-puuid/{encryptedPUUID}")
@@ -95,24 +81,15 @@ async def get_summoner_by_puuid(
     Example:
         >>> curl "http://127.0.0.1:8080/lol/summoner/v4/summoners/by-puuid/{encryptedPUUID}?region=euw1"
     """
-    logger.info("Fetching summoner by PUUID", puuid=params.encryptedPUUID, region=query.region)
-
-    # Check cache first
-    cache_key = f"summoner:puuid:{query.region}:{params.encryptedPUUID}"
-    cached_data = await cache.get(cache_key)
-    if cached_data:
-        logger.debug("Cache hit for summoner by PUUID")
-        return cached_data
-
-    # Fetch from Riot API
-    path = f"/lol/summoner/v4/summoners/by-puuid/{params.encryptedPUUID}"
-    data = await riot_client.get(path, query.region, is_platform_endpoint=False)
-
-    # Store in cache
-    await cache.set(cache_key, data, ttl=settings.cache_ttl_summoner)
-
-    logger.success("Summoner fetched by PUUID", name=data.get("name", "unknown"))
-    return data
+    return await fetch_with_cache(
+        cache_key=f"summoner:puuid:{query.region}:{params.encryptedPUUID}",
+        resource_name="Summoner",
+        fetch_fn=lambda: riot_client.get(
+            f"/lol/summoner/v4/summoners/by-puuid/{params.encryptedPUUID}", query.region, False
+        ),
+        ttl=settings.cache_ttl_summoner,
+        context={"puuid": params.encryptedPUUID, "region": query.region},
+    )
 
 
 @router.get("/summoners/{encryptedSummonerId}")
@@ -138,23 +115,12 @@ async def get_summoner_by_id(
     Example:
         >>> curl "http://127.0.0.1:8080/lol/summoner/v4/summoners/{encryptedSummonerId}?region=euw1"
     """
-    logger.info(
-        "Fetching summoner by ID", summoner_id=params.encryptedSummonerId, region=query.region
+    return await fetch_with_cache(
+        cache_key=f"summoner:id:{query.region}:{params.encryptedSummonerId}",
+        resource_name="Summoner",
+        fetch_fn=lambda: riot_client.get(
+            f"/lol/summoner/v4/summoners/{params.encryptedSummonerId}", query.region, False
+        ),
+        ttl=settings.cache_ttl_summoner,
+        context={"summoner_id": params.encryptedSummonerId, "region": query.region},
     )
-
-    # Check cache first
-    cache_key = f"summoner:id:{query.region}:{params.encryptedSummonerId}"
-    cached_data = await cache.get(cache_key)
-    if cached_data:
-        logger.debug("Cache hit for summoner by ID")
-        return cached_data
-
-    # Fetch from Riot API
-    path = f"/lol/summoner/v4/summoners/{params.encryptedSummonerId}"
-    data = await riot_client.get(path, query.region, is_platform_endpoint=False)
-
-    # Store in cache
-    await cache.set(cache_key, data, ttl=settings.cache_ttl_summoner)
-
-    logger.success("Summoner fetched by ID", name=data.get("name", "unknown"))
-    return data

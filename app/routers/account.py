@@ -7,9 +7,8 @@ https://developer.riotgames.com/apis#account-v1
 from typing import Annotated
 
 from fastapi import APIRouter, Depends
-from loguru import logger
 
-from app.cache.redis_cache import cache
+from app.cache.helpers import fetch_with_cache
 from app.config import settings
 from app.models.account import (
     AccountByPuuidParams,
@@ -48,26 +47,15 @@ async def get_account_by_puuid(
     Example:
         >>> curl "http://127.0.0.1:8080/riot/account/v1/accounts/by-puuid/{puuid}?region=americas"
     """
-    cache_key = f"account:puuid:{query.region}:{params.puuid}"
-
-    # Check cache
-    cached_data = await cache.get(cache_key)
-    if cached_data:
-        logger.debug("Cache hit for account by PUUID", puuid=params.puuid[:8])
-        return cached_data
-
-    # Fetch from Riot API (use platform endpoint for regional routing)
-    logger.info("Fetching account by PUUID", puuid=params.puuid[:8], region=query.region)
-    path = f"/riot/account/v1/accounts/by-puuid/{params.puuid}"
-    data = await riot_client.get(path, query.region, is_platform_endpoint=True)
-
-    # Cache with configured TTL
-    await cache.set(cache_key, data, ttl=settings.cache_ttl_account)
-    logger.success(
-        "Account fetched by PUUID", puuid=params.puuid[:8], gameName=data.get("gameName")
+    return await fetch_with_cache(
+        cache_key=f"account:puuid:{query.region}:{params.puuid}",
+        resource_name="Account",
+        fetch_fn=lambda: riot_client.get(
+            f"/riot/account/v1/accounts/by-puuid/{params.puuid}", query.region, True
+        ),
+        ttl=settings.cache_ttl_account,
+        context={"puuid": params.puuid[:8], "region": query.region},
     )
-
-    return data
 
 
 @router.get("/accounts/by-riot-id/{gameName}/{tagLine}")
@@ -94,33 +82,17 @@ async def get_account_by_riot_id(
     Example:
         >>> curl "http://127.0.0.1:8080/riot/account/v1/accounts/by-riot-id/Faker/KR1?region=americas"
     """
-    cache_key = f"account:riotid:{query.region}:{params.gameName}:{params.tagLine}"
-
-    # Check cache
-    cached_data = await cache.get(cache_key)
-    if cached_data:
-        logger.debug(
-            "Cache hit for account by Riot ID", gameName=params.gameName, tagLine=params.tagLine
-        )
-        return cached_data
-
-    # Fetch from Riot API (use platform endpoint for regional routing)
-    logger.info(
-        "Fetching account by Riot ID",
-        gameName=params.gameName,
-        tagLine=params.tagLine,
-        region=query.region,
+    return await fetch_with_cache(
+        cache_key=f"account:riotid:{query.region}:{params.gameName}:{params.tagLine}",
+        resource_name="Account",
+        fetch_fn=lambda: riot_client.get(
+            f"/riot/account/v1/accounts/by-riot-id/{params.gameName}/{params.tagLine}",
+            query.region,
+            True,
+        ),
+        ttl=settings.cache_ttl_account,
+        context={"gameName": params.gameName, "tagLine": params.tagLine, "region": query.region},
     )
-    path = f"/riot/account/v1/accounts/by-riot-id/{params.gameName}/{params.tagLine}"
-    data = await riot_client.get(path, query.region, is_platform_endpoint=True)
-
-    # Cache with configured TTL
-    await cache.set(cache_key, data, ttl=settings.cache_ttl_account)
-    logger.success(
-        "Account fetched by Riot ID", gameName=params.gameName, puuid=data.get("puuid", "")[:8]
-    )
-
-    return data
 
 
 @router.get("/active-shards/by-game/{game}/by-puuid/{puuid}")
@@ -147,23 +119,14 @@ async def get_active_shard(
     Example:
         >>> curl "http://127.0.0.1:8080/riot/account/v1/active-shards/by-game/val/by-puuid/{puuid}?region=americas"
     """
-    cache_key = f"account:shard:{query.region}:{params.game}:{params.puuid}"
-
-    # Check cache (short TTL as active shard can change)
-    cached_data = await cache.get(cache_key)
-    if cached_data:
-        logger.debug("Cache hit for active shard", puuid=params.puuid[:8], game=params.game)
-        return cached_data
-
-    # Fetch from Riot API (use platform endpoint for regional routing)
-    logger.info(
-        "Fetching active shard", puuid=params.puuid[:8], game=params.game, region=query.region
+    return await fetch_with_cache(
+        cache_key=f"account:shard:{query.region}:{params.game}:{params.puuid}",
+        resource_name="Active shard",
+        fetch_fn=lambda: riot_client.get(
+            f"/riot/account/v1/active-shards/by-game/{params.game}/by-puuid/{params.puuid}",
+            query.region,
+            True,
+        ),
+        ttl=settings.cache_ttl_account_shard,
+        context={"puuid": params.puuid[:8], "game": params.game, "region": query.region},
     )
-    path = f"/riot/account/v1/active-shards/by-game/{params.game}/by-puuid/{params.puuid}"
-    data = await riot_client.get(path, query.region, is_platform_endpoint=True)
-
-    # Cache with configured TTL
-    await cache.set(cache_key, data, ttl=settings.cache_ttl_account_shard)
-    logger.success("Active shard fetched", puuid=params.puuid[:8], shard=data.get("activeShard"))
-
-    return data

@@ -9,7 +9,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends
 from loguru import logger
 
-from app.cache.redis_cache import cache
+from app.cache.helpers import fetch_with_cache
 from app.cache.tracking import tracker
 from app.config import settings
 from app.models.match import (
@@ -106,48 +106,28 @@ async def get_match(
     Example:
         >>> curl "http://127.0.0.1:8080/lol/match/v5/matches/EUW1_123456789?region=americas"
     """
-    logger.info(
-        "Match request received", match_id=params.matchId, region=query.region, force=query.force
-    )
-
-    cache_key = f"match:{query.region}:{params.matchId}"
-
-    # Check force refresh
+    # Check if match was already processed (if not forcing refresh)
+    is_processed = False
     if not query.force:
-        # Check if already processed (permanent tracking)
         is_processed = await tracker.is_processed(query.region, params.matchId)
 
-        if is_processed:
-            logger.debug("Match already processed, checking cache", match_id=params.matchId)
+    # Use helper with force_refresh flag based on force parameter and processed status
+    # If force=True OR not processed yet, skip cache check
+    data = await fetch_with_cache(
+        cache_key=f"match:{query.region}:{params.matchId}",
+        resource_name="Match data",
+        fetch_fn=lambda: riot_client.get(
+            f"/lol/match/v5/matches/{params.matchId}", query.region, True
+        ),
+        ttl=settings.cache_ttl_match,
+        context={"match_id": params.matchId, "region": query.region},
+        force_refresh=query.force or not is_processed,
+    )
 
-            # Try to get from cache
-            cached_data = await cache.get(cache_key)
-            if cached_data:
-                logger.debug("Cache hit for processed match", match_id=params.matchId)
-                return cached_data
-            else:
-                logger.debug(
-                    "Cache miss for processed match (TTL expired)", match_id=params.matchId
-                )
-        else:
-            logger.debug("Match not yet processed", match_id=params.matchId)
-    else:
-        logger.info("Force refresh requested, bypassing cache", match_id=params.matchId)
+    # Mark as processed after successful fetch (if not already processed)
+    if not is_processed:
+        await tracker.mark_processed(query.region, params.matchId)
 
-    # Fetch from Riot API (rate-limited)
-    logger.info("Fetching match from Riot API", match_id=params.matchId, region=query.region)
-    path = f"/lol/match/v5/matches/{params.matchId}"
-    data = await riot_client.get(path, query.region, is_platform_endpoint=True)
-
-    # Store in cache with TTL
-    await cache.set(cache_key, data, ttl=settings.cache_ttl_match)
-    logger.debug("Match stored in cache", match_id=params.matchId, ttl=settings.cache_ttl_match)
-
-    # Mark as processed (permanent, no TTL)
-    await tracker.mark_processed(query.region, params.matchId)
-    logger.debug("Match marked as processed", match_id=params.matchId, region=query.region)
-
-    logger.success("Match fetched and cached successfully", match_id=params.matchId)
     return data
 
 
@@ -174,21 +154,12 @@ async def get_match_timeline(
     Example:
         >>> curl "http://127.0.0.1:8080/lol/match/v5/matches/EUW1_123456789/timeline?region=americas"
     """
-    logger.info("Fetching match timeline", match_id=params.matchId, region=query.region)
-
-    # Check cache first
-    cache_key = f"match:timeline:{query.region}:{params.matchId}"
-    cached_data = await cache.get(cache_key)
-    if cached_data:
-        logger.debug("Cache hit for match timeline", match_id=params.matchId)
-        return cached_data
-
-    # Fetch from Riot API
-    path = f"/lol/match/v5/matches/{params.matchId}/timeline"
-    data = await riot_client.get(path, query.region, is_platform_endpoint=True)
-
-    # Store in cache
-    await cache.set(cache_key, data, ttl=settings.cache_ttl_timeline)
-
-    logger.success("Match timeline fetched", match_id=params.matchId)
-    return data
+    return await fetch_with_cache(
+        cache_key=f"match:timeline:{query.region}:{params.matchId}",
+        resource_name="Match timeline",
+        fetch_fn=lambda: riot_client.get(
+            f"/lol/match/v5/matches/{params.matchId}/timeline", query.region, True
+        ),
+        ttl=settings.cache_ttl_timeline,
+        context={"match_id": params.matchId, "region": query.region},
+    )

@@ -7,9 +7,8 @@ Note: This is an experimental API providing paginated league entries.
 """
 
 from fastapi import APIRouter, Depends
-from loguru import logger
 
-from app.cache.redis_cache import cache
+from app.cache.helpers import fetch_with_cache
 from app.config import settings
 from app.models.league_exp import LeagueExpEntriesParams, LeagueExpEntriesQuery
 from app.riot.client import riot_client
@@ -40,38 +39,21 @@ async def get_league_exp_entries(
     Example:
         >>> curl "http://127.0.0.1:8080/lol/league-exp/v4/entries/RANKED_SOLO_5x5/DIAMOND/I?region=euw1&page=1"
     """
-    logger.info(
-        "Fetching league exp entries",
-        queue=params.queue,
-        tier=params.tier,
-        division=params.division,
-        region=query.region,
-        page=query.page,
-    )
-
-    # Check cache first
-    cache_key = f"league-exp:entries:{query.region}:{params.queue}:{params.tier}:{params.division}:{query.page}"
-    cached_data = await cache.get(cache_key)
-    if cached_data:
-        logger.debug("Cache hit for league exp entries")
-        return cached_data
-
-    # Fetch from Riot API
+    # Build path with page parameter if not default
     path = f"/lol/league-exp/v4/entries/{params.queue}/{params.tier}/{params.division}"
-    # Add page parameter if not default
     if query.page != 1:
         path += f"?page={query.page}"
 
-    data = await riot_client.get(path, query.region, is_platform_endpoint=False)
-
-    # Store in cache (1 hour - league entries change frequently)
-    await cache.set(cache_key, data, ttl=settings.cache_ttl_league)
-
-    logger.success(
-        "League exp entries fetched",
-        queue=params.queue,
-        tier=params.tier,
-        division=params.division,
-        entries=len(data),
+    return await fetch_with_cache(
+        cache_key=f"league-exp:entries:{query.region}:{params.queue}:{params.tier}:{params.division}:{query.page}",
+        resource_name="League exp entries",
+        fetch_fn=lambda: riot_client.get(path, query.region, False),
+        ttl=settings.cache_ttl_league,
+        context={
+            "queue": params.queue,
+            "tier": params.tier,
+            "division": params.division,
+            "page": query.page,
+            "region": query.region,
+        },
     )
-    return data
