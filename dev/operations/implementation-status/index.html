@@ -6,15 +6,11 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Riot Games API Gateway with caching, rate limiting, and match tracking">
+        <meta name="description" content="Unified League of Legends API Gateway with caching, rate limiting, and comprehensive monitoring">
       
       
       
       
-        <link rel="prev" href="../../architecture/caching/">
-      
-      
-        <link rel="next" href="../monitoring/">
       
       
       <link rel="icon" href="../../assets/logo.png">
@@ -22,7 +18,7 @@
     
     
       
-        <title>Implementation Status - LOLStonks API Gateway</title>
+        <title>Implementation status - LOLStonks API Gateway</title>
       
     
     
@@ -75,11 +71,6 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
-        
-        <a href="#implementation-status" class="md-skip">
-          Skip to content
-        </a>
-      
     </div>
     <div data-md-component="announce">
       
@@ -111,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Implementation Status
+              Implementation status
             
           </span>
         </div>
@@ -301,13 +292,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../monitoring/" class="md-tabs__link">
           
   
   
@@ -590,6 +579,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -664,6 +657,29 @@
   
   <span class="md-ellipsis">
     Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Providers
     
   </span>
   
@@ -756,6 +772,29 @@
   
   <span class="md-ellipsis">
     Cache
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Security
     
   </span>
   
@@ -956,14 +995,10 @@
       
   
   
-    
   
   
-  
     
     
-      
-        
       
         
       
@@ -975,22 +1010,21 @@
     
     
       
-        
-        
-      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
             
   
   
@@ -1003,386 +1037,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             Operations
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Implementation Status
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    Implementation Status
-    
-  </span>
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#table-of-contents" class="md-nav__link">
-    <span class="md-ellipsis">
-      Table of Contents
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#monitoring-observability" class="md-nav__link">
-    <span class="md-ellipsis">
-      Monitoring &amp; Observability
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Monitoring &amp; Observability">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#currently-implemented" class="md-nav__link">
-    <span class="md-ellipsis">
-      ✅ Currently Implemented
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#not-yet-implemented-documented-as-potential-enhancements" class="md-nav__link">
-    <span class="md-ellipsis">
-      ❌ Not Yet Implemented (Documented as Potential Enhancements)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#security" class="md-nav__link">
-    <span class="md-ellipsis">
-      Security
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Security">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#currently-implemented_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      ✅ Currently Implemented
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#partially-implemented-infrastructure-level" class="md-nav__link">
-    <span class="md-ellipsis">
-      ⚠️ Partially Implemented / Infrastructure Level
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#not-yet-implemented-documented-as-potential-enhancements_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      ❌ Not Yet Implemented (Documented as Potential Enhancements)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#summary-table" class="md-nav__link">
-    <span class="md-ellipsis">
-      Summary Table
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Summary Table">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#overall-implementation-status" class="md-nav__link">
-    <span class="md-ellipsis">
-      Overall Implementation Status
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#feature-categories-by-status" class="md-nav__link">
-    <span class="md-ellipsis">
-      Feature Categories by Status
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Feature Categories by Status">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#production-ready-currently-implemented" class="md-nav__link">
-    <span class="md-ellipsis">
-      ✅ Production Ready (Currently Implemented)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#infrastructure-level-external-to-application" class="md-nav__link">
-    <span class="md-ellipsis">
-      ⚠️ Infrastructure Level (External to Application)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#potential-future-enhancements" class="md-nav__link">
-    <span class="md-ellipsis">
-      ❌ Potential Future Enhancements
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-to-read-this-document" class="md-nav__link">
-    <span class="md-ellipsis">
-      How to Read This Document
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="How to Read This Document">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#status-indicators" class="md-nav__link">
-    <span class="md-ellipsis">
-      Status Indicators
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#documentation-cross-references" class="md-nav__link">
-    <span class="md-ellipsis">
-      Documentation Cross-References
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#implementation-priority-levels" class="md-nav__link">
-    <span class="md-ellipsis">
-      Implementation Priority Levels
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Implementation Priority Levels">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#priority-1-consider-for-production" class="md-nav__link">
-    <span class="md-ellipsis">
-      Priority 1: Consider for Production 🔴
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#priority-2-recommended-enhancements" class="md-nav__link">
-    <span class="md-ellipsis">
-      Priority 2: Recommended Enhancements 🟡
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#priority-3-nice-to-have" class="md-nav__link">
-    <span class="md-ellipsis">
-      Priority 3: Nice to Have 🟢
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#development-roadmap" class="md-nav__link">
-    <span class="md-ellipsis">
-      Development Roadmap
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Development Roadmap">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#phase-1-core-monitoring-recommended-for-production" class="md-nav__link">
-    <span class="md-ellipsis">
-      Phase 1: Core Monitoring (Recommended for Production)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#phase-2-enhanced-security-recommended-for-production" class="md-nav__link">
-    <span class="md-ellipsis">
-      Phase 2: Enhanced Security (Recommended for Production)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#phase-3-advanced-features-optional" class="md-nav__link">
-    <span class="md-ellipsis">
-      Phase 3: Advanced Features (Optional)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#contributing" class="md-nav__link">
-    <span class="md-ellipsis">
-      Contributing
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#notes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Notes
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Notes">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#why-document-unimplemented-features" class="md-nav__link">
-    <span class="md-ellipsis">
-      Why Document Unimplemented Features?
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#keeping-documentation-and-code-in-sync" class="md-nav__link">
-    <span class="md-ellipsis">
-      Keeping Documentation and Code in Sync
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-              
             
               
                 
@@ -1606,325 +1266,6 @@
   
   
   
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#table-of-contents" class="md-nav__link">
-    <span class="md-ellipsis">
-      Table of Contents
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#monitoring-observability" class="md-nav__link">
-    <span class="md-ellipsis">
-      Monitoring &amp; Observability
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Monitoring &amp; Observability">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#currently-implemented" class="md-nav__link">
-    <span class="md-ellipsis">
-      ✅ Currently Implemented
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#not-yet-implemented-documented-as-potential-enhancements" class="md-nav__link">
-    <span class="md-ellipsis">
-      ❌ Not Yet Implemented (Documented as Potential Enhancements)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#security" class="md-nav__link">
-    <span class="md-ellipsis">
-      Security
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Security">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#currently-implemented_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      ✅ Currently Implemented
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#partially-implemented-infrastructure-level" class="md-nav__link">
-    <span class="md-ellipsis">
-      ⚠️ Partially Implemented / Infrastructure Level
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#not-yet-implemented-documented-as-potential-enhancements_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      ❌ Not Yet Implemented (Documented as Potential Enhancements)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#summary-table" class="md-nav__link">
-    <span class="md-ellipsis">
-      Summary Table
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Summary Table">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#overall-implementation-status" class="md-nav__link">
-    <span class="md-ellipsis">
-      Overall Implementation Status
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#feature-categories-by-status" class="md-nav__link">
-    <span class="md-ellipsis">
-      Feature Categories by Status
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Feature Categories by Status">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#production-ready-currently-implemented" class="md-nav__link">
-    <span class="md-ellipsis">
-      ✅ Production Ready (Currently Implemented)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#infrastructure-level-external-to-application" class="md-nav__link">
-    <span class="md-ellipsis">
-      ⚠️ Infrastructure Level (External to Application)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#potential-future-enhancements" class="md-nav__link">
-    <span class="md-ellipsis">
-      ❌ Potential Future Enhancements
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-to-read-this-document" class="md-nav__link">
-    <span class="md-ellipsis">
-      How to Read This Document
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="How to Read This Document">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#status-indicators" class="md-nav__link">
-    <span class="md-ellipsis">
-      Status Indicators
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#documentation-cross-references" class="md-nav__link">
-    <span class="md-ellipsis">
-      Documentation Cross-References
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#implementation-priority-levels" class="md-nav__link">
-    <span class="md-ellipsis">
-      Implementation Priority Levels
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Implementation Priority Levels">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#priority-1-consider-for-production" class="md-nav__link">
-    <span class="md-ellipsis">
-      Priority 1: Consider for Production 🔴
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#priority-2-recommended-enhancements" class="md-nav__link">
-    <span class="md-ellipsis">
-      Priority 2: Recommended Enhancements 🟡
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#priority-3-nice-to-have" class="md-nav__link">
-    <span class="md-ellipsis">
-      Priority 3: Nice to Have 🟢
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#development-roadmap" class="md-nav__link">
-    <span class="md-ellipsis">
-      Development Roadmap
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Development Roadmap">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#phase-1-core-monitoring-recommended-for-production" class="md-nav__link">
-    <span class="md-ellipsis">
-      Phase 1: Core Monitoring (Recommended for Production)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#phase-2-enhanced-security-recommended-for-production" class="md-nav__link">
-    <span class="md-ellipsis">
-      Phase 2: Enhanced Security (Recommended for Production)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#phase-3-advanced-features-optional" class="md-nav__link">
-    <span class="md-ellipsis">
-      Phase 3: Advanced Features (Optional)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#contributing" class="md-nav__link">
-    <span class="md-ellipsis">
-      Contributing
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#notes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Notes
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Notes">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#why-document-unimplemented-features" class="md-nav__link">
-    <span class="md-ellipsis">
-      Why Document Unimplemented Features?
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#keeping-documentation-and-code-in-sync" class="md-nav__link">
-    <span class="md-ellipsis">
-      Keeping Documentation and Code in Sync
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
   
 </nav>
                   </div>
@@ -1943,411 +1284,9 @@
   
 
 
-<h1 id="implementation-status">Implementation Status<a class="headerlink" href="#implementation-status" title="Permanent link">&para;</a></h1>
-<p>This document provides a clear overview of which features described in the Operations documentation are <strong>currently implemented</strong> versus <strong>potential future enhancements</strong>.</p>
-<blockquote>
-<p><strong>Last Updated</strong>: 2025-11-06</p>
-</blockquote>
-<hr />
-<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="#monitoring--observability">Monitoring &amp; Observability</a></li>
-<li><a href="#security">Security</a></li>
-<li><a href="#summary-table">Summary Table</a></li>
-<li><a href="#how-to-read-this-document">How to Read This Document</a></li>
-</ul>
-<hr />
-<h2 id="monitoring-observability">Monitoring &amp; Observability<a class="headerlink" href="#monitoring-observability" title="Permanent link">&para;</a></h2>
-<h3 id="currently-implemented">✅ Currently Implemented<a class="headerlink" href="#currently-implemented" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Feature</th>
-<th>Description</th>
-<th>Location</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Basic Health Check</strong></td>
-<td>Simple <code>/health</code> endpoint returning <code>{"status": "ok"}</code></td>
-<td><code>app/routers/health.py</code></td>
-</tr>
-<tr>
-<td><strong>Loguru Logging</strong></td>
-<td>Colored console logging with configurable log levels</td>
-<td><code>app/main.py:28-35</code></td>
-</tr>
-<tr>
-<td><strong>Startup/Shutdown Logging</strong></td>
-<td>Application lifecycle event logging</td>
-<td><code>app/main.py:38-59</code></td>
-</tr>
-<tr>
-<td><strong>Error Logging</strong></td>
-<td>Automatic exception logging via Loguru</td>
-<td>Throughout app</td>
-</tr>
-</tbody>
-</table>
-<h3 id="not-yet-implemented-documented-as-potential-enhancements">❌ Not Yet Implemented (Documented as Potential Enhancements)<a class="headerlink" href="#not-yet-implemented-documented-as-potential-enhancements" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Feature</th>
-<th>Description</th>
-<th>Documentation</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Prometheus Metrics</strong></td>
-<td>Request counters, histograms, gauges</td>
-<td><code>monitoring.md</code> - Custom Metrics Implementation</td>
-</tr>
-<tr>
-<td><strong>Grafana Dashboards</strong></td>
-<td>Visual monitoring dashboards</td>
-<td><code>monitoring.md</code> - Grafana Dashboard</td>
-</tr>
-<tr>
-<td><strong>Advanced Health Checks</strong></td>
-<td>Redis connectivity, Riot API status, system resources</td>
-<td><code>monitoring.md</code> - Comprehensive Health Endpoint</td>
-</tr>
-<tr>
-<td><strong>ELK Stack Integration</strong></td>
-<td>Elasticsearch, Logstash, Kibana for log aggregation</td>
-<td><code>monitoring.md</code> - Log Management</td>
-</tr>
-<tr>
-<td><strong>OpenTelemetry Tracing</strong></td>
-<td>Distributed tracing with Jaeger</td>
-<td><code>monitoring.md</code> - Advanced Monitoring</td>
-</tr>
-<tr>
-<td><strong>JSON Structured Logging</strong></td>
-<td>Custom JSON formatter for logs</td>
-<td><code>monitoring.md</code> - Logging Strategy</td>
-</tr>
-<tr>
-<td><strong>Request Logging Middleware</strong></td>
-<td>Detailed request/response logging</td>
-<td><code>monitoring.md</code> - Request Logging Middleware</td>
-</tr>
-<tr>
-<td><strong>Custom Business Metrics</strong></td>
-<td>Summoner lookups, match lookups, API usage tracking</td>
-<td><code>monitoring.md</code> - Custom Metrics</td>
-</tr>
-<tr>
-<td><strong>Alert Configuration</strong></td>
-<td>Prometheus alerting rules</td>
-<td><code>monitoring.md</code> - Alerting</td>
-</tr>
-<tr>
-<td><strong>Notification Channels</strong></td>
-<td>Email/Slack alerts via Alertmanager</td>
-<td><code>monitoring.md</code> - Notification Channels</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="security">Security<a class="headerlink" href="#security" title="Permanent link">&para;</a></h2>
-<h3 id="currently-implemented_1">✅ Currently Implemented<a class="headerlink" href="#currently-implemented_1" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Feature</th>
-<th>Description</th>
-<th>Location</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Pydantic Input Validation</strong></td>
-<td>Type validation and constraints on all inputs</td>
-<td><code>app/models/*.py</code></td>
-</tr>
-<tr>
-<td><strong>Enum Validation</strong></td>
-<td>Region, queue type, tier validation via Python Enums</td>
-<td><code>app/models/common.py</code></td>
-</tr>
-<tr>
-<td><strong>Riot API Rate Limiting</strong></td>
-<td>Token bucket rate limiting for Riot API calls</td>
-<td><code>app/riot/rate_limiter.py</code></td>
-</tr>
-<tr>
-<td><strong>Environment Variable Configuration</strong></td>
-<td>API keys loaded from <code>.env</code> file</td>
-<td><code>app/config.py</code></td>
-</tr>
-<tr>
-<td><strong>API Key Rotation</strong></td>
-<td>Round-robin rotation across multiple API keys</td>
-<td><code>app/riot/key_rotator.py</code>, <code>app/config.py:59-82</code></td>
-</tr>
-<tr>
-<td><strong>Redis Password Auth</strong></td>
-<td>Optional password for Redis connection</td>
-<td><code>app/config.py:92</code></td>
-</tr>
-</tbody>
-</table>
-<h3 id="partially-implemented-infrastructure-level">⚠️ Partially Implemented / Infrastructure Level<a class="headerlink" href="#partially-implemented-infrastructure-level" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Feature</th>
-<th>Description</th>
-<th>Status</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>SSL/TLS</strong></td>
-<td>HTTPS encryption</td>
-<td>⚠️ Handled by Nginx (infrastructure level)</td>
-</tr>
-<tr>
-<td><strong>Firewall Rules</strong></td>
-<td>Network-level access control</td>
-<td>⚠️ System-level (ufw/iptables)</td>
-</tr>
-<tr>
-<td><strong>Security Headers</strong></td>
-<td>HSTS, X-Frame-Options, CSP, etc.</td>
-<td>⚠️ Configured in Nginx, not app</td>
-</tr>
-</tbody>
-</table>
-<h3 id="not-yet-implemented-documented-as-potential-enhancements_1">❌ Not Yet Implemented (Documented as Potential Enhancements)<a class="headerlink" href="#not-yet-implemented-documented-as-potential-enhancements_1" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Feature</th>
-<th>Description</th>
-<th>Documentation</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Advanced Input Sanitization</strong></td>
-<td>SecurityValidator class for string sanitization</td>
-<td><code>security.md</code> - Advanced Input Sanitization</td>
-</tr>
-<tr>
-<td><strong>IP-Based Rate Limiting</strong></td>
-<td>Per-IP request throttling with slowapi</td>
-<td><code>security.md</code> - Multi-Level Rate Limiting</td>
-</tr>
-<tr>
-<td><strong>IP Blocking System</strong></td>
-<td>Automatic blocking of malicious IPs</td>
-<td><code>security.md</code> - IP-Based Blocking</td>
-</tr>
-<tr>
-<td><strong>CORS Middleware</strong></td>
-<td>Cross-origin resource sharing configuration</td>
-<td><code>security.md</code> - CORS Configuration</td>
-</tr>
-<tr>
-<td><strong>HTTPS Redirect Middleware</strong></td>
-<td>Force HTTPS in production</td>
-<td><code>security.md</code> - Application SSL Settings</td>
-</tr>
-<tr>
-<td><strong>TrustedHost Middleware</strong></td>
-<td>Restrict allowed hostnames</td>
-<td><code>security.md</code> - Application SSL Settings</td>
-</tr>
-<tr>
-<td><strong>Admin API Authentication</strong></td>
-<td>API key auth for admin endpoints</td>
-<td><code>security.md</code> - API Key Authentication</td>
-</tr>
-<tr>
-<td><strong>Security Event Logging</strong></td>
-<td>Dedicated security log file</td>
-<td><code>security.md</code> - Security Logging</td>
-</tr>
-<tr>
-<td><strong>Security Metrics</strong></td>
-<td>Prometheus metrics for security events</td>
-<td><code>security.md</code> - Security Monitoring</td>
-</tr>
-<tr>
-<td><strong>Automated Security Audits</strong></td>
-<td>Scheduled security check scripts</td>
-<td><code>security.md</code> - Regular Security Checks</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="summary-table">Summary Table<a class="headerlink" href="#summary-table" title="Permanent link">&para;</a></h2>
-<h3 id="overall-implementation-status">Overall Implementation Status<a class="headerlink" href="#overall-implementation-status" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Category</th>
-<th>Implemented</th>
-<th>Not Implemented</th>
-<th>Percentage</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Monitoring &amp; Observability</strong></td>
-<td>4 features</td>
-<td>10 features</td>
-<td>29%</td>
-</tr>
-<tr>
-<td><strong>Security</strong></td>
-<td>6 features</td>
-<td>10 features</td>
-<td>38%</td>
-</tr>
-<tr>
-<td><strong>Infrastructure</strong></td>
-<td>3 features</td>
-<td>0 features</td>
-<td>100% (external)</td>
-</tr>
-<tr>
-<td><strong>Overall</strong></td>
-<td>13 features</td>
-<td>20 features</td>
-<td>39%</td>
-</tr>
-</tbody>
-</table>
-<h3 id="feature-categories-by-status">Feature Categories by Status<a class="headerlink" href="#feature-categories-by-status" title="Permanent link">&para;</a></h3>
-<h4 id="production-ready-currently-implemented">✅ Production Ready (Currently Implemented)<a class="headerlink" href="#production-ready-currently-implemented" title="Permanent link">&para;</a></h4>
-<p>These features are <strong>fully implemented and tested</strong>:</p>
-<ol>
-<li>Basic health check endpoint</li>
-<li>Loguru logging system</li>
-<li>Pydantic input validation</li>
-<li>Riot API rate limiting (aiolimiter)</li>
-<li>Environment-based configuration</li>
-<li>API key rotation (round-robin)</li>
-<li>Redis password authentication</li>
-</ol>
-<h4 id="infrastructure-level-external-to-application">⚠️ Infrastructure Level (External to Application)<a class="headerlink" href="#infrastructure-level-external-to-application" title="Permanent link">&para;</a></h4>
-<p>These are <strong>handled at deployment/infrastructure level</strong>:</p>
-<ol>
-<li>SSL/TLS (Nginx)</li>
-<li>Firewall rules (ufw/iptables)</li>
-<li>Security headers (Nginx)</li>
-</ol>
-<h4 id="potential-future-enhancements">❌ Potential Future Enhancements<a class="headerlink" href="#potential-future-enhancements" title="Permanent link">&para;</a></h4>
-<p>These are <strong>documented but not implemented</strong>:</p>
-<ol>
-<li>Prometheus + Grafana monitoring stack</li>
-<li>ELK stack for log aggregation</li>
-<li>OpenTelemetry distributed tracing</li>
-<li>IP-based rate limiting and blocking</li>
-<li>CORS middleware</li>
-<li>Security event logging</li>
-<li>Admin endpoint authentication</li>
-<li>Advanced health checks</li>
-<li>Custom business metrics</li>
-</ol>
-<hr />
-<h2 id="how-to-read-this-document">How to Read This Document<a class="headerlink" href="#how-to-read-this-document" title="Permanent link">&para;</a></h2>
-<h3 id="status-indicators">Status Indicators<a class="headerlink" href="#status-indicators" title="Permanent link">&para;</a></h3>
-<ul>
-<li>✅ <strong>Currently Implemented</strong>: Fully functional in the codebase</li>
-<li>⚠️ <strong>Partially Implemented</strong>: Basic version exists or handled externally</li>
-<li>❌ <strong>Not Implemented</strong>: Documented as potential enhancement only</li>
-</ul>
-<h3 id="documentation-cross-references">Documentation Cross-References<a class="headerlink" href="#documentation-cross-references" title="Permanent link">&para;</a></h3>
-<p>When a feature shows "Not Implemented", refer to the linked documentation to see:
-- <strong>Why it might be useful</strong> (benefits, use cases)
-- <strong>How it could be implemented</strong> (code examples, configurations)
-- <strong>When to implement it</strong> (recommended for production, optional, etc.)</p>
-<h3 id="implementation-priority-levels">Implementation Priority Levels<a class="headerlink" href="#implementation-priority-levels" title="Permanent link">&para;</a></h3>
-<p>Based on production requirements:</p>
-<h4 id="priority-1-consider-for-production">Priority 1: Consider for Production 🔴<a class="headerlink" href="#priority-1-consider-for-production" title="Permanent link">&para;</a></h4>
-<ul>
-<li><strong>Prometheus + Grafana</strong>: Essential for production monitoring</li>
-<li><strong>Advanced Health Checks</strong>: Important for load balancer integration</li>
-<li><strong>Security Event Logging</strong>: Critical for audit trails</li>
-<li><strong>CORS Middleware</strong>: Required if serving web frontends</li>
-</ul>
-<h4 id="priority-2-recommended-enhancements">Priority 2: Recommended Enhancements 🟡<a class="headerlink" href="#priority-2-recommended-enhancements" title="Permanent link">&para;</a></h4>
-<ul>
-<li><strong>IP-Based Rate Limiting</strong>: Prevents abuse from individual users</li>
-<li><strong>ELK Stack</strong>: Helpful for large-scale deployments</li>
-<li><strong>OpenTelemetry</strong>: Useful for microservice architectures</li>
-</ul>
-<h4 id="priority-3-nice-to-have">Priority 3: Nice to Have 🟢<a class="headerlink" href="#priority-3-nice-to-have" title="Permanent link">&para;</a></h4>
-<ul>
-<li><strong>Custom Business Metrics</strong>: Useful but not critical</li>
-<li><strong>Automated Security Audits</strong>: Can be done manually</li>
-<li><strong>Admin API Authentication</strong>: Only if admin features exist</li>
-</ul>
-<hr />
-<h2 id="development-roadmap">Development Roadmap<a class="headerlink" href="#development-roadmap" title="Permanent link">&para;</a></h2>
-<h3 id="phase-1-core-monitoring-recommended-for-production">Phase 1: Core Monitoring (Recommended for Production)<a class="headerlink" href="#phase-1-core-monitoring-recommended-for-production" title="Permanent link">&para;</a></h3>
-<ol>
-<li>Implement Prometheus metrics endpoint</li>
-<li>Create basic Grafana dashboard</li>
-<li>Add advanced health checks (Redis, Riot API status)</li>
-<li>Set up basic alerting rules</li>
-</ol>
-<p><strong>Estimated Effort</strong>: 2-3 days
-<strong>Priority</strong>: High</p>
-<h3 id="phase-2-enhanced-security-recommended-for-production">Phase 2: Enhanced Security (Recommended for Production)<a class="headerlink" href="#phase-2-enhanced-security-recommended-for-production" title="Permanent link">&para;</a></h3>
-<ol>
-<li>Implement IP-based rate limiting</li>
-<li>Add CORS middleware</li>
-<li>Set up security event logging</li>
-<li>Create security metrics</li>
-</ol>
-<p><strong>Estimated Effort</strong>: 2-3 days
-<strong>Priority</strong>: High</p>
-<h3 id="phase-3-advanced-features-optional">Phase 3: Advanced Features (Optional)<a class="headerlink" href="#phase-3-advanced-features-optional" title="Permanent link">&para;</a></h3>
-<ol>
-<li>ELK stack integration</li>
-<li>OpenTelemetry distributed tracing</li>
-<li>Admin endpoint authentication</li>
-</ol>
-<p><strong>Estimated Effort</strong>: 4-6 days
-<strong>Priority</strong>: Medium-Low</p>
-<hr />
-<h2 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">&para;</a></h2>
-<p>If you implement any of the "Not Yet Implemented" features:</p>
-<ol>
-<li><strong>Update this document</strong> to move the feature to "Currently Implemented"</li>
-<li><strong>Add location</strong> in codebase (file:line)</li>
-<li><strong>Update the documentation</strong> to reflect actual implementation</li>
-<li><strong>Add tests</strong> for the new feature</li>
-<li><strong>Update the percentage</strong> in the summary table</li>
-</ol>
-<hr />
-<h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
-<h3 id="why-document-unimplemented-features">Why Document Unimplemented Features?<a class="headerlink" href="#why-document-unimplemented-features" title="Permanent link">&para;</a></h3>
-<p>The Operations documentation includes <strong>best practices and potential implementations</strong> for several reasons:</p>
-<ol>
-<li><strong>Educational Value</strong>: Shows what a production-ready system looks like</li>
-<li><strong>Future Planning</strong>: Provides a roadmap for enhancements</li>
-<li><strong>Architecture Decisions</strong>: Helps understand why certain features might be needed</li>
-<li><strong>Copy-Paste Ready</strong>: Code examples can be adapted when implementing</li>
-</ol>
-<h3 id="keeping-documentation-and-code-in-sync">Keeping Documentation and Code in Sync<a class="headerlink" href="#keeping-documentation-and-code-in-sync" title="Permanent link">&para;</a></h3>
-<ul>
-<li>✅ This document bridges the gap between documentation and reality</li>
-<li>✅ Clear labels ("NOT IMPLEMENTED", "Example:") in code blocks</li>
-<li>✅ Disclaimer banners in documentation files</li>
-<li>✅ Regular updates to this status document</li>
-</ul>
-<hr />
-<p><em>Last Updated: 2025-11-06</em>
-<em>For questions or updates, see the <a href="../../development/contributing/">contributing guide</a>.</em></p>
+  <h1>Implementation status</h1>
+
+
 
 
 

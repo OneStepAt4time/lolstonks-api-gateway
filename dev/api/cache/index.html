@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Riot Games API Gateway with caching, rate limiting, and match tracking">
+        <meta name="description" content="Unified League of Legends API Gateway with caching, rate limiting, and comprehensive monitoring">
       
       
       
@@ -14,7 +14,7 @@
         <link rel="prev" href="../routers/">
       
       
-        <link rel="next" href="../../architecture/overview/">
+        <link rel="next" href="../security/">
       
       
       <link rel="icon" href="../../assets/logo.png">
@@ -307,7 +307,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../operations/implementation-status/" class="md-tabs__link">
+        <a href="../../operations/monitoring/" class="md-tabs__link">
           
   
   
@@ -592,6 +592,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -667,6 +671,29 @@
   
   <span class="md-ellipsis">
     Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Providers
     
   </span>
   
@@ -818,6 +845,36 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="redis_cache">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#app.cache.redis_cache.RedisCache" class="md-nav__link">
+    <span class="md-ellipsis">
+      RedisCache
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RedisCache">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#app.cache.redis_cache.RedisCache.ping" class="md-nav__link">
+    <span class="md-ellipsis">
+      ping
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -908,6 +965,29 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Security
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -1114,8 +1194,6 @@
       
         
       
-        
-      
     
     
     
@@ -1153,29 +1231,6 @@
             Operations
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../operations/implementation-status/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Implementation Status
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
             
               
                 
@@ -1424,6 +1479,36 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="redis_cache">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#app.cache.redis_cache.RedisCache" class="md-nav__link">
+    <span class="md-ellipsis">
+      RedisCache
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RedisCache">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#app.cache.redis_cache.RedisCache.ping" class="md-nav__link">
+    <span class="md-ellipsis">
+      ping
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1568,6 +1653,141 @@ Cache keys follow pattern: {resource}:{region}:{identifier}</p>
 
 
 
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="app.cache.redis_cache.RedisCache" class="doc doc-heading">
+              <code class="highlight language-python"><span class="n">RedisCache</span><span class="p">()</span></code>
+
+<a href="#app.cache.redis_cache.RedisCache" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+        <p>Redis wrapper with health check capabilities.</p>
+
+        <p>Initialize Redis cache wrapper.</p>
+
+
+
+
+
+
+
+
+                  <details class="quote">
+                    <summary>Source code in <code>app/cache/redis_cache.py</code></summary>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize Redis cache wrapper.&quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cache</span> <span class="o">=</span> <span class="n">cache</span>
+</code></pre></div></td></tr></table></div>
+                  </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="app.cache.redis_cache.RedisCache.ping" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">ping</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#app.cache.redis_cache.RedisCache.ping" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Test Redis connectivity.</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>True if Redis is responsive, False otherwise</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="quote">
+              <summary>Source code in <code>app/cache/redis_cache.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">ping</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Test Redis connectivity.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        True if Redis is responsive, False otherwise</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Use a simple GET operation as ping equivalent</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;health_check&quot;</span><span class="p">,</span> <span class="s2">&quot;ok&quot;</span><span class="p">,</span> <span class="n">ttl</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">result</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;health_check&quot;</span><span class="p">)</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s2">&quot;health_check&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span> <span class="o">==</span> <span class="s2">&quot;ok&quot;</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Redis ping failed: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
 
 
 

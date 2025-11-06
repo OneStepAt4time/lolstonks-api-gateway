@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Riot Games API Gateway with caching, rate limiting, and match tracking">
+        <meta name="description" content="Unified League of Legends API Gateway with caching, rate limiting, and comprehensive monitoring">
       
       
       
@@ -307,7 +307,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../operations/implementation-status/" class="md-tabs__link">
+        <a href="../../operations/monitoring/" class="md-tabs__link">
           
   
   
@@ -592,6 +592,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -667,6 +671,29 @@
   
   <span class="md-ellipsis">
     Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Providers
     
   </span>
   
@@ -923,6 +950,42 @@
   <a href="#app.models.common.HasTournamentId" class="md-nav__link">
     <span class="md-ellipsis">
       HasTournamentId
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#app.models.common.ErrorRecord" class="md-nav__link">
+    <span class="md-ellipsis">
+      ErrorRecord
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#app.models.common.ErrorMetrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      ErrorMetrics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#app.models.common.ProviderHealthStatus" class="md-nav__link">
+    <span class="md-ellipsis">
+      ProviderHealthStatus
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#app.models.common.SystemHealthStatus" class="md-nav__link">
+    <span class="md-ellipsis">
+      SystemHealthStatus
     </span>
   </a>
   
@@ -1780,6 +1843,29 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Security
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1981,8 +2067,6 @@
       
         
       
-        
-      
     
     
     
@@ -2020,29 +2104,6 @@
             Operations
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../operations/implementation-status/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Implementation Status
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
             
               
                 
@@ -2442,6 +2503,42 @@
   <a href="#app.models.common.HasTournamentId" class="md-nav__link">
     <span class="md-ellipsis">
       HasTournamentId
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#app.models.common.ErrorRecord" class="md-nav__link">
+    <span class="md-ellipsis">
+      ErrorRecord
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#app.models.common.ErrorMetrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      ErrorMetrics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#app.models.common.ProviderHealthStatus" class="md-nav__link">
+    <span class="md-ellipsis">
+      ProviderHealthStatus
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#app.models.common.SystemHealthStatus" class="md-nav__link">
+    <span class="md-ellipsis">
+      SystemHealthStatus
     </span>
   </a>
   
@@ -4078,6 +4175,194 @@ Master, Grandmaster, and Challenger don't use divisions.</p>
 
 
         <p>Mixin for models that include a tournament ID path parameter.</p>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="app.models.common.ErrorRecord" class="doc doc-heading">
+            <code>ErrorRecord</code>
+
+
+<a href="#app.models.common.ErrorRecord" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
+
+
+        <p>Record of an error that occurred during request processing.</p>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="app.models.common.ErrorMetrics" class="doc doc-heading">
+            <code>ErrorMetrics</code>
+
+
+<a href="#app.models.common.ErrorMetrics" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
+
+
+        <p>Comprehensive error metrics for monitoring.</p>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="app.models.common.ProviderHealthStatus" class="doc doc-heading">
+            <code>ProviderHealthStatus</code>
+
+
+<a href="#app.models.common.ProviderHealthStatus" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
+
+
+        <p>Detailed health status for a provider.</p>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="app.models.common.SystemHealthStatus" class="doc doc-heading">
+            <code>SystemHealthStatus</code>
+
+
+<a href="#app.models.common.SystemHealthStatus" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
+
+
+        <p>Overall system health status including all providers.</p>
 
 
 

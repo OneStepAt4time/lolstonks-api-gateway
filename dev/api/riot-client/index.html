@@ -6,12 +6,12 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Riot Games API Gateway with caching, rate limiting, and match tracking">
+        <meta name="description" content="Unified League of Legends API Gateway with caching, rate limiting, and comprehensive monitoring">
       
       
       
       
-        <link rel="prev" href="../overview/">
+        <link rel="prev" href="../providers/">
       
       
         <link rel="next" href="../models/">
@@ -307,7 +307,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../operations/implementation-status/" class="md-tabs__link">
+        <a href="../../operations/monitoring/" class="md-tabs__link">
           
   
   
@@ -592,6 +592,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -667,6 +671,29 @@
   
   <span class="md-ellipsis">
     Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Providers
     
   </span>
   
@@ -1006,6 +1033,29 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Security
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1207,8 +1257,6 @@
       
         
       
-        
-      
     
     
     
@@ -1246,29 +1294,6 @@
             Operations
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../operations/implementation-status/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Implementation Status
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
             
               
                 
@@ -2168,7 +2193,22 @@ Only if ALL keys are exhausted does it wait for the Retry-After period.</p>
 <span class="normal">154</span>
 <span class="normal">155</span>
 <span class="normal">156</span>
-<span class="normal">157</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">region</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -2231,6 +2271,9 @@ Only if ALL keys are exhausted does it wait for the Retry-After period.</p>
     <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;X-Riot-Token&quot;</span><span class="p">:</span> <span class="n">api_key</span><span class="p">}</span>
     <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
 
+    <span class="c1"># Debug: Log status code for troubleshooting</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Riot API status: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2"> for </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
     <span class="c1"># Handle 429 (rate limited) - try next key or wait if all exhausted</span>
     <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">429</span><span class="p">:</span>
         <span class="n">retry_after</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Retry-After&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
@@ -2254,6 +2297,18 @@ Only if ALL keys are exhausted does it wait for the Retry-After period.</p>
 
         <span class="c1"># Reset counter and try again from first key</span>
         <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">is_platform_endpoint</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">_attempted_keys</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># Handle 401 (Unauthorized) - API key invalid or expired</span>
+    <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">401</span><span class="p">:</span>
+        <span class="n">error_msg</span> <span class="o">=</span> <span class="s2">&quot;API key is invalid or expired&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Authentication failed (401): </span><span class="si">{</span><span class="n">error_msg</span><span class="si">}</span><span class="s2"> [region=</span><span class="si">{</span><span class="n">region</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
+
+    <span class="c1"># Handle 403 (Forbidden) - API key doesn&#39;t have access or endpoint/region restriction</span>
+    <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">403</span><span class="p">:</span>
+        <span class="n">error_msg</span> <span class="o">=</span> <span class="s2">&quot;API key doesn&#39;t have access to this endpoint or region&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Access forbidden (403): </span><span class="si">{</span><span class="n">error_msg</span><span class="si">}</span><span class="s2"> [region=</span><span class="si">{</span><span class="n">region</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
 
     <span class="c1"># Raise on other HTTP errors</span>
     <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
@@ -2365,7 +2420,7 @@ Requests are blocked until tokens are available.</p>
 
         <p>Acquire rate limit tokens before making a request.</p>
 <p>Blocks until both rate limiters have available tokens.
-Uses nested context managers to ensure both limits are respected.</p>
+Creates fresh AsyncLimiter instances per event loop to avoid reuse warnings.</p>
 
 
             <details class="quote">
@@ -2379,15 +2434,35 @@ Uses nested context managers to ensure both limits are respected.</p>
 <span class="normal">45</span>
 <span class="normal">46</span>
 <span class="normal">47</span>
-<span class="normal">48</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">acquire</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">acquire</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Acquire rate limit tokens before making a request.</span>
 
 <span class="sd">    Blocks until both rate limiters have available tokens.</span>
-<span class="sd">    Uses nested context managers to ensure both limits are respected.</span>
+<span class="sd">    Creates fresh AsyncLimiter instances per event loop to avoid reuse warnings.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">async</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">limiter_1s</span><span class="p">:</span>
-        <span class="k">async</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">limiter_2min</span><span class="p">:</span>
+    <span class="c1"># Create fresh limiters for this event loop to avoid reuse warnings</span>
+    <span class="n">limiter_1s</span> <span class="o">=</span> <span class="n">AsyncLimiter</span><span class="p">(</span>
+        <span class="n">max_rate</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">riot_rate_limit_per_second</span><span class="p">,</span>
+        <span class="n">time_period</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">limiter_2min</span> <span class="o">=</span> <span class="n">AsyncLimiter</span><span class="p">(</span>
+        <span class="n">max_rate</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">riot_rate_limit_per_2min</span><span class="p">,</span>
+        <span class="n">time_period</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">async</span> <span class="k">with</span> <span class="n">limiter_1s</span><span class="p">:</span>
+        <span class="k">async</span> <span class="k">with</span> <span class="n">limiter_2min</span><span class="p">:</span>
             <span class="k">pass</span>
 </code></pre></div></td></tr></table></div>
             </details>

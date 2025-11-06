@@ -6,15 +6,15 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Riot Games API Gateway with caching, rate limiting, and match tracking">
+        <meta name="description" content="Unified League of Legends API Gateway with caching, rate limiting, and comprehensive monitoring">
       
       
       
       
-        <link rel="prev" href="../..">
+        <link rel="prev" href="../overview/">
       
       
-        <link rel="next" href="../quick-start/">
+        <link rel="next" href="../riot-client/">
       
       
       <link rel="icon" href="../../assets/logo.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Installation - LOLStonks API Gateway</title>
+        <title>Providers - LOLStonks API Gateway</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#installation" class="md-skip">
+        <a href="#api-providers" class="md-skip">
           Skip to content
         </a>
       
@@ -111,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Installation
+              Providers
             
           </span>
         </div>
@@ -235,13 +235,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../getting-started/installation/" class="md-tabs__link">
           
   
   
@@ -259,11 +257,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../api/openapi-spec/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../openapi-spec/" class="md-tabs__link">
           
   
   
@@ -307,7 +307,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../operations/implementation-status/" class="md-tabs__link">
+        <a href="../../operations/monitoring/" class="md-tabs__link">
           
   
   
@@ -419,10 +419,8 @@
       
   
   
-    
   
   
-  
     
     
       
@@ -438,22 +436,21 @@
     
     
       
-        
-        
-      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
             
   
   
@@ -466,7 +463,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Getting Started
@@ -477,32 +474,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Installation
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../getting-started/installation/" class="md-nav__link">
         
   
   
@@ -513,221 +488,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      Prerequisites
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#installation-methods" class="md-nav__link">
-    <span class="md-ellipsis">
-      Installation Methods
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Installation Methods">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#method-1-using-uv-recommended" class="md-nav__link">
-    <span class="md-ellipsis">
-      Method 1: Using UV (Recommended)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#method-2-using-pip" class="md-nav__link">
-    <span class="md-ellipsis">
-      Method 2: Using Pip
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#method-3-docker-quick-start" class="md-nav__link">
-    <span class="md-ellipsis">
-      Method 3: Docker (Quick Start)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#redis-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      Redis Setup
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Redis Setup">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#option-1-docker-recommended-for-development" class="md-nav__link">
-    <span class="md-ellipsis">
-      Option 1: Docker (Recommended for Development)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#option-2-local-installation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Option 2: Local Installation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#option-3-redis-cloud" class="md-nav__link">
-    <span class="md-ellipsis">
-      Option 3: Redis Cloud
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#riot-api-key-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      Riot API Key Setup
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#environment-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Environment Configuration
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#verification" class="md-nav__link">
-    <span class="md-ellipsis">
-      Verification
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Verification">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#check-python-environment" class="md-nav__link">
-    <span class="md-ellipsis">
-      Check Python Environment
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#check-redis-connection" class="md-nav__link">
-    <span class="md-ellipsis">
-      Check Redis Connection
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#test-application" class="md-nav__link">
-    <span class="md-ellipsis">
-      Test Application
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      Troubleshooting
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Troubleshooting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#common-issues" class="md-nav__link">
-    <span class="md-ellipsis">
-      Common Issues
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#getting-help" class="md-nav__link">
-    <span class="md-ellipsis">
-      Getting Help
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      Next Steps
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -740,7 +500,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../quick-start/" class="md-nav__link">
+      <a href="../../getting-started/quick-start/" class="md-nav__link">
         
   
   
@@ -763,7 +523,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../configuration/" class="md-nav__link">
+      <a href="../../getting-started/configuration/" class="md-nav__link">
         
   
   
@@ -786,7 +546,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../deployment/" class="md-nav__link">
+      <a href="../../getting-started/deployment/" class="md-nav__link">
         
   
   
@@ -813,8 +573,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -830,25 +592,30 @@
       
         
       
+        
+      
+        
+      
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
-        
-          
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
             
   
   
@@ -861,7 +628,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             API Reference
@@ -875,7 +642,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/openapi-spec/" class="md-nav__link">
+      <a href="../openapi-spec/" class="md-nav__link">
         
   
   
@@ -898,7 +665,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/overview/" class="md-nav__link">
+      <a href="../overview/" class="md-nav__link">
         
   
   
@@ -918,10 +685,294 @@
                 
   
   
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Providers
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Providers
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#supported-providers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supported Providers
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Supported Providers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-riot-games-developer-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Riot Games Developer API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-data-dragon-cdn" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Data Dragon CDN
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-community-dragon" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Community Dragon
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#provider-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Provider Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Provider Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enabledisable-providers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable/Disable Providers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provider-specific-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Provider-Specific Settings
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Provider-Specific Settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-dragon-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Dragon Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#community-dragon-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Community Dragon Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#provider-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Provider Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Provider Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#base-provider-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Base Provider Interface
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provider-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      Provider Registry
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-new-providers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adding New Providers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#provider-health-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Provider Health Monitoring
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#provider-fallback" class="md-nav__link">
+    <span class="md-ellipsis">
+      Provider Fallback
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rate-limiting-by-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rate Limiting by Provider
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#provider-not-available" class="md-nav__link">
+    <span class="md-ellipsis">
+      Provider Not Available
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provider-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Provider Errors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slow-provider-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slow Provider Response
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
   
   
     <li class="md-nav__item">
-      <a href="../../api/riot-client/" class="md-nav__link">
+      <a href="../riot-client/" class="md-nav__link">
         
   
   
@@ -944,7 +995,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/models/" class="md-nav__link">
+      <a href="../models/" class="md-nav__link">
         
   
   
@@ -967,7 +1018,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/routers/" class="md-nav__link">
+      <a href="../routers/" class="md-nav__link">
         
   
   
@@ -990,12 +1041,35 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/cache/" class="md-nav__link">
+      <a href="../cache/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     Cache
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Security
     
   </span>
   
@@ -1207,8 +1281,6 @@
       
         
       
-        
-      
     
     
     
@@ -1246,29 +1318,6 @@
             Operations
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../operations/implementation-status/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Implementation Status
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
             
               
                 
@@ -1502,46 +1551,37 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
+  <a href="#supported-providers" class="md-nav__link">
     <span class="md-ellipsis">
-      Prerequisites
+      Supported Providers
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#installation-methods" class="md-nav__link">
-    <span class="md-ellipsis">
-      Installation Methods
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Installation Methods">
+    <nav class="md-nav" aria-label="Supported Providers">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#method-1-using-uv-recommended" class="md-nav__link">
+  <a href="#1-riot-games-developer-api" class="md-nav__link">
     <span class="md-ellipsis">
-      Method 1: Using UV (Recommended)
+      1. Riot Games Developer API
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#method-2-using-pip" class="md-nav__link">
+  <a href="#2-data-dragon-cdn" class="md-nav__link">
     <span class="md-ellipsis">
-      Method 2: Using Pip
+      2. Data Dragon CDN
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#method-3-docker-quick-start" class="md-nav__link">
+  <a href="#3-community-dragon" class="md-nav__link">
     <span class="md-ellipsis">
-      Method 3: Docker (Quick Start)
+      3. Community Dragon
     </span>
   </a>
   
@@ -1553,37 +1593,85 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#redis-setup" class="md-nav__link">
+  <a href="#provider-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      Redis Setup
+      Provider Configuration
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Redis Setup">
+    <nav class="md-nav" aria-label="Provider Configuration">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#option-1-docker-recommended-for-development" class="md-nav__link">
+  <a href="#enabledisable-providers" class="md-nav__link">
     <span class="md-ellipsis">
-      Option 1: Docker (Recommended for Development)
+      Enable/Disable Providers
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#option-2-local-installation" class="md-nav__link">
+  <a href="#provider-specific-settings" class="md-nav__link">
     <span class="md-ellipsis">
-      Option 2: Local Installation
+      Provider-Specific Settings
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Provider-Specific Settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-dragon-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Dragon Configuration
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#option-3-redis-cloud" class="md-nav__link">
+  <a href="#community-dragon-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      Option 3: Redis Cloud
+      Community Dragon Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#provider-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Provider Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Provider Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#base-provider-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Base Provider Interface
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provider-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      Provider Registry
     </span>
   </a>
   
@@ -1595,62 +1683,47 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#riot-api-key-setup" class="md-nav__link">
+  <a href="#adding-new-providers" class="md-nav__link">
     <span class="md-ellipsis">
-      Riot API Key Setup
+      Adding New Providers
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#environment-configuration" class="md-nav__link">
+  <a href="#provider-health-monitoring" class="md-nav__link">
     <span class="md-ellipsis">
-      Environment Configuration
+      Provider Health Monitoring
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#verification" class="md-nav__link">
+  <a href="#provider-fallback" class="md-nav__link">
     <span class="md-ellipsis">
-      Verification
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Verification">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#check-python-environment" class="md-nav__link">
-    <span class="md-ellipsis">
-      Check Python Environment
+      Provider Fallback
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#check-redis-connection" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#rate-limiting-by-provider" class="md-nav__link">
     <span class="md-ellipsis">
-      Check Redis Connection
+      Rate Limiting by Provider
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#test-application" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
     <span class="md-ellipsis">
-      Test Application
+      Best Practices
     </span>
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1665,18 +1738,27 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#common-issues" class="md-nav__link">
+  <a href="#provider-not-available" class="md-nav__link">
     <span class="md-ellipsis">
-      Common Issues
+      Provider Not Available
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#getting-help" class="md-nav__link">
+  <a href="#provider-errors" class="md-nav__link">
     <span class="md-ellipsis">
-      Getting Help
+      Provider Errors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slow-provider-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slow Provider Response
     </span>
   </a>
   
@@ -1684,15 +1766,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      Next Steps
-    </span>
-  </a>
   
 </li>
       
@@ -1715,190 +1788,224 @@
   
 
 
-<h1 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h1>
-<p>This guide covers different installation methods for the LOLStonks API Gateway.</p>
-<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<h1 id="api-providers">API Providers<a class="headerlink" href="#api-providers" title="Permanent link">&para;</a></h1>
+<p>The LOLStonks API Gateway uses a provider abstraction pattern to support multiple data sources. Each provider implements a common interface and can be enabled/disabled independently.</p>
+<h2 id="supported-providers">Supported Providers<a class="headerlink" href="#supported-providers" title="Permanent link">&para;</a></h2>
+<h3 id="1-riot-games-developer-api">1. Riot Games Developer API<a class="headerlink" href="#1-riot-games-developer-api" title="Permanent link">&para;</a></h3>
+<p><strong>Provider ID</strong>: <code>riot_api</code></p>
+<p><strong>Description</strong>: Official Riot Games API providing live game data, match history, player statistics, and more.</p>
+<p><strong>Coverage</strong>: 40+ endpoints including:
+- Account API (Riot ID lookups)
+- Summoner API (profiles and masteries)
+- Match API (match history and details)
+- League API (ranked standings)
+- Champion API (rotations and info)
+- Spectator API (live games)
+- Clash API (tournament data)
+- Challenges API (player challenges)</p>
+<p><strong>Rate Limits</strong>:
+- 20 requests per second
+- 100 requests per 2 minutes</p>
+<p><strong>Regions</strong>: All official Riot regions supported</p>
+<h3 id="2-data-dragon-cdn">2. Data Dragon CDN<a class="headerlink" href="#2-data-dragon-cdn" title="Permanent link">&para;</a></h3>
+<p><strong>Provider ID</strong>: <code>data_dragon</code></p>
+<p><strong>Description</strong>: Official Riot CDN for static game data including champions, items, runes, and summoner spells.</p>
+<p><strong>Coverage</strong>: 14 endpoints including:
+- Champion data and splash arts
+- Item information and icons
+- Rune configurations
+- Summoner spell details
+- Profile icons
+- Language strings and translations
+- Version history</p>
+<p><strong>Features</strong>:
+- Multi-language support
+- Version-specific data access
+- CDN-optimized assets</p>
+<p><strong>Cache TTL</strong>: 7 days (static data changes infrequently)</p>
+<h3 id="3-community-dragon">3. Community Dragon<a class="headerlink" href="#3-community-dragon" title="Permanent link">&para;</a></h3>
+<p><strong>Provider ID</strong>: <code>community_dragon</code></p>
+<p><strong>Description</strong>: Community-maintained enhanced data source providing additional assets and detailed information not available in official APIs.</p>
+<p><strong>Coverage</strong>: 22+ endpoints including:
+- Enhanced champion data with voice lines
+- Comprehensive skin and chroma information
+- TFT (Teamfight Tactics) data
+- High-quality assets and images
+- Lore and background information
+- Mission and event data</p>
+<p><strong>Features</strong>:
+- Additional asset types not in official APIs
+- Higher resolution images
+- Community-enhanced metadata
+- TFT comprehensive support</p>
+<h2 id="provider-configuration">Provider Configuration<a class="headerlink" href="#provider-configuration" title="Permanent link">&para;</a></h2>
+<h3 id="enabledisable-providers">Enable/Disable Providers<a class="headerlink" href="#enabledisable-providers" title="Permanent link">&para;</a></h3>
+<p>Use the <code>ENABLED_PROVIDERS</code> environment variable:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Enable all providers (default)</span>
+<span class="nv">ENABLED_PROVIDERS</span><span class="o">=</span>riot_api,data_dragon,community_dragon
+
+<span class="c1"># Enable only Riot API</span>
+<span class="nv">ENABLED_PROVIDERS</span><span class="o">=</span>riot_api
+
+<span class="c1"># Disable a specific provider</span>
+<span class="nv">ENABLED_PROVIDERS</span><span class="o">=</span>riot_api,data_dragon<span class="w">  </span><span class="c1"># Community Dragon disabled</span>
+</code></pre></div>
+<h3 id="provider-specific-settings">Provider-Specific Settings<a class="headerlink" href="#provider-specific-settings" title="Permanent link">&para;</a></h3>
+<h4 id="data-dragon-configuration">Data Dragon Configuration<a class="headerlink" href="#data-dragon-configuration" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Version settings</span>
+<span class="nv">DATA_DRAGON_VERSION</span><span class="o">=</span>latest<span class="w">    </span><span class="c1"># or specific version like &quot;13.24.1&quot;</span>
+<span class="nv">DATA_DRAGON_LOCALE</span><span class="o">=</span>en_US<span class="w">      </span><span class="c1"># Language for data strings</span>
+</code></pre></div>
+<h4 id="community-dragon-configuration">Community Dragon Configuration<a class="headerlink" href="#community-dragon-configuration" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Version settings</span>
+<span class="nv">COMMUNITY_DRAGON_VERSION</span><span class="o">=</span>latest
+<span class="nv">COMMUNITY_DRAGON_LOCALE</span><span class="o">=</span>en_US
+</code></pre></div>
+<h2 id="provider-architecture">Provider Architecture<a class="headerlink" href="#provider-architecture" title="Permanent link">&para;</a></h2>
+<h3 id="base-provider-interface">Base Provider Interface<a class="headerlink" href="#base-provider-interface" title="Permanent link">&para;</a></h3>
+<p>All providers implement the <code>BaseProvider</code> class with these methods:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">BaseProvider</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize provider connections and resources.&quot;&quot;&quot;</span>
+
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">health_check</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HealthStatus</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check provider health and availability.&quot;&quot;&quot;</span>
+
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clean up provider resources.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_endpoints</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Endpoint</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return list of available endpoints.&quot;&quot;&quot;</span>
+</code></pre></div>
+<h3 id="provider-registry">Provider Registry<a class="headerlink" href="#provider-registry" title="Permanent link">&para;</a></h3>
+<p>The <code>ProviderRegistry</code> manages all active providers:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Get all active providers</span>
+<span class="n">providers</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">get_all_providers</span><span class="p">()</span>
+
+<span class="c1"># Get specific provider</span>
+<span class="n">riot_provider</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">get_provider</span><span class="p">(</span><span class="s2">&quot;riot_api&quot;</span><span class="p">)</span>
+
+<span class="c1"># Check if provider is enabled</span>
+<span class="k">if</span> <span class="n">registry</span><span class="o">.</span><span class="n">is_enabled</span><span class="p">(</span><span class="s2">&quot;riot_api&quot;</span><span class="p">):</span>
+    <span class="c1"># Use Riot API</span>
+</code></pre></div>
+<h2 id="adding-new-providers">Adding New Providers<a class="headerlink" href="#adding-new-providers" title="Permanent link">&para;</a></h2>
+<p>To add a new data provider:</p>
+<ol>
+<li>
+<p><strong>Create Provider Class</strong>:
+   <div class="highlight"><pre><span></span><code><span class="c1"># app/providers/your_provider.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">app.providers.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseProvider</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">YourProvider</span><span class="p">(</span><span class="n">BaseProvider</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">ProviderConfig</span><span class="p">):</span>
+        <span class="c1"># Initialize provider</span>
+
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">fetch_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># Implement data fetching</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Register Provider</strong>:
+   <div class="highlight"><pre><span></span><code><span class="c1"># app/providers/registry.py</span>
+<span class="n">registry</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;your_provider&quot;</span><span class="p">,</span> <span class="n">YourProvider</span><span class="p">)</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Add Configuration</strong>:
+   <div class="highlight"><pre><span></span><code><span class="c1"># app/config.py</span>
+<span class="nd">@field_validator</span><span class="p">(</span><span class="s1">&#39;enabled_providers&#39;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">validate_provider</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="c1"># Add validation for your provider</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Create Routers</strong>:
+   <div class="highlight"><pre><span></span><code><span class="c1"># app/routers/your_provider.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">APIRouter</span>
+<span class="n">router</span> <span class="o">=</span> <span class="n">APIRouter</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;/your-provider&quot;</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;your-provider&quot;</span><span class="p">])</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Update Environment Variables</strong>:
+   <div class="highlight"><pre><span></span><code><span class="c1"># .env.example</span>
+<span class="nv">YOUR_PROVIDER_API_KEY</span><span class="o">=</span>your-key
+<span class="nv">YOUR_PROVIDER_BASE_URL</span><span class="o">=</span>https://api.your-provider.com
+</code></pre></div></p>
+</li>
+</ol>
+<h2 id="provider-health-monitoring">Provider Health Monitoring<a class="headerlink" href="#provider-health-monitoring" title="Permanent link">&para;</a></h2>
+<p>Each provider reports detailed health metrics:</p>
 <ul>
-<li><strong>Python 3.12+</strong> - The gateway requires Python 3.12 or higher</li>
-<li><strong>Redis Server</strong> - Required for caching and match tracking</li>
-<li><strong>Riot Developer API Key</strong> - Get one at <a href="https://developer.riotgames.com/">developer.riotgames.com</a></li>
+<li><strong>Status</strong>: Healthy, Degraded, or Unhealthy</li>
+<li><strong>Response Time</strong>: Average response time in milliseconds</li>
+<li><strong>Error Rate</strong>: Percentage of failed requests</li>
+<li><strong>Consecutive Failures</strong>: Count of recent failures</li>
+<li><strong>Last Error</strong>: Details of the most recent error</li>
 </ul>
-<h2 id="installation-methods">Installation Methods<a class="headerlink" href="#installation-methods" title="Permanent link">&para;</a></h2>
-<h3 id="method-1-using-uv-recommended">Method 1: Using UV (Recommended)<a class="headerlink" href="#method-1-using-uv-recommended" title="Permanent link">&para;</a></h3>
-<p><a href="https://github.com/astral-sh/uv">UV</a> is a fast Python package installer and resolver.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Clone the repository</span>
-git<span class="w"> </span>clone<span class="w"> </span>https://github.com/OneStepAt4time/lolstonks-api-gateway.git
-<span class="nb">cd</span><span class="w"> </span>lolstonks-api-gateway
-
-<span class="c1"># Install the project with documentation dependencies</span>
-uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[docs]&quot;</span>
-
-<span class="c1"># Activate the virtual environment</span>
-<span class="nb">source</span><span class="w"> </span>.venv/bin/activate<span class="w">  </span><span class="c1"># On Linux/macOS</span>
-<span class="c1"># or</span>
-.venv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate<span class="w">     </span><span class="c1"># On Windows</span>
-</code></pre></div>
-<h3 id="method-2-using-pip">Method 2: Using Pip<a class="headerlink" href="#method-2-using-pip" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Clone the repository</span>
-git<span class="w"> </span>clone<span class="w"> </span>https://github.com/OneStepAt4time/lolstonks-api-gateway.git
-<span class="nb">cd</span><span class="w"> </span>lolstonks-api-gateway
-
-<span class="c1"># Create virtual environment</span>
-python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
-
-<span class="c1"># Activate virtual environment</span>
-<span class="nb">source</span><span class="w"> </span>.venv/bin/activate<span class="w">  </span><span class="c1"># On Linux/macOS</span>
-<span class="c1"># or</span>
-.venv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate<span class="w">     </span><span class="c1"># On Windows</span>
-
-<span class="c1"># Upgrade pip</span>
-pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
-
-<span class="c1"># Install the project in development mode</span>
-pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[docs]&quot;</span>
-</code></pre></div>
-<h3 id="method-3-docker-quick-start">Method 3: Docker (Quick Start)<a class="headerlink" href="#method-3-docker-quick-start" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Clone the repository</span>
-git<span class="w"> </span>clone<span class="w"> </span>https://github.com/OneStepAt4time/lolstonks-api-gateway.git
-<span class="nb">cd</span><span class="w"> </span>lolstonks-api-gateway
-
-<span class="c1"># Copy environment file</span>
-cp<span class="w"> </span>.env.example<span class="w"> </span>.env
-
-<span class="c1"># Edit .env with your Riot API key</span>
-<span class="c1"># nano .env</span>
-
-<span class="c1"># Start with Docker Compose</span>
-docker-compose<span class="w"> </span>up<span class="w"> </span>-d
-
-<span class="c1"># Check logs</span>
-docker-compose<span class="w"> </span>logs<span class="w"> </span>-f
-</code></pre></div>
-<h2 id="redis-setup">Redis Setup<a class="headerlink" href="#redis-setup" title="Permanent link">&para;</a></h2>
-<h3 id="option-1-docker-recommended-for-development">Option 1: Docker (Recommended for Development)<a class="headerlink" href="#option-1-docker-recommended-for-development" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Start Redis with Docker</span>
-docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>redis<span class="w"> </span>-p<span class="w"> </span><span class="m">6379</span>:6379<span class="w"> </span>redis:7-alpine
-
-<span class="c1"># Or use Docker Compose (included in project)</span>
-docker-compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>redis
-</code></pre></div>
-<h3 id="option-2-local-installation">Option 2: Local Installation<a class="headerlink" href="#option-2-local-installation" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># On Ubuntu/Debian</span>
-sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>redis-server
-
-<span class="c1"># On macOS with Homebrew</span>
-brew<span class="w"> </span>install<span class="w"> </span>redis
-
-<span class="c1"># On Windows</span>
-<span class="c1"># Download and install Redis from https://redis.io/download</span>
-</code></pre></div>
-<h3 id="option-3-redis-cloud">Option 3: Redis Cloud<a class="headerlink" href="#option-3-redis-cloud" title="Permanent link">&para;</a></h3>
-<p>For production deployments, consider using managed Redis services:
-- <a href="https://redis.com/try-free/">Redis Cloud</a>
-- <a href="https://aws.amazon.com/elasticache/">AWS ElastiCache</a>
-- <a href="https://azure.microsoft.com/en-us/products/cache/">Azure Cache for Redis</a></p>
-<h2 id="riot-api-key-setup">Riot API Key Setup<a class="headerlink" href="#riot-api-key-setup" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Visit <a href="https://developer.riotgames.com/">Riot Developer Portal</a></li>
-<li>Sign in with your Riot Games account</li>
-<li>Create a new API key</li>
-<li>Copy your API key (starts with <code>RGAPI-</code>)</li>
-</ol>
-<h2 id="environment-configuration">Environment Configuration<a class="headerlink" href="#environment-configuration" title="Permanent link">&para;</a></h2>
-<p>Create a <code>.env</code> file in the project root:</p>
-<div class="highlight"><pre><span></span><code># Required
-RIOT_API_KEY=RGAPI-your-api-key-here
-
-# Optional (defaults shown)
-RIOT_DEFAULT_REGION=euw1
-REDIS_HOST=redis
-REDIS_PORT=6379
-REDIS_DB=0
-REDIS_PASSWORD=
-HOST=0.0.0.0
-PORT=8080
-LOG_LEVEL=INFO
-
-# Rate limiting (requests per second)
-RATE_LIMIT_RPS=20
-RATE_LIMIT_BURST=100
-</code></pre></div>
-<h2 id="verification">Verification<a class="headerlink" href="#verification" title="Permanent link">&para;</a></h2>
-<h3 id="check-python-environment">Check Python Environment<a class="headerlink" href="#check-python-environment" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>python<span class="w"> </span>--version<span class="w">  </span><span class="c1"># Should show Python 3.12+</span>
-pip<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>fastapi<span class="w">  </span><span class="c1"># Should show FastAPI installed</span>
-</code></pre></div>
-<h3 id="check-redis-connection">Check Redis Connection<a class="headerlink" href="#check-redis-connection" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Test Redis connection</span>
-redis-cli<span class="w"> </span>ping
-<span class="c1"># Should return: PONG</span>
-</code></pre></div>
-<h3 id="test-application">Test Application<a class="headerlink" href="#test-application" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Start the application</span>
-python<span class="w"> </span>-m<span class="w"> </span>app.main
-
-<span class="c1"># In another terminal, test health endpoint</span>
+<p>Access health status:
+<div class="highlight"><pre><span></span><code><span class="c1"># Overall health</span>
 curl<span class="w"> </span>http://localhost:8080/health
-<span class="c1"># Should return: {&quot;status&quot;:&quot;ok&quot;}</span>
+
+<span class="c1"># Detailed provider health</span>
+curl<span class="w"> </span>http://localhost:8080/health/providers
+
+<span class="c1"># Specific provider health</span>
+curl<span class="w"> </span>http://localhost:8080/health/providers?provider<span class="o">=</span>riot_api
+</code></pre></div></p>
+<h2 id="provider-fallback">Provider Fallback<a class="headerlink" href="#provider-fallback" title="Permanent link">&para;</a></h2>
+<p>When a provider becomes unhealthy:</p>
+<ol>
+<li><strong>Immediate Detection</strong>: Health checks detect failures</li>
+<li><strong>Error Monitoring</strong>: Errors are tracked and logged</li>
+<li><strong>Graceful Degradation</strong>: Requests fail fast with appropriate error messages</li>
+<li><strong>Recovery</strong>: Automatic retry when provider becomes healthy again</li>
+</ol>
+<h2 id="rate-limiting-by-provider">Rate Limiting by Provider<a class="headerlink" href="#rate-limiting-by-provider" title="Permanent link">&para;</a></h2>
+<p>Each provider can have independent rate limiting:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Riot API: 20 req/s, 100 req/2min</span>
+<span class="n">rate_limiter</span> <span class="o">=</span> <span class="n">TokenBucket</span><span class="p">(</span><span class="n">rate</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">capacity</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="c1"># Data Dragon: No rate limit (CDN)</span>
+<span class="c1"># Community Dragon: 50 req/s (respectful usage)</span>
 </code></pre></div>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Provider Selection</strong>: Choose the right provider for your data needs</li>
+<li>Live data → Riot API</li>
+<li>Static game data → Data Dragon</li>
+<li>
+<p>Enhanced assets → Community Dragon</p>
+</li>
+<li>
+<p><strong>Error Handling</strong>: Always check provider health before making requests</p>
+</li>
+<li><strong>Caching</strong>: Respect provider-specific cache TTL recommendations</li>
+<li><strong>Rate Limits</strong>: Monitor and respect provider rate limits</li>
+<li><strong>Fallback</strong>: Implement client-side fallback for critical data</li>
+</ol>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<h3 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">&para;</a></h3>
-<ol>
-<li>
-<p><strong>Python Version Error</strong>
-   <div class="highlight"><pre><span></span><code><span class="c1"># Error: Python 3.12+ required</span>
-python<span class="w"> </span>--version<span class="w">  </span><span class="c1"># Check your Python version</span>
-<span class="c1"># Install Python 3.12+ from python.org or pyenv</span>
-</code></pre></div></p>
-</li>
-<li>
-<p><strong>Redis Connection Failed</strong>
-   <div class="highlight"><pre><span></span><code><span class="c1"># Check if Redis is running</span>
-redis-cli<span class="w"> </span>ping
+<h3 id="provider-not-available">Provider Not Available<a class="headerlink" href="#provider-not-available" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check if provider is enabled</span>
+curl<span class="w"> </span>http://localhost:8080/health/providers
 
-<span class="c1"># Check connection settings in .env</span>
-<span class="c1"># Ensure REDIS_HOST and REDIS_PORT are correct</span>
-</code></pre></div></p>
-</li>
-<li>
-<p><strong>Import Errors</strong>
-   <div class="highlight"><pre><span></span><code><span class="c1"># Reinstall dependencies (using UV - recommended)</span>
-uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[docs]&quot;</span>
-<span class="c1"># or using pip:</span>
-pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[docs]&quot;</span>
+<span class="c1"># Check environment variables</span>
+<span class="nb">echo</span><span class="w"> </span><span class="nv">$ENABLED_PROVIDERS</span>
+</code></pre></div>
+<h3 id="provider-errors">Provider Errors<a class="headerlink" href="#provider-errors" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check error details</span>
+curl<span class="w"> </span>http://localhost:8080/health/detailed
 
-<span class="c1"># Check virtual environment activation</span>
-which<span class="w"> </span>python<span class="w">  </span><span class="c1"># Should point to your venv</span>
-</code></pre></div></p>
-</li>
-<li>
-<p><strong>Permission Errors</strong>
-   <div class="highlight"><pre><span></span><code><span class="c1"># On Linux/macOS, check file permissions</span>
-chmod<span class="w"> </span>+x<span class="w"> </span>scripts/*.py
+<span class="c1"># View error logs</span>
+docker-compose<span class="w"> </span>logs<span class="w"> </span>gateway<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>ERROR
+</code></pre></div>
+<h3 id="slow-provider-response">Slow Provider Response<a class="headerlink" href="#slow-provider-response" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check response times</span>
+curl<span class="w"> </span>http://localhost:8080/health/providers
 
-<span class="c1"># On Windows, run as administrator if needed</span>
-</code></pre></div></p>
-</li>
-</ol>
-<h3 id="getting-help">Getting Help<a class="headerlink" href="#getting-help" title="Permanent link">&para;</a></h3>
-<p>If you encounter issues during installation:</p>
-<ol>
-<li>Check the <a href="https://github.com/OneStepAt4time/lolstonks-api-gateway/issues">GitHub Issues</a></li>
-<li>Review the <a href="../../development/testing/#troubleshooting">Troubleshooting Guide</a></li>
-<li>Create a new issue with:</li>
-<li>Your operating system</li>
-<li>Python version</li>
-<li>Error messages</li>
-<li>Steps to reproduce</li>
-</ol>
-<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
-<p>After successful installation:</p>
-<ol>
-<li>Read the <a href="../quick-start/">Quick Start guide</a></li>
-<li>Configure your <a href="../configuration/">environment variables</a></li>
-<li>Explore the <a href="../../api/overview/">API Reference</a></li>
-<li>Set up <a href="../../development/testing/">development tools</a></li>
-</ol>
+<span class="c1"># Monitor performance</span>
+curl<span class="w"> </span>http://localhost:8080/metrics<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>provider_response_time
+</code></pre></div>
 
 
 

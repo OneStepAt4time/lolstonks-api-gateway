@@ -6,12 +6,12 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Riot Games API Gateway with caching, rate limiting, and match tracking">
+        <meta name="description" content="Unified League of Legends API Gateway with caching, rate limiting, and comprehensive monitoring">
       
       
       
       
-        <link rel="prev" href="../../api/cache/">
+        <link rel="prev" href="../../api/security/">
       
       
         <link rel="next" href="../implementation-details/">
@@ -307,7 +307,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../operations/implementation-status/" class="md-tabs__link">
+        <a href="../../operations/monitoring/" class="md-tabs__link">
           
   
   
@@ -590,6 +590,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -664,6 +668,29 @@
   
   <span class="md-ellipsis">
     Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Providers
     
   </span>
   
@@ -756,6 +783,29 @@
   
   <span class="md-ellipsis">
     Cache
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Security
     
   </span>
   
@@ -890,6 +940,48 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#multi-source-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multi-Source Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Multi-Source Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supported-providers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supported Providers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provider-abstraction-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Provider Abstraction Layer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provider-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      Provider Registry
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#high-level-architecture" class="md-nav__link">
     <span class="md-ellipsis">
       High-Level Architecture
@@ -897,6 +989,34 @@
   </a>
   
     <nav class="md-nav" aria-label="High-Level Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comprehensive-multi-provider-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comprehensive Multi-Provider Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-architecture-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Architecture Diagram
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-flow-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Request Flow Patterns
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Request Flow Patterns">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -908,12 +1028,8 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#detailed-system-architecture" class="md-nav__link">
-    <span class="md-ellipsis">
-      Detailed System Architecture
-    </span>
-  </a>
+      </ul>
+    </nav>
   
 </li>
         
@@ -942,11 +1058,62 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-riot-client-appriotclient" class="md-nav__link">
+  <a href="#2-provider-registry-appprovidersregistry" class="md-nav__link">
     <span class="md-ellipsis">
-      2. Riot Client (app.riot.client)
+      2. Provider Registry (app.providers.registry)
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-provider-abstraction-layer-appprovidersbase" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Provider Abstraction Layer (app.providers.base)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-specialized-providers-appproviders" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Specialized Providers (app.providers.*)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Specialized Providers (app.providers.*)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#riot-api-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      Riot API Provider
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-dragon-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Dragon Provider
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#community-dragon-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      Community Dragon Provider
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1405,8 +1572,6 @@
       
         
       
-        
-      
     
     
     
@@ -1444,29 +1609,6 @@
             Operations
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../operations/implementation-status/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Implementation Status
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
             
               
                 
@@ -1700,6 +1842,48 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#multi-source-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multi-Source Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Multi-Source Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supported-providers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supported Providers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provider-abstraction-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Provider Abstraction Layer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provider-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      Provider Registry
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#high-level-architecture" class="md-nav__link">
     <span class="md-ellipsis">
       High-Level Architecture
@@ -1707,6 +1891,34 @@
   </a>
   
     <nav class="md-nav" aria-label="High-Level Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comprehensive-multi-provider-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comprehensive Multi-Provider Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-architecture-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Architecture Diagram
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-flow-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Request Flow Patterns
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Request Flow Patterns">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1718,12 +1930,8 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#detailed-system-architecture" class="md-nav__link">
-    <span class="md-ellipsis">
-      Detailed System Architecture
-    </span>
-  </a>
+      </ul>
+    </nav>
   
 </li>
         
@@ -1752,11 +1960,62 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-riot-client-appriotclient" class="md-nav__link">
+  <a href="#2-provider-registry-appprovidersregistry" class="md-nav__link">
     <span class="md-ellipsis">
-      2. Riot Client (app.riot.client)
+      2. Provider Registry (app.providers.registry)
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-provider-abstraction-layer-appprovidersbase" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Provider Abstraction Layer (app.providers.base)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-specialized-providers-appproviders" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Specialized Providers (app.providers.*)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Specialized Providers (app.providers.*)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#riot-api-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      Riot API Provider
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-dragon-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Dragon Provider
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#community-dragon-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      Community Dragon Provider
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2113,45 +2372,171 @@
 
 <h1 id="architecture-overview">Architecture Overview<a class="headerlink" href="#architecture-overview" title="Permanent link">&para;</a></h1>
 <p>This section provides a comprehensive overview of the LOLStonks API Gateway architecture, its components, and design principles.</p>
+<h2 id="multi-source-architecture">Multi-Source Architecture<a class="headerlink" href="#multi-source-architecture" title="Permanent link">&para;</a></h2>
+<p>The LOLStonks API Gateway has evolved into a <strong>comprehensive data integration platform</strong> supporting three distinct data sources:</p>
+<h3 id="supported-providers">Supported Providers<a class="headerlink" href="#supported-providers" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Provider</th>
+<th>Type</th>
+<th>Endpoints</th>
+<th>Auth Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Riot API</strong></td>
+<td>Live Data</td>
+<td>40+</td>
+<td>✅ Yes</td>
+<td>Real-time game data from Riot Developer Portal</td>
+</tr>
+<tr>
+<td><strong>Data Dragon</strong></td>
+<td>Static Data</td>
+<td>14</td>
+<td>❌ No</td>
+<td>Static game assets from Riot's CDN</td>
+</tr>
+<tr>
+<td><strong>Community Dragon</strong></td>
+<td>Enhanced Static</td>
+<td>22</td>
+<td>❌ No</td>
+<td>Community-maintained enhanced data</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Total: 76+ endpoints with comprehensive API coverage</strong></p>
+<h3 id="provider-abstraction-layer">Provider Abstraction Layer<a class="headerlink" href="#provider-abstraction-layer" title="Permanent link">&para;</a></h3>
+<p>All providers implement a common <code>BaseProvider</code> interface, enabling consistent interaction patterns:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">BaseProvider</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">headers</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Make API request to the provider.&quot;&quot;&quot;</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">health_check</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check provider availability.&quot;&quot;&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">provider_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ProviderType</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the provider type.&quot;&quot;&quot;</span>
+</code></pre></div>
+<h3 id="provider-registry">Provider Registry<a class="headerlink" href="#provider-registry" title="Permanent link">&para;</a></h3>
+<p>The <code>ProviderRegistry</code> singleton manages all provider instances and enables dynamic provider lookup:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">app.providers.registry</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_provider</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">app.providers.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProviderType</span>
+
+<span class="c1"># Get specific provider</span>
+<span class="n">riot_provider</span> <span class="o">=</span> <span class="n">get_provider</span><span class="p">(</span><span class="n">ProviderType</span><span class="o">.</span><span class="n">RIOT_API</span><span class="p">)</span>
+<span class="n">ddragon_provider</span> <span class="o">=</span> <span class="n">get_provider</span><span class="p">(</span><span class="n">ProviderType</span><span class="o">.</span><span class="n">DATA_DRAGON</span><span class="p">)</span>
+</code></pre></div>
 <h2 id="high-level-architecture">High-Level Architecture<a class="headerlink" href="#high-level-architecture" title="Permanent link">&para;</a></h2>
-<h3 id="simplified-request-flow">Simplified Request Flow<a class="headerlink" href="#simplified-request-flow" title="Permanent link">&para;</a></h3>
+<h3 id="comprehensive-multi-provider-architecture">Comprehensive Multi-Provider Architecture<a class="headerlink" href="#comprehensive-multi-provider-architecture" title="Permanent link">&para;</a></h3>
+<p>The LOLStonks API Gateway v2.0 has evolved into a comprehensive data integration platform supporting three distinct data sources with unified access patterns.</p>
+<h3 id="system-architecture-diagram">System Architecture Diagram<a class="headerlink" href="#system-architecture-diagram" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph TB
+    subgraph "Client Applications"
+        WebApp[Web Application]
+        MobileApp[Mobile App]
+        CLI[CLI Tool]
+        External[External Service]
+    end
+
+    subgraph "LOLStonks API Gateway v2.0"
+        Gateway[FastAPI Gateway]
+
+        subgraph "Core Components"
+            RateLimiter[Rate Limiter]
+            Cache[Redis Cache]
+            HealthCheck[Health Monitor]
+            Security[Security Monitor]
+        end
+
+        subgraph "Provider Layer"
+            Registry[Provider Registry]
+
+            subgraph "Data Sources"
+                Riot[Riot API Provider&lt;br/&gt;40+ endpoints]
+                DDragon[Data Dragon Provider&lt;br/&gt;14 endpoints]
+                CDragon[Community Dragon Provider&lt;br/&gt;22 endpoints]
+            end
+        end
+
+        subgraph "API Router Layer"
+            RiotRoutes[Riot API Routes]
+            DDRoutes[Data Dragon Routes]
+            CDRoutes[Community Dragon Routes]
+            HealthRoutes[Health Routes]
+            SecurityRoutes[Security Routes]
+        end
+    end
+
+    subgraph "External Data Sources"
+        RiotAPI[Riot Developer API&lt;br/&gt;Live Data]
+        DDragonCDN[Data Dragon CDN&lt;br/&gt;Static Game Data]
+        CDragonAPI[Community Dragon API&lt;br/&gt;Enhanced Assets]
+    end
+
+    subgraph "Infrastructure"
+        RedisServer[(Redis Server)]
+        Monitoring[Monitoring Stack]
+        LoadBalancer[Load Balancer]
+    end
+
+    %% Client Connections
+    WebApp --&gt; Gateway
+    MobileApp --&gt; Gateway
+    CLI --&gt; Gateway
+    External --&gt; Gateway
+
+    %% Gateway Internal Flow
+    Gateway --&gt; RateLimiter
+    Gateway --&gt; Cache
+    Gateway --&gt; HealthCheck
+    Gateway --&gt; Security
+
+    Gateway --&gt; Registry
+    Registry --&gt; Riot
+    Registry --&gt; DDragon
+    Registry --&gt; CDragon
+
+    Gateway --&gt; RiotRoutes
+    Gateway --&gt; DDRoutes
+    Gateway --&gt; CDRoutes
+    Gateway --&gt; HealthRoutes
+    Gateway --&gt; SecurityRoutes
+
+    %% Provider Connections to External
+    Riot --&gt; RiotAPI
+    DDragon --&gt; DDragonCDN
+    CDragon --&gt; CDragonAPI
+
+    %% Infrastructure Connections
+    Cache --&gt; RedisServer
+    HealthCheck --&gt; RedisServer
+    Security --&gt; RedisServer
+    HealthCheck --&gt; Monitoring
+    Security --&gt; Monitoring</code></pre>
+<h3 id="request-flow-patterns">Request Flow Patterns<a class="headerlink" href="#request-flow-patterns" title="Permanent link">&para;</a></h3>
+<h4 id="simplified-request-flow">Simplified Request Flow<a class="headerlink" href="#simplified-request-flow" title="Permanent link">&para;</a></h4>
 <pre class="mermaid"><code>flowchart LR
     Client --&gt;|HTTP Request| Gateway[FastAPI Gateway]
     Gateway --&gt;|Rate Limit Check| RateLimiter[Rate Limiter]
     RateLimiter --&gt;|Cache Lookup| Redis[Redis Cache]
     Redis --&gt;|Cache Miss| Gateway
     Redis --&gt;|Cache Hit| Gateway
-    Gateway --&gt;|API Request| Riot[Riot API]
-    Riot --&gt;|Response| Gateway
+    Gateway --&gt;|Provider Selection| Provider[Provider Registry]
+    Provider --&gt;|API Request| DataSource[Data Source]
+    DataSource --&gt;|Response| Gateway
     Gateway --&gt;|Store Processed Data| Redis
 
     Gateway -.-&gt;|Rate Limit Exceeded| Client
     Gateway -.-&gt;|Error Response| Client</code></pre>
-<h3 id="detailed-system-architecture">Detailed System Architecture<a class="headerlink" href="#detailed-system-architecture" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>graph TB
-    Client[Client Applications] --&gt; Gateway[LOLStonks API Gateway]
-    Gateway --&gt; RateLimiter[Rate Limiter]
-    Gateway --&gt; Cache[Redis Cache]
-    Gateway --&gt; RiotAPI[Riot Games API]
-
-    subgraph "Gateway Components"
-        Gateway --&gt; FastAPI[FastAPI Application]
-        Gateway --&gt; Routers[API Routers]
-        Gateway --&gt; RiotClient[Riot Client]
-        Gateway --&gt; MatchTracking[Match Tracking]
-        Gateway --&gt; ErrorHandler[Error Handler]
-    end
-
-    subgraph "External Services"
-        Redis[(Redis Server)]
-        Riot[Riot Developer Portal]
-    end
-
-    Cache --&gt; Redis
-    MatchTracking --&gt; Redis
-    RiotClient --&gt; Riot
-    ErrorHandler -.-&gt; Client
-    RateLimiter -.-&gt; Client</code></pre>
 <h2 id="core-components">Core Components<a class="headerlink" href="#core-components" title="Permanent link">&para;</a></h2>
 <h3 id="1-fastapi-application-appmain">1. FastAPI Application (<code>app.main</code>)<a class="headerlink" href="#1-fastapi-application-appmain" title="Permanent link">&para;</a></h3>
 <p>The main entry point that provides:
@@ -2164,24 +2549,61 @@
 - Interactive API documentation (Swagger UI, ReDoc)
 - High performance async request handling
 - Built-in support for CORS, middleware, and dependency injection</p>
-<h3 id="2-riot-client-appriotclient">2. Riot Client (<code>app.riot.client</code>)<a class="headerlink" href="#2-riot-client-appriotclient" title="Permanent link">&para;</a></h3>
-<p>Specialized HTTP client for Riot API communication:</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">RiotClient</span><span class="p">:</span>
+<h3 id="2-provider-registry-appprovidersregistry">2. Provider Registry (<code>app.providers.registry</code>)<a class="headerlink" href="#2-provider-registry-appprovidersregistry" title="Permanent link">&para;</a></h3>
+<p>Central management system for all data source providers:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ProviderRegistry</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    HTTP client for Riot API with rate limiting and retry logic.</span>
+<span class="sd">    Singleton registry for managing all data providers.</span>
 
 <span class="sd">    Features:</span>
-<span class="sd">    - Automatic rate limiting before requests</span>
-<span class="sd">    - Retry on 429 responses with exponential backoff</span>
-<span class="sd">    - Region-aware URL routing</span>
-<span class="sd">    - Authentication header management</span>
+<span class="sd">    - Dynamic provider registration</span>
+<span class="sd">    - Provider lifecycle management</span>
+<span class="sd">    - Health monitoring for all providers</span>
+<span class="sd">    - Unified interface for multi-provider support</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 </code></pre></div>
-<p><strong>Responsibilities:</strong>
-- <strong>Rate Limiting</strong>: Token bucket algorithm for request throttling
-- <strong>Retry Logic</strong>: Automatic retry with <code>Retry-After</code> header handling
-- <strong>Region Management</strong>: Dynamic URL construction per region
-- <strong>Authentication</strong>: Automatic API key injection</p>
+<p><strong>Provider Types:</strong>
+- <strong>Riot API Provider</strong>: Live game data, match history, summoner information
+- <strong>Data Dragon Provider</strong>: Static game data (champions, items, runes)
+- <strong>Community Dragon Provider</strong>: Enhanced static data with additional assets</p>
+<h3 id="3-provider-abstraction-layer-appprovidersbase">3. Provider Abstraction Layer (<code>app.providers.base</code>)<a class="headerlink" href="#3-provider-abstraction-layer-appprovidersbase" title="Permanent link">&para;</a></h3>
+<p>Common interface for all data providers:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">BaseProvider</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">headers</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Make API request to the provider.&quot;&quot;&quot;</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">health_check</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ProviderHealth</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check provider availability and performance.&quot;&quot;&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">provider_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ProviderType</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the provider type identifier.&quot;&quot;&quot;</span>
+</code></pre></div>
+<h3 id="4-specialized-providers-appproviders">4. Specialized Providers (<code>app.providers.*</code>)<a class="headerlink" href="#4-specialized-providers-appproviders" title="Permanent link">&para;</a></h3>
+<h4 id="riot-api-provider">Riot API Provider<a class="headerlink" href="#riot-api-provider" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Authentication</strong>: API key management and rotation</li>
+<li><strong>Rate Limiting</strong>: Token bucket algorithm compliant with Riot's limits</li>
+<li><strong>Retry Logic</strong>: Exponential backoff for 429 responses</li>
+<li><strong>Region Management</strong>: Dynamic routing to regional endpoints</li>
+</ul>
+<h4 id="data-dragon-provider">Data Dragon Provider<a class="headerlink" href="#data-dragon-provider" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>CDN Integration</strong>: Direct access to Riot's static asset CDN</li>
+<li><strong>Version Management</strong>: Support for multiple game versions</li>
+<li><strong>Language Support</strong>: Multi-language static data</li>
+<li><strong>Cache Optimization</strong>: Long-term caching for immutable data</li>
+</ul>
+<h4 id="community-dragon-provider">Community Dragon Provider<a class="headerlink" href="#community-dragon-provider" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Enhanced Assets</strong>: Access to community-maintained enhanced data</li>
+<li><strong>TFT Support</strong>: Teamfight Tactics data and assets</li>
+<li><strong>High-Quality Media</strong>: Superior image and audio assets</li>
+<li><strong>Extended Information</strong>: Additional game metadata</li>
+</ul>
 <h3 id="3-rate-limiter-appriotrate_limiter">3. Rate Limiter (<code>app.riot.rate_limiter</code>)<a class="headerlink" href="#3-rate-limiter-appriotrate_limiter" title="Permanent link">&para;</a></h3>
 <p>Implements sophisticated rate limiting using the token bucket algorithm:</p>
 <div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">RateLimiter</span><span class="p">:</span>

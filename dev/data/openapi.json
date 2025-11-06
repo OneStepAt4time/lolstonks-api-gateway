@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "LOL API Gateway",
-    "description": "Intelligent proxy for Riot Games API with caching, rate limiting, and match tracking",
-    "version": "1.0.0"
+    "description": "\n    Multi-provider API Gateway for League of Legends data.\n\n    Supports:\n    - Riot Games Developer API (live game data)\n    - Data Dragon CDN (static game data)\n    - Community Dragon (enhanced static data and assets)\n\n    Features:\n    - Intelligent caching with Redis\n    - Rate limiting and key rotation\n    - Match tracking to avoid reprocessing\n    - Multi-provider fallback support\n    - Comprehensive error monitoring and health checks\n    ",
+    "version": "2.0.0"
   },
   "paths": {
     "/health": {
@@ -11,15 +11,71 @@
         "tags": [
           "health"
         ],
-        "summary": "Health Check",
-        "description": "Performs a health check of the application.\n\nThis endpoint can be used to monitor the application's status. It\nreturns a simple JSON response to indicate that the service is\nrunning.\n\nReturns:\n    dict: A dictionary with a status of \"ok\".\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/health\"",
+        "summary": "Basic Health Check",
+        "description": "Basic health check for load balancers and simple monitoring.\n\nReturns a minimal response indicating the service is running.\nThis endpoint is optimized for Kubernetes readiness/liveness probes.\n\nReturns:\n    dict: {\"status\": \"ok\"}\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/health\"\n    {\"status\": \"ok\"}",
         "operationId": "health_check_health_get",
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object",
+                  "title": "Response Health Check Health Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health/detailed": {
+      "get": {
+        "tags": [
+          "health"
+        ],
+        "summary": "Detailed Health Check",
+        "description": "Comprehensive health check with system and provider status.\n\nReturns detailed information about:\n- Overall gateway status\n- Individual provider health\n- Error monitoring metrics\n- System status indicators\n\nReturns:\n    dict: Detailed health information including provider status\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/health/detailed\"",
+        "operationId": "detailed_health_check_health_detailed_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Detailed Health Check Health Detailed Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health/providers": {
+      "get": {
+        "tags": [
+          "health"
+        ],
+        "summary": "Provider Health Details",
+        "description": "Get detailed health status for all providers.\n\nReturns comprehensive health metrics for each registered provider\nincluding response times, error rates, and consecutive failures.\n\nReturns:\n    dict: Provider name as key, ProviderHealthStatus as value\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/health/providers\"",
+        "operationId": "provider_health_details_health_providers_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/ProviderHealthStatus"
+                  },
+                  "type": "object",
+                  "title": "Response Provider Health Details Health Providers Get"
+                }
               }
             }
           }
@@ -1931,6 +1987,1924 @@
           }
         }
       }
+    },
+    "/security/status": {
+      "get": {
+        "tags": [
+          "security"
+        ],
+        "summary": "Security Status",
+        "description": "Get security configuration status for monitoring.\n\nReturns security assessment including:\n- Host configuration security\n- Rate limiting configuration\n- Provider authentication status\n- Redis connection security\n- API key rotation status\n\nReturns:\n    Dict with security status information\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/security/status\"",
+        "operationId": "security_status_security_status_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Security Status Security Status Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/security/headers": {
+      "get": {
+        "tags": [
+          "security"
+        ],
+        "summary": "Security Headers",
+        "description": "Get recommended security headers for the gateway.\n\nReturns security headers configuration:\n- CORS headers\n- Rate limiting headers\n- Security-related headers\n- CSP and other protection headers\n\nReturns:\n    Dict with security header recommendations\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/security/headers\"",
+        "operationId": "security_headers_security_headers_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Security Headers Security Headers Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health/security": {
+      "get": {
+        "tags": [
+          "security"
+        ],
+        "summary": "Security Health Check",
+        "description": "Simple security health check for monitoring systems.\n\nReturns basic security status:\n- Security configuration\n- Authentication status\n- Rate limiting status\n\nReturns:\n    Dict with security health information\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/health/security\"",
+        "operationId": "security_health_check_health_security_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Security Health Check Health Security Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ddragon/versions": {
+      "get": {
+        "tags": [
+          "data-dragon"
+        ],
+        "summary": "Get available game versions",
+        "description": "Get list of all available League of Legends game versions.\n\nReturns versions in descending order (newest first).\n\nExample response:\n```json\n[\"13.24.1\", \"13.23.1\", \"13.22.1\", ...]\n```",
+        "operationId": "get_versions_ddragon_versions_get",
+        "parameters": [
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ddragon/languages": {
+      "get": {
+        "tags": [
+          "data-dragon"
+        ],
+        "summary": "Get available languages",
+        "description": "Get list of all available language codes.\n\nExample response:\n```json\n[\"en_US\", \"ko_KR\", \"ja_JP\", \"es_ES\", ...]\n```",
+        "operationId": "get_languages_ddragon_languages_get",
+        "parameters": [
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ddragon/realms/{region}": {
+      "get": {
+        "tags": [
+          "data-dragon"
+        ],
+        "summary": "Get realm data for region",
+        "description": "Get realm data for a specific region.\n\nRealm data includes current version, CDN URLs, and other region-specific info.\n\nArgs:\n    params: Path parameters including region code (e.g., \"na\", \"euw\", \"kr\")\n    query: Query parameters for cache control\n\nExample response:\n```json\n{\n  \"n\": {\n    \"champion\": \"13.24.1\",\n    \"item\": \"13.24.1\",\n    ...\n  },\n  \"v\": \"13.24.1\",\n  \"l\": \"en_US\",\n  \"cdn\": \"https://ddragon.leagueoflegends.com/cdn\",\n  ...\n}\n```",
+        "operationId": "get_realm_ddragon_realms__region__get",
+        "parameters": [
+          {
+            "name": "region",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 10,
+              "pattern": "^[a-z0-9]+$",
+              "title": "Region"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ddragon/champions": {
+      "get": {
+        "tags": [
+          "data-dragon"
+        ],
+        "summary": "Get all champions",
+        "description": "Get data for all champions.\n\nReturns basic information for all champions including:\n- Champion ID, key, and name\n- Title and lore\n- Stats (HP, attack damage, armor, etc.)\n- Tags (Fighter, Mage, etc.)\n- Spells and passive\n\nArgs:\n    version: Game version (default: \"latest\")\n    locale: Language locale (default: \"en_US\")\n    force: Force refresh from CDN\n\nExample response:\n```json\n{\n  \"type\": \"champion\",\n  \"format\": \"standAloneComplex\",\n  \"version\": \"13.24.1\",\n  \"data\": {\n    \"Aatrox\": {\n      \"id\": \"Aatrox\",\n      \"key\": \"266\",\n      \"name\": \"Aatrox\",\n      \"title\": \"the Darkin Blade\",\n      ...\n    },\n    ...\n  }\n}\n```",
+        "operationId": "get_all_champions_ddragon_champions_get",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "latest",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "en_US",
+              "title": "Locale"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ddragon/champions/{champion_id}": {
+      "get": {
+        "tags": [
+          "data-dragon"
+        ],
+        "summary": "Get champion details",
+        "description": "Get detailed data for a specific champion.\n\nReturns comprehensive information including:\n- All champion stats and stat growth\n- Detailed spell information\n- Passive ability details\n- Skin information\n- Recommended items\n\nArgs:\n    champion_id: Champion ID (e.g., \"Ahri\", \"LeeSin\")\n    version: Game version (default: \"latest\")\n    locale: Language locale (default: \"en_US\")\n    force: Force refresh from CDN\n\nExample response:\n```json\n{\n  \"type\": \"champion\",\n  \"format\": \"standAloneComplex\",\n  \"version\": \"13.24.1\",\n  \"data\": {\n    \"Ahri\": {\n      \"id\": \"Ahri\",\n      \"key\": \"103\",\n      \"name\": \"Ahri\",\n      \"title\": \"the Nine-Tailed Fox\",\n      \"spells\": [...],\n      \"passive\": {...},\n      \"skins\": [...],\n      ...\n    }\n  }\n}\n```",
+        "operationId": "get_champion_ddragon_champions__champion_id__get",
+        "parameters": [
+          {
+            "name": "champion_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 50,
+              "pattern": "^[A-Za-z]+$",
+              "title": "Champion Id"
+            }
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "latest",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "en_US",
+              "title": "Locale"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ddragon/items": {
+      "get": {
+        "tags": [
+          "data-dragon"
+        ],
+        "summary": "Get all items",
+        "description": "Get data for all items.\n\nReturns item information including:\n- Item name and description\n- Stats and gold cost\n- Build path (from/into items)\n- Shop categories\n\nExample response:\n```json\n{\n  \"type\": \"item\",\n  \"version\": \"13.24.1\",\n  \"data\": {\n    \"1001\": {\n      \"name\": \"Boots\",\n      \"description\": \"...\",\n      \"gold\": {\"base\": 300, \"total\": 300},\n      \"stats\": {...},\n      ...\n    },\n    ...\n  }\n}\n```",
+        "operationId": "get_items_ddragon_items_get",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "latest",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "en_US",
+              "title": "Locale"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ddragon/runes": {
+      "get": {
+        "tags": [
+          "data-dragon"
+        ],
+        "summary": "Get all runes",
+        "description": "Get data for all runes (Runes Reforged).\n\nReturns rune tree information including:\n- Rune paths (Precision, Domination, etc.)\n- Keystone and secondary runes\n- Rune descriptions and effects\n\nExample response:\n```json\n[\n  {\n    \"id\": 8000,\n    \"key\": \"Precision\",\n    \"icon\": \"...\",\n    \"name\": \"Precision\",\n    \"slots\": [\n      {\n        \"runes\": [\n          {\n            \"id\": 8005,\n            \"key\": \"PressTheAttack\",\n            \"name\": \"Press the Attack\",\n            ...\n          },\n          ...\n        ]\n      }\n    ]\n  },\n  ...\n]\n```",
+        "operationId": "get_runes_ddragon_runes_get",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "latest",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "en_US",
+              "title": "Locale"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ddragon/summoner-spells": {
+      "get": {
+        "tags": [
+          "data-dragon"
+        ],
+        "summary": "Get all summoner spells",
+        "description": "Get data for all summoner spells.\n\nReturns summoner spell information including:\n- Spell name and description\n- Cooldown and range\n- Spell effects\n\nExample response:\n```json\n{\n  \"type\": \"summoner\",\n  \"version\": \"13.24.1\",\n  \"data\": {\n    \"SummonerFlash\": {\n      \"id\": \"SummonerFlash\",\n      \"name\": \"Flash\",\n      \"description\": \"...\",\n      \"cooldown\": [300],\n      ...\n    },\n    ...\n  }\n}\n```",
+        "operationId": "get_summoner_spells_ddragon_summoner_spells_get",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "latest",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "en_US",
+              "title": "Locale"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ddragon/profile-icons": {
+      "get": {
+        "tags": [
+          "data-dragon"
+        ],
+        "summary": "Get all profile icons",
+        "description": "Get data for all profile icons.\n\nReturns profile icon metadata.\n\nExample response:\n```json\n{\n  \"type\": \"profileicon\",\n  \"version\": \"13.24.1\",\n  \"data\": {\n    \"1\": {\n      \"id\": 1,\n      \"image\": {...}\n    },\n    ...\n  }\n}\n```",
+        "operationId": "get_profile_icons_ddragon_profile_icons_get",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "latest",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "en_US",
+              "title": "Locale"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ddragon/maps": {
+      "get": {
+        "tags": [
+          "data-dragon"
+        ],
+        "summary": "Get map data",
+        "description": "Get map data including Summoner's Rift, ARAM, and other game modes.\n\nExample response:\n```json\n{\n  \"type\": \"map\",\n  \"version\": \"13.24.1\",\n  \"data\": {\n    \"11\": {\n      \"mapName\": \"Summoner's Rift\",\n      \"mapId\": 11,\n      ...\n    },\n    ...\n  }\n}\n```",
+        "operationId": "get_maps_ddragon_maps_get",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "latest",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "en_US",
+              "title": "Locale"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ddragon/mission-assets": {
+      "get": {
+        "tags": [
+          "data-dragon"
+        ],
+        "summary": "Get mission assets",
+        "description": "Get mission and event assets data.\n\nIncludes data for missions, events, and quest objectives.\n\nExample response:\n```json\n{\n  \"type\": \"mission-assets\",\n  \"version\": \"13.24.1\",\n  \"data\": {\n    \"mission_1\": {\n      \"title\": \"Mission Title\",\n      \"description\": \"...\",\n      ...\n    },\n    ...\n  }\n}\n```",
+        "operationId": "get_mission_assets_ddragon_mission_assets_get",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "latest",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "en_US",
+              "title": "Locale"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ddragon/stickers": {
+      "get": {
+        "tags": [
+          "data-dragon"
+        ],
+        "summary": "Get stickers/emotes",
+        "description": "Get sticker and emote data.\n\nExample response:\n```json\n{\n  \"type\": \"sticker\",\n  \"version\": \"13.24.1\",\n  \"data\": {\n    \"sticker_1\": {\n      \"name\": \"Sticker Name\",\n      \"description\": \"...\",\n      ...\n    },\n    ...\n  }\n}\n```",
+        "operationId": "get_stickers_ddragon_stickers_get",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "latest",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "en_US",
+              "title": "Locale"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ddragon/language-strings": {
+      "get": {
+        "tags": [
+          "data-dragon"
+        ],
+        "summary": "Get language/translation strings",
+        "description": "Get language and translation strings for UI elements.\n\nExample response:\n```json\n{\n  \"type\": \"language\",\n  \"version\": \"13.24.1\",\n  \"data\": {\n    \"game_ui_champion_select\": \"Champion Select\",\n    \"game_ui_loading\": \"Loading...\",\n    ...\n  }\n}\n```",
+        "operationId": "get_language_strings_ddragon_language_strings_get",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "latest",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "en_US",
+              "title": "Locale"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ddragon/champions-full": {
+      "get": {
+        "tags": [
+          "data-dragon"
+        ],
+        "summary": "Get complete champion data (bulk)",
+        "description": "Get complete champion data for ALL champions in a single request.\n\nThis endpoint provides full champion details (including spells, skins, stats, etc.)\nfor all champions in one file. Useful for bulk operations and reducing API calls.\n\n**Note:** This returns significantly more data than `/champions`. Use this when\nyou need full details for multiple champions at once.\n\nExample response:\n```json\n{\n  \"type\": \"champion\",\n  \"format\": \"standAloneComplex\",\n  \"version\": \"13.24.1\",\n  \"data\": {\n    \"Aatrox\": {\n      \"id\": \"Aatrox\",\n      \"key\": \"266\",\n      \"name\": \"Aatrox\",\n      \"title\": \"the Darkin Blade\",\n      \"spells\": [\n        {\n          \"id\": \"AatroxQ\",\n          \"name\": \"The Darkin Blade\",\n          \"description\": \"...\",\n          \"cooldown\": [14, 12, 10, 8, 6],\n          ...\n        },\n        ...\n      ],\n      \"passive\": {...},\n      \"stats\": {...},\n      \"skins\": [...],\n      ...\n    },\n    ...\n  }\n}\n```",
+        "operationId": "get_champions_full_ddragon_champions_full_get",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "latest",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "en_US",
+              "title": "Locale"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cdragon/champions": {
+      "get": {
+        "tags": [
+          "community-dragon"
+        ],
+        "summary": "Get all champions (enhanced)",
+        "description": "Get enhanced data for all champions from Community Dragon.\n\nProvides more detailed champion information than Data Dragon including:\n- Enhanced champion stats\n- Detailed ability information\n- Skin data with chromas\n- Voice lines and quotes\n- Lore and biography\n\nExample response:\n```json\n[\n  {\n    \"id\": 1,\n    \"name\": \"Annie\",\n    \"alias\": \"Annie\",\n    \"title\": \"the Dark Child\",\n    \"roles\": [\"Mage\"],\n    ...\n  },\n  ...\n]\n```",
+        "operationId": "get_champions_cdragon_champions_get",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "latest",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cdragon/champions/summary": {
+      "get": {
+        "tags": [
+          "community-dragon"
+        ],
+        "summary": "Get champion summary",
+        "description": "Get lightweight champion summary data.\n\nReturns basic champion information for all champions in a more compact format.\n\nExample response:\n```json\n[\n  {\n    \"id\": 1,\n    \"name\": \"Annie\",\n    \"alias\": \"Annie\",\n    \"squarePortraitPath\": \"/path/to/icon.png\",\n    ...\n  },\n  ...\n]\n```",
+        "operationId": "get_champion_summary_cdragon_champions_summary_get",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "latest",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cdragon/champions/{champion_id}": {
+      "get": {
+        "tags": [
+          "community-dragon"
+        ],
+        "summary": "Get champion details (enhanced)",
+        "description": "Get detailed enhanced data for a specific champion.\n\nProvides comprehensive champion information including:\n- Full ability descriptions with scaling\n- All skin variants with chromas\n- Voice lines and interactions\n- Detailed lore and biography\n- Splash art and asset paths\n\nArgs:\n    champion_id: Numeric champion ID (e.g., 103 for Ahri)\n\nExample response:\n```json\n{\n  \"id\": 103,\n  \"name\": \"Ahri\",\n  \"alias\": \"Ahri\",\n  \"title\": \"the Nine-Tailed Fox\",\n  \"skins\": [...],\n  \"spells\": [...],\n  ...\n}\n```",
+        "operationId": "get_champion_cdragon_champions__champion_id__get",
+        "parameters": [
+          {
+            "name": "champion_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "maximum": 1000,
+              "exclusiveMinimum": 0,
+              "title": "Champion Id"
+            }
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "latest",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cdragon/items": {
+      "get": {
+        "tags": [
+          "community-dragon"
+        ],
+        "summary": "Get all items (enhanced)",
+        "description": "Get enhanced item data from Community Dragon.\n\nProvides detailed item information including:\n- Item stats and effects\n- Build paths\n- High-quality item icons\n- Item categories and tags\n\nExample response:\n```json\n[\n  {\n    \"id\": 1001,\n    \"name\": \"Boots\",\n    \"description\": \"...\",\n    \"price\": 300,\n    ...\n  },\n  ...\n]\n```",
+        "operationId": "get_items_cdragon_items_get",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "latest",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cdragon/perks": {
+      "get": {
+        "tags": [
+          "community-dragon"
+        ],
+        "summary": "Get all perks/runes",
+        "description": "Get perk/rune data from Community Dragon.\n\nProvides detailed rune information with enhanced descriptions and tooltips.\n\nExample response:\n```json\n[\n  {\n    \"id\": 8005,\n    \"name\": \"Press the Attack\",\n    \"iconPath\": \"/path/to/icon.png\",\n    ...\n  },\n  ...\n]\n```",
+        "operationId": "get_perks_cdragon_perks_get",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "latest",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cdragon/summoner-spells": {
+      "get": {
+        "tags": [
+          "community-dragon"
+        ],
+        "summary": "Get summoner spells",
+        "description": "Get summoner spell data from Community Dragon.\n\nProvides detailed summoner spell information.\n\nExample response:\n```json\n[\n  {\n    \"id\": 4,\n    \"name\": \"Flash\",\n    \"description\": \"...\",\n    \"summonerLevel\": 7,\n    ...\n  },\n  ...\n]\n```",
+        "operationId": "get_summoner_spells_cdragon_summoner_spells_get",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "latest",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cdragon/skins": {
+      "get": {
+        "tags": [
+          "community-dragon"
+        ],
+        "summary": "Get all skins",
+        "description": "Get data for all champion skins from Community Dragon.\n\nProvides comprehensive skin information including:\n- Skin name and description\n- Rarity and pricing\n- Chroma variants\n- Splash art paths\n- Loading screen art\n- In-game assets\n\nExample response:\n```json\n[\n  {\n    \"id\": 1000,\n    \"name\": \"Original Annie\",\n    \"splashPath\": \"/path/to/splash.jpg\",\n    \"chromas\": [...],\n    \"rarity\": \"kNoRarity\",\n    ...\n  },\n  ...\n]\n```",
+        "operationId": "get_skins_cdragon_skins_get",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "latest",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cdragon/skins/{skin_id}": {
+      "get": {
+        "tags": [
+          "community-dragon"
+        ],
+        "summary": "Get skin details",
+        "description": "Get detailed data for a specific skin.\n\nProvides comprehensive information about a single skin including:\n- Full skin metadata\n- All chroma variants\n- Asset paths for splash arts and icons\n- Pricing and availability information\n- Skin line and theme information\n\nArgs:\n    skin_id: Numeric skin ID\n\nExample response:\n```json\n{\n  \"id\": 103001,\n  \"name\": \"Dynasty Ahri\",\n  \"splashPath\": \"/lol-game-data/assets/...\",\n  \"chromas\": [\n    {\n      \"id\": 103001001,\n      \"name\": \"Obsidian\",\n      \"chromaPath\": \"/path/to/chroma.png\",\n      ...\n    },\n    ...\n  ],\n  ...\n}\n```",
+        "operationId": "get_skin_cdragon_skins__skin_id__get",
+        "parameters": [
+          {
+            "name": "skin_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "title": "Skin Id"
+            }
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "latest",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cdragon/tft/champions": {
+      "get": {
+        "tags": [
+          "community-dragon",
+          "tft"
+        ],
+        "summary": "Get TFT champions",
+        "description": "Get all TFT champion data from Community Dragon.\n\nProvides TFT-specific champion information including:\n- Champion stats (HP, armor, attack damage, etc.)\n- Origin and class traits\n- Ability information\n- Cost and rarity\n\nExample response:\n```json\n[\n  {\n    \"characterName\": \"TFT4_Ahri\",\n    \"displayName\": \"Ahri\",\n    \"cost\": 4,\n    \"traits\": [\"Spirit\", \"Mage\"],\n    \"ability\": {...},\n    ...\n  },\n  ...\n]\n```",
+        "operationId": "get_tft_champions_cdragon_tft_champions_get",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "latest",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cdragon/tft/items": {
+      "get": {
+        "tags": [
+          "community-dragon",
+          "tft"
+        ],
+        "summary": "Get TFT items",
+        "description": "Get all TFT item data from Community Dragon.\n\nProvides TFT-specific item information including:\n- Item components\n- Combined items\n- Item effects and stats\n- Item descriptions\n\nExample response:\n```json\n[\n  {\n    \"id\": 1,\n    \"name\": \"B.F. Sword\",\n    \"description\": \"...\",\n    \"effects\": {...},\n    ...\n  },\n  ...\n]\n```",
+        "operationId": "get_tft_items_cdragon_tft_items_get",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "latest",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cdragon/tft/traits": {
+      "get": {
+        "tags": [
+          "community-dragon",
+          "tft"
+        ],
+        "summary": "Get TFT traits",
+        "description": "Get all TFT trait data from Community Dragon.\n\nProvides TFT trait (origin/class) information including:\n- Trait name and description\n- Breakpoints and bonuses\n- Champions with this trait\n- Trait effects\n\nExample response:\n```json\n[\n  {\n    \"key\": \"Spirit\",\n    \"name\": \"Spirit\",\n    \"description\": \"...\",\n    \"effects\": [\n      {\n        \"minUnits\": 2,\n        \"maxUnits\": 4,\n        \"variables\": {...}\n      },\n      ...\n    ],\n    ...\n  },\n  ...\n]\n```",
+        "operationId": "get_tft_traits_cdragon_tft_traits_get",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "latest",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cdragon/tft/augments": {
+      "get": {
+        "tags": [
+          "community-dragon",
+          "tft"
+        ],
+        "summary": "Get TFT augments",
+        "description": "Get all TFT augment data from Community Dragon.\n\nProvides TFT augment information including:\n- Augment name and description\n- Tier (Silver, Gold, Prismatic)\n- Effects and stats\n- Associated traits\n\nExample response:\n```json\n[\n  {\n    \"id\": 1,\n    \"name\": \"Cybernetic Implants I\",\n    \"description\": \"...\",\n    \"tier\": 1,\n    \"effects\": {...},\n    ...\n  },\n  ...\n]\n```",
+        "operationId": "get_tft_augments_cdragon_tft_augments_get",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "latest",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cdragon/tft/tacticians": {
+      "get": {
+        "tags": [
+          "community-dragon",
+          "tft"
+        ],
+        "summary": "Get TFT tacticians",
+        "description": "Get all TFT tactician (Little Legend) data from Community Dragon.\n\nProvides TFT tactician information including:\n- Tactician name and species\n- Rarity and pricing\n- Evolution stages\n- Visual assets\n\nExample response:\n```json\n[\n  {\n    \"id\": 1,\n    \"name\": \"Silverwing\",\n    \"species\": \"Silverwing\",\n    \"rarity\": 3,\n    \"upgrades\": [...],\n    ...\n  },\n  ...\n]\n```",
+        "operationId": "get_tft_tacticians_cdragon_tft_tacticians_get",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "latest",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cdragon/chromas": {
+      "get": {
+        "tags": [
+          "community-dragon"
+        ],
+        "summary": "Get all chromas",
+        "description": "Get all chroma data from Community Dragon.\n\nProvides detailed chroma information including:\n- Chroma name and ID\n- Associated skin\n- Color variations\n- Pricing and availability\n- Asset paths\n\nExample response:\n```json\n[\n  {\n    \"id\": 103001001,\n    \"name\": \"Dynasty Ahri Obsidian\",\n    \"chromaPath\": \"...\",\n    \"colors\": [\"#1a1a1a\", \"#ff0000\"],\n    ...\n  },\n  ...\n]\n```",
+        "operationId": "get_chromas_cdragon_chromas_get",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "latest",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cdragon/ward-skins": {
+      "get": {
+        "tags": [
+          "community-dragon"
+        ],
+        "summary": "Get all ward skins",
+        "description": "Get all ward skin data from Community Dragon.\n\nProvides ward skin information including:\n- Ward name and description\n- Rarity and pricing\n- Visual assets\n- Availability\n\nExample response:\n```json\n[\n  {\n    \"id\": 1,\n    \"name\": \"Poro Ward\",\n    \"description\": \"...\",\n    \"wardImagePath\": \"...\",\n    ...\n  },\n  ...\n]\n```",
+        "operationId": "get_ward_skins_cdragon_ward_skins_get",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "latest",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cdragon/missions": {
+      "get": {
+        "tags": [
+          "community-dragon"
+        ],
+        "summary": "Get missions/quests",
+        "description": "Get mission and quest data from Community Dragon.\n\nProvides mission information including:\n- Mission title and description\n- Objectives and requirements\n- Rewards\n- Event association\n- Start and end times\n\nExample response:\n```json\n[\n  {\n    \"id\": \"mission_1\",\n    \"title\": \"Welcome to League\",\n    \"description\": \"...\",\n    \"objectives\": [...],\n    \"rewards\": [...],\n    ...\n  },\n  ...\n]\n```",
+        "operationId": "get_missions_cdragon_missions_get",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "latest",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cdragon/champion-choices": {
+      "get": {
+        "tags": [
+          "community-dragon"
+        ],
+        "summary": "Get champion select choices",
+        "description": "Get champion select choice data from Community Dragon.\n\nProvides champion selection UI data including:\n- Champion positions\n- Role recommendations\n- Pick/ban phase information\n\nExample response:\n```json\n[\n  {\n    \"championId\": 103,\n    \"position\": \"MIDDLE\",\n    \"roles\": [\"MAGE\", \"ASSASSIN\"],\n    ...\n  },\n  ...\n]\n```",
+        "operationId": "get_champion_choices_cdragon_champion_choices_get",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "latest",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cdragon/universes": {
+      "get": {
+        "tags": [
+          "community-dragon"
+        ],
+        "summary": "Get lore universes",
+        "description": "Get lore universe data from Community Dragon.\n\nProvides universe and lore information including:\n- Universe names and descriptions\n- Associated champions\n- Story lines\n- Skin lines\n\nExample response:\n```json\n[\n  {\n    \"id\": 1,\n    \"name\": \"Runeterra\",\n    \"description\": \"The main League of Legends universe\",\n    \"champions\": [...],\n    \"skinLines\": [...],\n    ...\n  },\n  ...\n]\n```",
+        "operationId": "get_universes_cdragon_universes_get",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "latest",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cdragon/loot": {
+      "get": {
+        "tags": [
+          "community-dragon"
+        ],
+        "summary": "Get loot/crafting data",
+        "description": "Get loot and hextech crafting data from Community Dragon.\n\nProvides loot system information including:\n- Loot items and recipes\n- Crafting costs\n- Drop rates\n- Hextech chest contents\n\nExample response:\n```json\n[\n  {\n    \"id\": \"loot_1\",\n    \"name\": \"Hextech Chest\",\n    \"description\": \"...\",\n    \"contents\": [...],\n    \"craftingCost\": {...},\n    ...\n  },\n  ...\n]\n```",
+        "operationId": "get_loot_cdragon_loot_get",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "latest",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1992,6 +3966,83 @@
         ],
         "title": "PlatformRegion",
         "description": "Platform regions for regional routing (ACCOUNT, MATCH APIs)."
+      },
+      "ProviderHealthStatus": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "provider_type": {
+            "type": "string",
+            "title": "Provider Type"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "response_time": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Response Time"
+          },
+          "last_check": {
+            "type": "number",
+            "title": "Last Check"
+          },
+          "last_success": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Success"
+          },
+          "consecutive_failures": {
+            "type": "integer",
+            "title": "Consecutive Failures",
+            "default": 0
+          },
+          "total_requests": {
+            "type": "integer",
+            "title": "Total Requests",
+            "default": 0
+          },
+          "error_rate": {
+            "type": "number",
+            "title": "Error Rate",
+            "default": 0.0
+          },
+          "error_details": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error Details"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "provider_type",
+          "status",
+          "last_check"
+        ],
+        "title": "ProviderHealthStatus",
+        "description": "Detailed health status for a provider."
       },
       "QueueType": {
         "type": "string",
