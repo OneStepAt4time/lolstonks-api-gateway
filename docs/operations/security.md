@@ -8,10 +8,10 @@ This guide covers security considerations and best practices for deploying and o
 > - Input validation using Pydantic models
 > - Basic rate limiting (Riot API level with aiolimiter)
 > - API key loading from environment variables
+> - **API key rotation system** (round-robin across multiple keys)
 > - Redis password authentication (if configured)
 >
 > **Not Yet Implemented** ❌ (Potential Future Enhancements):
-> - API key rotation system
 > - IP-based rate limiting and blocking
 > - Advanced input sanitization
 > - CORS middleware
@@ -49,55 +49,61 @@ RIOT_API_KEY_PROD=RGAPI-production-key
 
 #### Current Implementation
 
+The gateway supports both single key and multiple key rotation:
+
 ```env
 # .env file (ACTUAL IMPLEMENTATION)
+
+# Option 1: Single API key (backward compatible)
 RIOT_API_KEY=RGAPI-your-secure-api-key
+
+# Option 2: Multiple API keys for rotation (recommended for production)
+# Comma-separated list. Gateway will rotate through keys using round-robin.
+# This helps distribute load and avoid hitting rate limits on a single key.
+# If RIOT_API_KEYS is set, it takes priority over RIOT_API_KEY.
+RIOT_API_KEYS=RGAPI-key1,RGAPI-key2,RGAPI-key3
 ```
 
-The API key is loaded from environment variables using Pydantic Settings:
+The API key rotation is implemented using a round-robin algorithm:
 
 ```python
 # app/config.py (ACTUAL IMPLEMENTATION)
 class Settings(BaseSettings):
-    riot_api_key: str  # Required from environment
+    riot_api_key: str | None = None  # Single key (backward compatible)
+    riot_api_keys: str | None = None  # Multiple keys for rotation
+
+    def get_api_keys(self) -> list[str]:
+        """Get list of API keys with priority: RIOT_API_KEYS > RIOT_API_KEY."""
+        # Priority 1: Multiple keys (comma-separated)
+        if self.riot_api_keys and self.riot_api_keys.strip():
+            keys = [k.strip() for k in self.riot_api_keys.split(",") if k.strip()]
+            if keys:
+                return keys
+
+        # Priority 2: Single key (backward compatibility)
+        if self.riot_api_key and self.riot_api_key.strip():
+            return [self.riot_api_key.strip()]
+
+        raise ValueError("No Riot API keys configured")
+
+# app/riot/key_rotator.py (ACTUAL IMPLEMENTATION)
+class KeyRotator:
+    """Thread-safe round-robin key rotator for Riot API keys."""
+
+    def get_next_key(self) -> str:
+        """Get the next API key in round-robin rotation."""
+        with self._lock:
+            key = self.api_keys[self._current_index]
+            self._current_index = (self._current_index + 1) % len(self.api_keys)
+            return key
 ```
 
-#### Key Rotation Strategy (Potential Enhancement)
-
-> **Not Implemented**: API key rotation is not currently automated. Keys must be rotated manually.
-
-```python
-# Example: app/security.py (NOT IMPLEMENTED)
-import os
-from datetime import datetime, timedelta
-from typing import Optional
-import logging
-
-logger = logging.getLogger(__name__)
-
-class APIKeyManager:
-    """Manages Riot API key rotation and validation."""
-
-    def __init__(self):
-        self.current_key = os.getenv("RIOT_API_KEY")
-        self.backup_key = os.getenv("RIOT_API_KEY_BACKUP")
-        self.last_rotation = datetime.now()
-        self.rotation_interval = timedelta(days=20)  # Riot API keys last 30 days
-
-    def get_active_key(self) -> str:
-        """Get the currently active API key."""
-        # Check if key needs rotation
-        if datetime.now() - self.last_rotation > self.rotation_interval:
-            logger.warning("API key rotation recommended")
-
-        return self.current_key
-
-    def validate_key_format(self, key: str) -> bool:
-        """Validate API key format."""
-        import re
-        pattern = r'^RGAPI-[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$'
-        return bool(re.match(pattern, key))
-```
+**Benefits of Key Rotation**:
+- Distributes load across multiple keys using round-robin
+- Reduces risk of hitting rate limits on a single key
+- Provides redundancy if one key becomes rate-limited
+- On 429 responses, immediately tries the next key without waiting
+- Only waits if ALL keys are exhausted
 
 #### Key Storage Best Practices
 
