@@ -196,3 +196,62 @@ class HasTournamentId(BaseModel):
     """Mixin for models that include a tournament ID path parameter."""
 
     tournamentId: Annotated[int, Field(ge=0, description="Tournament ID")]
+
+
+# Error Monitoring Models
+class ErrorRecord(BaseModel):
+    """Record of an error that occurred during request processing."""
+
+    timestamp: float
+    endpoint: str
+    provider: str | None = None
+    status_code: int
+    method: str
+    path: str
+    duration: float
+    error_type: str | None = None
+    error_message: str | None = None
+    is_client_error: bool = False
+    is_server_error: bool = False
+
+
+class ErrorMetrics(BaseModel):
+    """Comprehensive error metrics for monitoring."""
+
+    total_errors: int
+    server_errors: int
+    client_errors: int
+    recent_errors_5min: int
+    recent_errors_1hour: int
+    error_rates_by_endpoint: dict[str, int]
+    error_rates_by_provider: dict[str, int]
+    status_code_distribution: dict[int, int]
+    consecutive_failures: dict[str, int]
+    last_success_times: dict[str, float]
+    active_alerts: list[str]
+    last_updated: float
+
+
+class ProviderHealthStatus(BaseModel):
+    """Detailed health status for a provider."""
+
+    name: str
+    provider_type: str
+    status: str  # "healthy", "degraded", "unhealthy"
+    response_time: float | None = None
+    last_check: float
+    last_success: float | None = None
+    consecutive_failures: int = 0
+    total_requests: int = 0
+    error_rate: float = 0.0
+    error_details: str | None = None
+
+
+class SystemHealthStatus(BaseModel):
+    """Overall system health status including all providers."""
+
+    status: str  # "healthy", "degraded", "unhealthy"
+    timestamp: float
+    providers: dict[str, ProviderHealthStatus]
+    uptime: float
+    version: str

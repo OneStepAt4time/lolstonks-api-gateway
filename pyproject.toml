@@ -1,7 +1,7 @@
 [project]
 name = "lolstonks-api-gateway"
-version = "1.0.0"
-description = "Riot Games API Gateway with caching, rate limiting, and match tracking"
+version = "2.0.0"
+description = "League of Legends API Gateway with caching, rate limiting, and comprehensive monitoring"
 readme = "docs/index.md"
 requires-python = ">=3.12"
 dependencies = [

@@ -7,6 +7,8 @@ consistent logging across all endpoints.
 
 from typing import Any, Awaitable, Callable
 
+import httpx
+from fastapi import HTTPException
 from loguru import logger
 
 from app.cache.redis_cache import cache
@@ -54,12 +56,68 @@ async def fetch_with_cache(
     if not force_refresh:
         cached_data = await cache.get(cache_key)
         if cached_data:
-            logger.info(f"{resource_name} retrieved from cache", **context, source="cache")
+            log_context = context.copy()
+            log_context["source"] = "cache"
+            logger.info(f"{resource_name} retrieved from cache", **log_context)
             return cached_data
 
     # Fetch from Riot API
-    logger.info(f"{resource_name} retrieved from Riot API", **context, source="riot_api")
-    data = await fetch_fn()
+    log_context = context.copy()
+    log_context["source"] = "riot_api"
+    logger.info(f"{resource_name} retrieved from Riot API", **log_context)
+
+    try:
+        data = await fetch_fn()
+    except ValueError as e:
+        # Handle authentication/authorization errors from Riot client
+        error_msg = str(e)
+        if "invalid or expired" in error_msg.lower():
+            raise HTTPException(status_code=401, detail=error_msg)
+        elif "access" in error_msg.lower():
+            raise HTTPException(status_code=403, detail=error_msg)
+        else:
+            raise HTTPException(status_code=500, detail=f"Authentication error: {error_msg}")
+    except httpx.HTTPStatusError as e:
+        # Handle HTTP errors from API calls
+        error_msg = str(e)
+
+        # Special handling for Data Dragon 403 errors
+        if e.response.status_code == 403:
+            if "ddragon" in str(e.request.url).lower():
+                logger.error(
+                    f"Data Dragon 403 error for {resource_name}: {error_msg}",
+                    url=str(e.request.url),
+                    **context,
+                )
+                # Provide more helpful error message for Data Dragon
+                raise HTTPException(
+                    status_code=403,
+                    detail=f"Data Dragon access forbidden. The 'latest' version alias is no longer supported. Please specify an actual version number or contact support. URL: {e.request.url}",
+                )
+            else:
+                raise HTTPException(status_code=403, detail=f"Access forbidden: {error_msg}")
+
+        # Handle other HTTP status codes
+        if e.response.status_code == 404:
+            raise HTTPException(status_code=404, detail=f"Resource not found: {error_msg}")
+        elif e.response.status_code == 429:
+            raise HTTPException(status_code=429, detail=f"Rate limit exceeded: {error_msg}")
+        elif 500 <= e.response.status_code < 600:
+            logger.error(
+                f"Server error fetching {resource_name}: {error_msg}",
+                status_code=e.response.status_code,
+                url=str(e.request.url),
+                **context,
+            )
+            raise HTTPException(status_code=502, detail=f"Upstream server error: {error_msg}")
+        else:
+            raise HTTPException(
+                status_code=e.response.status_code, detail=f"HTTP error: {error_msg}"
+            )
+    except Exception as e:
+        # Handle any other unexpected errors
+        logger.error(f"Unexpected error fetching {resource_name}: {e}", **context)
+        raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
     # Store in cache
     await cache.set(cache_key, data, ttl=ttl)
