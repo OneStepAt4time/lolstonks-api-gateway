@@ -1,0 +1,2406 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Riot Games API Gateway with caching, rate limiting, and match tracking">
+      
+      
+      
+      
+        <link rel="prev" href="../../architecture/caching/">
+      
+      
+        <link rel="next" href="../monitoring/">
+      
+      
+      <link rel="icon" href="../../assets/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+    
+    
+      
+        <title>Implementation Status - LOLStonks API Gateway</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.84d31ad4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#implementation-status" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="LOLStonks API Gateway" class="md-header__button md-logo" aria-label="LOLStonks API Gateway" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            LOLStonks API Gateway
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Implementation Status
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/OneStepAt4time/lolstonks-api-gateway" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../getting-started/installation/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../api/openapi-spec/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../architecture/overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Architecture
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Operations
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../development/contributing/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Development
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="LOLStonks API Gateway" class="md-nav__button md-logo" aria-label="LOLStonks API Gateway" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    LOLStonks API Gateway
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/OneStepAt4time/lolstonks-api-gateway" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Quick Start
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Production Deployment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/openapi-spec/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OpenAPI Specification
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/riot-client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Riot Client
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Models
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/routers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Routers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/cache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cache
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Architecture
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/implementation-details/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Implementation Details
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data Models
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/rate-limiting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Rate Limiting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/caching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Caching Strategy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Operations
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Operations
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Implementation Status
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Implementation Status
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoring-observability" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitoring &amp; Observability
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monitoring &amp; Observability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#currently-implemented" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Currently Implemented
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#not-yet-implemented-documented-as-potential-enhancements" class="md-nav__link">
+    <span class="md-ellipsis">
+      ❌ Not Yet Implemented (Documented as Potential Enhancements)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#currently-implemented_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Currently Implemented
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#partially-implemented-infrastructure-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚠️ Partially Implemented / Infrastructure Level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#not-yet-implemented-documented-as-potential-enhancements_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ❌ Not Yet Implemented (Documented as Potential Enhancements)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary Table
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Summary Table">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overall-implementation-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overall Implementation Status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feature-categories-by-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Feature Categories by Status
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Feature Categories by Status">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#production-ready-currently-implemented" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Production Ready (Currently Implemented)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infrastructure-level-external-to-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚠️ Infrastructure Level (External to Application)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#potential-future-enhancements" class="md-nav__link">
+    <span class="md-ellipsis">
+      ❌ Potential Future Enhancements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-read-this-document" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Read This Document
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How to Read This Document">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#status-indicators" class="md-nav__link">
+    <span class="md-ellipsis">
+      Status Indicators
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation-cross-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation Cross-References
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-priority-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Priority Levels
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation Priority Levels">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#priority-1-consider-for-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      Priority 1: Consider for Production 🔴
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priority-2-recommended-enhancements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Priority 2: Recommended Enhancements 🟡
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priority-3-nice-to-have" class="md-nav__link">
+    <span class="md-ellipsis">
+      Priority 3: Nice to Have 🟢
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#development-roadmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      Development Roadmap
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Development Roadmap">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-core-monitoring-recommended-for-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 1: Core Monitoring (Recommended for Production)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-enhanced-security-recommended-for-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 2: Enhanced Security (Recommended for Production)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-advanced-features-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 3: Advanced Features (Optional)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contributing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-document-unimplemented-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Document Unimplemented Features?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keeping-documentation-and-code-in-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      Keeping Documentation and Code in Sync
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../monitoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Monitoring
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Security
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Development
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Testing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoring-observability" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitoring &amp; Observability
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monitoring &amp; Observability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#currently-implemented" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Currently Implemented
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#not-yet-implemented-documented-as-potential-enhancements" class="md-nav__link">
+    <span class="md-ellipsis">
+      ❌ Not Yet Implemented (Documented as Potential Enhancements)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#currently-implemented_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Currently Implemented
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#partially-implemented-infrastructure-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚠️ Partially Implemented / Infrastructure Level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#not-yet-implemented-documented-as-potential-enhancements_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ❌ Not Yet Implemented (Documented as Potential Enhancements)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary Table
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Summary Table">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overall-implementation-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overall Implementation Status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feature-categories-by-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Feature Categories by Status
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Feature Categories by Status">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#production-ready-currently-implemented" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Production Ready (Currently Implemented)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infrastructure-level-external-to-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚠️ Infrastructure Level (External to Application)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#potential-future-enhancements" class="md-nav__link">
+    <span class="md-ellipsis">
+      ❌ Potential Future Enhancements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-read-this-document" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Read This Document
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How to Read This Document">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#status-indicators" class="md-nav__link">
+    <span class="md-ellipsis">
+      Status Indicators
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation-cross-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation Cross-References
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-priority-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Priority Levels
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation Priority Levels">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#priority-1-consider-for-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      Priority 1: Consider for Production 🔴
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priority-2-recommended-enhancements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Priority 2: Recommended Enhancements 🟡
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priority-3-nice-to-have" class="md-nav__link">
+    <span class="md-ellipsis">
+      Priority 3: Nice to Have 🟢
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#development-roadmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      Development Roadmap
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Development Roadmap">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-core-monitoring-recommended-for-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 1: Core Monitoring (Recommended for Production)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-enhanced-security-recommended-for-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 2: Enhanced Security (Recommended for Production)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-advanced-features-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 3: Advanced Features (Optional)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contributing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-document-unimplemented-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Document Unimplemented Features?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keeping-documentation-and-code-in-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      Keeping Documentation and Code in Sync
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="implementation-status">Implementation Status<a class="headerlink" href="#implementation-status" title="Permanent link">&para;</a></h1>
+<p>This document provides a clear overview of which features described in the Operations documentation are <strong>currently implemented</strong> versus <strong>potential future enhancements</strong>.</p>
+<blockquote>
+<p><strong>Last Updated</strong>: 2025-11-06</p>
+</blockquote>
+<hr />
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#monitoring--observability">Monitoring &amp; Observability</a></li>
+<li><a href="#security">Security</a></li>
+<li><a href="#summary-table">Summary Table</a></li>
+<li><a href="#how-to-read-this-document">How to Read This Document</a></li>
+</ul>
+<hr />
+<h2 id="monitoring-observability">Monitoring &amp; Observability<a class="headerlink" href="#monitoring-observability" title="Permanent link">&para;</a></h2>
+<h3 id="currently-implemented">✅ Currently Implemented<a class="headerlink" href="#currently-implemented" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Description</th>
+<th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Basic Health Check</strong></td>
+<td>Simple <code>/health</code> endpoint returning <code>{"status": "ok"}</code></td>
+<td><code>app/routers/health.py</code></td>
+</tr>
+<tr>
+<td><strong>Loguru Logging</strong></td>
+<td>Colored console logging with configurable log levels</td>
+<td><code>app/main.py:28-35</code></td>
+</tr>
+<tr>
+<td><strong>Startup/Shutdown Logging</strong></td>
+<td>Application lifecycle event logging</td>
+<td><code>app/main.py:38-59</code></td>
+</tr>
+<tr>
+<td><strong>Error Logging</strong></td>
+<td>Automatic exception logging via Loguru</td>
+<td>Throughout app</td>
+</tr>
+</tbody>
+</table>
+<h3 id="not-yet-implemented-documented-as-potential-enhancements">❌ Not Yet Implemented (Documented as Potential Enhancements)<a class="headerlink" href="#not-yet-implemented-documented-as-potential-enhancements" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Description</th>
+<th>Documentation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Prometheus Metrics</strong></td>
+<td>Request counters, histograms, gauges</td>
+<td><code>monitoring.md</code> - Custom Metrics Implementation</td>
+</tr>
+<tr>
+<td><strong>Grafana Dashboards</strong></td>
+<td>Visual monitoring dashboards</td>
+<td><code>monitoring.md</code> - Grafana Dashboard</td>
+</tr>
+<tr>
+<td><strong>Advanced Health Checks</strong></td>
+<td>Redis connectivity, Riot API status, system resources</td>
+<td><code>monitoring.md</code> - Comprehensive Health Endpoint</td>
+</tr>
+<tr>
+<td><strong>ELK Stack Integration</strong></td>
+<td>Elasticsearch, Logstash, Kibana for log aggregation</td>
+<td><code>monitoring.md</code> - Log Management</td>
+</tr>
+<tr>
+<td><strong>OpenTelemetry Tracing</strong></td>
+<td>Distributed tracing with Jaeger</td>
+<td><code>monitoring.md</code> - Advanced Monitoring</td>
+</tr>
+<tr>
+<td><strong>JSON Structured Logging</strong></td>
+<td>Custom JSON formatter for logs</td>
+<td><code>monitoring.md</code> - Logging Strategy</td>
+</tr>
+<tr>
+<td><strong>Request Logging Middleware</strong></td>
+<td>Detailed request/response logging</td>
+<td><code>monitoring.md</code> - Request Logging Middleware</td>
+</tr>
+<tr>
+<td><strong>Custom Business Metrics</strong></td>
+<td>Summoner lookups, match lookups, API usage tracking</td>
+<td><code>monitoring.md</code> - Custom Metrics</td>
+</tr>
+<tr>
+<td><strong>Alert Configuration</strong></td>
+<td>Prometheus alerting rules</td>
+<td><code>monitoring.md</code> - Alerting</td>
+</tr>
+<tr>
+<td><strong>Notification Channels</strong></td>
+<td>Email/Slack alerts via Alertmanager</td>
+<td><code>monitoring.md</code> - Notification Channels</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="security">Security<a class="headerlink" href="#security" title="Permanent link">&para;</a></h2>
+<h3 id="currently-implemented_1">✅ Currently Implemented<a class="headerlink" href="#currently-implemented_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Description</th>
+<th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Pydantic Input Validation</strong></td>
+<td>Type validation and constraints on all inputs</td>
+<td><code>app/models/*.py</code></td>
+</tr>
+<tr>
+<td><strong>Enum Validation</strong></td>
+<td>Region, queue type, tier validation via Python Enums</td>
+<td><code>app/models/common.py</code></td>
+</tr>
+<tr>
+<td><strong>Riot API Rate Limiting</strong></td>
+<td>Token bucket rate limiting for Riot API calls</td>
+<td><code>app/riot/rate_limiter.py</code></td>
+</tr>
+<tr>
+<td><strong>Environment Variable Configuration</strong></td>
+<td>API keys loaded from <code>.env</code> file</td>
+<td><code>app/config.py</code></td>
+</tr>
+<tr>
+<td><strong>API Key Rotation</strong></td>
+<td>Round-robin rotation across multiple API keys</td>
+<td><code>app/riot/key_rotator.py</code>, <code>app/config.py:59-82</code></td>
+</tr>
+<tr>
+<td><strong>Redis Password Auth</strong></td>
+<td>Optional password for Redis connection</td>
+<td><code>app/config.py:92</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="partially-implemented-infrastructure-level">⚠️ Partially Implemented / Infrastructure Level<a class="headerlink" href="#partially-implemented-infrastructure-level" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Description</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SSL/TLS</strong></td>
+<td>HTTPS encryption</td>
+<td>⚠️ Handled by Nginx (infrastructure level)</td>
+</tr>
+<tr>
+<td><strong>Firewall Rules</strong></td>
+<td>Network-level access control</td>
+<td>⚠️ System-level (ufw/iptables)</td>
+</tr>
+<tr>
+<td><strong>Security Headers</strong></td>
+<td>HSTS, X-Frame-Options, CSP, etc.</td>
+<td>⚠️ Configured in Nginx, not app</td>
+</tr>
+</tbody>
+</table>
+<h3 id="not-yet-implemented-documented-as-potential-enhancements_1">❌ Not Yet Implemented (Documented as Potential Enhancements)<a class="headerlink" href="#not-yet-implemented-documented-as-potential-enhancements_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Description</th>
+<th>Documentation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Advanced Input Sanitization</strong></td>
+<td>SecurityValidator class for string sanitization</td>
+<td><code>security.md</code> - Advanced Input Sanitization</td>
+</tr>
+<tr>
+<td><strong>IP-Based Rate Limiting</strong></td>
+<td>Per-IP request throttling with slowapi</td>
+<td><code>security.md</code> - Multi-Level Rate Limiting</td>
+</tr>
+<tr>
+<td><strong>IP Blocking System</strong></td>
+<td>Automatic blocking of malicious IPs</td>
+<td><code>security.md</code> - IP-Based Blocking</td>
+</tr>
+<tr>
+<td><strong>CORS Middleware</strong></td>
+<td>Cross-origin resource sharing configuration</td>
+<td><code>security.md</code> - CORS Configuration</td>
+</tr>
+<tr>
+<td><strong>HTTPS Redirect Middleware</strong></td>
+<td>Force HTTPS in production</td>
+<td><code>security.md</code> - Application SSL Settings</td>
+</tr>
+<tr>
+<td><strong>TrustedHost Middleware</strong></td>
+<td>Restrict allowed hostnames</td>
+<td><code>security.md</code> - Application SSL Settings</td>
+</tr>
+<tr>
+<td><strong>Admin API Authentication</strong></td>
+<td>API key auth for admin endpoints</td>
+<td><code>security.md</code> - API Key Authentication</td>
+</tr>
+<tr>
+<td><strong>Security Event Logging</strong></td>
+<td>Dedicated security log file</td>
+<td><code>security.md</code> - Security Logging</td>
+</tr>
+<tr>
+<td><strong>Security Metrics</strong></td>
+<td>Prometheus metrics for security events</td>
+<td><code>security.md</code> - Security Monitoring</td>
+</tr>
+<tr>
+<td><strong>Automated Security Audits</strong></td>
+<td>Scheduled security check scripts</td>
+<td><code>security.md</code> - Regular Security Checks</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="summary-table">Summary Table<a class="headerlink" href="#summary-table" title="Permanent link">&para;</a></h2>
+<h3 id="overall-implementation-status">Overall Implementation Status<a class="headerlink" href="#overall-implementation-status" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Implemented</th>
+<th>Not Implemented</th>
+<th>Percentage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Monitoring &amp; Observability</strong></td>
+<td>4 features</td>
+<td>10 features</td>
+<td>29%</td>
+</tr>
+<tr>
+<td><strong>Security</strong></td>
+<td>6 features</td>
+<td>10 features</td>
+<td>38%</td>
+</tr>
+<tr>
+<td><strong>Infrastructure</strong></td>
+<td>3 features</td>
+<td>0 features</td>
+<td>100% (external)</td>
+</tr>
+<tr>
+<td><strong>Overall</strong></td>
+<td>13 features</td>
+<td>20 features</td>
+<td>39%</td>
+</tr>
+</tbody>
+</table>
+<h3 id="feature-categories-by-status">Feature Categories by Status<a class="headerlink" href="#feature-categories-by-status" title="Permanent link">&para;</a></h3>
+<h4 id="production-ready-currently-implemented">✅ Production Ready (Currently Implemented)<a class="headerlink" href="#production-ready-currently-implemented" title="Permanent link">&para;</a></h4>
+<p>These features are <strong>fully implemented and tested</strong>:</p>
+<ol>
+<li>Basic health check endpoint</li>
+<li>Loguru logging system</li>
+<li>Pydantic input validation</li>
+<li>Riot API rate limiting (aiolimiter)</li>
+<li>Environment-based configuration</li>
+<li>API key rotation (round-robin)</li>
+<li>Redis password authentication</li>
+</ol>
+<h4 id="infrastructure-level-external-to-application">⚠️ Infrastructure Level (External to Application)<a class="headerlink" href="#infrastructure-level-external-to-application" title="Permanent link">&para;</a></h4>
+<p>These are <strong>handled at deployment/infrastructure level</strong>:</p>
+<ol>
+<li>SSL/TLS (Nginx)</li>
+<li>Firewall rules (ufw/iptables)</li>
+<li>Security headers (Nginx)</li>
+</ol>
+<h4 id="potential-future-enhancements">❌ Potential Future Enhancements<a class="headerlink" href="#potential-future-enhancements" title="Permanent link">&para;</a></h4>
+<p>These are <strong>documented but not implemented</strong>:</p>
+<ol>
+<li>Prometheus + Grafana monitoring stack</li>
+<li>ELK stack for log aggregation</li>
+<li>OpenTelemetry distributed tracing</li>
+<li>IP-based rate limiting and blocking</li>
+<li>CORS middleware</li>
+<li>Security event logging</li>
+<li>Admin endpoint authentication</li>
+<li>Advanced health checks</li>
+<li>Custom business metrics</li>
+</ol>
+<hr />
+<h2 id="how-to-read-this-document">How to Read This Document<a class="headerlink" href="#how-to-read-this-document" title="Permanent link">&para;</a></h2>
+<h3 id="status-indicators">Status Indicators<a class="headerlink" href="#status-indicators" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ <strong>Currently Implemented</strong>: Fully functional in the codebase</li>
+<li>⚠️ <strong>Partially Implemented</strong>: Basic version exists or handled externally</li>
+<li>❌ <strong>Not Implemented</strong>: Documented as potential enhancement only</li>
+</ul>
+<h3 id="documentation-cross-references">Documentation Cross-References<a class="headerlink" href="#documentation-cross-references" title="Permanent link">&para;</a></h3>
+<p>When a feature shows "Not Implemented", refer to the linked documentation to see:
+- <strong>Why it might be useful</strong> (benefits, use cases)
+- <strong>How it could be implemented</strong> (code examples, configurations)
+- <strong>When to implement it</strong> (recommended for production, optional, etc.)</p>
+<h3 id="implementation-priority-levels">Implementation Priority Levels<a class="headerlink" href="#implementation-priority-levels" title="Permanent link">&para;</a></h3>
+<p>Based on production requirements:</p>
+<h4 id="priority-1-consider-for-production">Priority 1: Consider for Production 🔴<a class="headerlink" href="#priority-1-consider-for-production" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Prometheus + Grafana</strong>: Essential for production monitoring</li>
+<li><strong>Advanced Health Checks</strong>: Important for load balancer integration</li>
+<li><strong>Security Event Logging</strong>: Critical for audit trails</li>
+<li><strong>CORS Middleware</strong>: Required if serving web frontends</li>
+</ul>
+<h4 id="priority-2-recommended-enhancements">Priority 2: Recommended Enhancements 🟡<a class="headerlink" href="#priority-2-recommended-enhancements" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>IP-Based Rate Limiting</strong>: Prevents abuse from individual users</li>
+<li><strong>ELK Stack</strong>: Helpful for large-scale deployments</li>
+<li><strong>OpenTelemetry</strong>: Useful for microservice architectures</li>
+</ul>
+<h4 id="priority-3-nice-to-have">Priority 3: Nice to Have 🟢<a class="headerlink" href="#priority-3-nice-to-have" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Custom Business Metrics</strong>: Useful but not critical</li>
+<li><strong>Automated Security Audits</strong>: Can be done manually</li>
+<li><strong>Admin API Authentication</strong>: Only if admin features exist</li>
+</ul>
+<hr />
+<h2 id="development-roadmap">Development Roadmap<a class="headerlink" href="#development-roadmap" title="Permanent link">&para;</a></h2>
+<h3 id="phase-1-core-monitoring-recommended-for-production">Phase 1: Core Monitoring (Recommended for Production)<a class="headerlink" href="#phase-1-core-monitoring-recommended-for-production" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Implement Prometheus metrics endpoint</li>
+<li>Create basic Grafana dashboard</li>
+<li>Add advanced health checks (Redis, Riot API status)</li>
+<li>Set up basic alerting rules</li>
+</ol>
+<p><strong>Estimated Effort</strong>: 2-3 days
+<strong>Priority</strong>: High</p>
+<h3 id="phase-2-enhanced-security-recommended-for-production">Phase 2: Enhanced Security (Recommended for Production)<a class="headerlink" href="#phase-2-enhanced-security-recommended-for-production" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Implement IP-based rate limiting</li>
+<li>Add CORS middleware</li>
+<li>Set up security event logging</li>
+<li>Create security metrics</li>
+</ol>
+<p><strong>Estimated Effort</strong>: 2-3 days
+<strong>Priority</strong>: High</p>
+<h3 id="phase-3-advanced-features-optional">Phase 3: Advanced Features (Optional)<a class="headerlink" href="#phase-3-advanced-features-optional" title="Permanent link">&para;</a></h3>
+<ol>
+<li>ELK stack integration</li>
+<li>OpenTelemetry distributed tracing</li>
+<li>Admin endpoint authentication</li>
+</ol>
+<p><strong>Estimated Effort</strong>: 4-6 days
+<strong>Priority</strong>: Medium-Low</p>
+<hr />
+<h2 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">&para;</a></h2>
+<p>If you implement any of the "Not Yet Implemented" features:</p>
+<ol>
+<li><strong>Update this document</strong> to move the feature to "Currently Implemented"</li>
+<li><strong>Add location</strong> in codebase (file:line)</li>
+<li><strong>Update the documentation</strong> to reflect actual implementation</li>
+<li><strong>Add tests</strong> for the new feature</li>
+<li><strong>Update the percentage</strong> in the summary table</li>
+</ol>
+<hr />
+<h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
+<h3 id="why-document-unimplemented-features">Why Document Unimplemented Features?<a class="headerlink" href="#why-document-unimplemented-features" title="Permanent link">&para;</a></h3>
+<p>The Operations documentation includes <strong>best practices and potential implementations</strong> for several reasons:</p>
+<ol>
+<li><strong>Educational Value</strong>: Shows what a production-ready system looks like</li>
+<li><strong>Future Planning</strong>: Provides a roadmap for enhancements</li>
+<li><strong>Architecture Decisions</strong>: Helps understand why certain features might be needed</li>
+<li><strong>Copy-Paste Ready</strong>: Code examples can be adapted when implementing</li>
+</ol>
+<h3 id="keeping-documentation-and-code-in-sync">Keeping Documentation and Code in Sync<a class="headerlink" href="#keeping-documentation-and-code-in-sync" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ This document bridges the gap between documentation and reality</li>
+<li>✅ Clear labels ("NOT IMPLEMENTED", "Example:") in code blocks</li>
+<li>✅ Disclaimer banners in documentation files</li>
+<li>✅ Regular updates to this status document</li>
+</ul>
+<hr />
+<p><em>Last Updated: 2025-11-06</em>
+<em>For questions or updates, see the <a href="../../development/contributing/">contributing guide</a>.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>
