@@ -1,94 +1,64 @@
 ![LOLStonks logo](./assets/logo.png)
 
 # LOLStonks — API Gateway
-An intelligent FastAPI-based gateway & proxy for Riot Games League of Legends APIs with smart caching, rate limiting, and match tracking.
 
-Features · Quick Start · Usage · Configuration · Contributing · [Documentation](./docs/README.md)
-
----
+**A production-ready FastAPI gateway for Riot Games League of Legends APIs** with intelligent caching, automatic rate limiting, and multi-provider support.
 
 [![Python](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-green.svg)](https://fastapi.tiangolo.com/)
 [![Redis](https://img.shields.io/badge/Redis-7.x-red.svg)](https://redis.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
----
-
-## Table of Contents
-
-- [About the Project](#about-the-project)
-- [Features](#features)
-- [API Endpoints](#api-endpoints)
-- [Quick Start](#quick-start)
-   - [Prerequisites](#prerequisites)
-   - [Local (Docker) Run](#local-docker-run)
-   - [Run Locally (venv)](#run-locally-venv)
-- [Configuration](#configuration)
-- [Usage Examples](#usage-examples)
-- [Architecture & Design](#architecture--design)
-- [Development](#development)
-- [Contributing](#contributing)
-- [Support Development](#support-development)
-- [License](#license)
-- [Contact](#contact)
+[Features](#features) · [Quick Start](#quick-start) · [Documentation](https://onestepat4time.github.io/lolstonks-api-gateway/) · [API Docs](#api-documentation)
 
 ---
 
-## About the Project
+## Overview
 
-LOLStonks API Gateway is a focused, high-performance proxy for Riot's League of Legends HTTP APIs. It provides:
+LOLStonks API Gateway is a high-performance proxy for League of Legends APIs featuring:
 
-- A FastAPI front-end exposing to Riot endpoints with a stable surface for clients.
-- Smart caching via Redis to reduce request volume and accelerate responses.
-- Rate limiting using a token-bucket style algorithm to protect your Riot API key.
-- Match tracking to persist processed match IDs and prevent double-processing.
-- Automatic retry/backoff on 429s and useful metrics for observability.
-- Multi-provider architecture with support for Data Dragon, Community Dragon, and Riot API providers.
-- Comprehensive security documentation and API key rotation support.
+- **🚀 Fast**: Sub-100ms cached responses with Redis backend
+- **🔄 Multi-Provider**: Riot API + Data Dragon + Community Dragon
+- **🛡️ Production-Ready**: Rate limiting, retries, health checks, security monitoring
+- **📊 76+ Endpoints**: Complete coverage across all data sources
+- **🔑 Smart Key Rotation**: Round-robin distribution across multiple API keys
+- **🐳 Docker Ready**: One-command deployment with Docker Compose
 
-This gateway is intended for use by any application interacting with Riot Games' League of Legends APIs. It can run standalone or alongside other services that need a robust, cache-aware Riot API proxy.
+---
+
+## What's New in v2.0
+
+- **Three-Provider Architecture**: Riot API, Data Dragon, and Community Dragon
+- **Enhanced Security**: Real-time monitoring and status endpoints
+- **Comprehensive Health Checks**: Multi-provider health monitoring
+- **API Key Rotation**: Load distribution across multiple keys
+- **Complete Documentation**: Architecture guides, API reference, and operations manual
+
+[**View Full Changelog**](./CHANGELOG.md)
 
 ---
 
 ## Features
 
-- FastAPI-based async proxy with modern Python 3.12+
-- Multi-provider system: Data Dragon, Community Dragon, and Riot APIs
-- Smart Redis caching (summoners, matches, leagues) with configurable TTL
-- Dual-layer match tracking: TTL cache + Redis SET for permanent storage of processed match IDs
-- Token bucket rate limiting (default: 20 req/s, 100 req/2min) with automatic 429 handling
-- Automatic retry with exponential backoff on rate limit responses
-- **API key rotation**: Round-robin load distribution across multiple keys
-- Multi-region support (EUW1, KR, NA1, BR1, and others)
-- Docker Compose ready for easy deployment
-- Comprehensive router coverage for all Riot LoL endpoints
-- Security-focused design with input validation and error monitoring
+### 🚀 Performance & Reliability
+- **Async Architecture**: Built on FastAPI with full async/await support
+- **Intelligent Caching**: Redis-backed with strategic TTL per endpoint type
+- **Automatic Retries**: Exponential backoff for 429 rate limit responses
+- **Horizontal Scaling**: Stateless design for multi-instance deployment
 
----
+### 🔄 Multi-Provider Support
+- **Riot Games API**: Live game data, match history, summoner info, rankings
+- **Data Dragon**: Official static data (champions, items, runes)
+- **Community Dragon**: Enhanced assets, TFT data, high-quality images
 
-## API Endpoints
+### 🛡️ Production Features
+- **Rate Limiting**: Token bucket algorithm with Riot API compliance
+- **API Key Rotation**: Round-robin across multiple keys
+- **Security Monitoring**: Real-time security status and alerts
+- **Health Checks**: Comprehensive provider and dependency monitoring
+- **Input Validation**: Complete Pydantic model validation
 
-The gateway provides comprehensive coverage of Riot Games API for League of Legends through multiple providers:
-
-### Core Riot API Endpoints
-- **Account**: Manage player accounts and Riot IDs.
-- **Challenges**: Track player progress in in-game challenges.
-- **Champion**: Access champion-related data, including rotations.
-- **Champion Mastery**: Retrieve champion mastery scores and levels.
-- **Clash**: Get information about Clash tournaments, teams, and players.
-- **League**: Fetch data on ranked leagues, divisions, and standings.
-- **Match**: Access detailed match information, timelines, and histories.
-- **Spectator**: View live game data and featured matches.
-- **Summoner**: Look up summoner profiles by name, PUUID, or ID.
-- **Platform**: Check status of League of Legends platform.
-
-### Data Dragon Community Endpoints
-- **Champions**: Static champion data with skins and information.
-- **Items**: Complete item database with metadata.
-- **TFT Items/Characters**: Teamfight Tactics game data.
-- **TFT Traits/Augments**: TFT specific game elements.
-
-For detailed endpoint documentation, refer to the interactive API docs at `/docs` or the [provider documentation](./docs/api/providers.md).
+[**See All Features →**](https://onestepat4time.github.io/lolstonks-api-gateway/)
 
 ---
 
@@ -96,198 +66,224 @@ For detailed endpoint documentation, refer to the interactive API docs at `/docs
 
 ### Prerequisites
 
-1. Python 3.12+
-1. Docker & Docker Compose (recommended)
-1. A Riot Developer API key ([developer.riotgames.com](https://developer.riotgames.com/))
-1. Optional: `uv` package manager (recommended)
+- Python 3.12+
+- Redis 6.0+
+- Riot Developer API key ([Get one here](https://developer.riotgames.com/))
 
-### Local (Docker) Run
-
-1. Copy `.env.example` to `.env` and set your Riot key:
+### Docker Installation (Recommended)
 
 ```bash
+# Clone the repository
+git clone https://github.com/OneStepAt4time/lolstonks-api-gateway.git
+cd lolstonks-api-gateway
+
+# Configure environment
 cp .env.example .env
-# Edit .env and set RIOT_API_KEY
-```
+# Edit .env and set your RIOT_API_KEY
 
-2. Start services with Docker Compose:
-
-```bash
+# Start with Docker Compose
 docker-compose up -d
-```
 
-3. Health check:
-
-```bash
+# Verify it's running
 curl http://127.0.0.1:8080/health
-# Expect: {"status":"ok"}
 ```
 
-4. Open interactive API docs at: http://127.0.0.1:8080/docs
-
-### Run Locally (venv)
-
-1. Create virtual environment and install dependencies:
+### Local Installation
 
 ```bash
+# Create virtual environment
 python -m venv .venv
 source .venv/bin/activate  # Linux/macOS
-# or
-.venv\Scripts\activate     # Windows
-pip install -U pip
+# or: .venv\Scripts\activate  # Windows
+
+# Install dependencies
 pip install -r requirements.txt
-```
 
-2. Copy `.env.example` to `.env` and run:
-
-```bash
+# Configure and run
 cp .env.example .env
-# set RIOT_API_KEY in .env
+# Edit .env and set your RIOT_API_KEY
 python -m app.main
 ```
+
+**📖 Detailed Setup**: See [Installation Guide](https://onestepat4time.github.io/lolstonks-api-gateway/getting-started/installation/)
 
 ---
 
 ## Configuration
 
-Copy `.env.example` to `.env` and edit values as needed:
+Minimal configuration in `.env`:
 
 ```env
 # Required
 RIOT_API_KEY=RGAPI-your-key-here
 
-# Optional (defaults shown)
-RIOT_DEFAULT_REGION=euw1
-REDIS_HOST=redis
-REDIS_PORT=6379
+# Optional - Multiple keys for rotation
+RIOT_API_KEYS=RGAPI-key1,RGAPI-key2,RGAPI-key3
+
+# Optional - Provider selection
+ENABLED_PROVIDERS=riot_api,data_dragon,community_dragon
+
+# Optional - Server settings
 HOST=127.0.0.1
 PORT=8080
-LOG_LEVEL=INFO
-
-# API Key Rotation (optional)
-RIOT_API_KEYS=RGAPI-key1,RGAPI-key2,RGAPI-key3
 ```
 
-Notes:
-
-- The gateway reads environment variables from `.env` via the `app.config` module.
-- For production, prefer providing real environment variables instead of file-backed `.env`.
-- Multiple API keys can be provided for load distribution via `RIOT_API_KEYS`.
+**⚙️ Full Configuration**: See [Configuration Guide](https://onestepat4time.github.io/lolstonks-api-gateway/getting-started/configuration/)
 
 ---
 
 ## Usage Examples
 
-Get a summoner by name (region query param available):
+### Riot API - Live Data
 
 ```bash
+# Get summoner by name
 curl "http://127.0.0.1:8080/lol/summoner/v4/summoners/by-name/Faker?region=kr"
+
+# Get match history
+curl "http://127.0.0.1:8080/lol/match/v5/matches/by-puuid/{PUUID}/ids?region=euw1&count=5"
+
+# Check active game
+curl "http://127.0.0.1:8080/lol/spectator/v5/active-games/by-summoner/{ID}?region=kr"
 ```
 
-Fetch Challenger players:
+### Data Dragon - Static Data
 
 ```bash
-curl "http://127.0.0.1:8080/lol/league/v4/challengerleagues/by-queue/RANKED_SOLO_5x5?region=euw1"
+# Get all champions
+curl "http://127.0.0.1:8080/ddragon/champions"
+
+# Get specific champion
+curl "http://127.0.0.1:8080/ddragon/champions/Ahri"
+
+# Get items
+curl "http://127.0.0.1:8080/ddragon/items"
 ```
 
-Get champion data from Data Dragon:
+### Community Dragon - Enhanced Assets
 
 ```bash
-curl "http://127.0.0.1:8080/cdragon/champions/v4/champions?region=na1"
+# Get champion skins
+curl "http://127.0.0.1:8080/cdragon/skins"
+
+# Get TFT data
+curl "http://127.0.0.1:8080/cdragon/tft/champions"
 ```
 
-Get match IDs by PUUID:
-
-```bash
-PUUID="player-puuid-here"
-curl "http://127.0.0.1:8080/lol/match/v5/matches/by-puuid/$PUUID/ids?region=euw1&count=10"
-```
+**📚 More Examples**: See [Usage Guide](https://onestepat4time.github.io/lolstonks-api-gateway/getting-started/quick-start/)
 
 ---
 
-## Architecture & Design
+## API Documentation
 
-High-level components:
+Once running, access interactive documentation:
 
-- `app.main`: FastAPI application entrypoint
-- `app.config`: Environment configuration and defaults management
-- `app.providers.*`: Multi-provider system (Riot API, Data Dragon, Community Dragon)
-- `app.riot.client`: Request orchestration, retries, and rate limiting logic
-- `app.cache.redis_cache`: TTL-based caching with Redis backend
-- `app.cache.tracking`: Permanent match tracking set + processed cache
-- `app.routers.*`: Individual API routers organized by provider
-- `app.middleware.*`: Error monitoring and security middleware
-
-Design principles:
-
-- **Provider abstraction**: Common interface for different data sources
-- **Cache-first strategy**: Reduce API calls and improve response times
-- **Graceful degradation**: Fallback between providers when available
-- **Security by design**: Input validation, rate limiting, and error monitoring
-- **Observable**: Comprehensive logging and metrics for production monitoring
+- **Swagger UI**: http://localhost:8080/docs
+- **ReDoc**: http://localhost:8080/redoc
+- **Health Check**: http://localhost:8080/health
 
 ---
 
-## Development
+## Documentation
 
-Recommended workflow:
+Comprehensive documentation available at: **[onestepat4time.github.io/lolstonks-api-gateway](https://onestepat4time.github.io/lolstonks-api-gateway/)**
 
-1. Create a feature branch:
+### Quick Links
 
-```bash
-git checkout -b feat/your-feature
+- [**Installation Guide**](https://onestepat4time.github.io/lolstonks-api-gateway/getting-started/installation/) - Detailed setup instructions
+- [**Configuration**](https://onestepat4time.github.io/lolstonks-api-gateway/getting-started/configuration/) - All configuration options
+- [**API Reference**](https://onestepat4time.github.io/lolstonks-api-gateway/api/overview/) - Complete endpoint documentation
+- [**Architecture**](https://onestepat4time.github.io/lolstonks-api-gateway/architecture/overview/) - System design and components
+- [**Troubleshooting**](https://onestepat4time.github.io/lolstonks-api-gateway/operations/troubleshooting/) - Common issues and solutions
+
+### For Developers
+
+- [**Contributing Guide**](https://onestepat4time.github.io/lolstonks-api-gateway/development/contributing/)
+- [**Changelog**](./CHANGELOG.md) - Version history
+- [**Versioning Guide**](https://onestepat4time.github.io/lolstonks-api-gateway/development/versioning/)
+- [**Release Process**](https://onestepat4time.github.io/lolstonks-api-gateway/development/releases/)
+
+---
+
+## Architecture
+
+```
+┌─────────────┐
+│   Client    │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────────────────────────────┐
+│      FastAPI Application            │
+│  ┌───────────────────────────────┐  │
+│  │   Provider Registry           │  │
+│  ├───────────┬──────────┬────────┤  │
+│  │ Riot API  │ D-Dragon │ C-Dragon│ │
+│  └───────────┴──────────┴────────┘  │
+│  ┌───────────────────────────────┐  │
+│  │   Rate Limiter & Retries      │  │
+│  └───────────────────────────────┘  │
+└─────────────┬───────────────────────┘
+              │
+    ┌─────────┴─────────┐
+    ▼                   ▼
+┌─────────┐      ┌──────────────┐
+│  Redis  │      │  Riot APIs   │
+│  Cache  │      │ D-Dragon CDN │
+└─────────┘      │ C-Dragon CDN │
+                 └──────────────┘
 ```
 
-2. Run the app locally (see Quick Start)
-3. Add tests under `tests/` and run them:
-
-```bash
-make test-quick    # Fast tests
-make test-full     # Comprehensive tests with coverage
-```
-
-4. Code quality checks:
-
-```bash
-make lint          # Run ruff, mypy, and other checks
-make format        # Format code with ruff
-```
+**[Architecture Details →](https://onestepat4time.github.io/lolstonks-api-gateway/architecture/overview/)**
 
 ---
 
 ## Contributing
 
-Contributions are welcome! Please read our [Contributing Guide](./docs/development/contributing.md) for details on:
+We welcome contributions! Please see our [Contributing Guide](https://onestepat4time.github.io/lolstonks-api-gateway/development/contributing/) for:
 
-1. Setting up your development environment
-1. Code style guidelines and best practices
-1. Testing requirements and coverage standards
-1. Pull request process and review criteria
+- Development environment setup
+- Code style guidelines
+- Testing requirements
+- Pull request process
 
 ---
 
-## Support Development
+## Support This Project
 
-If you find LOLStonks API Gateway useful, consider supporting its development:
+If you find LOLStonks API Gateway useful:
 
-- ⭐ **Star this repository** on GitHub
-- 💬 **Share** with others who might find it useful
-- 🐛 **Report issues** or contribute code fixes
-- ☕ **[Buy me a coffee](https://buymeacoffee.com/onestepat4time)** to support ongoing development
+- ⭐ **Star this repository**
+- 💬 **Share** with others
+- 🐛 **Report issues** or contribute code
+- ☕ **[Buy me a coffee](https://buymeacoffee.com/onestepat4time)**
 
-Your support helps cover API costs, server expenses, and dedicated development time. See [SUPPORT.md](./SUPPORT.md) for more ways to help.
+---
+
+## Roadmap
+
+- **Observability**: Prometheus metrics, OpenTelemetry tracing, Grafana dashboards
+- **Admin API**: Cache management, statistics, monitoring dashboard
+- **Enhanced Features**: WebSocket support, GraphQL API, multi-language SDKs
+- **Infrastructure**: Kubernetes manifests, Terraform modules, benchmarking tools
+
+See [GitHub Projects](https://github.com/OneStepAt4time/lolstonks-api-gateway/projects) for current development.
 
 ---
 
 ## License
 
-This project is licensed under the MIT License — see the `LICENSE` file for details.
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
 
 ---
 
 ## Contact
 
-Project: [OneStepAt4time/lolstonks-api-gateway](https://github.com/OneStepAt4time/lolstonks-api-gateway)
-Author: OneStepAt4time
+- **Project**: [github.com/OneStepAt4time/lolstonks-api-gateway](https://github.com/OneStepAt4time/lolstonks-api-gateway)
+- **Documentation**: [onestepat4time.github.io/lolstonks-api-gateway](https://onestepat4time.github.io/lolstonks-api-gateway/)
+- **Issues**: [GitHub Issues](https://github.com/OneStepAt4time/lolstonks-api-gateway/issues)
+- **Author**: OneStepAt4time
 
-For questions, contributions, or support, open an issue or PR on GitHub.
+---
+
+**Built for the League of Legends developer community** 🎮

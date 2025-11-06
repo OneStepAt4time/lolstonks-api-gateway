@@ -1,0 +1,55 @@
+name: Changelog Check
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+    branches:
+      - main
+      - develop
+
+jobs:
+  changelog-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check for CHANGELOG.md changes
+        id: changelog
+        run: |
+          # Check if CHANGELOG.md was modified in this PR
+          git diff --name-only origin/${{ github.base_ref }}...HEAD | grep -q "CHANGELOG.md"
+          echo "changed=$?" >> $GITHUB_OUTPUT
+
+      - name: Check for skip label
+        id: skip_label
+        run: |
+          # Check if PR has 'skip-changelog' label
+          if [[ "${{ contains(github.event.pull_request.labels.*.name, 'skip-changelog') }}" == "true" ]]; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Verify changelog update
+        if: steps.skip_label.outputs.skip != 'true' && steps.changelog.outputs.changed != '0'
+        run: |
+          echo "❌ CHANGELOG.md was not updated in this PR"
+          echo ""
+          echo "Please add an entry to CHANGELOG.md under the [Unreleased] section."
+          echo "See https://keepachangelog.com/ for formatting guidelines."
+          echo ""
+          echo "If this PR doesn't require a changelog entry (e.g., documentation only),"
+          echo "add the 'skip-changelog' label to this PR."
+          exit 1
+
+      - name: Success message
+        if: steps.skip_label.outputs.skip == 'true' || steps.changelog.outputs.changed == '0'
+        run: |
+          if [[ "${{ steps.skip_label.outputs.skip }}" == "true" ]]; then
+            echo "✅ Changelog check skipped (skip-changelog label present)"
+          else
+            echo "✅ CHANGELOG.md has been updated"
+          fi
