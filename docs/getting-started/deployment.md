@@ -63,7 +63,12 @@ Create a secure `.env` file:
 
 ```env
 # Production Configuration
+# Option 1: Single key (basic)
 RIOT_API_KEY=RGAPI-your-production-api-key
+
+# Option 2: Multiple keys (recommended for production)
+# RIOT_API_KEYS=RGAPI-prod-key-1,RGAPI-prod-key-2,RGAPI-prod-key-3
+
 RIOT_DEFAULT_REGION=euw1
 
 # Server Configuration
@@ -400,7 +405,7 @@ sudo ufw allow from 127.0.0.1 to any port 6379
 
 ### Application Security
 
-1. **API Key Rotation**: Implement regular API key rotation
+1. **API Key Rotation**: Use multiple API keys with `RIOT_API_KEYS` for automatic rotation. The gateway uses round-robin rotation across all provided keys to distribute load and provide redundancy.
 2. **Input Validation**: Ensure all inputs are validated (handled by Pydantic)
 3. **Rate Limiting**: Configure appropriate rate limits
 4. **Access Controls**: Implement IP whitelisting if needed

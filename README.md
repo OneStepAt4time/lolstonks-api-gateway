@@ -55,6 +55,7 @@ This gateway is intended for use by any application interacting with Riot Games'
 - Dual-layer match tracking: TTL cache + Redis SET for permanent storage of processed match IDs
 - Rate limiting: token bucket defaults (20 req/s, 100 req/2min)
 - Automatic retry on 429 responses with exponential backoff
+- **API key rotation**: Round-robin rotation across multiple keys for load distribution
 - Multi-region support (EUW1, KR, NA1, BR1, and others)
 - Docker Compose ready for easy deployment
 - Comprehensive router coverage for Riot LoL endpoints
@@ -260,7 +261,6 @@ If you hit problems you can't resolve locally, open an issue with logs and repro
 - Metrics (Prometheus) and tracing (OpenTelemetry)
 - Admin endpoints to inspect/flush caches
 - Pluggable storage backends for match tracking
-- Support for automatic API key rotation
 
 ---
 
