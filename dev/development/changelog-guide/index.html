@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../../operations/security/">
+        <link rel="prev" href="../contributing/">
       
       
-        <link rel="next" href="../changelog-guide/">
+        <link rel="next" href="../versioning/">
       
       
       <link rel="icon" href="../../assets/logo.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Contributing - LOLStonks API Gateway</title>
+        <title>Changelog Guide - LOLStonks API Gateway</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#contributing" class="md-skip">
+        <a href="#changelog-guide" class="md-skip">
           Skip to content
         </a>
       
@@ -111,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Contributing
+              Changelog Guide
             
           </span>
         </div>
@@ -348,7 +348,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+        <a href="../contributing/" class="md-tabs__link">
           
   
   
@@ -1238,6 +1238,29 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -1255,7 +1278,7 @@
   
   
   <span class="md-ellipsis">
-    Contributing
+    Changelog Guide
     
   </span>
   
@@ -1268,7 +1291,7 @@
   
   
   <span class="md-ellipsis">
-    Contributing
+    Changelog Guide
     
   </span>
   
@@ -1291,46 +1314,91 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#code-of-conduct" class="md-nav__link">
+  <a href="#table-of-contents" class="md-nav__link">
     <span class="md-ellipsis">
-      Code of Conduct
+      Table of Contents
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#ways-to-contribute" class="md-nav__link">
+  <a href="#when-to-update-the-changelog" class="md-nav__link">
     <span class="md-ellipsis">
-      Ways to Contribute
+      When to Update the Changelog
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#getting-started" class="md-nav__link">
+  <a href="#changelog-format" class="md-nav__link">
     <span class="md-ellipsis">
-      Getting Started
+      Changelog Format
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Getting Started">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#change-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      Change Categories
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Change Categories">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#development-environment-setup" class="md-nav__link">
+  <a href="#added" class="md-nav__link">
     <span class="md-ellipsis">
-      Development Environment Setup
+      Added
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#project-structure" class="md-nav__link">
+  <a href="#changed" class="md-nav__link">
     <span class="md-ellipsis">
-      Project Structure
+      Changed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deprecated" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deprecated
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#removed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Removed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security
     </span>
   </a>
   
@@ -1342,55 +1410,46 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#development-workflow" class="md-nav__link">
+  <a href="#writing-good-changelog-entries" class="md-nav__link">
     <span class="md-ellipsis">
-      Development Workflow
+      Writing Good Changelog Entries
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Development Workflow">
+    <nav class="md-nav" aria-label="Writing Good Changelog Entries">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-create-a-branch" class="md-nav__link">
+  <a href="#be-specific" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Create a Branch
+      Be Specific
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-make-your-changes" class="md-nav__link">
+  <a href="#use-bold-for-main-topic" class="md-nav__link">
     <span class="md-ellipsis">
-      2. Make Your Changes
+      Use Bold for Main Topic
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-test-your-changes" class="md-nav__link">
+  <a href="#include-context" class="md-nav__link">
     <span class="md-ellipsis">
-      3. Test Your Changes
+      Include Context
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-commit-your-changes" class="md-nav__link">
+  <a href="#group-related-changes" class="md-nav__link">
     <span class="md-ellipsis">
-      4. Commit Your Changes
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-push-and-create-pull-request" class="md-nav__link">
-    <span class="md-ellipsis">
-      5. Push and Create Pull Request
+      Group Related Changes
     </span>
   </a>
   
@@ -1402,28 +1461,46 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#code-style-guidelines" class="md-nav__link">
+  <a href="#release-process" class="md-nav__link">
     <span class="md-ellipsis">
-      Code Style Guidelines
+      Release Process
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Code Style Guidelines">
+    <nav class="md-nav" aria-label="Release Process">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#python-style" class="md-nav__link">
+  <a href="#1-update-version-numbers" class="md-nav__link">
     <span class="md-ellipsis">
-      Python Style
+      1. Update Version Numbers
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#documentation-style" class="md-nav__link">
+  <a href="#2-add-version-links" class="md-nav__link">
     <span class="md-ellipsis">
-      Documentation Style
+      2. Add Version Links
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-semantic-versioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Semantic Versioning
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-create-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Create Release
     </span>
   </a>
   
@@ -1435,19 +1512,28 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#testing-guidelines" class="md-nav__link">
+  <a href="#automated-checks" class="md-nav__link">
     <span class="md-ellipsis">
-      Testing Guidelines
+      Automated Checks
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Testing Guidelines">
+    <nav class="md-nav" aria-label="Automated Checks">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#writing-tests" class="md-nav__link">
+  <a href="#github-actions-workflow" class="md-nav__link">
     <span class="md-ellipsis">
-      Writing Tests
+      GitHub Actions Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skipping-the-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skipping the Check
     </span>
   </a>
   
@@ -1459,28 +1545,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#documentation-guidelines" class="md-nav__link">
+  <a href="#examples" class="md-nav__link">
     <span class="md-ellipsis">
-      Documentation Guidelines
+      Examples
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Documentation Guidelines">
+    <nav class="md-nav" aria-label="Examples">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#updating-documentation" class="md-nav__link">
+  <a href="#example-new-feature" class="md-nav__link">
     <span class="md-ellipsis">
-      Updating Documentation
+      Example: New Feature
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#documentation-structure" class="md-nav__link">
+  <a href="#example-breaking-change" class="md-nav__link">
     <span class="md-ellipsis">
-      Documentation Structure
+      Example: Breaking Change
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-bug-fix-with-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example: Bug Fix with Context
     </span>
   </a>
   
@@ -1492,37 +1587,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#pull-request-process" class="md-nav__link">
+  <a href="#best-practices" class="md-nav__link">
     <span class="md-ellipsis">
-      Pull Request Process
+      Best Practices
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#issue-reporting" class="md-nav__link">
+  <a href="#tools" class="md-nav__link">
     <span class="md-ellipsis">
-      Issue Reporting
+      Tools
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Issue Reporting">
+    <nav class="md-nav" aria-label="Tools">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-reports" class="md-nav__link">
+  <a href="#generate-changelog-from-git-history" class="md-nav__link">
     <span class="md-ellipsis">
-      Bug Reports
+      Generate Changelog from Git History
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#feature-requests" class="md-nav__link">
+  <a href="#validate-changelog-format" class="md-nav__link">
     <span class="md-ellipsis">
-      Feature Requests
+      Validate Changelog Format
     </span>
   </a>
   
@@ -1534,36 +1629,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#contributor-license-agreement" class="md-nav__link">
+  <a href="#questions" class="md-nav__link">
     <span class="md-ellipsis">
-      Contributor License Agreement
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#getting-help" class="md-nav__link">
-    <span class="md-ellipsis">
-      Getting Help
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#recognition" class="md-nav__link">
-    <span class="md-ellipsis">
-      Recognition
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#additional-resources" class="md-nav__link">
-    <span class="md-ellipsis">
-      Additional Resources
+      Questions?
     </span>
   </a>
   
@@ -1573,29 +1641,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../changelog-guide/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Changelog Guide
-    
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -1727,46 +1772,91 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#code-of-conduct" class="md-nav__link">
+  <a href="#table-of-contents" class="md-nav__link">
     <span class="md-ellipsis">
-      Code of Conduct
+      Table of Contents
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#ways-to-contribute" class="md-nav__link">
+  <a href="#when-to-update-the-changelog" class="md-nav__link">
     <span class="md-ellipsis">
-      Ways to Contribute
+      When to Update the Changelog
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#getting-started" class="md-nav__link">
+  <a href="#changelog-format" class="md-nav__link">
     <span class="md-ellipsis">
-      Getting Started
+      Changelog Format
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Getting Started">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#change-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      Change Categories
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Change Categories">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#development-environment-setup" class="md-nav__link">
+  <a href="#added" class="md-nav__link">
     <span class="md-ellipsis">
-      Development Environment Setup
+      Added
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#project-structure" class="md-nav__link">
+  <a href="#changed" class="md-nav__link">
     <span class="md-ellipsis">
-      Project Structure
+      Changed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deprecated" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deprecated
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#removed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Removed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security
     </span>
   </a>
   
@@ -1778,55 +1868,46 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#development-workflow" class="md-nav__link">
+  <a href="#writing-good-changelog-entries" class="md-nav__link">
     <span class="md-ellipsis">
-      Development Workflow
+      Writing Good Changelog Entries
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Development Workflow">
+    <nav class="md-nav" aria-label="Writing Good Changelog Entries">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-create-a-branch" class="md-nav__link">
+  <a href="#be-specific" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Create a Branch
+      Be Specific
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-make-your-changes" class="md-nav__link">
+  <a href="#use-bold-for-main-topic" class="md-nav__link">
     <span class="md-ellipsis">
-      2. Make Your Changes
+      Use Bold for Main Topic
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-test-your-changes" class="md-nav__link">
+  <a href="#include-context" class="md-nav__link">
     <span class="md-ellipsis">
-      3. Test Your Changes
+      Include Context
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-commit-your-changes" class="md-nav__link">
+  <a href="#group-related-changes" class="md-nav__link">
     <span class="md-ellipsis">
-      4. Commit Your Changes
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-push-and-create-pull-request" class="md-nav__link">
-    <span class="md-ellipsis">
-      5. Push and Create Pull Request
+      Group Related Changes
     </span>
   </a>
   
@@ -1838,28 +1919,46 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#code-style-guidelines" class="md-nav__link">
+  <a href="#release-process" class="md-nav__link">
     <span class="md-ellipsis">
-      Code Style Guidelines
+      Release Process
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Code Style Guidelines">
+    <nav class="md-nav" aria-label="Release Process">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#python-style" class="md-nav__link">
+  <a href="#1-update-version-numbers" class="md-nav__link">
     <span class="md-ellipsis">
-      Python Style
+      1. Update Version Numbers
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#documentation-style" class="md-nav__link">
+  <a href="#2-add-version-links" class="md-nav__link">
     <span class="md-ellipsis">
-      Documentation Style
+      2. Add Version Links
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-semantic-versioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Semantic Versioning
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-create-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Create Release
     </span>
   </a>
   
@@ -1871,19 +1970,28 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#testing-guidelines" class="md-nav__link">
+  <a href="#automated-checks" class="md-nav__link">
     <span class="md-ellipsis">
-      Testing Guidelines
+      Automated Checks
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Testing Guidelines">
+    <nav class="md-nav" aria-label="Automated Checks">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#writing-tests" class="md-nav__link">
+  <a href="#github-actions-workflow" class="md-nav__link">
     <span class="md-ellipsis">
-      Writing Tests
+      GitHub Actions Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skipping-the-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skipping the Check
     </span>
   </a>
   
@@ -1895,28 +2003,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#documentation-guidelines" class="md-nav__link">
+  <a href="#examples" class="md-nav__link">
     <span class="md-ellipsis">
-      Documentation Guidelines
+      Examples
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Documentation Guidelines">
+    <nav class="md-nav" aria-label="Examples">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#updating-documentation" class="md-nav__link">
+  <a href="#example-new-feature" class="md-nav__link">
     <span class="md-ellipsis">
-      Updating Documentation
+      Example: New Feature
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#documentation-structure" class="md-nav__link">
+  <a href="#example-breaking-change" class="md-nav__link">
     <span class="md-ellipsis">
-      Documentation Structure
+      Example: Breaking Change
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-bug-fix-with-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example: Bug Fix with Context
     </span>
   </a>
   
@@ -1928,37 +2045,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#pull-request-process" class="md-nav__link">
+  <a href="#best-practices" class="md-nav__link">
     <span class="md-ellipsis">
-      Pull Request Process
+      Best Practices
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#issue-reporting" class="md-nav__link">
+  <a href="#tools" class="md-nav__link">
     <span class="md-ellipsis">
-      Issue Reporting
+      Tools
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Issue Reporting">
+    <nav class="md-nav" aria-label="Tools">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-reports" class="md-nav__link">
+  <a href="#generate-changelog-from-git-history" class="md-nav__link">
     <span class="md-ellipsis">
-      Bug Reports
+      Generate Changelog from Git History
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#feature-requests" class="md-nav__link">
+  <a href="#validate-changelog-format" class="md-nav__link">
     <span class="md-ellipsis">
-      Feature Requests
+      Validate Changelog Format
     </span>
   </a>
   
@@ -1970,36 +2087,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#contributor-license-agreement" class="md-nav__link">
+  <a href="#questions" class="md-nav__link">
     <span class="md-ellipsis">
-      Contributor License Agreement
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#getting-help" class="md-nav__link">
-    <span class="md-ellipsis">
-      Getting Help
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#recognition" class="md-nav__link">
-    <span class="md-ellipsis">
-      Recognition
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#additional-resources" class="md-nav__link">
-    <span class="md-ellipsis">
-      Additional Resources
+      Questions?
     </span>
   </a>
   
@@ -2024,305 +2114,241 @@
   
 
 
-<h1 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">&para;</a></h1>
-<p>Thank you for your interest in contributing to LOLStonks API Gateway! This guide will help you get started with contributing to the project.</p>
-<h2 id="code-of-conduct">Code of Conduct<a class="headerlink" href="#code-of-conduct" title="Permanent link">&para;</a></h2>
-<p>By participating in this project, you agree to be respectful, inclusive, and constructive in all interactions. We expect contributors to:</p>
+<h1 id="changelog-guide">Changelog Guide<a class="headerlink" href="#changelog-guide" title="Permanent link">&para;</a></h1>
+<p>This project follows the <a href="https://keepachangelog.com/en/1.1.0/">Keep a Changelog</a> format and <a href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Be respectful of differing viewpoints and experiences</li>
-<li>Accept constructive criticism gracefully</li>
-<li>Focus on what is best for the community</li>
-<li>Show empathy towards other community members</li>
+<li><a href="#when-to-update-the-changelog">When to Update the Changelog</a></li>
+<li><a href="#changelog-format">Changelog Format</a></li>
+<li><a href="#change-categories">Change Categories</a></li>
+<li><a href="#writing-good-changelog-entries">Writing Good Changelog Entries</a></li>
+<li><a href="#release-process">Release Process</a></li>
+<li><a href="#automated-checks">Automated Checks</a></li>
 </ul>
-<h2 id="ways-to-contribute">Ways to Contribute<a class="headerlink" href="#ways-to-contribute" title="Permanent link">&para;</a></h2>
-<p>There are many ways to contribute to this project:</p>
+<h2 id="when-to-update-the-changelog">When to Update the Changelog<a class="headerlink" href="#when-to-update-the-changelog" title="Permanent link">&para;</a></h2>
+<p>Update <code>CHANGELOG.md</code> whenever you make changes that affect users or developers of the project:</p>
+<p><strong>Always update:</strong>
+- ✅ New features or functionality
+- ✅ Bug fixes
+- ✅ Breaking changes
+- ✅ Deprecations
+- ✅ Security fixes
+- ✅ Performance improvements
+- ✅ API changes</p>
+<p><strong>May skip (use <code>skip-changelog</code> label):</strong>
+- ⏭️ Documentation-only changes
+- ⏭️ Internal refactoring with no external impact
+- ⏭️ Test updates without behavior changes
+- ⏭️ CI/CD configuration changes
+- ⏭️ Development tooling updates</p>
+<h2 id="changelog-format">Changelog Format<a class="headerlink" href="#changelog-format" title="Permanent link">&para;</a></h2>
+<p>The changelog uses the following structure:</p>
+<div class="highlight"><pre><span></span><code><span class="gu">## [Unreleased]</span>
+
+<span class="gu">### Added</span>
+<span class="k">-</span><span class="w"> </span>New feature description
+
+<span class="gu">### Changed</span>
+<span class="k">-</span><span class="w"> </span>Modified feature description
+
+<span class="gu">### Deprecated</span>
+<span class="k">-</span><span class="w"> </span>Soon-to-be removed feature description
+
+<span class="gu">### Removed</span>
+<span class="k">-</span><span class="w"> </span>Removed feature description
+
+<span class="gu">### Fixed</span>
+<span class="k">-</span><span class="w"> </span>Bug fix description
+
+<span class="gu">### Security</span>
+<span class="k">-</span><span class="w"> </span>Security improvement description
+</code></pre></div>
+<h2 id="change-categories">Change Categories<a class="headerlink" href="#change-categories" title="Permanent link">&para;</a></h2>
+<h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">&para;</a></h3>
+<p>New features or capabilities.</p>
+<p><strong>Examples:</strong>
+<div class="highlight"><pre><span></span><code><span class="k">-</span><span class="w"> </span><span class="gs">**Multi-Provider Support**</span>: Integration with Data Dragon and Community Dragon
+<span class="k">-</span><span class="w"> </span><span class="gs">**API Key Rotation**</span>: Round-robin distribution across multiple API keys
+<span class="k">-</span><span class="w"> </span><span class="gs">**TFT Endpoints**</span>: Teamfight Tactics data through <span class="sb">`/cdragon/tft/*`</span>
+</code></pre></div></p>
+<h3 id="changed">Changed<a class="headerlink" href="#changed" title="Permanent link">&para;</a></h3>
+<p>Changes to existing functionality that don't break compatibility.</p>
+<p><strong>Examples:</strong>
+<div class="highlight"><pre><span></span><code><span class="k">-</span><span class="w"> </span><span class="gs">**Cache TTL**</span>: Optimized default TTL values for better performance
+<span class="k">-</span><span class="w"> </span><span class="gs">**Health Check**</span>: Now includes provider-specific status information
+<span class="k">-</span><span class="w"> </span><span class="gs">**Logging**</span>: Enhanced with structured JSON format and request tracing
+</code></pre></div></p>
+<h3 id="deprecated">Deprecated<a class="headerlink" href="#deprecated" title="Permanent link">&para;</a></h3>
+<p>Features that will be removed in upcoming releases.</p>
+<p><strong>Examples:</strong>
+<div class="highlight"><pre><span></span><code><span class="k">-</span><span class="w"> </span><span class="gs">**Single API Key**</span>: Use <span class="sb">`RIOT_API_KEYS`</span> instead of <span class="sb">`RIOT_API_KEY`</span> (will be removed in v3.0)
+<span class="k">-</span><span class="w"> </span><span class="gs">**Legacy Endpoints**</span>: <span class="sb">`/v1/summoner`</span> endpoints deprecated in favor of <span class="sb">`/lol/summoner/v4`</span>
+</code></pre></div></p>
+<h3 id="removed">Removed<a class="headerlink" href="#removed" title="Permanent link">&para;</a></h3>
+<p>Features that have been removed.</p>
+<p><strong>Examples:</strong>
+<div class="highlight"><pre><span></span><code><span class="k">-</span><span class="w"> </span><span class="gs">**Legacy Cache Backend**</span>: Removed in-memory cache option
+<span class="k">-</span><span class="w"> </span><span class="gs">**Deprecated Endpoints**</span>: Removed <span class="sb">`/v1/*`</span> endpoints (use <span class="sb">`/lol/*/v4`</span> instead)
+</code></pre></div></p>
+<h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">&para;</a></h3>
+<p>Bug fixes.</p>
+<p><strong>Examples:</strong>
+<div class="highlight"><pre><span></span><code><span class="k">-</span><span class="w"> </span><span class="gs">**Rate Limiter**</span>: Fixed race condition in token bucket implementation
+<span class="k">-</span><span class="w"> </span><span class="gs">**Cache Keys**</span>: Corrected cache key generation for multi-region requests
+<span class="k">-</span><span class="w"> </span><span class="gs">**Memory Leak**</span>: Resolved HTTP client connection pooling issue
+</code></pre></div></p>
+<h3 id="security">Security<a class="headerlink" href="#security" title="Permanent link">&para;</a></h3>
+<p>Security improvements and vulnerability fixes.</p>
+<p><strong>Examples:</strong>
+<div class="highlight"><pre><span></span><code><span class="k">-</span><span class="w"> </span><span class="gs">**Input Validation**</span>: Added Pydantic validation for all endpoint parameters
+<span class="k">-</span><span class="w"> </span><span class="gs">**API Key Storage**</span>: Improved secure handling of API keys in configuration
+<span class="k">-</span><span class="w"> </span><span class="gs">**Dependencies**</span>: Updated httpx to 0.25.0 to address CVE-2023-XXXXX
+</code></pre></div></p>
+<h2 id="writing-good-changelog-entries">Writing Good Changelog Entries<a class="headerlink" href="#writing-good-changelog-entries" title="Permanent link">&para;</a></h2>
+<h3 id="be-specific">Be Specific<a class="headerlink" href="#be-specific" title="Permanent link">&para;</a></h3>
+<p>❌ <strong>Bad:</strong>
+<div class="highlight"><pre><span></span><code><span class="k">-</span><span class="w"> </span>Fixed bugs
+<span class="k">-</span><span class="w"> </span>Improved performance
+<span class="k">-</span><span class="w"> </span>Updated code
+</code></pre></div></p>
+<p>✅ <strong>Good:</strong>
+<div class="highlight"><pre><span></span><code><span class="k">-</span><span class="w"> </span>Fixed race condition in rate limiter causing 429 errors under high load
+<span class="k">-</span><span class="w"> </span>Improved cache hit rate by 40% through optimized TTL configuration
+<span class="k">-</span><span class="w"> </span>Updated Riot API client to handle new regional routing
+</code></pre></div></p>
+<h3 id="use-bold-for-main-topic">Use Bold for Main Topic<a class="headerlink" href="#use-bold-for-main-topic" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">-</span><span class="w"> </span><span class="gs">**Provider System**</span>: Added abstraction layer for data providers
+<span class="k">-</span><span class="w"> </span><span class="gs">**API Endpoints**</span>: Expanded coverage to 76+ endpoints
+<span class="k">-</span><span class="w"> </span><span class="gs">**Documentation**</span>: Complete overhaul with v2.0 features
+</code></pre></div>
+<h3 id="include-context">Include Context<a class="headerlink" href="#include-context" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">-</span><span class="w"> </span><span class="gs">**Breaking Change - Configuration**</span>: Renamed <span class="sb">`CACHE_TTL`</span> to <span class="sb">`CACHE_TTL_DEFAULT`</span> for clarity
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>Migration: Update your <span class="sb">`.env`</span> file to use the new variable name
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>Old configurations will be supported until v3.0
+</code></pre></div>
+<h3 id="group-related-changes">Group Related Changes<a class="headerlink" href="#group-related-changes" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">-</span><span class="w"> </span><span class="gs">**Provider Architecture**</span>:
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>Added BaseProvider abstraction interface
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>Implemented ProviderRegistry for provider management
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>Created provider-specific routers for Data Dragon and Community Dragon
+</code></pre></div>
+<h2 id="release-process">Release Process<a class="headerlink" href="#release-process" title="Permanent link">&para;</a></h2>
+<h3 id="1-update-version-numbers">1. Update Version Numbers<a class="headerlink" href="#1-update-version-numbers" title="Permanent link">&para;</a></h3>
+<p>When preparing a release, move items from <code>[Unreleased]</code> to a new version section:</p>
+<div class="highlight"><pre><span></span><code><span class="gu">## [Unreleased]</span>
+
+<span class="gu">## [2.1.0] - 2024-11-15</span>
+
+<span class="gu">### Added</span>
+<span class="k">-</span><span class="w"> </span>Feature that was in unreleased
+</code></pre></div>
+<h3 id="2-add-version-links">2. Add Version Links<a class="headerlink" href="#2-add-version-links" title="Permanent link">&para;</a></h3>
+<p>Update the comparison links at the bottom:</p>
+<div class="highlight"><pre><span></span><code>[<span class="nl">Unreleased</span>]: <span class="na">https://github.com/OneStepAt4time/lolstonks-api-gateway/compare/v2.1.0...HEAD</span>
+[<span class="nl">2.1.0</span>]: <span class="na">https://github.com/OneStepAt4time/lolstonks-api-gateway/compare/v2.0.0...v2.1.0</span>
+</code></pre></div>
+<h3 id="3-semantic-versioning">3. Semantic Versioning<a class="headerlink" href="#3-semantic-versioning" title="Permanent link">&para;</a></h3>
+<p>Choose version numbers based on the changes:</p>
 <ul>
-<li><strong>Report bugs</strong>: Submit detailed bug reports with reproduction steps</li>
-<li><strong>Suggest features</strong>: Propose new features or enhancements</li>
-<li><strong>Improve documentation</strong>: Fix typos, clarify instructions, or add examples</li>
-<li><strong>Submit code</strong>: Fix bugs or implement new features</li>
-<li><strong>Review pull requests</strong>: Help review and test other contributors' code</li>
-</ul>
-<h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
-<h3 id="development-environment-setup">Development Environment Setup<a class="headerlink" href="#development-environment-setup" title="Permanent link">&para;</a></h3>
-<ol>
-<li><strong>Fork and clone the repository</strong>:</li>
-</ol>
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/YOUR_USERNAME/lolstonks-api-gateway.git
-<span class="nb">cd</span><span class="w"> </span>lolstonks-api-gateway
-</code></pre></div>
-<ol>
-<li><strong>Install dependencies</strong>:</li>
-</ol>
-<div class="highlight"><pre><span></span><code><span class="c1"># Using UV (recommended)</span>
-uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev,docs]&quot;</span>
-
-<span class="c1"># Or using pip</span>
-pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev,docs]&quot;</span>
-</code></pre></div>
-<ol>
-<li><strong>Set up environment variables</strong>:</li>
-</ol>
-<div class="highlight"><pre><span></span><code>cp<span class="w"> </span>.env.example<span class="w"> </span>.env
-<span class="c1"># Edit .env and add your Riot API key</span>
-</code></pre></div>
-<ol>
-<li><strong>Start Redis</strong> (required for development):</li>
-</ol>
-<div class="highlight"><pre><span></span><code><span class="c1"># Using Docker</span>
-docker-compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>redis
-
-<span class="c1"># Or install Redis locally</span>
-</code></pre></div>
-<ol>
-<li><strong>Run the development server</strong>:</li>
-</ol>
-<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>app.main
-</code></pre></div>
-<h3 id="project-structure">Project Structure<a class="headerlink" href="#project-structure" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>lolstonks-api-gateway/
-├── app/
-│   ├── main.py              # Application entry point
-│   ├── config.py            # Configuration management
-│   ├── routers/             # API endpoint routers
-│   ├── riot/                # Riot API client and rate limiting
-│   ├── cache/               # Caching and match tracking
-│   └── models/              # Data models
-├── docs/                    # Documentation source
-├── tests/                   # Test suite
-└── scripts/                 # Utility scripts
-</code></pre></div>
-<h2 id="development-workflow">Development Workflow<a class="headerlink" href="#development-workflow" title="Permanent link">&para;</a></h2>
-<h3 id="1-create-a-branch">1. Create a Branch<a class="headerlink" href="#1-create-a-branch" title="Permanent link">&para;</a></h3>
-<p>Create a feature branch from <code>main</code> or <code>develop</code>:</p>
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feat/your-feature-name
-<span class="c1"># or</span>
-git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>fix/your-bug-fix
-</code></pre></div>
-<p><strong>Branch naming conventions</strong>:
-- <code>feat/</code> - New features
-- <code>fix/</code> - Bug fixes
-- <code>docs/</code> - Documentation changes
-- <code>refactor/</code> - Code refactoring
-- <code>test/</code> - Test additions or modifications
-- <code>chore/</code> - Maintenance tasks</p>
-<h3 id="2-make-your-changes">2. Make Your Changes<a class="headerlink" href="#2-make-your-changes" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Follow the existing code style and patterns</li>
-<li>Write clear, concise commit messages</li>
-<li>Keep changes focused and atomic</li>
-<li>Add tests for new functionality</li>
-<li>Update documentation as needed</li>
-</ul>
-<h3 id="3-test-your-changes">3. Test Your Changes<a class="headerlink" href="#3-test-your-changes" title="Permanent link">&para;</a></h3>
-<p>Before submitting, ensure your changes pass all checks:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Run tests (when available)</span>
-pytest
-
-<span class="c1"># Run type checking (if configured)</span>
-mypy<span class="w"> </span>app
-
-<span class="c1"># Run linting (if configured)</span>
-ruff<span class="w"> </span>check<span class="w"> </span>app
-</code></pre></div>
-<h3 id="4-commit-your-changes">4. Commit Your Changes<a class="headerlink" href="#4-commit-your-changes" title="Permanent link">&para;</a></h3>
-<p>Write clear commit messages following this format:</p>
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: add support for new Riot API endpoint&quot;</span>
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;fix: resolve rate limiting issue with burst requests&quot;</span>
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;docs: update installation instructions&quot;</span>
-</code></pre></div>
-<p><strong>Commit message format</strong>:
-- Use present tense ("add feature" not "added feature")
-- Use imperative mood ("move cursor to..." not "moves cursor to...")
-- Limit first line to 72 characters
-- Reference issues and pull requests when relevant</p>
-<h3 id="5-push-and-create-pull-request">5. Push and Create Pull Request<a class="headerlink" href="#5-push-and-create-pull-request" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>feat/your-feature-name
-</code></pre></div>
-<p>Then open a pull request on GitHub with:</p>
-<ul>
-<li>Clear title describing the change</li>
-<li>Detailed description of what changed and why</li>
-<li>Reference to any related issues</li>
-<li>Screenshots or examples if applicable</li>
-</ul>
-<h2 id="code-style-guidelines">Code Style Guidelines<a class="headerlink" href="#code-style-guidelines" title="Permanent link">&para;</a></h2>
-<h3 id="python-style">Python Style<a class="headerlink" href="#python-style" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Follow PEP 8 guidelines</li>
-<li>Use type hints for function parameters and return values</li>
-<li>Write docstrings for all public functions and classes</li>
-<li>Keep functions focused and single-purpose</li>
-<li>Use meaningful variable and function names</li>
-</ul>
-<p><strong>Example</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
-
-<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_summoner_by_name</span><span class="p">(</span>
-    <span class="n">summoner_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">region</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;euw1&quot;</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Retrieve summoner information by name.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        summoner_name: The summoner&#39;s in-game name</span>
-<span class="sd">        region: The game region (default: euw1)</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        Summoner data dictionary or None if not found</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Implementation here</span>
-    <span class="k">pass</span>
-</code></pre></div>
-<h3 id="documentation-style">Documentation Style<a class="headerlink" href="#documentation-style" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Use clear, concise language</li>
-<li>Include code examples for complex features</li>
-<li>Keep line length reasonable (80-100 characters)</li>
-<li>Use proper markdown formatting</li>
-<li>Avoid jargon and explain technical terms</li>
-</ul>
-<h2 id="testing-guidelines">Testing Guidelines<a class="headerlink" href="#testing-guidelines" title="Permanent link">&para;</a></h2>
-<h3 id="writing-tests">Writing Tests<a class="headerlink" href="#writing-tests" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Write tests for all new functionality</li>
-<li>Ensure tests are isolated and reproducible</li>
-<li>Use descriptive test names</li>
-<li>Test both success and failure cases</li>
-<li>Mock external API calls</li>
-</ul>
-<p><strong>Example test structure</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">app.riot.client</span><span class="w"> </span><span class="kn">import</span> <span class="n">RiotClient</span>
-
-<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">asyncio</span>
-<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_get_summoner_by_name_success</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test successful summoner retrieval.&quot;&quot;&quot;</span>
-    <span class="n">client</span> <span class="o">=</span> <span class="n">RiotClient</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;test-key&quot;</span><span class="p">)</span>
-    <span class="c1"># Test implementation</span>
-    <span class="k">pass</span>
-
-<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">asyncio</span>
-<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_get_summoner_by_name_not_found</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test summoner not found scenario.&quot;&quot;&quot;</span>
-    <span class="c1"># Test implementation</span>
-    <span class="k">pass</span>
-</code></pre></div>
-<h2 id="documentation-guidelines">Documentation Guidelines<a class="headerlink" href="#documentation-guidelines" title="Permanent link">&para;</a></h2>
-<h3 id="updating-documentation">Updating Documentation<a class="headerlink" href="#updating-documentation" title="Permanent link">&para;</a></h3>
-<p>When making changes that affect documentation:</p>
-<ol>
-<li>Update relevant <code>.md</code> files in the <code>docs/</code> directory</li>
-<li>Test documentation locally:</li>
-</ol>
-<div class="highlight"><pre><span></span><code>mkdocs<span class="w"> </span>serve
-</code></pre></div>
-<ol>
-<li>Ensure all links work correctly</li>
-<li>Add code examples for new features</li>
-<li>Update API reference if endpoints change</li>
-</ol>
-<h3 id="documentation-structure">Documentation Structure<a class="headerlink" href="#documentation-structure" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>Getting Started</strong>: Installation and quick start guides</li>
-<li><strong>API Reference</strong>: Endpoint documentation</li>
-<li><strong>Architecture</strong>: System design and component documentation</li>
-<li><strong>Development</strong>: Contributing and development guides</li>
-<li><strong>Operations</strong>: Deployment and maintenance guides</li>
-</ul>
-<h2 id="pull-request-process">Pull Request Process<a class="headerlink" href="#pull-request-process" title="Permanent link">&para;</a></h2>
-<ol>
-<li><strong>Before submitting</strong>:</li>
-<li>Ensure all tests pass</li>
-<li>Update documentation</li>
-<li>Rebase on latest main/develop</li>
+<li><strong>MAJOR (3.0.0)</strong>: Breaking changes</li>
+<li>API endpoint removals</li>
+<li>Incompatible configuration changes</li>
 <li>
-<p>Resolve any merge conflicts</p>
+<p>Major architecture changes</p>
 </li>
 <li>
-<p><strong>PR requirements</strong>:</p>
+<p><strong>MINOR (2.1.0)</strong>: New features, no breaking changes</p>
 </li>
-<li>Clear description of changes</li>
-<li>Link to related issue (if applicable)</li>
-<li>Tests pass and coverage maintained</li>
-<li>Documentation updated</li>
+<li>New endpoints</li>
+<li>New providers</li>
 <li>
-<p>Code reviewed by at least one maintainer</p>
+<p>New configuration options (with defaults)</p>
 </li>
 <li>
-<p><strong>After submission</strong>:</p>
+<p><strong>PATCH (2.0.1)</strong>: Bug fixes, no breaking changes</p>
 </li>
-<li>Respond to review comments</li>
-<li>Make requested changes</li>
-<li>Keep PR updated with main branch</li>
-<li>Be patient and respectful</li>
-</ol>
-<h2 id="issue-reporting">Issue Reporting<a class="headerlink" href="#issue-reporting" title="Permanent link">&para;</a></h2>
-<h3 id="bug-reports">Bug Reports<a class="headerlink" href="#bug-reports" title="Permanent link">&para;</a></h3>
-<p>When reporting bugs, include:</p>
-<ul>
-<li>Clear, descriptive title</li>
-<li>Steps to reproduce</li>
-<li>Expected behavior</li>
-<li>Actual behavior</li>
-<li>Environment details (OS, Python version, etc.)</li>
-<li>Error messages and stack traces</li>
-<li>Relevant logs</li>
+<li>Bug fixes</li>
+<li>Security patches</li>
+<li>Performance improvements</li>
 </ul>
-<p><strong>Example</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="gu">## Bug Description</span>
-Rate limiter fails under high concurrent load
+<h3 id="4-create-release">4. Create Release<a class="headerlink" href="#4-create-release" title="Permanent link">&para;</a></h3>
+<p>After updating the changelog:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Tag the release</span>
+git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v2.1.0<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Release v2.1.0&quot;</span>
 
-<span class="gu">## Steps to Reproduce</span>
-<span class="k">1.</span> Start gateway with default configuration
-<span class="k">2.</span> Send 100 concurrent requests
-<span class="k">3.</span> Observe rate limit errors
-
-<span class="gu">## Expected Behavior</span>
-All requests should be properly rate limited
-
-<span class="gu">## Actual Behavior</span>
-Some requests bypass rate limiter
-
-<span class="gu">## Environment</span>
-<span class="k">-</span><span class="w"> </span>Python: 3.12.0
-<span class="k">-</span><span class="w"> </span>OS: Ubuntu 22.04
-<span class="k">-</span><span class="w"> </span>Redis: 7.0.5
+<span class="c1"># Push the tag</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>v2.1.0
 </code></pre></div>
-<h3 id="feature-requests">Feature Requests<a class="headerlink" href="#feature-requests" title="Permanent link">&para;</a></h3>
-<p>When suggesting features, include:</p>
+<h2 id="automated-checks">Automated Checks<a class="headerlink" href="#automated-checks" title="Permanent link">&para;</a></h2>
+<h3 id="github-actions-workflow">GitHub Actions Workflow<a class="headerlink" href="#github-actions-workflow" title="Permanent link">&para;</a></h3>
+<p>The project includes a GitHub Actions workflow (<code>.github/workflows/changelog.yml</code>) that:</p>
+<ol>
+<li><strong>Checks PRs</strong>: Verifies that <code>CHANGELOG.md</code> is updated in pull requests</li>
+<li><strong>Allows Skip</strong>: PRs labeled <code>skip-changelog</code> bypass the check</li>
+<li><strong>Blocks Merge</strong>: PRs without changelog updates (and without skip label) cannot merge</li>
+</ol>
+<h3 id="skipping-the-check">Skipping the Check<a class="headerlink" href="#skipping-the-check" title="Permanent link">&para;</a></h3>
+<p>For documentation-only or internal changes, add the <code>skip-changelog</code> label to your PR:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Via GitHub CLI</span>
+gh<span class="w"> </span>pr<span class="w"> </span>edit<span class="w"> </span>&lt;PR_NUMBER&gt;<span class="w"> </span>--add-label<span class="w"> </span>skip-changelog
+</code></pre></div>
+<p>Or add the label through the GitHub web interface.</p>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<h3 id="example-new-feature">Example: New Feature<a class="headerlink" href="#example-new-feature" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="gu">## [Unreleased]</span>
+
+<span class="gu">### Added</span>
+<span class="k">-</span><span class="w"> </span><span class="gs">**GraphQL API**</span>: New GraphQL endpoint at <span class="sb">`/graphql`</span> for flexible data queries
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>Supports all Riot API endpoints
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>Includes Data Dragon static data
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>Auto-generated schema from Pydantic models
+</code></pre></div>
+<h3 id="example-breaking-change">Example: Breaking Change<a class="headerlink" href="#example-breaking-change" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="gu">## [Unreleased]</span>
+
+<span class="gu">### Changed</span>
+<span class="k">-</span><span class="w"> </span><span class="gs">**BREAKING: Configuration Format**</span>: Environment variables now use <span class="sb">`LOLSTONKS_`</span> prefix
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>Migration: Add <span class="sb">`LOLSTONKS_`</span> prefix to all environment variables
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>Example: <span class="sb">`RIOT_API_KEY`</span> → <span class="sb">`LOLSTONKS_RIOT_API_KEY`</span>
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>Old format will be removed in v3.0.0
+</code></pre></div>
+<h3 id="example-bug-fix-with-context">Example: Bug Fix with Context<a class="headerlink" href="#example-bug-fix-with-context" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="gu">## [Unreleased]</span>
+
+<span class="gu">### Fixed</span>
+<span class="k">-</span><span class="w"> </span><span class="gs">**Rate Limiter**</span>: Fixed token bucket exhaustion under sustained high load
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>Issue: Rate limiter would occasionally allow requests to exceed configured limits
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>Impact: Could result in 429 errors from Riot API
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>Resolution: Improved thread-safe token acquisition logic
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>Related: <span class="ni">#123</span>, <span class="ni">#145</span>
+</code></pre></div>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Update as You Code</strong>: Add changelog entries with your code changes, not at release time</li>
+<li><strong>User Perspective</strong>: Write from the user's point of view, not implementation details</li>
+<li><strong>Group Logically</strong>: Keep related changes together</li>
+<li><strong>Link Issues</strong>: Reference GitHub issues when relevant</li>
+<li><strong>Be Honest</strong>: Don't hide breaking changes or known issues</li>
+<li><strong>Review History</strong>: Check <code>git log --oneline</code> for changes you might have missed</li>
+</ol>
+<h2 id="tools">Tools<a class="headerlink" href="#tools" title="Permanent link">&para;</a></h2>
+<h3 id="generate-changelog-from-git-history">Generate Changelog from Git History<a class="headerlink" href="#generate-changelog-from-git-history" title="Permanent link">&para;</a></h3>
+<p>Quick script to extract recent commits:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Get commits since last release</span>
+git<span class="w"> </span>log<span class="w"> </span>v2.0.0..HEAD<span class="w"> </span>--pretty<span class="o">=</span>format:<span class="s2">&quot;- %s&quot;</span><span class="w"> </span>--reverse
+</code></pre></div>
+<h3 id="validate-changelog-format">Validate Changelog Format<a class="headerlink" href="#validate-changelog-format" title="Permanent link">&para;</a></h3>
+<p>The project includes a changelog validation script:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check changelog format (future addition)</span>
+python<span class="w"> </span>scripts/validate_changelog.py
+</code></pre></div>
+<h2 id="questions">Questions?<a class="headerlink" href="#questions" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Clear description of the feature</li>
-<li>Use case and motivation</li>
-<li>Proposed implementation (optional)</li>
-<li>Potential impact on existing functionality</li>
+<li>See <a href="https://keepachangelog.com/">Keep a Changelog</a> for the full specification</li>
+<li>Check <a href="https://semver.org/">Semantic Versioning</a> for version numbering rules</li>
+<li>Review past releases in <code>CHANGELOG.md</code> for examples</li>
+<li>Ask in team discussions or GitHub issues for clarification</li>
 </ul>
-<h2 id="contributor-license-agreement">Contributor License Agreement<a class="headerlink" href="#contributor-license-agreement" title="Permanent link">&para;</a></h2>
-<p>By contributing to this repository, you agree that:</p>
-<ul>
-<li>Your contributions will be licensed under the MIT License</li>
-<li>You have the right to contribute the code/documentation</li>
-<li>You understand your contributions may be modified or rejected</li>
-</ul>
-<h2 id="getting-help">Getting Help<a class="headerlink" href="#getting-help" title="Permanent link">&para;</a></h2>
-<p>If you need help with contributing:</p>
-<ul>
-<li>Check existing documentation</li>
-<li>Search existing issues and pull requests</li>
-<li>Open a discussion on GitHub</li>
-<li>Ask questions in pull request comments</li>
-</ul>
-<h2 id="recognition">Recognition<a class="headerlink" href="#recognition" title="Permanent link">&para;</a></h2>
-<p>All contributors will be recognized in the project. Significant contributions may be highlighted in release notes.</p>
-<h2 id="additional-resources">Additional Resources<a class="headerlink" href="#additional-resources" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="https://guides.github.com/introduction/flow/">GitHub Flow Guide</a></li>
-<li><a href="https://chris.beams.io/posts/git-commit/">Writing Good Commit Messages</a></li>
-<li><a href="https://docs.python.org/3/library/typing.html">Python Type Hints</a></li>
-<li><a href="https://fastapi.tiangolo.com/">FastAPI Documentation</a></li>
-</ul>
-<p>Thank you for contributing to LOLStonks API Gateway!</p>
 
 
 
