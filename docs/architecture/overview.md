@@ -2,10 +2,150 @@
 
 This section provides a comprehensive overview of the LOLStonks API Gateway architecture, its components, and design principles.
 
+## Multi-Source Architecture
+
+The LOLStonks API Gateway has evolved into a **comprehensive data integration platform** supporting three distinct data sources:
+
+### Supported Providers
+
+| Provider | Type | Endpoints | Auth Required | Description |
+|----------|------|-----------|---------------|-------------|
+| **Riot API** | Live Data | 40+ | ✅ Yes | Real-time game data from Riot Developer Portal |
+| **Data Dragon** | Static Data | 14 | ❌ No | Static game assets from Riot's CDN |
+| **Community Dragon** | Enhanced Static | 22 | ❌ No | Community-maintained enhanced data |
+
+**Total: 76+ endpoints with comprehensive API coverage**
+
+### Provider Abstraction Layer
+
+All providers implement a common `BaseProvider` interface, enabling consistent interaction patterns:
+
+```python
+class BaseProvider(ABC):
+    @abstractmethod
+    async def get(self, path: str, params: dict, headers: dict):
+        """Make API request to the provider."""
+
+    @abstractmethod
+    async def health_check(self) -> bool:
+        """Check provider availability."""
+
+    @property
+    @abstractmethod
+    def provider_type(self) -> ProviderType:
+        """Return the provider type."""
+```
+
+### Provider Registry
+
+The `ProviderRegistry` singleton manages all provider instances and enables dynamic provider lookup:
+
+```python
+from app.providers.registry import get_provider
+from app.providers.base import ProviderType
+
+# Get specific provider
+riot_provider = get_provider(ProviderType.RIOT_API)
+ddragon_provider = get_provider(ProviderType.DATA_DRAGON)
+```
+
 ## High-Level Architecture
 
-### Simplified Request Flow
+### Comprehensive Multi-Provider Architecture
 
+The LOLStonks API Gateway v2.0 has evolved into a comprehensive data integration platform supporting three distinct data sources with unified access patterns.
+
+### System Architecture Diagram
+
+```mermaid
+graph TB
+    subgraph "Client Applications"
+        WebApp[Web Application]
+        MobileApp[Mobile App]
+        CLI[CLI Tool]
+        External[External Service]
+    end
+
+    subgraph "LOLStonks API Gateway v2.0"
+        Gateway[FastAPI Gateway]
+
+        subgraph "Core Components"
+            RateLimiter[Rate Limiter]
+            Cache[Redis Cache]
+            HealthCheck[Health Monitor]
+            Security[Security Monitor]
+        end
+
+        subgraph "Provider Layer"
+            Registry[Provider Registry]
+
+            subgraph "Data Sources"
+                Riot[Riot API Provider<br/>40+ endpoints]
+                DDragon[Data Dragon Provider<br/>14 endpoints]
+                CDragon[Community Dragon Provider<br/>22 endpoints]
+            end
+        end
+
+        subgraph "API Router Layer"
+            RiotRoutes[Riot API Routes]
+            DDRoutes[Data Dragon Routes]
+            CDRoutes[Community Dragon Routes]
+            HealthRoutes[Health Routes]
+            SecurityRoutes[Security Routes]
+        end
+    end
+
+    subgraph "External Data Sources"
+        RiotAPI[Riot Developer API<br/>Live Data]
+        DDragonCDN[Data Dragon CDN<br/>Static Game Data]
+        CDragonAPI[Community Dragon API<br/>Enhanced Assets]
+    end
+
+    subgraph "Infrastructure"
+        RedisServer[(Redis Server)]
+        Monitoring[Monitoring Stack]
+        LoadBalancer[Load Balancer]
+    end
+
+    %% Client Connections
+    WebApp --> Gateway
+    MobileApp --> Gateway
+    CLI --> Gateway
+    External --> Gateway
+
+    %% Gateway Internal Flow
+    Gateway --> RateLimiter
+    Gateway --> Cache
+    Gateway --> HealthCheck
+    Gateway --> Security
+
+    Gateway --> Registry
+    Registry --> Riot
+    Registry --> DDragon
+    Registry --> CDragon
+
+    Gateway --> RiotRoutes
+    Gateway --> DDRoutes
+    Gateway --> CDRoutes
+    Gateway --> HealthRoutes
+    Gateway --> SecurityRoutes
+
+    %% Provider Connections to External
+    Riot --> RiotAPI
+    DDragon --> DDragonCDN
+    CDragon --> CDragonAPI
+
+    %% Infrastructure Connections
+    Cache --> RedisServer
+    HealthCheck --> RedisServer
+    Security --> RedisServer
+    HealthCheck --> Monitoring
+    Security --> Monitoring
+```
+
+### Request Flow Patterns
+
+#### Simplified Request Flow
 ```mermaid
 flowchart LR
     Client -->|HTTP Request| Gateway[FastAPI Gateway]
@@ -13,41 +153,13 @@ flowchart LR
     RateLimiter -->|Cache Lookup| Redis[Redis Cache]
     Redis -->|Cache Miss| Gateway
     Redis -->|Cache Hit| Gateway
-    Gateway -->|API Request| Riot[Riot API]
-    Riot -->|Response| Gateway
+    Gateway -->|Provider Selection| Provider[Provider Registry]
+    Provider -->|API Request| DataSource[Data Source]
+    DataSource -->|Response| Gateway
     Gateway -->|Store Processed Data| Redis
 
     Gateway -.->|Rate Limit Exceeded| Client
     Gateway -.->|Error Response| Client
-```
-
-### Detailed System Architecture
-
-```mermaid
-graph TB
-    Client[Client Applications] --> Gateway[LOLStonks API Gateway]
-    Gateway --> RateLimiter[Rate Limiter]
-    Gateway --> Cache[Redis Cache]
-    Gateway --> RiotAPI[Riot Games API]
-
-    subgraph "Gateway Components"
-        Gateway --> FastAPI[FastAPI Application]
-        Gateway --> Routers[API Routers]
-        Gateway --> RiotClient[Riot Client]
-        Gateway --> MatchTracking[Match Tracking]
-        Gateway --> ErrorHandler[Error Handler]
-    end
-
-    subgraph "External Services"
-        Redis[(Redis Server)]
-        Riot[Riot Developer Portal]
-    end
-
-    Cache --> Redis
-    MatchTracking --> Redis
-    RiotClient --> Riot
-    ErrorHandler -.-> Client
-    RateLimiter -.-> Client
 ```
 
 ## Core Components
@@ -66,28 +178,67 @@ The main entry point that provides:
 - High performance async request handling
 - Built-in support for CORS, middleware, and dependency injection
 
-### 2. Riot Client (`app.riot.client`)
+### 2. Provider Registry (`app.providers.registry`)
 
-Specialized HTTP client for Riot API communication:
+Central management system for all data source providers:
 
 ```python
-class RiotClient:
+class ProviderRegistry:
     """
-    HTTP client for Riot API with rate limiting and retry logic.
+    Singleton registry for managing all data providers.
 
     Features:
-    - Automatic rate limiting before requests
-    - Retry on 429 responses with exponential backoff
-    - Region-aware URL routing
-    - Authentication header management
+    - Dynamic provider registration
+    - Provider lifecycle management
+    - Health monitoring for all providers
+    - Unified interface for multi-provider support
     """
 ```
 
-**Responsibilities:**
-- **Rate Limiting**: Token bucket algorithm for request throttling
-- **Retry Logic**: Automatic retry with `Retry-After` header handling
-- **Region Management**: Dynamic URL construction per region
-- **Authentication**: Automatic API key injection
+**Provider Types:**
+- **Riot API Provider**: Live game data, match history, summoner information
+- **Data Dragon Provider**: Static game data (champions, items, runes)
+- **Community Dragon Provider**: Enhanced static data with additional assets
+
+### 3. Provider Abstraction Layer (`app.providers.base`)
+
+Common interface for all data providers:
+
+```python
+class BaseProvider(ABC):
+    @abstractmethod
+    async def get(self, path: str, params: dict, headers: dict):
+        """Make API request to the provider."""
+
+    @abstractmethod
+    async def health_check(self) -> ProviderHealth:
+        """Check provider availability and performance."""
+
+    @property
+    @abstractmethod
+    def provider_type(self) -> ProviderType:
+        """Return the provider type identifier."""
+```
+
+### 4. Specialized Providers (`app.providers.*`)
+
+#### Riot API Provider
+- **Authentication**: API key management and rotation
+- **Rate Limiting**: Token bucket algorithm compliant with Riot's limits
+- **Retry Logic**: Exponential backoff for 429 responses
+- **Region Management**: Dynamic routing to regional endpoints
+
+#### Data Dragon Provider
+- **CDN Integration**: Direct access to Riot's static asset CDN
+- **Version Management**: Support for multiple game versions
+- **Language Support**: Multi-language static data
+- **Cache Optimization**: Long-term caching for immutable data
+
+#### Community Dragon Provider
+- **Enhanced Assets**: Access to community-maintained enhanced data
+- **TFT Support**: Teamfight Tactics data and assets
+- **High-Quality Media**: Superior image and audio assets
+- **Extended Information**: Additional game metadata
 
 ### 3. Rate Limiter (`app.riot.rate_limiter`)
 

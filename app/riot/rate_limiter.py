@@ -41,10 +41,20 @@ class RiotRateLimiter:
         Acquire rate limit tokens before making a request.
 
         Blocks until both rate limiters have available tokens.
-        Uses nested context managers to ensure both limits are respected.
+        Creates fresh AsyncLimiter instances per event loop to avoid reuse warnings.
         """
-        async with self.limiter_1s:
-            async with self.limiter_2min:
+        # Create fresh limiters for this event loop to avoid reuse warnings
+        limiter_1s = AsyncLimiter(
+            max_rate=settings.riot_rate_limit_per_second,
+            time_period=1,
+        )
+        limiter_2min = AsyncLimiter(
+            max_rate=settings.riot_rate_limit_per_2min,
+            time_period=120,
+        )
+
+        async with limiter_1s:
+            async with limiter_2min:
                 pass
 
 

@@ -1,5 +1,5 @@
 site_name: LOLStonks API Gateway
-site_description: Riot Games API Gateway with caching, rate limiting, and match tracking
+site_description: Unified League of Legends API Gateway with caching, rate limiting, and comprehensive monitoring
 repo_url: https://github.com/OneStepAt4time/lolstonks-api-gateway
 edit_uri: edit/main/docs/
 
@@ -61,10 +61,12 @@ nav:
   - API Reference:
     - OpenAPI Specification: api/openapi-spec.md
     - Overview: api/overview.md
+    - Providers: api/providers.md
     - Riot Client: api/riot-client.md
     - Models: api/models.md
     - Routers: api/routers.md
     - Cache: api/cache.md
+    - Security: api/security.md
   - Architecture:
     - Overview: architecture/overview.md
     - Implementation Details: architecture/implementation-details.md
@@ -72,7 +74,6 @@ nav:
     - Rate Limiting: architecture/rate-limiting.md
     - Caching Strategy: architecture/caching.md
   - Operations:
-    - Implementation Status: operations/implementation-status.md
     - Monitoring: operations/monitoring.md
     - Troubleshooting: operations/troubleshooting.md
     - Security: operations/security.md
@@ -88,7 +89,6 @@ markdown_extensions:
       custom_fences:
         - name: mermaid
           class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.highlight
   - pymdownx.inlinehilite
   - pymdownx.snippets

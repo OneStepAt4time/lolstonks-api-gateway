@@ -126,6 +126,9 @@ class RiotClient:
         headers = {"X-Riot-Token": api_key}
         response = await self.client.get(url, params=params, headers=headers)
 
+        # Debug: Log status code for troubleshooting
+        logger.info(f"Riot API status: {response.status_code} for {url}")
+
         # Handle 429 (rate limited) - try next key or wait if all exhausted
         if response.status_code == 429:
             retry_after = int(response.headers.get("Retry-After", 1))
@@ -149,6 +152,18 @@ class RiotClient:
 
             # Reset counter and try again from first key
             return await self.get(path, region, is_platform_endpoint, params, _attempted_keys=0)
+
+        # Handle 401 (Unauthorized) - API key invalid or expired
+        if response.status_code == 401:
+            error_msg = "API key is invalid or expired"
+            logger.error(f"Authentication failed (401): {error_msg} [region={region}]")
+            raise ValueError(error_msg)
+
+        # Handle 403 (Forbidden) - API key doesn't have access or endpoint/region restriction
+        if response.status_code == 403:
+            error_msg = "API key doesn't have access to this endpoint or region"
+            logger.error(f"Access forbidden (403): {error_msg} [region={region}]")
+            raise ValueError(error_msg)
 
         # Raise on other HTTP errors
         response.raise_for_status()
