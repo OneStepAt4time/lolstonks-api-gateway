@@ -1946,7 +1946,7 @@
 <h1 id="implementation-status">Implementation Status<a class="headerlink" href="#implementation-status" title="Permanent link">&para;</a></h1>
 <p>This document provides a clear overview of which features described in the Operations documentation are <strong>currently implemented</strong> versus <strong>potential future enhancements</strong>.</p>
 <blockquote>
-<p><strong>Last Updated</strong>: 2025-10-29</p>
+<p><strong>Last Updated</strong>: 2025-11-06</p>
 </blockquote>
 <hr />
 <h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
@@ -2085,9 +2085,14 @@
 <td><code>app/config.py</code></td>
 </tr>
 <tr>
+<td><strong>API Key Rotation</strong></td>
+<td>Round-robin rotation across multiple API keys</td>
+<td><code>app/riot/key_rotator.py</code>, <code>app/config.py:59-82</code></td>
+</tr>
+<tr>
 <td><strong>Redis Password Auth</strong></td>
 <td>Optional password for Redis connection</td>
-<td><code>app/config.py:27</code></td>
+<td><code>app/config.py:92</code></td>
 </tr>
 </tbody>
 </table>
@@ -2128,11 +2133,6 @@
 </tr>
 </thead>
 <tbody>
-<tr>
-<td><strong>API Key Rotation</strong></td>
-<td>Automated key rotation system</td>
-<td><code>security.md</code> - Key Rotation Strategy</td>
-</tr>
 <tr>
 <td><strong>Advanced Input Sanitization</strong></td>
 <td>SecurityValidator class for string sanitization</td>
@@ -2206,9 +2206,9 @@
 </tr>
 <tr>
 <td><strong>Security</strong></td>
-<td>5 features</td>
-<td>11 features</td>
-<td>31%</td>
+<td>6 features</td>
+<td>10 features</td>
+<td>38%</td>
 </tr>
 <tr>
 <td><strong>Infrastructure</strong></td>
@@ -2218,9 +2218,9 @@
 </tr>
 <tr>
 <td><strong>Overall</strong></td>
-<td>12 features</td>
-<td>21 features</td>
-<td>36%</td>
+<td>13 features</td>
+<td>20 features</td>
+<td>39%</td>
 </tr>
 </tbody>
 </table>
@@ -2233,6 +2233,7 @@
 <li>Pydantic input validation</li>
 <li>Riot API rate limiting (aiolimiter)</li>
 <li>Environment-based configuration</li>
+<li>API key rotation (round-robin)</li>
 <li>Redis password authentication</li>
 </ol>
 <h4 id="infrastructure-level-external-to-application">⚠️ Infrastructure Level (External to Application)<a class="headerlink" href="#infrastructure-level-external-to-application" title="Permanent link">&para;</a></h4>
@@ -2251,7 +2252,6 @@
 <li>IP-based rate limiting and blocking</li>
 <li>CORS middleware</li>
 <li>Security event logging</li>
-<li>API key rotation automation</li>
 <li>Admin endpoint authentication</li>
 <li>Advanced health checks</li>
 <li>Custom business metrics</li>
@@ -2283,7 +2283,6 @@
 <li><strong>IP-Based Rate Limiting</strong>: Prevents abuse from individual users</li>
 <li><strong>ELK Stack</strong>: Helpful for large-scale deployments</li>
 <li><strong>OpenTelemetry</strong>: Useful for microservice architectures</li>
-<li><strong>API Key Rotation</strong>: Good security practice</li>
 </ul>
 <h4 id="priority-3-nice-to-have">Priority 3: Nice to Have 🟢<a class="headerlink" href="#priority-3-nice-to-have" title="Permanent link">&para;</a></h4>
 <ul>
@@ -2315,10 +2314,9 @@
 <ol>
 <li>ELK stack integration</li>
 <li>OpenTelemetry distributed tracing</li>
-<li>API key rotation automation</li>
 <li>Admin endpoint authentication</li>
 </ol>
-<p><strong>Estimated Effort</strong>: 5-7 days
+<p><strong>Estimated Effort</strong>: 4-6 days
 <strong>Priority</strong>: Medium-Low</p>
 <hr />
 <h2 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">&para;</a></h2>
@@ -2348,7 +2346,7 @@
 <li>✅ Regular updates to this status document</li>
 </ul>
 <hr />
-<p><em>Last Updated: 2025-10-29</em>
+<p><em>Last Updated: 2025-11-06</em>
 <em>For questions or updates, see the <a href="../../development/contributing/">contributing guide</a>.</em></p>
 
 

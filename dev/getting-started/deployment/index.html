@@ -2133,7 +2133,12 @@ nano<span class="w"> </span>.env<span class="w">  </span><span class="c1"># Edit
 <h3 id="3-environment-configuration">3. Environment Configuration<a class="headerlink" href="#3-environment-configuration" title="Permanent link">&para;</a></h3>
 <p>Create a secure <code>.env</code> file:</p>
 <div class="highlight"><pre><span></span><code># Production Configuration
+# Option 1: Single key (basic)
 RIOT_API_KEY=RGAPI-your-production-api-key
+
+# Option 2: Multiple keys (recommended for production)
+# RIOT_API_KEYS=RGAPI-prod-key-1,RGAPI-prod-key-2,RGAPI-prod-key-3
+
 RIOT_DEFAULT_REGION=euw1
 
 # Server Configuration
@@ -2409,7 +2414,7 @@ sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </s
 </code></pre></div>
 <h3 id="application-security">Application Security<a class="headerlink" href="#application-security" title="Permanent link">&para;</a></h3>
 <ol>
-<li><strong>API Key Rotation</strong>: Implement regular API key rotation</li>
+<li><strong>API Key Rotation</strong>: Use multiple API keys with <code>RIOT_API_KEYS</code> for automatic rotation. The gateway uses round-robin rotation across all provided keys to distribute load and provide redundancy.</li>
 <li><strong>Input Validation</strong>: Ensure all inputs are validated (handled by Pydantic)</li>
 <li><strong>Rate Limiting</strong>: Configure appropriate rate limits</li>
 <li><strong>Access Controls</strong>: Implement IP whitelisting if needed</li>

@@ -1183,15 +1183,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#key-rotation-strategy-potential-enhancement" class="md-nav__link">
-    <span class="md-ellipsis">
-      Key Rotation Strategy (Potential Enhancement)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#key-storage-best-practices" class="md-nav__link">
     <span class="md-ellipsis">
       Key Storage Best Practices
@@ -1678,15 +1669,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#key-rotation-strategy-potential-enhancement" class="md-nav__link">
-    <span class="md-ellipsis">
-      Key Rotation Strategy (Potential Enhancement)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#key-storage-best-practices" class="md-nav__link">
     <span class="md-ellipsis">
       Key Storage Best Practices
@@ -1981,9 +1963,9 @@
 - Input validation using Pydantic models
 - Basic rate limiting (Riot API level with aiolimiter)
 - API key loading from environment variables
+- <strong>API key rotation system</strong> (round-robin across multiple keys)
 - Redis password authentication (if configured)</p>
 <p><strong>Not Yet Implemented</strong> ❌ (Potential Future Enhancements):
-- API key rotation system
 - IP-based rate limiting and blocking
 - Advanced input sanitization
 - CORS middleware
@@ -2013,49 +1995,55 @@ RIOT_API_KEY_STAGING=RGAPI-staging-key
 RIOT_API_KEY_PROD=RGAPI-production-key
 </code></pre></div>
 <h4 id="current-implementation">Current Implementation<a class="headerlink" href="#current-implementation" title="Permanent link">&para;</a></h4>
+<p>The gateway supports both single key and multiple key rotation:</p>
 <div class="highlight"><pre><span></span><code># .env file (ACTUAL IMPLEMENTATION)
+
+# Option 1: Single API key (backward compatible)
 RIOT_API_KEY=RGAPI-your-secure-api-key
+
+# Option 2: Multiple API keys for rotation (recommended for production)
+# Comma-separated list. Gateway will rotate through keys using round-robin.
+# This helps distribute load and avoid hitting rate limits on a single key.
+# If RIOT_API_KEYS is set, it takes priority over RIOT_API_KEY.
+RIOT_API_KEYS=RGAPI-key1,RGAPI-key2,RGAPI-key3
 </code></pre></div>
-<p>The API key is loaded from environment variables using Pydantic Settings:</p>
+<p>The API key rotation is implemented using a round-robin algorithm:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># app/config.py (ACTUAL IMPLEMENTATION)</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Settings</span><span class="p">(</span><span class="n">BaseSettings</span><span class="p">):</span>
-    <span class="n">riot_api_key</span><span class="p">:</span> <span class="nb">str</span>  <span class="c1"># Required from environment</span>
+    <span class="n">riot_api_key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Single key (backward compatible)</span>
+    <span class="n">riot_api_keys</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Multiple keys for rotation</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_api_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get list of API keys with priority: RIOT_API_KEYS &gt; RIOT_API_KEY.&quot;&quot;&quot;</span>
+        <span class="c1"># Priority 1: Multiple keys (comma-separated)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">riot_api_keys</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">riot_api_keys</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+            <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">riot_api_keys</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span>
+            <span class="k">if</span> <span class="n">keys</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">keys</span>
+
+        <span class="c1"># Priority 2: Single key (backward compatibility)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">riot_api_key</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">riot_api_key</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+            <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">riot_api_key</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span>
+
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No Riot API keys configured&quot;</span><span class="p">)</span>
+
+<span class="c1"># app/riot/key_rotator.py (ACTUAL IMPLEMENTATION)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">KeyRotator</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Thread-safe round-robin key rotator for Riot API keys.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_next_key</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the next API key in round-robin rotation.&quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_keys</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_index</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_current_index</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_keys</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">key</span>
 </code></pre></div>
-<h4 id="key-rotation-strategy-potential-enhancement">Key Rotation Strategy (Potential Enhancement)<a class="headerlink" href="#key-rotation-strategy-potential-enhancement" title="Permanent link">&para;</a></h4>
-<blockquote>
-<p><strong>Not Implemented</strong>: API key rotation is not currently automated. Keys must be rotated manually.</p>
-</blockquote>
-<div class="highlight"><pre><span></span><code><span class="c1"># Example: app/security.py (NOT IMPLEMENTED)</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
-
-<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
-
-<span class="k">class</span><span class="w"> </span><span class="nc">APIKeyManager</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Manages Riot API key rotation and validation.&quot;&quot;&quot;</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">current_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;RIOT_API_KEY&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">backup_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;RIOT_API_KEY_BACKUP&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">last_rotation</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rotation_interval</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>  <span class="c1"># Riot API keys last 30 days</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_active_key</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the currently active API key.&quot;&quot;&quot;</span>
-        <span class="c1"># Check if key needs rotation</span>
-        <span class="k">if</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_rotation</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">rotation_interval</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;API key rotation recommended&quot;</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_key</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">validate_key_format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Validate API key format.&quot;&quot;&quot;</span>
-        <span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
-        <span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^RGAPI-[a-f0-9]</span><span class="si">{8}</span><span class="s1">-[a-f0-9]</span><span class="si">{4}</span><span class="s1">-[a-f0-9]</span><span class="si">{4}</span><span class="s1">-[a-f0-9]</span><span class="si">{4}</span><span class="s1">-[a-f0-9]</span><span class="si">{12}</span><span class="s1">$&#39;</span>
-        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">key</span><span class="p">))</span>
-</code></pre></div>
+<p><strong>Benefits of Key Rotation</strong>:
+- Distributes load across multiple keys using round-robin
+- Reduces risk of hitting rate limits on a single key
+- Provides redundancy if one key becomes rate-limited
+- On 429 responses, immediately tries the next key without waiting
+- Only waits if ALL keys are exhausted</p>
 <h4 id="key-storage-best-practices">Key Storage Best Practices<a class="headerlink" href="#key-storage-best-practices" title="Permanent link">&para;</a></h4>
 <ol>
 <li><strong>Use Environment Variables</strong>: Never store keys in code or configuration files</li>

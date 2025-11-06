@@ -809,6 +809,66 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#keyrotator" class="md-nav__link">
+    <span class="md-ellipsis">
+      KeyRotator
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#app.riot.key_rotator.KeyRotator" class="md-nav__link">
+    <span class="md-ellipsis">
+      KeyRotator
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="KeyRotator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#app.riot.key_rotator.KeyRotator--returns-key1-next-call-returns-key2-etc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns "key1", next call returns "key2", etc.
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#app.riot.key_rotator.KeyRotator.get_next_key" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_next_key
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#app.riot.key_rotator.KeyRotator.get_key_count" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_key_count
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#app.riot.key_rotator.KeyRotator.reset" class="md-nav__link">
+    <span class="md-ellipsis">
+      reset
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#regions" class="md-nav__link">
     <span class="md-ellipsis">
       Regions
@@ -1506,6 +1566,66 @@
   <a href="#app.riot.rate_limiter.RiotRateLimiter.acquire" class="md-nav__link">
     <span class="md-ellipsis">
       acquire
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keyrotator" class="md-nav__link">
+    <span class="md-ellipsis">
+      KeyRotator
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#app.riot.key_rotator.KeyRotator" class="md-nav__link">
+    <span class="md-ellipsis">
+      KeyRotator
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="KeyRotator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#app.riot.key_rotator.KeyRotator--returns-key1-next-call-returns-key2-etc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns "key1", next call returns "key2", etc.
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#app.riot.key_rotator.KeyRotator.get_next_key" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_next_key
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#app.riot.key_rotator.KeyRotator.get_key_count" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_key_count
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#app.riot.key_rotator.KeyRotator.reset" class="md-nav__link">
+    <span class="md-ellipsis">
+      reset
     </span>
   </a>
   
@@ -2269,6 +2389,374 @@ Uses nested context managers to ensure both limits are respected.</p>
     <span class="k">async</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">limiter_1s</span><span class="p">:</span>
         <span class="k">async</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">limiter_2min</span><span class="p">:</span>
             <span class="k">pass</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div><h2 id="keyrotator">KeyRotator<a class="headerlink" href="#keyrotator" title="Permanent link">&para;</a></h2>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="app.riot.key_rotator.KeyRotator" class="doc doc-heading">
+              <code class="highlight language-python"><span class="n">app</span><span class="o">.</span><span class="n">riot</span><span class="o">.</span><span class="n">key_rotator</span><span class="o">.</span><span class="n">KeyRotator</span><span class="p">(</span><span class="n">api_keys</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span></code>
+
+<a href="#app.riot.key_rotator.KeyRotator" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents first">
+
+
+        <p>Thread-safe round-robin key rotator for Riot API keys.</p>
+<p>Distributes API requests across multiple keys to better manage
+rate limits and provide redundancy.</p>
+
+
+<details class="example" open>
+  <summary>Example</summary>
+  <blockquote>
+<blockquote>
+<blockquote>
+<p>rotator = KeyRotator(["key1", "key2", "key3"])
+key = rotator.get_next_key()</p>
+<h3 id="app.riot.key_rotator.KeyRotator--returns-key1-next-call-returns-key2-etc">Returns "key1", next call returns "key2", etc.<a class="headerlink" href="#app.riot.key_rotator.KeyRotator--returns-key1-next-call-returns-key2-etc" title="Permanent link">&para;</a></h3>
+</blockquote>
+</blockquote>
+</blockquote>
+</details>
+        <p>Initialize the key rotator.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>api_keys</code>
+            </td>
+            <td>
+                  <code><span title="list">list</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of Riot API keys to rotate through</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If api_keys list is empty</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+                  <details class="quote">
+                    <summary>Source code in <code>app/riot/key_rotator.py</code></summary>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api_keys</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initialize the key rotator.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        api_keys: List of Riot API keys to rotate through</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If api_keys list is empty</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">api_keys</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;KeyRotator requires at least one API key&quot;</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">api_keys</span> <span class="o">=</span> <span class="n">api_keys</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_current_index</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+
+    <span class="n">key_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">api_keys</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Key rotator initialized with </span><span class="si">{</span><span class="n">key_count</span><span class="si">}</span><span class="s2"> API key</span><span class="si">{</span><span class="s1">&#39;s&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">key_count</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+                  </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="app.riot.key_rotator.KeyRotator.get_next_key" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">get_next_key</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span></code>
+
+<a href="#app.riot.key_rotator.KeyRotator.get_next_key" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get the next API key in round-robin rotation.</p>
+<p>Thread-safe method that returns keys in a circular fashion.</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>str</code></td>            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The next API key to use</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<details class="example" open>
+  <summary>Example</summary>
+  <blockquote>
+<blockquote>
+<blockquote>
+<p>rotator = KeyRotator(["key1", "key2"])
+rotator.get_next_key()  # Returns "key1"
+rotator.get_next_key()  # Returns "key2"
+rotator.get_next_key()  # Returns "key1" (wraps around)</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>app/riot/key_rotator.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_next_key</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the next API key in round-robin rotation.</span>
+
+<span class="sd">    Thread-safe method that returns keys in a circular fashion.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The next API key to use</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; rotator = KeyRotator([&quot;key1&quot;, &quot;key2&quot;])</span>
+<span class="sd">        &gt;&gt;&gt; rotator.get_next_key()  # Returns &quot;key1&quot;</span>
+<span class="sd">        &gt;&gt;&gt; rotator.get_next_key()  # Returns &quot;key2&quot;</span>
+<span class="sd">        &gt;&gt;&gt; rotator.get_next_key()  # Returns &quot;key1&quot; (wraps around)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_keys</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_index</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_index</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_keys</span><span class="p">)</span>
+
+        <span class="c1"># Mask key for logging (show first 10 chars only)</span>
+        <span class="n">masked_key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="p">[:</span><span class="mi">15</span><span class="p">]</span><span class="si">}</span><span class="s2">...&quot;</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">15</span> <span class="k">else</span> <span class="n">key</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Selected API key: </span><span class="si">{</span><span class="n">masked_key</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">key</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="app.riot.key_rotator.KeyRotator.get_key_count" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">get_key_count</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">int</span></code>
+
+<a href="#app.riot.key_rotator.KeyRotator.get_key_count" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get the total number of keys available for rotation.</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>int</code></td>            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Number of API keys</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="quote">
+              <summary>Source code in <code>app/riot/key_rotator.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_key_count</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the total number of keys available for rotation.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        int: Number of API keys</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_keys</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="app.riot.key_rotator.KeyRotator.reset" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">reset</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span></code>
+
+<a href="#app.riot.key_rotator.KeyRotator.reset" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Reset rotation to start from the first key.</p>
+<p>Useful for testing or when you want to restart rotation.</p>
+
+
+            <details class="quote">
+              <summary>Source code in <code>app/riot/key_rotator.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reset rotation to start from the first key.</span>
+
+<span class="sd">    Useful for testing or when you want to restart rotation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Key rotation reset to first key&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>

@@ -2116,10 +2116,21 @@
 <h2 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h2>
 <p>The gateway uses environment variables for configuration. You can set these in a <code>.env</code> file or as system environment variables.</p>
 <h3 id="required-variables">Required Variables<a class="headerlink" href="#required-variables" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code># Riot Games API Key
+<div class="highlight"><pre><span></span><code># Option 1: Single API key (backward compatible)
 RIOT_API_KEY=RGAPI-your-api-key-here
+
+# Option 2: Multiple API keys for rotation (recommended for production)
+# Comma-separated list. Gateway will rotate through keys using round-robin.
+# This helps distribute load and avoid hitting rate limits on a single key.
+# If RIOT_API_KEYS is set, it takes priority over RIOT_API_KEY.
+RIOT_API_KEYS=RGAPI-key1,RGAPI-key2,RGAPI-key3
 </code></pre></div>
-<p>Get your API key from the <a href="https://developer.riotgames.com/">Riot Developer Portal</a>.</p>
+<p>Get your API keys from the <a href="https://developer.riotgames.com/">Riot Developer Portal</a>.</p>
+<p><strong>Note</strong>: Using multiple API keys (<code>RIOT_API_KEYS</code>) is recommended for production deployments as it:
+- Distributes load across multiple keys using round-robin rotation
+- Reduces risk of hitting rate limits on a single key
+- Provides redundancy if one key becomes rate-limited
+- Enables higher request throughput</p>
 <h3 id="optional-variables">Optional Variables<a class="headerlink" href="#optional-variables" title="Permanent link">&para;</a></h3>
 <h4 id="core-configuration">Core Configuration<a class="headerlink" href="#core-configuration" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code># Default Riot API region (default: euw1)
@@ -2205,7 +2216,12 @@ CACHE_TTL_DEFAULT=3600              # 1 hour
 <div class="highlight"><pre><span></span><code># =============================================================================
 # Riot API Configuration
 # =============================================================================
+# Option 1: Single key (development)
 RIOT_API_KEY=RGAPI-your-actual-api-key-here
+
+# Option 2: Multiple keys (production - recommended)
+# RIOT_API_KEYS=RGAPI-key1,RGAPI-key2,RGAPI-key3
+
 RIOT_DEFAULT_REGION=euw1
 RIOT_REQUEST_TIMEOUT=10
 
