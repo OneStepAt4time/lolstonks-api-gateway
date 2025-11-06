@@ -2,7 +2,7 @@
 
 This document provides a clear overview of which features described in the Operations documentation are **currently implemented** versus **potential future enhancements**.
 
-> **Last Updated**: 2025-10-29
+> **Last Updated**: 2025-11-06
 
 ---
 
@@ -53,7 +53,8 @@ This document provides a clear overview of which features described in the Opera
 | **Enum Validation** | Region, queue type, tier validation via Python Enums | `app/models/common.py` |
 | **Riot API Rate Limiting** | Token bucket rate limiting for Riot API calls | `app/riot/rate_limiter.py` |
 | **Environment Variable Configuration** | API keys loaded from `.env` file | `app/config.py` |
-| **Redis Password Auth** | Optional password for Redis connection | `app/config.py:27` |
+| **API Key Rotation** | Round-robin rotation across multiple API keys | `app/riot/key_rotator.py`, `app/config.py:59-82` |
+| **Redis Password Auth** | Optional password for Redis connection | `app/config.py:92` |
 
 ### ⚠️ Partially Implemented / Infrastructure Level
 
@@ -67,7 +68,6 @@ This document provides a clear overview of which features described in the Opera
 
 | Feature | Description | Documentation |
 |---------|-------------|---------------|
-| **API Key Rotation** | Automated key rotation system | `security.md` - Key Rotation Strategy |
 | **Advanced Input Sanitization** | SecurityValidator class for string sanitization | `security.md` - Advanced Input Sanitization |
 | **IP-Based Rate Limiting** | Per-IP request throttling with slowapi | `security.md` - Multi-Level Rate Limiting |
 | **IP Blocking System** | Automatic blocking of malicious IPs | `security.md` - IP-Based Blocking |
@@ -88,9 +88,9 @@ This document provides a clear overview of which features described in the Opera
 | Category | Implemented | Not Implemented | Percentage |
 |----------|-------------|-----------------|------------|
 | **Monitoring & Observability** | 4 features | 10 features | 29% |
-| **Security** | 5 features | 11 features | 31% |
+| **Security** | 6 features | 10 features | 38% |
 | **Infrastructure** | 3 features | 0 features | 100% (external) |
-| **Overall** | 12 features | 21 features | 36% |
+| **Overall** | 13 features | 20 features | 39% |
 
 ### Feature Categories by Status
 
@@ -103,7 +103,8 @@ These features are **fully implemented and tested**:
 3. Pydantic input validation
 4. Riot API rate limiting (aiolimiter)
 5. Environment-based configuration
-6. Redis password authentication
+6. API key rotation (round-robin)
+7. Redis password authentication
 
 #### ⚠️ Infrastructure Level (External to Application)
 
@@ -123,10 +124,9 @@ These are **documented but not implemented**:
 4. IP-based rate limiting and blocking
 5. CORS middleware
 6. Security event logging
-7. API key rotation automation
-8. Admin endpoint authentication
-9. Advanced health checks
-10. Custom business metrics
+7. Admin endpoint authentication
+8. Advanced health checks
+9. Custom business metrics
 
 ---
 
@@ -161,7 +161,6 @@ Based on production requirements:
 - **IP-Based Rate Limiting**: Prevents abuse from individual users
 - **ELK Stack**: Helpful for large-scale deployments
 - **OpenTelemetry**: Useful for microservice architectures
-- **API Key Rotation**: Good security practice
 
 #### Priority 3: Nice to Have 🟢
 
@@ -197,10 +196,9 @@ Based on production requirements:
 
 1. ELK stack integration
 2. OpenTelemetry distributed tracing
-3. API key rotation automation
-4. Admin endpoint authentication
+3. Admin endpoint authentication
 
-**Estimated Effort**: 5-7 days
+**Estimated Effort**: 4-6 days
 **Priority**: Medium-Low
 
 ---
@@ -237,5 +235,5 @@ The Operations documentation includes **best practices and potential implementat
 
 ---
 
-*Last Updated: 2025-10-29*
+*Last Updated: 2025-11-06*
 *For questions or updates, see the [contributing guide](../development/contributing.md).*

@@ -9,11 +9,23 @@ The gateway uses environment variables for configuration. You can set these in a
 ### Required Variables
 
 ```env
-# Riot Games API Key
+# Option 1: Single API key (backward compatible)
 RIOT_API_KEY=RGAPI-your-api-key-here
+
+# Option 2: Multiple API keys for rotation (recommended for production)
+# Comma-separated list. Gateway will rotate through keys using round-robin.
+# This helps distribute load and avoid hitting rate limits on a single key.
+# If RIOT_API_KEYS is set, it takes priority over RIOT_API_KEY.
+RIOT_API_KEYS=RGAPI-key1,RGAPI-key2,RGAPI-key3
 ```
 
-Get your API key from the [Riot Developer Portal](https://developer.riotgames.com/).
+Get your API keys from the [Riot Developer Portal](https://developer.riotgames.com/).
+
+**Note**: Using multiple API keys (`RIOT_API_KEYS`) is recommended for production deployments as it:
+- Distributes load across multiple keys using round-robin rotation
+- Reduces risk of hitting rate limits on a single key
+- Provides redundancy if one key becomes rate-limited
+- Enables higher request throughput
 
 ### Optional Variables
 
@@ -112,7 +124,12 @@ CACHE_TTL_DEFAULT=3600              # 1 hour
 # =============================================================================
 # Riot API Configuration
 # =============================================================================
+# Option 1: Single key (development)
 RIOT_API_KEY=RGAPI-your-actual-api-key-here
+
+# Option 2: Multiple keys (production - recommended)
+# RIOT_API_KEYS=RGAPI-key1,RGAPI-key2,RGAPI-key3
+
 RIOT_DEFAULT_REGION=euw1
 RIOT_REQUEST_TIMEOUT=10
 

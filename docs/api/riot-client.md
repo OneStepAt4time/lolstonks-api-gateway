@@ -20,6 +20,15 @@ This section documents the Riot API client implementation that handles HTTP requ
       show_root_members_full_path: false
       members_order: source
 
+## KeyRotator
+
+::: app.riot.key_rotator.KeyRotator
+    options:
+      show_source: true
+      show_root_heading: true
+      show_root_members_full_path: false
+      members_order: source
+
 ## Regions
 
 ::: app.riot.regions
