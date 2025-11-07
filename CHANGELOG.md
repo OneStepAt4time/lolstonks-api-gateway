@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Changelog workflow and documentation
 
+### Fixed
+- Docker image repository names now converted to lowercase to comply with GitHub Container Registry requirements
+
 ## [2.0.0] - 2025-11-06
 
 ### Added
