@@ -83,3 +83,7 @@ htmlcov/
 coverage.xml
 .secrets
 docs/data/openapi.json
+
+# Additional security - Redis secrets
+redis.conf
+redis-secret.txt

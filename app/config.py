@@ -17,10 +17,15 @@ class Settings(BaseSettings):
 
     Attributes:
         riot_api_key (str): The API key for accessing the Riot Games API.
+        riot_api_keys (str): Comma-separated list of API keys for rotation.
         riot_default_region (str): The default region to use for API requests.
         riot_request_timeout (int): The timeout for HTTP requests to the Riot API.
         riot_rate_limit_per_second (int): The number of requests per second allowed by the rate limiter.
         riot_rate_limit_per_2min (int): The number of requests per 2 minutes allowed by the rate limiter.
+        enabled_providers (list[str]): List of enabled API providers.
+        data_dragon_version (str): Data Dragon game version or "latest".
+        data_dragon_locale (str): Data Dragon language locale.
+        community_dragon_version (str): Community Dragon data version or "latest".
         redis_host (str): The hostname of the Redis server.
         redis_port (int): The port of the Redis server.
         redis_db (int): The Redis database to use.
@@ -55,6 +60,16 @@ class Settings(BaseSettings):
     riot_api_keys: str | None = None  # New - comma-separated keys for rotation
     riot_default_region: str = "euw1"
     riot_request_timeout: int = 10
+
+    # Provider Configuration
+    enabled_providers: list[str] = ["riot_api", "data_dragon", "community_dragon"]
+
+    # Data Dragon Configuration
+    data_dragon_version: str = "latest"  # Game version or "latest"
+    data_dragon_locale: str = "en_US"  # Language locale
+
+    # Community Dragon Configuration
+    community_dragon_version: str = "latest"  # Data version or specific patch
 
     def get_api_keys(self) -> list[str]:
         """

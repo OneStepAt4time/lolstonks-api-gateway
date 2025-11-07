@@ -93,10 +93,10 @@ build: clean
 
 # Development server
 run:
-	uv run uvicorn app.main:app --reload --host 0.0.0.0 --port 8080
+	uv run uvicorn app.main:app --reload --host 127.0.0.1 --port 8080
 
 run-prod:
-	uv run uvicorn app.main:app --host 0.0.0.0 --port 8080
+	uv run uvicorn app.main:app --host 127.0.0.1 --port 8080
 
 # Docker
 docker-build:

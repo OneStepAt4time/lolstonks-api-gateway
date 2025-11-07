@@ -7,7 +7,14 @@
 [![Build Status](https://github.com/OneStepAt4time/lolstonks-api-gateway/workflows/CI/badge.svg)](https://github.com/OneStepAt4time/lolstonks-api-gateway/actions)
 [![Documentation](https://img.shields.io/badge/Docs-Latest-brightgreen.svg)](https://onestepat4time.github.io/lolstonks-api-gateway/)
 
-**Production-grade Riot Games API Gateway** engineered for high-performance applications with intelligent caching, automatic rate limiting, and comprehensive observability.
+**Unified League of Legends API Gateway** engineered for high-performance applications with intelligent caching, automatic rate limiting, and comprehensive observability.
+
+### What's New in v2.0.0
+- **Comprehensive Data Source Architecture**: Support for Riot API, Data Dragon, and Community Dragon
+- **Comprehensive API Coverage**: 76+ endpoints across all three data sources fully implemented
+- **Enhanced Security**: Real-time security monitoring and status endpoints
+- **Comprehensive Health Monitoring**: Detailed health checks for all data sources and components
+- **Complete Input Validation**: Pydantic models for all endpoints and parameters
 
 ![LOLStonks logo](assets/logo.png)
 
@@ -42,6 +49,8 @@
 - **Interactive Documentation**: Auto-generated OpenAPI specs with Swagger UI and ReDoc
 - **Multi-Region Support**: Complete coverage of all Riot API regions
 - **UV Integration**: Modern Python package management with fast dependency resolution
+- **Provider Abstraction**: Clean architecture for adding new data providers
+- **Security Monitoring**: Built-in security status and monitoring endpoints
 
 ### Production Ready
 - **Container-Native**: Docker support with optimized images
@@ -115,7 +124,7 @@ curl http://127.0.0.1:8080/health
 {
   "status": "ok",
   "timestamp": "2024-01-01T12:00:00.000Z",
-  "version": "1.0.0"
+  "version": "2.0.0"
 }
 
 # Interactive documentation
@@ -177,13 +186,26 @@ print(f"Recent matches: {match_ids}")
 
 ## Architecture Overview
 
-The LOLStonks API Gateway consists of several key components:
+The League of Legends API Gateway uses a **comprehensive data source architecture** to support multiple data sources:
 
+### Core Components
 - **FastAPI Application**: Modern async web framework with automatic documentation
-- **Riot Client**: HTTP client with rate limiting and retry logic
+- **Provider Registry**: Dynamic provider management and initialization
 - **Redis Cache**: High-performance caching layer for API responses
 - **Match Tracking**: Service to prevent duplicate match processing
-- **Router Layer**: Organized API endpoints mirroring Riot's API structure
+- **Error Monitoring**: Real-time error tracking with alerting
+- **Security Middleware**: Security monitoring and status reporting
+
+### Supported Providers
+1. **Riot Games Developer API** - Live game data, match history, summoner info
+2. **Data Dragon CDN** - Static game data (champions, items, runes)
+3. **Community Dragon** - Enhanced static data with additional assets
+
+### Key Features
+- **Provider Abstraction**: Clean interface for adding new data providers
+- **Multi-Region Support**: Automatic routing based on region configuration
+- **Intelligent Failover**: Graceful degradation when providers are unavailable
+- **Comprehensive Monitoring**: Health checks and metrics for all components
 
 ## Contributing
 
