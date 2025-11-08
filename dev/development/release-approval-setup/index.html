@@ -11,10 +11,6 @@
       
       
       
-        <link rel="prev" href="../contributing/">
-      
-      
-        <link rel="next" href="../versioning/">
       
       
       <link rel="icon" href="../../assets/logo.png">
@@ -22,7 +18,7 @@
     
     
       
-        <title>Changelog Guide - LOLStonks API Gateway</title>
+        <title>Release Approval Setup - LOLStonks API Gateway</title>
       
     
     
@@ -76,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#changelog-guide" class="md-skip">
+        <a href="#release-approval-setup" class="md-skip">
           Skip to content
         </a>
       
@@ -111,7 +107,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Changelog Guide
+              Release Approval Setup
             
           </span>
         </div>
@@ -342,12 +338,10 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
+      <li class="md-tabs__item">
         <a href="../contributing/" class="md-tabs__link">
           
   
@@ -1176,10 +1170,8 @@
       
   
   
-    
   
   
-  
     
     
       
@@ -1199,22 +1191,21 @@
     
     
       
-        
-        
-      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
         
           
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
             
   
   
@@ -1227,7 +1218,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             Development
@@ -1261,32 +1252,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Changelog Guide
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../changelog-guide/" class="md-nav__link">
         
   
   
@@ -1297,350 +1266,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#table-of-contents" class="md-nav__link">
-    <span class="md-ellipsis">
-      Table of Contents
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#when-to-update-the-changelog" class="md-nav__link">
-    <span class="md-ellipsis">
-      When to Update the Changelog
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#changelog-format" class="md-nav__link">
-    <span class="md-ellipsis">
-      Changelog Format
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#change-categories" class="md-nav__link">
-    <span class="md-ellipsis">
-      Change Categories
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Change Categories">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#added" class="md-nav__link">
-    <span class="md-ellipsis">
-      Added
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#changed" class="md-nav__link">
-    <span class="md-ellipsis">
-      Changed
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#deprecated" class="md-nav__link">
-    <span class="md-ellipsis">
-      Deprecated
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#removed" class="md-nav__link">
-    <span class="md-ellipsis">
-      Removed
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#fixed" class="md-nav__link">
-    <span class="md-ellipsis">
-      Fixed
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#security" class="md-nav__link">
-    <span class="md-ellipsis">
-      Security
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#writing-good-changelog-entries" class="md-nav__link">
-    <span class="md-ellipsis">
-      Writing Good Changelog Entries
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Writing Good Changelog Entries">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#be-specific" class="md-nav__link">
-    <span class="md-ellipsis">
-      Be Specific
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#use-bold-for-main-topic" class="md-nav__link">
-    <span class="md-ellipsis">
-      Use Bold for Main Topic
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#include-context" class="md-nav__link">
-    <span class="md-ellipsis">
-      Include Context
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#group-related-changes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Group Related Changes
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#release-process" class="md-nav__link">
-    <span class="md-ellipsis">
-      Release Process
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Release Process">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-update-version-numbers" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. Update Version Numbers
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-add-version-links" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Add Version Links
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-semantic-versioning" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. Semantic Versioning
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-create-release" class="md-nav__link">
-    <span class="md-ellipsis">
-      4. Create Release
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#automated-checks" class="md-nav__link">
-    <span class="md-ellipsis">
-      Automated Checks
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Automated Checks">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#github-actions-workflow" class="md-nav__link">
-    <span class="md-ellipsis">
-      GitHub Actions Workflow
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#skipping-the-check" class="md-nav__link">
-    <span class="md-ellipsis">
-      Skipping the Check
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      Examples
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Examples">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#example-new-feature" class="md-nav__link">
-    <span class="md-ellipsis">
-      Example: New Feature
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#example-breaking-change" class="md-nav__link">
-    <span class="md-ellipsis">
-      Example: Breaking Change
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#example-bug-fix-with-context" class="md-nav__link">
-    <span class="md-ellipsis">
-      Example: Bug Fix with Context
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#best-practices" class="md-nav__link">
-    <span class="md-ellipsis">
-      Best Practices
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#tools" class="md-nav__link">
-    <span class="md-ellipsis">
-      Tools
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Tools">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#generate-changelog-from-git-history" class="md-nav__link">
-    <span class="md-ellipsis">
-      Generate Changelog from Git History
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#validate-changelog-format" class="md-nav__link">
-    <span class="md-ellipsis">
-      Validate Changelog Format
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#questions" class="md-nav__link">
-    <span class="md-ellipsis">
-      Questions?
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1772,91 +1397,88 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#table-of-contents" class="md-nav__link">
+  <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
-      Table of Contents
+      Overview
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#when-to-update-the-changelog" class="md-nav__link">
+  <a href="#setting-up-the-production-environment" class="md-nav__link">
     <span class="md-ellipsis">
-      When to Update the Changelog
+      Setting Up the Production Environment
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#changelog-format" class="md-nav__link">
-    <span class="md-ellipsis">
-      Changelog Format
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#change-categories" class="md-nav__link">
-    <span class="md-ellipsis">
-      Change Categories
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Change Categories">
+    <nav class="md-nav" aria-label="Setting Up the Production Environment">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added" class="md-nav__link">
+  <a href="#step-1-navigate-to-environment-settings" class="md-nav__link">
     <span class="md-ellipsis">
-      Added
+      Step 1: Navigate to Environment Settings
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed" class="md-nav__link">
+  <a href="#step-2-create-production-environment" class="md-nav__link">
     <span class="md-ellipsis">
-      Changed
+      Step 2: Create Production Environment
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#deprecated" class="md-nav__link">
+  <a href="#step-3-configure-protection-rules" class="md-nav__link">
     <span class="md-ellipsis">
-      Deprecated
+      Step 3: Configure Protection Rules
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 3: Configure Protection Rules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required-reviewers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Reviewers
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#removed" class="md-nav__link">
+  <a href="#wait-timer-optional" class="md-nav__link">
     <span class="md-ellipsis">
-      Removed
+      Wait Timer (Optional)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#fixed" class="md-nav__link">
+  <a href="#deployment-branches-recommended" class="md-nav__link">
     <span class="md-ellipsis">
-      Fixed
+      Deployment Branches (Recommended)
     </span>
   </a>
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+        
           <li class="md-nav__item">
-  <a href="#security" class="md-nav__link">
+  <a href="#step-4-environment-secrets-optional" class="md-nav__link">
     <span class="md-ellipsis">
-      Security
+      Step 4: Environment Secrets (Optional)
     </span>
   </a>
   
@@ -1868,46 +1490,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#writing-good-changelog-entries" class="md-nav__link">
+  <a href="#complete-configuration-example" class="md-nav__link">
     <span class="md-ellipsis">
-      Writing Good Changelog Entries
+      Complete Configuration Example
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Writing Good Changelog Entries">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-approval-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      How Approval Works
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How Approval Works">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#be-specific" class="md-nav__link">
+  <a href="#release-process-with-approval" class="md-nav__link">
     <span class="md-ellipsis">
-      Be Specific
+      Release Process with Approval
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#use-bold-for-main-topic" class="md-nav__link">
+  <a href="#approval-notification" class="md-nav__link">
     <span class="md-ellipsis">
-      Use Bold for Main Topic
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#include-context" class="md-nav__link">
-    <span class="md-ellipsis">
-      Include Context
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#group-related-changes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Group Related Changes
+      Approval Notification
     </span>
   </a>
   
@@ -1919,46 +1532,55 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#release-process" class="md-nav__link">
+  <a href="#reviewer-responsibilities" class="md-nav__link">
     <span class="md-ellipsis">
-      Release Process
+      Reviewer Responsibilities
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Release Process">
+    <nav class="md-nav" aria-label="Reviewer Responsibilities">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-update-version-numbers" class="md-nav__link">
+  <a href="#1-version-and-tag" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Update Version Numbers
+      1. Version and Tag
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-add-version-links" class="md-nav__link">
+  <a href="#2-changelog" class="md-nav__link">
     <span class="md-ellipsis">
-      2. Add Version Links
+      2. Changelog
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-semantic-versioning" class="md-nav__link">
+  <a href="#3-test-results" class="md-nav__link">
     <span class="md-ellipsis">
-      3. Semantic Versioning
+      3. Test Results
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-create-release" class="md-nav__link">
+  <a href="#4-build-validation" class="md-nav__link">
     <span class="md-ellipsis">
-      4. Create Release
+      4. Build Validation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-timing-and-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Timing and Context
     </span>
   </a>
   
@@ -1970,28 +1592,28 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#automated-checks" class="md-nav__link">
+  <a href="#viewing-pending-approvals" class="md-nav__link">
     <span class="md-ellipsis">
-      Automated Checks
+      Viewing Pending Approvals
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Automated Checks">
+    <nav class="md-nav" aria-label="Viewing Pending Approvals">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#github-actions-workflow" class="md-nav__link">
+  <a href="#for-reviewers" class="md-nav__link">
     <span class="md-ellipsis">
-      GitHub Actions Workflow
+      For Reviewers
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#skipping-the-check" class="md-nav__link">
+  <a href="#for-release-creators" class="md-nav__link">
     <span class="md-ellipsis">
-      Skipping the Check
+      For Release Creators
     </span>
   </a>
   
@@ -2003,37 +1625,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
+  <a href="#approval-best-practices" class="md-nav__link">
     <span class="md-ellipsis">
-      Examples
+      Approval Best Practices
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Examples">
+    <nav class="md-nav" aria-label="Approval Best Practices">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#example-new-feature" class="md-nav__link">
+  <a href="#for-teams" class="md-nav__link">
     <span class="md-ellipsis">
-      Example: New Feature
+      For Teams
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#example-breaking-change" class="md-nav__link">
+  <a href="#for-reviewers_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Example: Breaking Change
+      For Reviewers
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#example-bug-fix-with-context" class="md-nav__link">
+  <a href="#for-release-managers" class="md-nav__link">
     <span class="md-ellipsis">
-      Example: Bug Fix with Context
+      For Release Managers
     </span>
   </a>
   
@@ -2045,37 +1667,64 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#best-practices" class="md-nav__link">
+  <a href="#bypassing-approval-emergency-only" class="md-nav__link">
     <span class="md-ellipsis">
-      Best Practices
+      Bypassing Approval (Emergency Only)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#tools" class="md-nav__link">
+  <a href="#automating-development-releases" class="md-nav__link">
     <span class="md-ellipsis">
-      Tools
+      Automating Development Releases
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Tools">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#generate-changelog-from-git-history" class="md-nav__link">
+  <a href="#approval-not-triggering" class="md-nav__link">
     <span class="md-ellipsis">
-      Generate Changelog from Git History
+      Approval Not Triggering
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#validate-changelog-format" class="md-nav__link">
+  <a href="#wrong-reviewers-notified" class="md-nav__link">
     <span class="md-ellipsis">
-      Validate Changelog Format
+      Wrong Reviewers Notified
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#approval-timeout" class="md-nav__link">
+    <span class="md-ellipsis">
+      Approval Timeout
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cant-approve-own-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      Can't Approve Own Release
     </span>
   </a>
   
@@ -2087,9 +1736,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#questions" class="md-nav__link">
+  <a href="#monitoring-and-metrics" class="md-nav__link">
     <span class="md-ellipsis">
-      Questions?
+      Monitoring and Metrics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
     </span>
   </a>
   
@@ -2114,241 +1772,270 @@
   
 
 
-<h1 id="changelog-guide">Changelog Guide<a class="headerlink" href="#changelog-guide" title="Permanent link">&para;</a></h1>
-<p>This project follows the <a href="https://keepachangelog.com/en/1.1.0/">Keep a Changelog</a> format and <a href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
-<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="#when-to-update-the-changelog">When to Update the Changelog</a></li>
-<li><a href="#changelog-format">Changelog Format</a></li>
-<li><a href="#change-categories">Change Categories</a></li>
-<li><a href="#writing-good-changelog-entries">Writing Good Changelog Entries</a></li>
-<li><a href="#release-process">Release Process</a></li>
-<li><a href="#automated-checks">Automated Checks</a></li>
-</ul>
-<h2 id="when-to-update-the-changelog">When to Update the Changelog<a class="headerlink" href="#when-to-update-the-changelog" title="Permanent link">&para;</a></h2>
-<p>Update <code>CHANGELOG.md</code> whenever you make changes that affect users or developers of the project:</p>
-<p><strong>Always update:</strong>
-- ✅ New features or functionality
-- ✅ Bug fixes
-- ✅ Breaking changes
-- ✅ Deprecations
-- ✅ Security fixes
-- ✅ Performance improvements
-- ✅ API changes</p>
-<p><strong>May skip (use <code>skip-changelog</code> label):</strong>
-- ⏭️ Documentation-only changes
-- ⏭️ Internal refactoring with no external impact
-- ⏭️ Test updates without behavior changes
-- ⏭️ CI/CD configuration changes
-- ⏭️ Development tooling updates</p>
-<h2 id="changelog-format">Changelog Format<a class="headerlink" href="#changelog-format" title="Permanent link">&para;</a></h2>
-<p>The changelog uses the following structure:</p>
-<div class="highlight"><pre><span></span><code><span class="gu">## [Unreleased]</span>
-
-<span class="gu">### Added</span>
-<span class="k">-</span><span class="w"> </span>New feature description
-
-<span class="gu">### Changed</span>
-<span class="k">-</span><span class="w"> </span>Modified feature description
-
-<span class="gu">### Deprecated</span>
-<span class="k">-</span><span class="w"> </span>Soon-to-be removed feature description
-
-<span class="gu">### Removed</span>
-<span class="k">-</span><span class="w"> </span>Removed feature description
-
-<span class="gu">### Fixed</span>
-<span class="k">-</span><span class="w"> </span>Bug fix description
-
-<span class="gu">### Security</span>
-<span class="k">-</span><span class="w"> </span>Security improvement description
-</code></pre></div>
-<h2 id="change-categories">Change Categories<a class="headerlink" href="#change-categories" title="Permanent link">&para;</a></h2>
-<h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">&para;</a></h3>
-<p>New features or capabilities.</p>
-<p><strong>Examples:</strong>
-<div class="highlight"><pre><span></span><code><span class="k">-</span><span class="w"> </span><span class="gs">**Multi-Provider Support**</span>: Integration with Data Dragon and Community Dragon
-<span class="k">-</span><span class="w"> </span><span class="gs">**API Key Rotation**</span>: Round-robin distribution across multiple API keys
-<span class="k">-</span><span class="w"> </span><span class="gs">**TFT Endpoints**</span>: Teamfight Tactics data through <span class="sb">`/cdragon/tft/*`</span>
-</code></pre></div></p>
-<h3 id="changed">Changed<a class="headerlink" href="#changed" title="Permanent link">&para;</a></h3>
-<p>Changes to existing functionality that don't break compatibility.</p>
-<p><strong>Examples:</strong>
-<div class="highlight"><pre><span></span><code><span class="k">-</span><span class="w"> </span><span class="gs">**Cache TTL**</span>: Optimized default TTL values for better performance
-<span class="k">-</span><span class="w"> </span><span class="gs">**Health Check**</span>: Now includes provider-specific status information
-<span class="k">-</span><span class="w"> </span><span class="gs">**Logging**</span>: Enhanced with structured JSON format and request tracing
-</code></pre></div></p>
-<h3 id="deprecated">Deprecated<a class="headerlink" href="#deprecated" title="Permanent link">&para;</a></h3>
-<p>Features that will be removed in upcoming releases.</p>
-<p><strong>Examples:</strong>
-<div class="highlight"><pre><span></span><code><span class="k">-</span><span class="w"> </span><span class="gs">**Single API Key**</span>: Use <span class="sb">`RIOT_API_KEYS`</span> instead of <span class="sb">`RIOT_API_KEY`</span> (will be removed in v3.0)
-<span class="k">-</span><span class="w"> </span><span class="gs">**Legacy Endpoints**</span>: <span class="sb">`/v1/summoner`</span> endpoints deprecated in favor of <span class="sb">`/lol/summoner/v4`</span>
-</code></pre></div></p>
-<h3 id="removed">Removed<a class="headerlink" href="#removed" title="Permanent link">&para;</a></h3>
-<p>Features that have been removed.</p>
-<p><strong>Examples:</strong>
-<div class="highlight"><pre><span></span><code><span class="k">-</span><span class="w"> </span><span class="gs">**Legacy Cache Backend**</span>: Removed in-memory cache option
-<span class="k">-</span><span class="w"> </span><span class="gs">**Deprecated Endpoints**</span>: Removed <span class="sb">`/v1/*`</span> endpoints (use <span class="sb">`/lol/*/v4`</span> instead)
-</code></pre></div></p>
-<h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">&para;</a></h3>
-<p>Bug fixes.</p>
-<p><strong>Examples:</strong>
-<div class="highlight"><pre><span></span><code><span class="k">-</span><span class="w"> </span><span class="gs">**Rate Limiter**</span>: Fixed race condition in token bucket implementation
-<span class="k">-</span><span class="w"> </span><span class="gs">**Cache Keys**</span>: Corrected cache key generation for multi-region requests
-<span class="k">-</span><span class="w"> </span><span class="gs">**Memory Leak**</span>: Resolved HTTP client connection pooling issue
-</code></pre></div></p>
-<h3 id="security">Security<a class="headerlink" href="#security" title="Permanent link">&para;</a></h3>
-<p>Security improvements and vulnerability fixes.</p>
-<p><strong>Examples:</strong>
-<div class="highlight"><pre><span></span><code><span class="k">-</span><span class="w"> </span><span class="gs">**Input Validation**</span>: Added Pydantic validation for all endpoint parameters
-<span class="k">-</span><span class="w"> </span><span class="gs">**API Key Storage**</span>: Improved secure handling of API keys in configuration
-<span class="k">-</span><span class="w"> </span><span class="gs">**Dependencies**</span>: Updated httpx to 0.25.0 to address CVE-2023-XXXXX
-</code></pre></div></p>
-<h2 id="writing-good-changelog-entries">Writing Good Changelog Entries<a class="headerlink" href="#writing-good-changelog-entries" title="Permanent link">&para;</a></h2>
-<h3 id="be-specific">Be Specific<a class="headerlink" href="#be-specific" title="Permanent link">&para;</a></h3>
-<p>❌ <strong>Bad:</strong>
-<div class="highlight"><pre><span></span><code><span class="k">-</span><span class="w"> </span>Fixed bugs
-<span class="k">-</span><span class="w"> </span>Improved performance
-<span class="k">-</span><span class="w"> </span>Updated code
-</code></pre></div></p>
-<p>✅ <strong>Good:</strong>
-<div class="highlight"><pre><span></span><code><span class="k">-</span><span class="w"> </span>Fixed race condition in rate limiter causing 429 errors under high load
-<span class="k">-</span><span class="w"> </span>Improved cache hit rate by 40% through optimized TTL configuration
-<span class="k">-</span><span class="w"> </span>Updated Riot API client to handle new regional routing
-</code></pre></div></p>
-<h3 id="use-bold-for-main-topic">Use Bold for Main Topic<a class="headerlink" href="#use-bold-for-main-topic" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">-</span><span class="w"> </span><span class="gs">**Provider System**</span>: Added abstraction layer for data providers
-<span class="k">-</span><span class="w"> </span><span class="gs">**API Endpoints**</span>: Expanded coverage to 76+ endpoints
-<span class="k">-</span><span class="w"> </span><span class="gs">**Documentation**</span>: Complete overhaul with v2.0 features
-</code></pre></div>
-<h3 id="include-context">Include Context<a class="headerlink" href="#include-context" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">-</span><span class="w"> </span><span class="gs">**Breaking Change - Configuration**</span>: Renamed <span class="sb">`CACHE_TTL`</span> to <span class="sb">`CACHE_TTL_DEFAULT`</span> for clarity
-<span class="w">  </span><span class="k">-</span><span class="w"> </span>Migration: Update your <span class="sb">`.env`</span> file to use the new variable name
-<span class="w">  </span><span class="k">-</span><span class="w"> </span>Old configurations will be supported until v3.0
-</code></pre></div>
-<h3 id="group-related-changes">Group Related Changes<a class="headerlink" href="#group-related-changes" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">-</span><span class="w"> </span><span class="gs">**Provider Architecture**</span>:
-<span class="w">  </span><span class="k">-</span><span class="w"> </span>Added BaseProvider abstraction interface
-<span class="w">  </span><span class="k">-</span><span class="w"> </span>Implemented ProviderRegistry for provider management
-<span class="w">  </span><span class="k">-</span><span class="w"> </span>Created provider-specific routers for Data Dragon and Community Dragon
-</code></pre></div>
-<h2 id="release-process">Release Process<a class="headerlink" href="#release-process" title="Permanent link">&para;</a></h2>
-<h3 id="1-update-version-numbers">1. Update Version Numbers<a class="headerlink" href="#1-update-version-numbers" title="Permanent link">&para;</a></h3>
-<p>When preparing a release, move items from <code>[Unreleased]</code> to a new version section:</p>
-<div class="highlight"><pre><span></span><code><span class="gu">## [Unreleased]</span>
-
-<span class="gu">## [2.1.0] - 2024-11-15</span>
-
-<span class="gu">### Added</span>
-<span class="k">-</span><span class="w"> </span>Feature that was in unreleased
-</code></pre></div>
-<h3 id="2-add-version-links">2. Add Version Links<a class="headerlink" href="#2-add-version-links" title="Permanent link">&para;</a></h3>
-<p>Update the comparison links at the bottom:</p>
-<div class="highlight"><pre><span></span><code>[<span class="nl">Unreleased</span>]: <span class="na">https://github.com/OneStepAt4time/lolstonks-api-gateway/compare/v2.1.0...HEAD</span>
-[<span class="nl">2.1.0</span>]: <span class="na">https://github.com/OneStepAt4time/lolstonks-api-gateway/compare/v2.0.0...v2.1.0</span>
-</code></pre></div>
-<h3 id="3-semantic-versioning">3. Semantic Versioning<a class="headerlink" href="#3-semantic-versioning" title="Permanent link">&para;</a></h3>
-<p>Choose version numbers based on the changes:</p>
-<ul>
-<li><strong>MAJOR (3.0.0)</strong>: Breaking changes</li>
-<li>API endpoint removals</li>
-<li>Incompatible configuration changes</li>
-<li>
-<p>Major architecture changes</p>
-</li>
-<li>
-<p><strong>MINOR (2.1.0)</strong>: New features, no breaking changes</p>
-</li>
-<li>New endpoints</li>
-<li>New providers</li>
-<li>
-<p>New configuration options (with defaults)</p>
-</li>
-<li>
-<p><strong>PATCH (2.0.1)</strong>: Bug fixes, no breaking changes</p>
-</li>
-<li>Bug fixes</li>
-<li>Security patches</li>
-<li>Performance improvements</li>
-</ul>
-<h3 id="4-create-release">4. Create Release<a class="headerlink" href="#4-create-release" title="Permanent link">&para;</a></h3>
-<p>After updating the changelog:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Tag the release</span>
-git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v2.1.0<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Release v2.1.0&quot;</span>
-
-<span class="c1"># Push the tag</span>
-git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>v2.1.0
-</code></pre></div>
-<h2 id="automated-checks">Automated Checks<a class="headerlink" href="#automated-checks" title="Permanent link">&para;</a></h2>
-<h3 id="github-actions-workflow">GitHub Actions Workflow<a class="headerlink" href="#github-actions-workflow" title="Permanent link">&para;</a></h3>
-<p>The project includes a GitHub Actions workflow (<code>.github/workflows/changelog.yml</code>) that:</p>
+<h1 id="release-approval-setup">Release Approval Setup<a class="headerlink" href="#release-approval-setup" title="Permanent link">&para;</a></h1>
+<p>This guide explains how to configure production release approval gates in GitHub to ensure that production releases require manual approval before deployment.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The production release workflow includes an approval gate that requires manual review before creating a GitHub release and deploying to production. This prevents accidental releases and ensures proper oversight for production deployments.</p>
+<h2 id="setting-up-the-production-environment">Setting Up the Production Environment<a class="headerlink" href="#setting-up-the-production-environment" title="Permanent link">&para;</a></h2>
+<p>To enable release approval gates, you need to configure a protected environment in your GitHub repository.</p>
+<h3 id="step-1-navigate-to-environment-settings">Step 1: Navigate to Environment Settings<a class="headerlink" href="#step-1-navigate-to-environment-settings" title="Permanent link">&para;</a></h3>
 <ol>
-<li><strong>Checks PRs</strong>: Verifies that <code>CHANGELOG.md</code> is updated in pull requests</li>
-<li><strong>Allows Skip</strong>: PRs labeled <code>skip-changelog</code> bypass the check</li>
-<li><strong>Blocks Merge</strong>: PRs without changelog updates (and without skip label) cannot merge</li>
+<li>Go to your GitHub repository</li>
+<li>Click on <strong>Settings</strong> (top navigation bar)</li>
+<li>In the left sidebar, click on <strong>Environments</strong></li>
+<li>Click <strong>New environment</strong></li>
 </ol>
-<h3 id="skipping-the-check">Skipping the Check<a class="headerlink" href="#skipping-the-check" title="Permanent link">&para;</a></h3>
-<p>For documentation-only or internal changes, add the <code>skip-changelog</code> label to your PR:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Via GitHub CLI</span>
-gh<span class="w"> </span>pr<span class="w"> </span>edit<span class="w"> </span>&lt;PR_NUMBER&gt;<span class="w"> </span>--add-label<span class="w"> </span>skip-changelog
-</code></pre></div>
-<p>Or add the label through the GitHub web interface.</p>
-<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
-<h3 id="example-new-feature">Example: New Feature<a class="headerlink" href="#example-new-feature" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="gu">## [Unreleased]</span>
-
-<span class="gu">### Added</span>
-<span class="k">-</span><span class="w"> </span><span class="gs">**GraphQL API**</span>: New GraphQL endpoint at <span class="sb">`/graphql`</span> for flexible data queries
-<span class="w">  </span><span class="k">-</span><span class="w"> </span>Supports all Riot API endpoints
-<span class="w">  </span><span class="k">-</span><span class="w"> </span>Includes Data Dragon static data
-<span class="w">  </span><span class="k">-</span><span class="w"> </span>Auto-generated schema from Pydantic models
-</code></pre></div>
-<h3 id="example-breaking-change">Example: Breaking Change<a class="headerlink" href="#example-breaking-change" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="gu">## [Unreleased]</span>
-
-<span class="gu">### Changed</span>
-<span class="k">-</span><span class="w"> </span><span class="gs">**BREAKING: Configuration Format**</span>: Environment variables now use <span class="sb">`LOLSTONKS_`</span> prefix
-<span class="w">  </span><span class="k">-</span><span class="w"> </span>Migration: Add <span class="sb">`LOLSTONKS_`</span> prefix to all environment variables
-<span class="w">  </span><span class="k">-</span><span class="w"> </span>Example: <span class="sb">`RIOT_API_KEY`</span> → <span class="sb">`LOLSTONKS_RIOT_API_KEY`</span>
-<span class="w">  </span><span class="k">-</span><span class="w"> </span>Old format will be removed in v3.0.0
-</code></pre></div>
-<h3 id="example-bug-fix-with-context">Example: Bug Fix with Context<a class="headerlink" href="#example-bug-fix-with-context" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="gu">## [Unreleased]</span>
-
-<span class="gu">### Fixed</span>
-<span class="k">-</span><span class="w"> </span><span class="gs">**Rate Limiter**</span>: Fixed token bucket exhaustion under sustained high load
-<span class="w">  </span><span class="k">-</span><span class="w"> </span>Issue: Rate limiter would occasionally allow requests to exceed configured limits
-<span class="w">  </span><span class="k">-</span><span class="w"> </span>Impact: Could result in 429 errors from Riot API
-<span class="w">  </span><span class="k">-</span><span class="w"> </span>Resolution: Improved thread-safe token acquisition logic
-<span class="w">  </span><span class="k">-</span><span class="w"> </span>Related: <span class="ni">#123</span>, <span class="ni">#145</span>
-</code></pre></div>
-<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<h3 id="step-2-create-production-environment">Step 2: Create Production Environment<a class="headerlink" href="#step-2-create-production-environment" title="Permanent link">&para;</a></h3>
 <ol>
-<li><strong>Update as You Code</strong>: Add changelog entries with your code changes, not at release time</li>
-<li><strong>User Perspective</strong>: Write from the user's point of view, not implementation details</li>
-<li><strong>Group Logically</strong>: Keep related changes together</li>
-<li><strong>Link Issues</strong>: Reference GitHub issues when relevant</li>
-<li><strong>Be Honest</strong>: Don't hide breaking changes or known issues</li>
-<li><strong>Review History</strong>: Check <code>git log --oneline</code> for changes you might have missed</li>
+<li>Enter the environment name: <code>production</code></li>
+<li>Click <strong>Configure environment</strong></li>
 </ol>
-<h2 id="tools">Tools<a class="headerlink" href="#tools" title="Permanent link">&para;</a></h2>
-<h3 id="generate-changelog-from-git-history">Generate Changelog from Git History<a class="headerlink" href="#generate-changelog-from-git-history" title="Permanent link">&para;</a></h3>
-<p>Quick script to extract recent commits:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Get commits since last release</span>
-git<span class="w"> </span>log<span class="w"> </span>v2.0.0..HEAD<span class="w"> </span>--pretty<span class="o">=</span>format:<span class="s2">&quot;- %s&quot;</span><span class="w"> </span>--reverse
+<h3 id="step-3-configure-protection-rules">Step 3: Configure Protection Rules<a class="headerlink" href="#step-3-configure-protection-rules" title="Permanent link">&para;</a></h3>
+<p>Configure the following protection rules for the production environment:</p>
+<h4 id="required-reviewers">Required Reviewers<a class="headerlink" href="#required-reviewers" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Check <strong>Required reviewers</strong></li>
+<li>Add team members or teams who should approve production releases</li>
+<li>Recommended: Add at least 1-2 senior team members</li>
+<li>You can add up to 6 reviewers</li>
+</ol>
+<p><strong>Best Practice</strong>: Choose reviewers who:
+- Understand the release process
+- Can verify changelog and release notes
+- Have authority to approve production deployments
+- Are available during your release windows</p>
+<h4 id="wait-timer-optional">Wait Timer (Optional)<a class="headerlink" href="#wait-timer-optional" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Check <strong>Wait timer</strong> if you want a mandatory delay</li>
+<li>Set the number of minutes to wait before deployment</li>
+<li>Recommended: 5-30 minutes for critical releases</li>
+<li>This gives time for last-minute checks or cancellations</li>
+</ol>
+<p><strong>Use Case</strong>: Useful for scheduled releases or when you want a "cooling off" period.</p>
+<h4 id="deployment-branches-recommended">Deployment Branches (Recommended)<a class="headerlink" href="#deployment-branches-recommended" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Under <strong>Deployment branches</strong>, select <strong>Selected branches</strong></li>
+<li>Add branch pattern: <code>refs/tags/v*</code></li>
+<li>This ensures only version tags can trigger production releases</li>
+</ol>
+<h3 id="step-4-environment-secrets-optional">Step 4: Environment Secrets (Optional)<a class="headerlink" href="#step-4-environment-secrets-optional" title="Permanent link">&para;</a></h3>
+<p>If you need production-specific secrets (e.g., notification webhooks):</p>
+<ol>
+<li>Scroll to <strong>Environment secrets</strong></li>
+<li>Click <strong>Add secret</strong></li>
+<li>Add secrets like:</li>
+<li><code>SLACK_WEBHOOK_URL</code></li>
+<li><code>DISCORD_WEBHOOK_URL</code></li>
+<li><code>TEAMS_WEBHOOK_URL</code></li>
+</ol>
+<p>These will only be available during production deployments.</p>
+<h2 id="complete-configuration-example">Complete Configuration Example<a class="headerlink" href="#complete-configuration-example" title="Permanent link">&para;</a></h2>
+<p>Here's a recommended production environment configuration:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">Environment Name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">production</span>
+
+<span class="nt">Protection Rules</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">✓ Required reviewers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2 reviewers</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">- @tech-lead</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">- @senior-engineer-1</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">- @senior-engineer-2</span>
+
+<span class="w">  </span><span class="nt">✓ Wait timer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10 minutes</span>
+
+<span class="w">  </span><span class="nt">✓ Deployment branches</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Selected branches</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">- refs/tags/v*</span>
+
+<span class="nt">Environment Secrets</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SLACK_WEBHOOK_URL</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NOTIFICATION_EMAIL</span>
 </code></pre></div>
-<h3 id="validate-changelog-format">Validate Changelog Format<a class="headerlink" href="#validate-changelog-format" title="Permanent link">&para;</a></h3>
-<p>The project includes a changelog validation script:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Check changelog format (future addition)</span>
-python<span class="w"> </span>scripts/validate_changelog.py
-</code></pre></div>
-<h2 id="questions">Questions?<a class="headerlink" href="#questions" title="Permanent link">&para;</a></h2>
+<h2 id="how-approval-works">How Approval Works<a class="headerlink" href="#how-approval-works" title="Permanent link">&para;</a></h2>
+<h3 id="release-process-with-approval">Release Process with Approval<a class="headerlink" href="#release-process-with-approval" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>Developer creates a release tag</strong> (e.g., <code>v2.1.0</code>)
+   <div class="highlight"><pre><span></span><code>git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v2.1.0<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Release v2.1.0&quot;</span>
+git<span class="w"> </span>push<span class="w"> </span>--tags
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Automated validation runs</strong></p>
+</li>
+<li>Version consistency checks</li>
+<li>Changelog validation</li>
+<li>
+<p>Tests, linting, security scans</p>
+</li>
+<li>
+<p><strong>Approval gate triggers</strong></p>
+</li>
+<li>Workflow pauses at the <code>create-release</code> job</li>
+<li>Configured reviewers receive notification</li>
+<li>
+<p>GitHub shows "Waiting for approval" status</p>
+</li>
+<li>
+<p><strong>Reviewer approves or rejects</strong></p>
+</li>
+<li>Reviewer goes to Actions tab</li>
+<li>Reviews the workflow run</li>
+<li>Checks release notes and test results</li>
+<li>Clicks "Review deployments"</li>
+<li>
+<p>Approves or rejects the deployment</p>
+</li>
+<li>
+<p><strong>Deployment proceeds (if approved)</strong></p>
+</li>
+<li>GitHub Release is created</li>
+<li>Docker image is built and pushed</li>
+<li>Image security scan runs</li>
+<li>Deployment health checks run</li>
+<li>Release notifications sent (if configured)</li>
+</ol>
+<h3 id="approval-notification">Approval Notification<a class="headerlink" href="#approval-notification" title="Permanent link">&para;</a></h3>
+<p>Reviewers will receive notifications via:
+- GitHub web notifications (bell icon)
+- Email (if enabled in GitHub settings)
+- GitHub mobile app (if installed)</p>
+<h2 id="reviewer-responsibilities">Reviewer Responsibilities<a class="headerlink" href="#reviewer-responsibilities" title="Permanent link">&para;</a></h2>
+<p>When reviewing a production release, check:</p>
+<h3 id="1-version-and-tag">1. Version and Tag<a class="headerlink" href="#1-version-and-tag" title="Permanent link">&para;</a></h3>
 <ul>
-<li>See <a href="https://keepachangelog.com/">Keep a Changelog</a> for the full specification</li>
-<li>Check <a href="https://semver.org/">Semantic Versioning</a> for version numbering rules</li>
-<li>Review past releases in <code>CHANGELOG.md</code> for examples</li>
-<li>Ask in team discussions or GitHub issues for clarification</li>
+<li>✅ Version number follows semantic versioning</li>
+<li>✅ Version matches CHANGELOG.md entry</li>
+<li>✅ Tag format is correct (v1.2.3)</li>
 </ul>
+<h3 id="2-changelog">2. Changelog<a class="headerlink" href="#2-changelog" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ CHANGELOG.md has detailed entry for this version</li>
+<li>✅ All changes are documented</li>
+<li>✅ Breaking changes are clearly marked</li>
+<li>✅ Migration instructions included (if needed)</li>
+</ul>
+<h3 id="3-test-results">3. Test Results<a class="headerlink" href="#3-test-results" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ All tests passed</li>
+<li>✅ Code coverage is acceptable</li>
+<li>✅ Linting checks passed</li>
+<li>✅ Security scans passed</li>
+</ul>
+<h3 id="4-build-validation">4. Build Validation<a class="headerlink" href="#4-build-validation" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ Build completed successfully</li>
+<li>✅ No dependency issues</li>
+<li>✅ Type checking passed</li>
+</ul>
+<h3 id="5-timing-and-context">5. Timing and Context<a class="headerlink" href="#5-timing-and-context" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ Release timing is appropriate</li>
+<li>✅ No ongoing incidents</li>
+<li>✅ Team is available for monitoring</li>
+<li>✅ Rollback plan is understood</li>
+</ul>
+<h2 id="viewing-pending-approvals">Viewing Pending Approvals<a class="headerlink" href="#viewing-pending-approvals" title="Permanent link">&para;</a></h2>
+<h3 id="for-reviewers">For Reviewers<a class="headerlink" href="#for-reviewers" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Go to the <strong>Actions</strong> tab in GitHub</li>
+<li>Click on the running workflow</li>
+<li>You'll see "Review pending deployments"</li>
+<li>Click <strong>Review deployments</strong></li>
+<li>Select the environment to approve</li>
+<li>Add an optional comment</li>
+<li>Click <strong>Approve and deploy</strong> or <strong>Reject</strong></li>
+</ol>
+<h3 id="for-release-creators">For Release Creators<a class="headerlink" href="#for-release-creators" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Go to the <strong>Actions</strong> tab</li>
+<li>Find your workflow run</li>
+<li>You'll see "Waiting for approval from required reviewers"</li>
+<li>Monitor status and wait for approval</li>
+<li>You can cancel the workflow if needed</li>
+</ol>
+<h2 id="approval-best-practices">Approval Best Practices<a class="headerlink" href="#approval-best-practices" title="Permanent link">&para;</a></h2>
+<h3 id="for-teams">For Teams<a class="headerlink" href="#for-teams" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Define Release Windows</strong>: Schedule releases during specific times</li>
+<li><strong>Rotation Policy</strong>: Rotate reviewer responsibilities</li>
+<li><strong>On-call Alignment</strong>: Align releases with on-call schedules</li>
+<li><strong>Communication</strong>: Use Slack/Teams to coordinate approvals</li>
+<li><strong>Documentation</strong>: Keep release runbooks updated</li>
+</ol>
+<h3 id="for-reviewers_1">For Reviewers<a class="headerlink" href="#for-reviewers_1" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Timely Reviews</strong>: Review within 15-30 minutes during release windows</li>
+<li><strong>Ask Questions</strong>: Don't approve if unsure</li>
+<li><strong>Check Dependencies</strong>: Verify external service compatibility</li>
+<li><strong>Verify Rollback</strong>: Ensure rollback procedures are ready</li>
+<li><strong>Document Decisions</strong>: Add comments explaining approval/rejection</li>
+</ol>
+<h3 id="for-release-managers">For Release Managers<a class="headerlink" href="#for-release-managers" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Pre-announce</strong>: Notify team before pushing release tag</li>
+<li><strong>Staging First</strong>: Always deploy to staging before production</li>
+<li><strong>Monitor Ready</strong>: Be ready to monitor after approval</li>
+<li><strong>Rollback Ready</strong>: Have rollback plan ready</li>
+<li><strong>Communication</strong>: Update team on release status</li>
+</ol>
+<h2 id="bypassing-approval-emergency-only">Bypassing Approval (Emergency Only)<a class="headerlink" href="#bypassing-approval-emergency-only" title="Permanent link">&para;</a></h2>
+<p>In true emergencies, repository admins can bypass approval gates:</p>
+<ol>
+<li>Go to repository <strong>Settings</strong> → <strong>Environments</strong> → <strong>production</strong></li>
+<li>Temporarily uncheck <strong>Required reviewers</strong></li>
+<li>Allow the workflow to proceed</li>
+<li><strong>IMPORTANT</strong>: Re-enable protection immediately after emergency</li>
+<li>Document the bypass in a post-mortem</li>
+</ol>
+<p><strong>Warning</strong>: Only use bypass for critical security patches or severe production issues.</p>
+<h2 id="automating-development-releases">Automating Development Releases<a class="headerlink" href="#automating-development-releases" title="Permanent link">&para;</a></h2>
+<p>Development releases (dev, alpha, beta, rc) do NOT require approval and run automatically. This allows for rapid iteration and testing.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Development release - no approval required</span>
+git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v2.1.0-dev.1<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Development release&quot;</span>
+git<span class="w"> </span>push<span class="w"> </span>--tags
+</code></pre></div>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="approval-not-triggering">Approval Not Triggering<a class="headerlink" href="#approval-not-triggering" title="Permanent link">&para;</a></h3>
+<p><strong>Problem</strong>: Workflow runs but doesn't wait for approval</p>
+<p><strong>Solutions</strong>:
+1. Verify environment name is exactly <code>production</code> (case-sensitive)
+2. Check that environment exists in Settings → Environments
+3. Ensure required reviewers are configured
+4. Verify deployment branch patterns include <code>refs/tags/v*</code></p>
+<h3 id="wrong-reviewers-notified">Wrong Reviewers Notified<a class="headerlink" href="#wrong-reviewers-notified" title="Permanent link">&para;</a></h3>
+<p><strong>Problem</strong>: Unexpected people receiving approval requests</p>
+<p><strong>Solutions</strong>:
+1. Check reviewers list in environment settings
+2. Remove team members who shouldn't review
+3. Consider using GitHub teams instead of individuals</p>
+<h3 id="approval-timeout">Approval Timeout<a class="headerlink" href="#approval-timeout" title="Permanent link">&para;</a></h3>
+<p><strong>Problem</strong>: Workflow times out waiting for approval</p>
+<p><strong>Solutions</strong>:
+1. GitHub workflows timeout after 6 hours by default
+2. Ensure reviewers are notified and available
+3. Consider adding slack/email notifications
+4. Set up backup reviewers</p>
+<h3 id="cant-approve-own-release">Can't Approve Own Release<a class="headerlink" href="#cant-approve-own-release" title="Permanent link">&para;</a></h3>
+<p><strong>Problem</strong>: You pushed the tag and want to approve your own release</p>
+<p><strong>Solutions</strong>:
+1. This is intentional - prevents self-approval
+2. Add other team members as reviewers
+3. For solo projects, you can configure environment to allow self-approval (not recommended)</p>
+<h2 id="monitoring-and-metrics">Monitoring and Metrics<a class="headerlink" href="#monitoring-and-metrics" title="Permanent link">&para;</a></h2>
+<p>Track these metrics to improve your release process:</p>
+<ul>
+<li><strong>Approval Time</strong>: Time from tag push to approval</li>
+<li><strong>Rejection Rate</strong>: % of releases rejected</li>
+<li><strong>Rollback Rate</strong>: % of releases requiring rollback</li>
+<li><strong>Release Frequency</strong>: Number of releases per week/month</li>
+</ul>
+<p>Use GitHub Actions logs and releases page to gather this data.</p>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<p>Production approval gates provide:
+- ✅ Manual oversight for production releases
+- ✅ Time for final verification
+- ✅ Team awareness of deployments
+- ✅ Audit trail of who approved what
+- ✅ Emergency stop mechanism</p>
+<p>This is a critical safety mechanism for production deployments and should be configured for all production environments.</p>
 
 
 

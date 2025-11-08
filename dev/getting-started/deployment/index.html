@@ -952,6 +952,93 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#rollback-procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rollback Procedures
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rollback Procedures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker-based-rollback" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker-based Rollback
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#git-based-rollback-systemdnative-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Git-based Rollback (Systemd/Native Deployment)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#emergency-rollback-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      Emergency Rollback Script
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-rollback-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Rollback Script
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rollback-verification-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rollback Verification Checklist
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preventing-future-rollbacks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preventing Future Rollbacks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#database-migration-rollback" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database Migration Rollback
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#emergency-hotfix-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Emergency Hotfix Process
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#scaling-considerations" class="md-nav__link">
     <span class="md-ellipsis">
       Scaling Considerations
@@ -2138,6 +2225,93 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#rollback-procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rollback Procedures
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rollback Procedures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker-based-rollback" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker-based Rollback
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#git-based-rollback-systemdnative-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Git-based Rollback (Systemd/Native Deployment)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#emergency-rollback-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      Emergency Rollback Script
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-rollback-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Rollback Script
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rollback-verification-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rollback Verification Checklist
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preventing-future-rollbacks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preventing Future Rollbacks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#database-migration-rollback" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database Migration Rollback
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#emergency-hotfix-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Emergency Hotfix Process
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#scaling-considerations" class="md-nav__link">
     <span class="md-ellipsis">
       Scaling Considerations
@@ -2592,6 +2766,306 @@ chmod<span class="w"> </span>+x<span class="w"> </span>/home/lolstonks/backup.sh
 <li><strong>Monitoring</strong>: Set up alerts for service failures</li>
 <li><strong>Backups</strong>: Regular configuration and code backups</li>
 <li><strong>Testing</strong>: Regular disaster recovery testing</li>
+</ol>
+<h2 id="rollback-procedures">Rollback Procedures<a class="headerlink" href="#rollback-procedures" title="Permanent link">&para;</a></h2>
+<p>When a deployment fails or issues are discovered in production, you can rollback to a previous stable version using these procedures.</p>
+<h3 id="docker-based-rollback">Docker-based Rollback<a class="headerlink" href="#docker-based-rollback" title="Permanent link">&para;</a></h3>
+<p>If you're using Docker, rollback is straightforward:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Stop the current container</span>
+docker-compose<span class="w"> </span>down
+
+<span class="c1"># Or if running standalone:</span>
+docker<span class="w"> </span>stop<span class="w"> </span>lolstonks-api
+docker<span class="w"> </span>rm<span class="w"> </span>lolstonks-api
+
+<span class="c1"># Pull and run a specific previous version</span>
+docker<span class="w"> </span>pull<span class="w"> </span>ghcr.io/onestepat4time/lolstonks-api-gateway:2.0.0
+
+<span class="c1"># Using docker-compose, edit docker-compose.yml to specify the version:</span>
+<span class="c1"># image: ghcr.io/onestepat4time/lolstonks-api-gateway:2.0.0</span>
+
+<span class="c1"># Start with the previous version</span>
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+
+<span class="c1"># Or standalone:</span>
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>lolstonks-api<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--env-file<span class="w"> </span>.env<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ghcr.io/onestepat4time/lolstonks-api-gateway:2.0.0
+</code></pre></div>
+<h3 id="git-based-rollback-systemdnative-deployment">Git-based Rollback (Systemd/Native Deployment)<a class="headerlink" href="#git-based-rollback-systemdnative-deployment" title="Permanent link">&para;</a></h3>
+<p>For native deployments using systemd:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. Stop the service</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>lolstonks-api.service
+
+<span class="c1"># 2. Navigate to application directory</span>
+<span class="nb">cd</span><span class="w"> </span>/home/lolstonks/lolstonks-api-gateway
+
+<span class="c1"># 3. Identify the version to rollback to</span>
+git<span class="w"> </span>tag<span class="w"> </span>--list<span class="w">  </span><span class="c1"># List all available versions</span>
+git<span class="w"> </span>log<span class="w"> </span>--oneline<span class="w"> </span>-n<span class="w"> </span><span class="m">10</span><span class="w">  </span><span class="c1"># Or check recent commits</span>
+
+<span class="c1"># 4. Rollback to a specific version tag</span>
+git<span class="w"> </span>checkout<span class="w"> </span>v2.0.0
+
+<span class="c1"># Or rollback to a specific commit</span>
+<span class="c1"># git checkout &lt;commit-hash&gt;</span>
+
+<span class="c1"># 5. Reinstall dependencies (if needed)</span>
+uv<span class="w"> </span>sync
+
+<span class="c1"># 6. Restart the service</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>lolstonks-api.service
+
+<span class="c1"># 7. Verify the rollback</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>lolstonks-api.service
+curl<span class="w"> </span>http://127.0.0.1:8080/health
+
+<span class="c1"># 8. Check application version</span>
+curl<span class="w"> </span>http://127.0.0.1:8080/health<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.version&#39;</span>
+</code></pre></div>
+<h3 id="emergency-rollback-script">Emergency Rollback Script<a class="headerlink" href="#emergency-rollback-script" title="Permanent link">&para;</a></h3>
+<p>Create an automated rollback script for faster recovery:</p>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>/home/lolstonks/rollback.sh<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<span class="s">#!/bin/bash</span>
+
+<span class="s"># Emergency Rollback Script for LOLStonks API Gateway</span>
+<span class="s"># Usage: ./rollback.sh &lt;version_tag&gt;</span>
+<span class="s"># Example: ./rollback.sh v2.0.0</span>
+
+<span class="s">if [ -z &quot;$1&quot; ]; then</span>
+<span class="s">    echo &quot;Usage: $0 &lt;version_tag&gt;&quot;</span>
+<span class="s">    echo &quot;Example: $0 v2.0.0&quot;</span>
+<span class="s">    exit 1</span>
+<span class="s">fi</span>
+
+<span class="s">VERSION=$1</span>
+<span class="s">APP_DIR=&quot;/home/lolstonks/lolstonks-api-gateway&quot;</span>
+<span class="s">BACKUP_DIR=&quot;/home/lolstonks/rollback_backups&quot;</span>
+<span class="s">TIMESTAMP=$(date +%Y%m%d_%H%M%S)</span>
+
+<span class="s">echo &quot;🔄 Starting rollback to $VERSION...&quot;</span>
+
+<span class="s"># Create backup of current state</span>
+<span class="s">echo &quot;📦 Creating backup of current state...&quot;</span>
+<span class="s">mkdir -p $BACKUP_DIR</span>
+<span class="s">cd $APP_DIR</span>
+<span class="s">CURRENT_VERSION=$(cat VERSION 2&gt;/dev/null || echo &quot;unknown&quot;)</span>
+<span class="s">git rev-parse HEAD &gt; $BACKUP_DIR/pre_rollback_commit_$TIMESTAMP.txt</span>
+<span class="s">echo &quot;$CURRENT_VERSION&quot; &gt; $BACKUP_DIR/pre_rollback_version_$TIMESTAMP.txt</span>
+
+<span class="s"># Stop the service</span>
+<span class="s">echo &quot;⏹️  Stopping service...&quot;</span>
+<span class="s">sudo systemctl stop lolstonks-api.service</span>
+
+<span class="s"># Verify the version exists</span>
+<span class="s">if ! git tag | grep -q &quot;^$VERSION$&quot;; then</span>
+<span class="s">    echo &quot;❌ Error: Version tag $VERSION not found!&quot;</span>
+<span class="s">    echo &quot;Available versions:&quot;</span>
+<span class="s">    git tag --list</span>
+<span class="s">    sudo systemctl start lolstonks-api.service</span>
+<span class="s">    exit 1</span>
+<span class="s">fi</span>
+
+<span class="s"># Checkout the specified version</span>
+<span class="s">echo &quot;📥 Checking out version $VERSION...&quot;</span>
+<span class="s">git fetch --tags</span>
+<span class="s">git checkout $VERSION</span>
+
+<span class="s"># Reinstall dependencies</span>
+<span class="s">echo &quot;📦 Reinstalling dependencies...&quot;</span>
+<span class="s">uv sync</span>
+
+<span class="s"># Start the service</span>
+<span class="s">echo &quot;▶️  Starting service...&quot;</span>
+<span class="s">sudo systemctl start lolstonks-api.service</span>
+
+<span class="s"># Wait for service to start</span>
+<span class="s">sleep 5</span>
+
+<span class="s"># Verify the service is running</span>
+<span class="s">if systemctl is-active --quiet lolstonks-api.service; then</span>
+<span class="s">    echo &quot;✅ Service is running&quot;</span>
+
+<span class="s">    # Check health endpoint</span>
+<span class="s">    HEALTH_CHECK=$(curl -s -o /dev/null -w &quot;%{http_code}&quot; http://127.0.0.1:8080/health)</span>
+<span class="s">    if [ &quot;$HEALTH_CHECK&quot; = &quot;200&quot; ]; then</span>
+<span class="s">        echo &quot;✅ Health check passed&quot;</span>
+<span class="s">        echo &quot;✅ Rollback to $VERSION completed successfully!&quot;</span>
+<span class="s">        echo &quot;&quot;</span>
+<span class="s">        echo &quot;Rolled back from: $CURRENT_VERSION&quot;</span>
+<span class="s">        echo &quot;Rolled back to: $VERSION&quot;</span>
+<span class="s">        echo &quot;Backup location: $BACKUP_DIR/pre_rollback_*_$TIMESTAMP.txt&quot;</span>
+<span class="s">    else</span>
+<span class="s">        echo &quot;⚠️  Warning: Service started but health check failed (HTTP $HEALTH_CHECK)&quot;</span>
+<span class="s">        echo &quot;Check logs: sudo journalctl -u lolstonks-api.service -n 50&quot;</span>
+<span class="s">    fi</span>
+<span class="s">else</span>
+<span class="s">    echo &quot;❌ Error: Service failed to start after rollback&quot;</span>
+<span class="s">    echo &quot;Check logs: sudo journalctl -u lolstonks-api.service -n 50&quot;</span>
+<span class="s">    exit 1</span>
+<span class="s">fi</span>
+<span class="s">EOF</span>
+
+chmod<span class="w"> </span>+x<span class="w"> </span>/home/lolstonks/rollback.sh
+</code></pre></div>
+<h3 id="docker-rollback-script">Docker Rollback Script<a class="headerlink" href="#docker-rollback-script" title="Permanent link">&para;</a></h3>
+<p>For Docker deployments:</p>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>/home/lolstonks/docker-rollback.sh<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<span class="s">#!/bin/bash</span>
+
+<span class="s"># Docker Rollback Script for LOLStonks API Gateway</span>
+<span class="s"># Usage: ./docker-rollback.sh &lt;version&gt;</span>
+<span class="s"># Example: ./docker-rollback.sh 2.0.0</span>
+
+<span class="s">if [ -z &quot;$1&quot; ]; then</span>
+<span class="s">    echo &quot;Usage: $0 &lt;version&gt;&quot;</span>
+<span class="s">    echo &quot;Example: $0 2.0.0&quot;</span>
+<span class="s">    echo &quot;&quot;</span>
+<span class="s">    echo &quot;Available versions:&quot;</span>
+<span class="s">    docker pull ghcr.io/onestepat4time/lolstonks-api-gateway:latest 2&gt;/dev/null</span>
+<span class="s">    echo &quot;Check: https://github.com/OneStepAt4time/lolstonks-api-gateway/pkgs/container/lolstonks-api-gateway&quot;</span>
+<span class="s">    exit 1</span>
+<span class="s">fi</span>
+
+<span class="s">VERSION=$1</span>
+<span class="s">IMAGE=&quot;ghcr.io/onestepat4time/lolstonks-api-gateway:$VERSION&quot;</span>
+
+<span class="s">echo &quot;🔄 Starting Docker rollback to version $VERSION...&quot;</span>
+
+<span class="s"># Stop current container</span>
+<span class="s">echo &quot;⏹️  Stopping current container...&quot;</span>
+<span class="s">docker-compose down || docker stop lolstonks-api</span>
+
+<span class="s"># Pull the specified version</span>
+<span class="s">echo &quot;📥 Pulling version $VERSION...&quot;</span>
+<span class="s">if ! docker pull $IMAGE; then</span>
+<span class="s">    echo &quot;❌ Error: Failed to pull image $IMAGE&quot;</span>
+<span class="s">    echo &quot;Check if version exists: https://github.com/OneStepAt4time/lolstonks-api-gateway/releases&quot;</span>
+<span class="s">    exit 1</span>
+<span class="s">fi</span>
+
+<span class="s"># Update docker-compose.yml to use specific version</span>
+<span class="s">echo &quot;📝 Updating docker-compose.yml...&quot;</span>
+<span class="s">sed -i.bak &quot;s|image:.*lolstonks-api-gateway:.*|image: $IMAGE|g&quot; docker-compose.yml</span>
+
+<span class="s"># Start with the new version</span>
+<span class="s">echo &quot;▶️  Starting container with version $VERSION...&quot;</span>
+<span class="s">docker-compose up -d</span>
+
+<span class="s"># Wait for container to be healthy</span>
+<span class="s">echo &quot;⏳ Waiting for container to be healthy...&quot;</span>
+<span class="s">sleep 10</span>
+
+<span class="s"># Check health</span>
+<span class="s">HEALTH_CHECK=$(curl -s -o /dev/null -w &quot;%{http_code}&quot; http://127.0.0.1:8080/health)</span>
+<span class="s">if [ &quot;$HEALTH_CHECK&quot; = &quot;200&quot; ]; then</span>
+<span class="s">    echo &quot;✅ Rollback to version $VERSION completed successfully!&quot;</span>
+<span class="s">    echo &quot;✅ Health check passed&quot;</span>
+<span class="s">    docker-compose ps</span>
+<span class="s">else</span>
+<span class="s">    echo &quot;⚠️  Warning: Health check failed (HTTP $HEALTH_CHECK)&quot;</span>
+<span class="s">    echo &quot;Container logs:&quot;</span>
+<span class="s">    docker-compose logs --tail=50 app</span>
+<span class="s">fi</span>
+<span class="s">EOF</span>
+
+chmod<span class="w"> </span>+x<span class="w"> </span>/home/lolstonks/docker-rollback.sh
+</code></pre></div>
+<h3 id="rollback-verification-checklist">Rollback Verification Checklist<a class="headerlink" href="#rollback-verification-checklist" title="Permanent link">&para;</a></h3>
+<p>After performing a rollback, verify the following:</p>
+<ol>
+<li>
+<p><strong>Service Status</strong>: Confirm the service is running
+   <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>lolstonks-api.service
+<span class="c1"># Or for Docker:</span>
+docker-compose<span class="w"> </span>ps
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Health Check</strong>: Verify the health endpoint responds
+   <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://127.0.0.1:8080/health
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Version Verification</strong>: Confirm the correct version is running
+   <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://127.0.0.1:8080/health<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.version&#39;</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Functionality Test</strong>: Test critical endpoints
+   <div class="highlight"><pre><span></span><code><span class="c1"># Test a simple endpoint</span>
+curl<span class="w"> </span>http://127.0.0.1:8080/api/v1/summoner/by-name/euw1/test
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Log Review</strong>: Check for errors in recent logs
+   <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>journalctl<span class="w"> </span>-u<span class="w"> </span>lolstonks-api.service<span class="w"> </span>-n<span class="w"> </span><span class="m">100</span><span class="w"> </span>--no-pager
+<span class="c1"># Or for Docker:</span>
+docker-compose<span class="w"> </span>logs<span class="w"> </span>--tail<span class="o">=</span><span class="m">100</span><span class="w"> </span>app
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Redis Connectivity</strong>: Verify Redis connection
+   <div class="highlight"><pre><span></span><code>redis-cli<span class="w"> </span>-a<span class="w"> </span>your-password<span class="w"> </span>ping
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>External Access</strong>: Test through Nginx/load balancer
+   <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>https://yourdomain.com/health
+</code></pre></div></p>
+</li>
+</ol>
+<h3 id="preventing-future-rollbacks">Preventing Future Rollbacks<a class="headerlink" href="#preventing-future-rollbacks" title="Permanent link">&para;</a></h3>
+<p>To minimize the need for rollbacks:</p>
+<ol>
+<li><strong>Staging Environment</strong>: Always test releases in staging first</li>
+<li><strong>Gradual Rollout</strong>: Use canary or blue-green deployments for critical changes</li>
+<li><strong>Automated Testing</strong>: Ensure comprehensive test coverage before release</li>
+<li><strong>Monitoring</strong>: Set up alerts to detect issues quickly</li>
+<li><strong>Release Notes</strong>: Maintain detailed changelog and release notes</li>
+<li><strong>Database Migrations</strong>: Always use reversible database migrations</li>
+<li><strong>Feature Flags</strong>: Use feature flags to disable problematic features without rollback</li>
+</ol>
+<h3 id="database-migration-rollback">Database Migration Rollback<a class="headerlink" href="#database-migration-rollback" title="Permanent link">&para;</a></h3>
+<p>If your rollback includes database schema changes:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># This project currently uses Redis (no schema migrations)</span>
+<span class="c1"># But if you add a SQL database later, use migration tools like Alembic:</span>
+
+<span class="c1"># Example with Alembic (for future reference):</span>
+<span class="c1"># alembic downgrade -1  # Rollback one migration</span>
+<span class="c1"># alembic downgrade &lt;revision&gt;  # Rollback to specific revision</span>
+</code></pre></div>
+<h3 id="emergency-hotfix-process">Emergency Hotfix Process<a class="headerlink" href="#emergency-hotfix-process" title="Permanent link">&para;</a></h3>
+<p>If a critical bug is found in production:</p>
+<ol>
+<li>
+<p><strong>Create hotfix branch</strong> from the production tag:
+   <div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>hotfix/critical-bug-fix<span class="w"> </span>v2.0.0
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Apply minimal fix</strong> and test thoroughly</p>
+</li>
+<li>
+<p><strong>Version bump</strong> using patch version:
+   <div class="highlight"><pre><span></span><code>python<span class="w"> </span>scripts/bump_version.py<span class="w"> </span>patch
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Create hotfix tag</strong>:
+   <div class="highlight"><pre><span></span><code>git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v2.0.1<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Hotfix: Critical bug fix&quot;</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>hotfix/critical-bug-fix
+git<span class="w"> </span>push<span class="w"> </span>--tags
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Deploy hotfix</strong> immediately</p>
+</li>
+<li>
+<p><strong>Merge back</strong> to develop and main branches</p>
+</li>
 </ol>
 <h2 id="scaling-considerations">Scaling Considerations<a class="headerlink" href="#scaling-considerations" title="Permanent link">&para;</a></h2>
 <h3 id="horizontal-scaling">Horizontal Scaling<a class="headerlink" href="#horizontal-scaling" title="Permanent link">&para;</a></h3>
