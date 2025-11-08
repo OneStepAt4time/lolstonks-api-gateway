@@ -9,9 +9,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Changelog workflow and documentation
+- **Dependency vulnerability scanning**: pip-audit integration in CI workflow for automatic dependency security checks
+- **Dependabot configuration**: Automated dependency updates for Python, GitHub Actions, and Docker
+- **Docker image scanning**: Trivy security scanner for container vulnerability detection
+- **SARIF uploads**: Security scan results uploaded to GitHub Security tab
+- **Post-deployment health checks**: Automated verification of Docker images after build
+- **Production approval gates**: Manual approval requirement for production releases via GitHub Environments
+- **Release approval documentation**: Comprehensive guide for setting up and using production approval gates
+- **Release notification automation**: Slack, Discord, and Microsoft Teams webhook support for release notifications
+- **Automated release script**: `make release` command for interactive release process
+- **Release dry-run command**: `make release-dry-run` to preview release without making changes
+- **Hotfix release command**: `make release-hotfix` for quick patch releases
+- **Rollback procedures documentation**: Comprehensive rollback guides for Docker and git-based deployments
+- **Emergency rollback scripts**: Automated rollback scripts for both Docker and systemd deployments
+
+### Changed
+- CI workflow now includes dependency security audits
+- Release workflows enhanced with vulnerability scanning and health checks
+- Production release workflow requires manual approval before deployment
+- Makefile help text updated with new release commands
+- Version command updated to read from VERSION file directly
 
 ### Fixed
 - Docker image repository names now converted to lowercase to comply with GitHub Container Registry requirements
+
+### Security
+- Added automated dependency vulnerability scanning with pip-audit
+- Added container image vulnerability scanning with Trivy
+- Security scan results now uploaded to GitHub Security tab for tracking
+- Production releases now require manual approval for additional oversight
 
 ## [2.0.0] - 2025-11-06
 

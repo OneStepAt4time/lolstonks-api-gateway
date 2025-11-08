@@ -447,6 +447,326 @@ echo "0 2 * * * /home/lolstonks/backup.sh" | crontab -u lolstonks -
 3. **Backups**: Regular configuration and code backups
 4. **Testing**: Regular disaster recovery testing
 
+## Rollback Procedures
+
+When a deployment fails or issues are discovered in production, you can rollback to a previous stable version using these procedures.
+
+### Docker-based Rollback
+
+If you're using Docker, rollback is straightforward:
+
+```bash
+# Stop the current container
+docker-compose down
+
+# Or if running standalone:
+docker stop lolstonks-api
+docker rm lolstonks-api
+
+# Pull and run a specific previous version
+docker pull ghcr.io/onestepat4time/lolstonks-api-gateway:2.0.0
+
+# Using docker-compose, edit docker-compose.yml to specify the version:
+# image: ghcr.io/onestepat4time/lolstonks-api-gateway:2.0.0
+
+# Start with the previous version
+docker-compose up -d
+
+# Or standalone:
+docker run -d \
+  --name lolstonks-api \
+  -p 8080:8080 \
+  --env-file .env \
+  ghcr.io/onestepat4time/lolstonks-api-gateway:2.0.0
+```
+
+### Git-based Rollback (Systemd/Native Deployment)
+
+For native deployments using systemd:
+
+```bash
+# 1. Stop the service
+sudo systemctl stop lolstonks-api.service
+
+# 2. Navigate to application directory
+cd /home/lolstonks/lolstonks-api-gateway
+
+# 3. Identify the version to rollback to
+git tag --list  # List all available versions
+git log --oneline -n 10  # Or check recent commits
+
+# 4. Rollback to a specific version tag
+git checkout v2.0.0
+
+# Or rollback to a specific commit
+# git checkout <commit-hash>
+
+# 5. Reinstall dependencies (if needed)
+uv sync
+
+# 6. Restart the service
+sudo systemctl start lolstonks-api.service
+
+# 7. Verify the rollback
+sudo systemctl status lolstonks-api.service
+curl http://127.0.0.1:8080/health
+
+# 8. Check application version
+curl http://127.0.0.1:8080/health | jq '.version'
+```
+
+### Emergency Rollback Script
+
+Create an automated rollback script for faster recovery:
+
+```bash
+cat > /home/lolstonks/rollback.sh << 'EOF'
+#!/bin/bash
+
+# Emergency Rollback Script for LOLStonks API Gateway
+# Usage: ./rollback.sh <version_tag>
+# Example: ./rollback.sh v2.0.0
+
+if [ -z "$1" ]; then
+    echo "Usage: $0 <version_tag>"
+    echo "Example: $0 v2.0.0"
+    exit 1
+fi
+
+VERSION=$1
+APP_DIR="/home/lolstonks/lolstonks-api-gateway"
+BACKUP_DIR="/home/lolstonks/rollback_backups"
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+
+echo "🔄 Starting rollback to $VERSION..."
+
+# Create backup of current state
+echo "📦 Creating backup of current state..."
+mkdir -p $BACKUP_DIR
+cd $APP_DIR
+CURRENT_VERSION=$(cat VERSION 2>/dev/null || echo "unknown")
+git rev-parse HEAD > $BACKUP_DIR/pre_rollback_commit_$TIMESTAMP.txt
+echo "$CURRENT_VERSION" > $BACKUP_DIR/pre_rollback_version_$TIMESTAMP.txt
+
+# Stop the service
+echo "⏹️  Stopping service..."
+sudo systemctl stop lolstonks-api.service
+
+# Verify the version exists
+if ! git tag | grep -q "^$VERSION$"; then
+    echo "❌ Error: Version tag $VERSION not found!"
+    echo "Available versions:"
+    git tag --list
+    sudo systemctl start lolstonks-api.service
+    exit 1
+fi
+
+# Checkout the specified version
+echo "📥 Checking out version $VERSION..."
+git fetch --tags
+git checkout $VERSION
+
+# Reinstall dependencies
+echo "📦 Reinstalling dependencies..."
+uv sync
+
+# Start the service
+echo "▶️  Starting service..."
+sudo systemctl start lolstonks-api.service
+
+# Wait for service to start
+sleep 5
+
+# Verify the service is running
+if systemctl is-active --quiet lolstonks-api.service; then
+    echo "✅ Service is running"
+
+    # Check health endpoint
+    HEALTH_CHECK=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8080/health)
+    if [ "$HEALTH_CHECK" = "200" ]; then
+        echo "✅ Health check passed"
+        echo "✅ Rollback to $VERSION completed successfully!"
+        echo ""
+        echo "Rolled back from: $CURRENT_VERSION"
+        echo "Rolled back to: $VERSION"
+        echo "Backup location: $BACKUP_DIR/pre_rollback_*_$TIMESTAMP.txt"
+    else
+        echo "⚠️  Warning: Service started but health check failed (HTTP $HEALTH_CHECK)"
+        echo "Check logs: sudo journalctl -u lolstonks-api.service -n 50"
+    fi
+else
+    echo "❌ Error: Service failed to start after rollback"
+    echo "Check logs: sudo journalctl -u lolstonks-api.service -n 50"
+    exit 1
+fi
+EOF
+
+chmod +x /home/lolstonks/rollback.sh
+```
+
+### Docker Rollback Script
+
+For Docker deployments:
+
+```bash
+cat > /home/lolstonks/docker-rollback.sh << 'EOF'
+#!/bin/bash
+
+# Docker Rollback Script for LOLStonks API Gateway
+# Usage: ./docker-rollback.sh <version>
+# Example: ./docker-rollback.sh 2.0.0
+
+if [ -z "$1" ]; then
+    echo "Usage: $0 <version>"
+    echo "Example: $0 2.0.0"
+    echo ""
+    echo "Available versions:"
+    docker pull ghcr.io/onestepat4time/lolstonks-api-gateway:latest 2>/dev/null
+    echo "Check: https://github.com/OneStepAt4time/lolstonks-api-gateway/pkgs/container/lolstonks-api-gateway"
+    exit 1
+fi
+
+VERSION=$1
+IMAGE="ghcr.io/onestepat4time/lolstonks-api-gateway:$VERSION"
+
+echo "🔄 Starting Docker rollback to version $VERSION..."
+
+# Stop current container
+echo "⏹️  Stopping current container..."
+docker-compose down || docker stop lolstonks-api
+
+# Pull the specified version
+echo "📥 Pulling version $VERSION..."
+if ! docker pull $IMAGE; then
+    echo "❌ Error: Failed to pull image $IMAGE"
+    echo "Check if version exists: https://github.com/OneStepAt4time/lolstonks-api-gateway/releases"
+    exit 1
+fi
+
+# Update docker-compose.yml to use specific version
+echo "📝 Updating docker-compose.yml..."
+sed -i.bak "s|image:.*lolstonks-api-gateway:.*|image: $IMAGE|g" docker-compose.yml
+
+# Start with the new version
+echo "▶️  Starting container with version $VERSION..."
+docker-compose up -d
+
+# Wait for container to be healthy
+echo "⏳ Waiting for container to be healthy..."
+sleep 10
+
+# Check health
+HEALTH_CHECK=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8080/health)
+if [ "$HEALTH_CHECK" = "200" ]; then
+    echo "✅ Rollback to version $VERSION completed successfully!"
+    echo "✅ Health check passed"
+    docker-compose ps
+else
+    echo "⚠️  Warning: Health check failed (HTTP $HEALTH_CHECK)"
+    echo "Container logs:"
+    docker-compose logs --tail=50 app
+fi
+EOF
+
+chmod +x /home/lolstonks/docker-rollback.sh
+```
+
+### Rollback Verification Checklist
+
+After performing a rollback, verify the following:
+
+1. **Service Status**: Confirm the service is running
+   ```bash
+   sudo systemctl status lolstonks-api.service
+   # Or for Docker:
+   docker-compose ps
+   ```
+
+2. **Health Check**: Verify the health endpoint responds
+   ```bash
+   curl http://127.0.0.1:8080/health
+   ```
+
+3. **Version Verification**: Confirm the correct version is running
+   ```bash
+   curl http://127.0.0.1:8080/health | jq '.version'
+   ```
+
+4. **Functionality Test**: Test critical endpoints
+   ```bash
+   # Test a simple endpoint
+   curl http://127.0.0.1:8080/api/v1/summoner/by-name/euw1/test
+   ```
+
+5. **Log Review**: Check for errors in recent logs
+   ```bash
+   sudo journalctl -u lolstonks-api.service -n 100 --no-pager
+   # Or for Docker:
+   docker-compose logs --tail=100 app
+   ```
+
+6. **Redis Connectivity**: Verify Redis connection
+   ```bash
+   redis-cli -a your-password ping
+   ```
+
+7. **External Access**: Test through Nginx/load balancer
+   ```bash
+   curl https://yourdomain.com/health
+   ```
+
+### Preventing Future Rollbacks
+
+To minimize the need for rollbacks:
+
+1. **Staging Environment**: Always test releases in staging first
+2. **Gradual Rollout**: Use canary or blue-green deployments for critical changes
+3. **Automated Testing**: Ensure comprehensive test coverage before release
+4. **Monitoring**: Set up alerts to detect issues quickly
+5. **Release Notes**: Maintain detailed changelog and release notes
+6. **Database Migrations**: Always use reversible database migrations
+7. **Feature Flags**: Use feature flags to disable problematic features without rollback
+
+### Database Migration Rollback
+
+If your rollback includes database schema changes:
+
+```bash
+# This project currently uses Redis (no schema migrations)
+# But if you add a SQL database later, use migration tools like Alembic:
+
+# Example with Alembic (for future reference):
+# alembic downgrade -1  # Rollback one migration
+# alembic downgrade <revision>  # Rollback to specific revision
+```
+
+### Emergency Hotfix Process
+
+If a critical bug is found in production:
+
+1. **Create hotfix branch** from the production tag:
+   ```bash
+   git checkout -b hotfix/critical-bug-fix v2.0.0
+   ```
+
+2. **Apply minimal fix** and test thoroughly
+
+3. **Version bump** using patch version:
+   ```bash
+   python scripts/bump_version.py patch
+   ```
+
+4. **Create hotfix tag**:
+   ```bash
+   git tag -a v2.0.1 -m "Hotfix: Critical bug fix"
+   git push origin hotfix/critical-bug-fix
+   git push --tags
+   ```
+
+5. **Deploy hotfix** immediately
+
+6. **Merge back** to develop and main branches
+
 ## Scaling Considerations
 
 ### Horizontal Scaling

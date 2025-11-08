@@ -40,6 +40,11 @@ jobs:
       run: |
         uv sync --extra dev
 
+    - name: Security audit - Dependency vulnerabilities
+      run: |
+        uv pip install pip-audit
+        uv run pip-audit --desc --skip-editable
+
     - name: Lint with ruff
       run: |
         uv run ruff check --output-format=github .
