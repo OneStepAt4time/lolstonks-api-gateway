@@ -295,7 +295,7 @@ queue: Annotated[QueueType, Field(
 - **Account-V1**: All endpoints migrated to PlatformRegionQuery
 - **Match-V5**: All endpoints migrated with enhanced filtering parameters
 
-### 🔄 Pending Migrations
+###  Pending Migrations
 
 The following endpoints are scheduled for migration to Pydantic models:
 

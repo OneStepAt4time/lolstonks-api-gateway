@@ -10,7 +10,7 @@ This middleware provides comprehensive error tracking including:
 
 import time
 from collections import defaultdict, deque
-from typing import Dict, List, Optional, Set
+from typing import Awaitable, Callable, Dict, List, Optional, Set
 
 from fastapi import Request, Response
 from fastapi.responses import JSONResponse
@@ -84,7 +84,9 @@ class ErrorMonitoringMiddleware(BaseHTTPMiddleware):
 
         logger.info("Error monitoring middleware initialized")
 
-    async def dispatch(self, request: Request, call_next) -> Response:
+    async def dispatch(
+        self, request: Request, call_next: Callable[[Request], Awaitable[Response]]
+    ) -> Response:
         """
         Process request and track any errors that occur.
 
@@ -225,7 +227,9 @@ class ErrorMonitoringMiddleware(BaseHTTPMiddleware):
         if error_record.provider:
             self.provider_error_counts[error_record.provider] += 1
 
-    def _check_alert_conditions(self, endpoint: str, provider: str, consecutive_failures: int):
+    def _check_alert_conditions(
+        self, endpoint: str, provider: Optional[str], consecutive_failures: int
+    ):
         """Check if error conditions warrant an alert."""
         if consecutive_failures >= self.alert_threshold:
             alert_key = f"consecutive_failures:{endpoint}"

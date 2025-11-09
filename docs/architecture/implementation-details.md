@@ -2,7 +2,7 @@
 
 This document describes the **actual implementation** of the LOLStonks API Gateway, showing the real code structure and libraries used.
 
-> **💡 Important**: This differs from the conceptual architecture documentation which shows best practices and potential implementations. This document reflects what is actually in the codebase.
+> ** Important**: This differs from the conceptual architecture documentation which shows best practices and potential implementations. This document reflects what is actually in the codebase.
 
 ---
 

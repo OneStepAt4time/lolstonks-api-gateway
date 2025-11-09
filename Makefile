@@ -1,4 +1,4 @@
-.PHONY: help install install-dev test lint format docs docs-serve clean build release release-dry-run release-hotfix version tag
+.PHONY: help install install-dev test lint format docs docs-serve docs-build docs-validate clean build docs-validate
 
 # Default target
 help:
@@ -10,8 +10,13 @@ help:
 	@echo "  test         Run tests"
 	@echo "  lint         Run linting"
 	@echo "  format       Format code"
-	@echo "  docs         Build documentation"
-	@echo "  docs-serve   Serve documentation locally"
+	@echo "  docs         Build documentation with interactive diagrams"
+	@echo "  docs-serve   Serve documentation locally with interactive features"
+	@echo "  docs-build   Build documentation for production (no live reload)"
+	@echo "  docs-validate Validate documentation links and structure"
+	@echo "  docs-preview  Preview documentation with interactive diagrams"
+	@echo "  docs-test     Test documentation build and interactive features"
+	@echo "  docs-clean    Clean documentation build artifacts"
 	@echo "  clean        Clean build artifacts"
 	@echo "  build        Build for production"
 	@echo ""
@@ -27,11 +32,11 @@ help:
 	@echo "  make format"
 	@echo "  make lint"
 	@echo "  make test"
-	@echo "  make docs-serve"
+	@echo "  make docs-preview  # Test interactive diagrams"
 	@echo ""
-	@echo "Release workflow:"
-	@echo "  make release-dry-run  # Check what will be released"
-	@echo "  make release          # Interactive release process"
+	@echo "Interactive Diagram Testing:"
+	@echo "  make docs-build    # Build for testing"
+	@echo "  make docs-test     # Validate interactive features"
 
 # Installation
 install:
@@ -68,22 +73,66 @@ format:
 
 # Documentation
 docs:
+	@echo "🚀 Building documentation with interactive diagrams..."
 	uv run python scripts/generate_api_docs.py
 	uv run mkdocs build --strict
+	@echo "✅ Documentation built with interactive flowcharts!"
+	@echo "💡 Features: Zoom, pan, click navigation, mobile support"
 
 docs-serve:
+	@echo "🌐 Starting documentation server with interactive features..."
 	uv run python scripts/generate_api_docs.py
+	@echo "📋 Interactive diagrams available at http://127.0.0.1:8000"
+	@echo "🎮 Try the System Overview: http://127.0.0.1:8000/architecture/system-overview/"
+	@echo "🎯 View Diagram Guide: http://127.0.0.1:8000/architecture/diagram-guide/"
 	uv run mkdocs serve
 
+docs-build:
+	@echo "🏗️ Building production documentation (optimized for deployment)..."
+	uv run python scripts/generate_api_docs.py
+	uv run mkdocs build --quiet
+	@echo "✅ Production build complete!"
+	@echo "📦 Site ready for deployment to 'site/' directory"
+
+docs-validate:
+	@echo "🔍 Validating documentation structure..."
+	uv run python scripts/generate_api_docs.py
+	@echo "✅ API docs generated successfully"
+	uv run mkdocs build --strict
+	@echo "✅ Documentation structure valid"
+	@echo "🔗 Checking interactive diagram files..."
+	@if [ -f "docs/javascripts/mermaid-interactivity.js" ]; then \
+		echo "✅ Interactive JavaScript found"; \
+	else \
+		echo "❌ Interactive JavaScript missing"; exit 1; \
+	fi
+	@if [ -f "docs/stylesheets/mermaid-interactivity.css" ]; then \
+		echo "✅ Interactive CSS found"; \
+	else \
+		echo "❌ Interactive CSS missing"; exit 1; \
+	fi
+	@echo "✅ All interactive diagram assets validated!"
+
 docs-deploy:
+	@echo "🚀 Deploying documentation with interactive diagrams..."
 	uv run python scripts/generate_api_docs.py
 	uv run mkdocs gh-deploy --force
+	@echo "✅ Documentation deployed with interactive flowcharts!"
+	@echo "🌐 Live at: https://onestepat4time.github.io/lolstonks-api-gateway/"
 
 docs-clean:
+	@echo "🧹 Cleaning documentation build artifacts..."
 	rm -rf site/
+	@echo "✅ Documentation artifacts cleaned!"
 
 # Quality assurance
-qa: lint test docs
+qa: lint test docs-validate
+	@echo "✅ Quality assurance completed!"
+	@echo "🔍 Checked: Code formatting, tests, documentation structure"
+
+qa-full: lint test docs docs-validate
+	@echo "🔬 Full QA completed!"
+	@echo "📋 All checks passed: Code, Tests, Interactive Docs"
 
 pre-commit: format lint test
 
@@ -137,6 +186,28 @@ api-test:
 
 api-docs-test:
 	curl -f http://localhost:8080/docs || echo "Server not running"
+
+# Interactive diagram testing
+docs-test:
+	@echo "🎮 Testing interactive diagrams..."
+	@echo "1️⃣ Building documentation..."
+	@$(MAKE) docs-build
+	@echo ""
+	@echo "2️⃣ Checking interactive assets..."
+	@if [ -d "site" ]; then \
+		echo "✅ Documentation built successfully"; \
+		echo "📋 Open site/index.html in your browser"; \
+		echo "🎮 Navigate to Architecture section to test interactive features"; \
+		echo "🌐 Available at: file://$(shell pwd)/site/index.html"; \
+	else \
+		echo "❌ Documentation build failed"; exit 1; \
+	fi
+
+docs-preview:
+	@echo "🌐 Starting documentation preview server..."
+	@echo "📋 Interactive diagrams will be available at http://localhost:8000"
+	@echo "🎮 Try: http://localhost:8000/architecture/system-overview/"
+	$(MAKE) docs-serve
 
 # Release
 version:
@@ -296,12 +367,16 @@ ci:
 	@echo "3️⃣  Running tests with coverage..."
 	@$(MAKE) test
 	@echo ""
-	@echo "4️⃣  Building documentation..."
+	@echo "4️⃣  Building documentation with interactive diagrams..."
 	@$(MAKE) docs
+	@echo ""
+	@echo "5️⃣  Validating interactive diagram assets..."
+	@$(MAKE) docs-validate
 	@echo ""
 	@echo "✅ CI pipeline completed successfully!"
 	@echo ""
 	@echo "💡 This is equivalent to what GitHub Actions will run on push/PR"
+	@echo "🎮 Interactive flowcharts included in build!"
 
 # Simpler CI for quick checks
 ci-quick:

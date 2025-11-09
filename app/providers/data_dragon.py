@@ -128,17 +128,13 @@ class DataDragonProvider(BaseProvider):
             The latest version string (e.g., "15.22.1")
 
         Raises:
-            httpx.HTTPStatusError: If unable to fetch versions
+            RuntimeError: If no versions are available from Data Dragon API
         """
         if self._latest_version_cache is None:
             logger.info("Fetching latest Data Dragon version from API")
             versions = await self.get_versions()
             if not versions:
-                raise httpx.HTTPStatusError(
-                    "No versions available from Data Dragon API",
-                    request=None,
-                    response=None,
-                )
+                raise RuntimeError("No versions available from Data Dragon API")
             # Get the first version which is the latest
             self._latest_version_cache = versions[0]
             logger.info(f"Cached latest Data Dragon version: {self._latest_version_cache}")

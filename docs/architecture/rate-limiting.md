@@ -1,451 +1,301 @@
 # Rate Limiting Architecture
 
-This section details the rate limiting implementation in the LOLStonks API Gateway, designed to ensure compliance with Riot Games API rate limits while providing optimal performance.
+This section details the rate limiting architecture of LOLStonks API Gateway, ensuring fair usage and service protection.
 
-> **📝 Documentation Note**: This document describes the conceptual architecture and best practices for rate limiting. The actual implementation uses the [aiolimiter](https://github.com/mjpieters/aiolimiter) library, which provides a production-ready token bucket algorithm. Some code examples below are simplified for educational purposes.
-
-## Overview
-
-The rate limiting system uses a **token bucket algorithm** to control the flow of requests to the Riot Games API, preventing rate limit violations and ensuring fair usage.
-
-## Token Bucket Algorithm
-
-### Algorithm Description
-
-The token bucket algorithm works as follows:
-
-1. **Bucket Capacity**: Maximum number of tokens that can be stored
-2. **Refill Rate**: Number of tokens added per second
-3. **Token Consumption**: Each request consumes one token
-4. **Wait Strategy**: Requests wait when tokens are unavailable
+## Rate Limiting Overview
 
 ```mermaid
-graph TD
-    Bucket[Token Bucket] --> Refill[Refill: 20 tokens/sec]
-    Bucket --> Capacity[Max Capacity: 100 tokens]
+flowchart TB
+    %% Request Entry Point
+    subgraph RequestEntry["🚪 Request Entry"]
+        ClientRequest["👤 Client Request<br/><em>HTTP Request</em>"]
+        KeyExtractor["🔑 API Key Extractor<br/><em>Header/Query</em>"]
+        RequestClassifier["🏷️ Request Classifier<br/><em>Endpoint & Method</em>"]
+    end
 
-    Request1[Request 1] --> Consume1[Consume 1 token]
-    Request2[Request 2] --> Consume2[Consume 1 token]
-    Request3[Request 3] --> Consume3[Consume 1 token]
+    %% Rate Limiting Engine
+    subgraph RateLimitingEngine["⚡ Rate Limiting Engine"]
+        subgraph TokenBucket["🪣 Token Bucket Algorithm"]
+            BucketState["🗑️ Bucket State<br/><em>Tokens & Refill Rate</em>"]
+            TokenRefill["💧 Token Refill<br/><em>Configurable Rate</em>"]
+            TokenConsumer["🔽 Token Consumer<br/><em>Request Consumption</em>"]
+        end
 
-    Consume1 --> Available{Tokens Available?}
-    Consume2 --> Available
-    Consume3 --> Available
+        subgraph RateCalculator["📊 Rate Calculator"]
+            WindowSize["⏱️ Time Window<br/><em>Sliding/Fixed Window</em>"]
+            RequestCounter["🔢 Request Counter<br/><em>Running Total</em>"]
+            RateDetermination["📈 Rate Determination<br/><em>Current RPS</em>"]
+        end
 
-    Available -->|Yes| Process[Process Request]
-    Available -->|No| Wait[Wait for Refill]
+        subgraph LimitStorage["💾 Limit Storage"]
+            RedisStore["🔴 Redis Store<br/><em>High Performance</em>"]
+            LocalCache["⚡ Local Cache<br/><em>Frequently Used</em>"]
+            PersistentStore["💾 Persistent Store<br/><em>Backup & Recovery</em>"]
+        end
+    end
 
-    Wait --> Available
-    Process --> Bucket
+    %% Decision Logic
+    subgraph DecisionLogic["🤔 Decision Logic"]
+        RateCheck["✅ Rate Check<br/><em>Within Limits?</em>"]
+        ActionSelector["🎯 Action Selector<br/><em>Allow/Limit/Block</em>"]
+        ResponseHeaders["📝 Response Headers<br/><em>Rate Limit Info</em>"]
+    end
+
+    %% Response Actions
+    subgraph ResponseActions["📬 Response Actions"]
+        AllowRequest["✅ Allow Request<br/><em>Process Normally</em>"]
+        RateLimitResponse["⏸️ Rate Limit<br/><em>429 Response</em>"]
+        BlockResponse["🚫 Block Request<br/><em>403 Response</em>"]
+        RetryAfter["⏰ Retry After<br/><em>Backoff Timing</em>"]
+    end
+
+    %% Monitoring & Metrics
+    subgraph MonitoringLayer["📈 Monitoring & Metrics"]
+        MetricsCollector["📊 Metrics Collector<br/><em>Usage Statistics</em>"]
+        AlertSystem["🚨 Alert System<br/><em>Threshold Breach</em>"]
+        Analytics["📈 Analytics<br/><em>Trend Analysis</em>"]
+        Dashboard["🖥️ Dashboard<br/><em>Real-time Monitoring</em>"]
+    end
+
+    %% Connections
+    ClientRequest --> KeyExtractor
+    KeyExtractor --> RequestClassifier
+    RequestClassifier --> TokenBucket
+    RequestClassifier --> RateCalculator
+
+    TokenBucket --> LimitStorage
+    RateCalculator --> LimitStorage
+
+    LimitStorage --> RateCheck
+    RateCheck --> ActionSelector
+    ActionSelector --> ResponseHeaders
+
+    ResponseHeaders --> AllowRequest
+    ResponseHeaders --> RateLimitResponse
+    ResponseHeaders --> BlockResponse
+    RateLimitResponse --> RetryAfter
+
+    AllowRequest --> MetricsCollector
+    RateLimitResponse --> MetricsCollector
+    BlockResponse --> AlertSystem
+    RetryAfter --> Analytics
+
+    MetricsCollector --> Dashboard
+    AlertSystem --> Dashboard
+    Analytics --> Dashboard
+
+    %% Styling
+    classDef entry fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    classDef engine fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef logic fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    classDef response fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+    classDef monitor fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+
+    class RequestEntry entry
+    class RateLimitingEngine engine
+    class DecisionLogic logic
+    class ResponseActions response
+    class MonitoringLayer monitor
 ```
 
-### Implementation Details
+## Rate Limiting Strategy
 
-> **💡 Actual Implementation**: The real code in `app/riot/rate_limiter.py` uses `aiolimiter.AsyncLimiter` for simplicity and reliability. The example below shows a conceptual implementation for educational purposes.
+### Token Bucket Algorithm
+The gateway implements a refined **Token Bucket** algorithm that provides:
 
+- **Token Refill Rate**: Configurable tokens per second
+- **Bucket Capacity**: Maximum tokens that can be stored
+- **Burst Handling**: Allows short bursts within capacity
+- **Gradual Refill**: Continuous token addition
+
+#### Implementation Details
 ```python
-# Conceptual implementation (not actual code)
-import asyncio
-from datetime import datetime, timedelta
-from typing import Optional
+class TokenBucket:
+    def __init__(self, capacity, refill_rate):
+        self.capacity = capacity
+        self.refill_rate = refill_rate
+        self.tokens = capacity
+        self.last_refill = time.time()
 
-class RateLimiter:
-    """
-    Token bucket rate limiter for Riot API compliance.
+    def consume(self, tokens=1):
+        self.refill()
 
-    Default configuration:
-    - 20 requests per second
-    - 100 token burst capacity
-    - 120-second refill period for burst capacity
-    """
+        if self.tokens >= tokens:
+            self.tokens -= tokens
+            return True
+        return False
 
-    def __init__(self, rate: float = 20.0, capacity: int = 100):
-        self.rate = rate  # tokens per second
-        self.capacity = capacity  # maximum tokens
-        self.tokens = capacity  # current tokens
-        self.last_refill = datetime.utcnow()
-        self._lock = asyncio.Lock()
-
-    async def acquire(self) -> None:
-        """Acquire a token, waiting if necessary."""
-        async with self._lock:
-            await self._refill()
-            if self.tokens >= 1:
-                self.tokens -= 1
-                return
-
-            # Calculate wait time for next token
-            wait_time = 1.0 / self.rate
-            await asyncio.sleep(wait_time)
-            await self._refill()
-            self.tokens -= 1
-
-    async def _refill(self) -> None:
-        """Refill tokens based on elapsed time."""
-        now = datetime.utcnow()
-        elapsed = (now - self.last_refill).total_seconds()
-        tokens_to_add = elapsed * self.rate
-
-        self.tokens = min(self.capacity, self.tokens + tokens_to_add)
+    def refill(self):
+        now = time.time()
+        elapsed = now - self.last_refill
+        self.tokens = min(self.capacity,
+                       self.tokens + elapsed * self.refill_rate)
         self.last_refill = now
 ```
 
-## Configuration
+### Rate Limiting Tiers
 
-### Environment Variables
+| Tier | Requests per Minute | Burst Capacity | Use Case |
+|------|-------------------|----------------|-----------|
+| Bronze | 100 | 150 | Basic users |
+| Silver | 500 | 750 | Premium users |
+| Gold | 2000 | 3000 | Enterprise |
+| Platinum | 5000 | 7500 | Partners |
+| Diamond | 10000 | 15000 | Internal services |
 
-```env
-# Rate limiting configuration
-RATE_LIMIT_RPS=20           # Requests per second
-RATE_LIMIT_BURST=100        # Burst capacity
-RATE_LIMIT_PERIOD=120       # Period for burst refill (seconds)
+## Configuration Management
+
+### Dynamic Configuration
+Rate limits are dynamically configurable through:
+
+- **Environment Variables**: `RATE_LIMIT_TIER_X`
+- **Database Settings**: Real-time configuration updates
+- **API Configuration**: Administrative interface
+- **File-based**: YAML configuration files
+
+### Configuration Example
+```yaml
+rate_limiting:
+  default_tier: bronze
+  tiers:
+    bronze:
+      requests_per_minute: 100
+      burst_capacity: 150
+      refill_rate: 1.67
+    silver:
+      requests_per_minute: 500
+      burst_capacity: 750
+      refill_rate: 8.33
+    gold:
+      requests_per_minute: 2000
+      burst_capacity: 3000
+      refill_rate: 33.33
 ```
 
-### Custom Rate Limits
+## Storage and Persistence
 
-You can configure different rate limits for different endpoint types:
+### Redis-based Storage
+- **Primary Storage**: Redis for high-performance access
+- **Key Strategy**: `rate_limit:{api_key}:{endpoint}:{window}`
+- **TTL Configuration**: Automatic expiration of old data
+- **Memory Efficiency**: Compact data structures
 
-```python
-# Custom rate limits per endpoint type
-RATE_LIMITS = {
-    "summoner": {"rps": 30, "burst": 150},    # Higher limit for summoner data
-    "match": {"rps": 10, "burst": 50},        # Lower limit for match data
-    "league": {"rps": 20, "burst": 100},      # Standard limit for league data
-    "spectator": {"rps": 5, "burst": 25}      # Very low limit for spectator
+### Local Caching
+- **Frequently Used**: Hot caching of popular limits
+- **Cache Invalidation**: Time-based and event-driven
+- **Fallback Mechanism**: Local cache when Redis unavailable
+- **Memory Management**: LRU eviction policy
+
+## Response Headers
+
+### Standard Headers
+All rate-limited responses include:
+
+```http
+X-RateLimit-Limit: 100
+X-RateLimit-Remaining: 75
+X-RateLimit-Reset: 1640995200
+X-RateLimit-Retry-After: 30
+```
+
+### Header Information
+- **X-RateLimit-Limit**: Total requests allowed in window
+- **X-RateLimit-Remaining**: Requests left in current window
+- **X-RateLimit-Reset**: Unix timestamp for window reset
+- **X-RateLimit-Retry-After**: Seconds until next request allowed
+
+## Error Handling
+
+### 429 Too Many Requests
+```json
+{
+  "error": {
+    "code": "RATE_LIMIT_EXCEEDED",
+    "message": "Rate limit exceeded. Please retry later.",
+    "details": {
+      "limit": 100,
+      "window": 60,
+      "retry_after": 30,
+      "reset_time": "2023-12-01T12:00:00Z"
+    }
+  }
 }
 ```
 
-## Integration with HTTP Client
+### Graceful Degradation
+- **Priority Requests**: Essential operations have higher limits
+- **Emergency Mode**: Reduced limits during high load
+- **Fair Queuing**: Request queuing for non-critical operations
+- **Backpressure**: Automatic load shedding when overloaded
 
-### Rate-Limited HTTP Client
+## Monitoring and Analytics
 
-```python
-# app/riot/client.py
-import httpx
-from app.riot.rate_limiter import RateLimiter
+### Real-time Metrics
+- **Request Rate**: Current requests per second
+- **Utilization**: Percentage of rate limit usage
+- **Blocking Events**: Rate limit triggers per endpoint
+- **Response Times**: Processing latency distribution
 
-class RiotClient:
-    """
-    HTTP client for Riot API with integrated rate limiting.
-    """
-
-    def __init__(self, api_key: str):
-        self.api_key = api_key
-        self.client = httpx.AsyncClient()
-        self.rate_limiter = RateLimiter(
-            rate=float(os.getenv("RATE_LIMIT_RPS", 20)),
-            capacity=int(os.getenv("RATE_LIMIT_BURST", 100))
-        )
-
-    async def get(self, path: str, region: str, **kwargs) -> dict:
-        """
-        Make GET request with automatic rate limiting and retry.
-        """
-        await self.rate_limiter.acquire()
-
-        # Make request
-        response = await self.client.get(
-            self._build_url(path, region),
-            headers=self._get_headers(),
-            **kwargs
-        )
-
-        # Handle rate limiting from Riot API
-        if response.status_code == 429:
-            retry_after = int(response.headers.get("Retry-After", 1))
-            await asyncio.sleep(retry_after)
-            return await self.get(path, region, **kwargs)  # Retry
-
-        response.raise_for_status()
-        return response.json()
-```
-
-## Rate Limit Response Handling
-
-### 429 Response Handling
-
-When Riot API returns a 429 (Too Many Requests) response:
-
-```python
-async def _handle_rate_limit_response(self, response: httpx.Response) -> dict:
-    """
-    Handle 429 responses from Riot API.
-
-    Riot API provides:
-    - Retry-After header: Seconds to wait before retrying
-    - X-Rate-Limit-* headers: Current rate limit status
-    """
-    if response.status_code != 429:
-        response.raise_for_status()
-        return response.json()
-
-    # Extract retry information
-    retry_after = int(response.headers.get("Retry-After", 1))
-    app_rate_limit = response.headers.get("X-App-Rate-Limit", "")
-    app_rate_count = response.headers.get("X-App-Rate-Limit-Count", "")
-
-    # Log rate limit information
-    logger.warning(
-        f"Rate limited. Retry after {retry_after}s. "
-        f"App limit: {app_rate_count}/{app_rate_limit}"
-    )
-
-    # Wait for the specified time
-    await asyncio.sleep(retry_after)
-
-    # The request will be retried by the calling method
-    raise RateLimitExceeded(retry_after=retry_after)
-```
-
-### Rate Limit Headers Monitoring
-
-```python
-def _monitor_rate_limits(self, response: httpx.Response) -> None:
-    """
-    Monitor rate limit headers for proactive management.
-
-    Riot API headers:
-    - X-App-Rate-Limit: application limits (e.g., "20:1,100:120")
-    - X-App-Rate-Limit-Count: current usage (e.g., "5:1,17:120")
-    - X-Method-Rate-Limit: method-specific limits
-    - X-Method-Rate-Limit-Count: current method usage
-    """
-    app_limit = response.headers.get("X-App-Rate-Limit", "")
-    app_count = response.headers.get("X-App-Rate-Limit-Count", "")
-
-    if app_limit and app_count:
-        # Parse rate limit information
-        limits = self._parse_rate_limit_header(app_limit)
-        counts = self._parse_rate_limit_header(app_count)
-
-        # Check if we're approaching limits
-        for (limit_period, limit_count), (_, current_count) in zip(limits, counts):
-            usage_percentage = (current_count / limit_count) * 100
-
-            if usage_percentage > 80:
-                logger.warning(
-                    f"Approaching rate limit: {current_count}/{limit_count} "
-                    f"({usage_percentage:.1f}%) for {limit_period}s period"
-                )
-```
-
-## Performance Considerations
-
-### Rate Limiter Performance
-
-```python
-# Optimized rate limiter with minimal blocking
-class HighPerformanceRateLimiter:
-    """
-    High-performance rate limiter using async primitives.
-    """
-
-    def __init__(self, rate: float, capacity: int):
-        self.rate = rate
-        self.capacity = capacity
-        self.tokens = capacity
-        self.last_refill = time.time()
-        self._lock = asyncio.Lock()
-        self._not_empty = asyncio.Condition(self._lock)
-
-    async def acquire(self) -> None:
-        """Acquire token with efficient waiting."""
-        async with self._not_empty:
-            while self.tokens < 1:
-                # Calculate wait time more precisely
-                now = time.time()
-                time_since_refill = now - self.last_refill
-                tokens_needed = 1 - self.tokens
-                wait_time = max(0, tokens_needed / self.rate - time_since_refill)
-
-                if wait_time > 0:
-                    await asyncio.sleep(wait_time)
-                else:
-                    await self._refill()
-
-            self.tokens -= 1
-            self._not_empty.notify()
-```
-
-### Connection Pooling with Rate Limiting
-
-```python
-# HTTP client configuration optimized for rate limiting
-class OptimizedRiotClient:
-    def __init__(self, api_key: str):
-        self.client = httpx.AsyncClient(
-            limits=httpx.Limits(
-                max_keepalive_connections=20,
-                max_connections=100,
-                keepalive_expiry=30.0
-            ),
-            timeout=httpx.Timeout(30.0, connect=5.0)
-        )
-        self.rate_limiter = RateLimiter(rate=20, capacity=100)
-```
-
-## Monitoring and Metrics
-
-### Rate Limit Metrics
-
-```python
-# Metrics collection for rate limiting
-class RateLimitMetrics:
-    """
-    Collect and report rate limiting metrics.
-    """
-
-    def __init__(self):
-        self.requests_total = 0
-        self.requests_limited = 0
-        self.wait_time_total = 0.0
-        self.tokens_consumed = 0
-
-    def record_request(self, wait_time: float, was_limited: bool = False) -> None:
-        """Record a request with its wait time."""
-        self.requests_total += 1
-        self.wait_time_total += wait_time
-        if was_limited:
-            self.requests_limited += 1
-        self.tokens_consumed += 1
-
-    def get_metrics(self) -> dict:
-        """Get current metrics."""
-        return {
-            "requests_total": self.requests_total,
-            "requests_limited": self.requests_limited,
-            "limit_rate": self.requests_limited / self.requests_total * 100,
-            "average_wait_time": self.wait_time_total / self.requests_total,
-            "tokens_consumed": self.tokens_consumed
-        }
-```
-
-### Health Check Integration
-
-```python
-@app.get("/health")
-async def health_check():
-    """Health check including rate limiting status."""
-    rate_limiter_metrics = riot_client.rate_limiter.get_metrics()
-
-    return {
-        "status": "ok",
-        "rate_limiting": {
-            "status": "healthy",
-            "current_tokens": rate_limiter_metrics["current_tokens"],
-            "requests_per_second": rate_limiter_metrics["current_rate"],
-            "limit_rate": rate_limiter_metrics["limit_rate_percentage"]
-        }
-    }
-```
+### Analytics Dashboard
+- **Historical Trends**: Long-term usage patterns
+- **User Behavior**: Request pattern analysis
+- **Performance Impact**: Rate limiting effect on response times
+- **Capacity Planning**: Resource allocation recommendations
 
 ## Advanced Features
 
-### Adaptive Rate Limiting
+### Intelligent Rate Limiting
+- **Endpoint-specific Limits**: Different limits per API route
+- **Time-based Variations**: Different limits for peak/off-peak
+- **Geographic Considerations**: Regional rate limit adjustments
+- **User Classification**: Dynamic limit assignment
 
-```python
-class AdaptiveRateLimiter(RateLimiter):
-    """
-    Rate limiter that adapts based on Riot API responses.
-    """
+### Predictive Rate Limiting
+- **Machine Learning**: Pattern recognition and prediction
+- **Proactive Scaling**: Anticipatory limit adjustments
+- **Anomaly Detection**: Unusual usage pattern alerts
+- **Automated Optimization**: Self-adjusting parameters
 
-    def __init__(self, initial_rate: float, initial_capacity: int):
-        super().__init__(initial_rate, initial_capacity)
-        self.adaptive_mode = True
-        self.consecutive_429s = 0
-        self.last_adjustment = time.time()
+## Integration Points
 
-    async def adapt_after_429(self, retry_after: int) -> None:
-        """Adjust rate limits after receiving 429 response."""
-        self.consecutive_429s += 1
+### Gateway Integration
+Rate limiting integrates seamlessly with:
 
-        if self.consecutive_429s >= 3:
-            # Reduce rate limit if we get multiple 429s
-            new_rate = max(1, self.rate * 0.8)
-            self.rate = new_rate
-            logger.warning(f"Reduced rate limit to {new_rate} RPS due to 429s")
+- **Authentication**: User identity and tier determination
+- **Authorization**: Permission-based limit adjustments
+- **Caching**: Smart cache invalidation on limits
+- **Logging**: Comprehensive audit trails
 
-    async def adapt_success(self) -> None:
-        """Gradually increase rate limit on success."""
-        if self.consecutive_429s == 0 and time.time() - self.last_adjustment > 300:
-            # Gradually increase if no recent 429s
-            self.rate = min(30, self.rate * 1.1)
-            self.last_adjustment = time.time()
-```
+### External Dependencies
+- **Redis Cluster**: Primary rate limit storage
+- **Configuration Service**: Dynamic limit updates
+- **Monitoring Stack**: Metrics and alerting
+- **Analytics Platform**: Usage pattern analysis
 
-### Distributed Rate Limiting
+## Performance Considerations
 
-For multi-instance deployments:
+### Optimization Techniques
+- **Bloom Filters**: Fast existence checks
+- **Sliding Windows**: Efficient time window management
+- **Batch Processing**: Grouped limit updates
+- **Memory Pooling**: Reduced allocation overhead
 
-```python
-class DistributedRateLimiter:
-    """
-    Rate limiter using Redis for distributed coordination.
-    """
+### Scalability Design
+- **Horizontal Scaling**: Distributed rate limiting
+- **Consistent Hashing**: Even load distribution
+- **Fault Tolerance**: Graceful degradation on failures
+- **Resource Efficiency**: Minimal CPU and memory usage
 
-    def __init__(self, redis_client, rate: float, capacity: int):
-        self.redis = redis_client
-        self.rate = rate
-        self.capacity = capacity
-        self.key = "rate_limiter:tokens"
+## Security and Compliance
 
-    async def acquire(self) -> None:
-        """Acquire token using Redis-based rate limiting."""
-        script = """
-        local key = KEYS[1]
-        local capacity = tonumber(ARGV[1])
-        local tokens = tonumber(ARGV[2])
-        local interval = tonumber(ARGV[3])
+### Abuse Prevention
+- **Bot Detection**: Automated behavior analysis
+- **IP-based Limits**: Additional client restrictions
+- **Pattern Recognition**: Suspicious activity detection
+- **Automatic Blocking**: Malicious actor prevention
 
-        local current = redis.call('GET', key)
-        if not current then
-            current = capacity
-        else
-            current = tonumber(current)
-        end
-
-        if current >= 1 then
-            redis.call('SET', key, current - 1)
-            redis.call('EXPIRE', key, interval)
-            return 1
-        else
-            return 0
-        end
-        """
-
-        result = await self.redis.eval(
-            script,
-            keys=[self.key],
-            args=[self.capacity, 1, self.capacity / self.rate]
-        )
-
-        if result == 0:
-            # No tokens available, wait
-            await asyncio.sleep(1.0 / self.rate)
-            await self.acquire()
-```
-
-## Best Practices
-
-### Configuration Guidelines
-
-1. **Conservative Rate Limits**: Start with conservative limits and adjust based on usage
-2. **Monitor Usage**: Regularly monitor rate limit headers and adjust accordingly
-3. **Graceful Degradation**: Handle rate limit errors gracefully without failing completely
-4. **Burst Capacity**: Maintain adequate burst capacity for traffic spikes
-
-### Error Handling
-
-1. **Exponential Backoff**: Use exponential backoff for retries
-2. **Circuit Breaker**: Implement circuit breaker for repeated failures
-3. **Logging**: Comprehensive logging of rate limit events
-4. **Alerting**: Set up alerts for high rate limit usage
-
-### Performance Optimization
-
-1. **Async Operations**: Use async/await throughout the stack
-2. **Connection Pooling**: Reuse HTTP connections efficiently
-3. **Batch Operations**: Batch requests when possible
-4. **Caching**: Cache responses to reduce API calls
-
-The rate limiting system ensures reliable operation while respecting Riot Games API limits, providing a robust foundation for high-volume API access.
+### Compliance Features
+- **GDPR Compliance**: Data retention policies
+- **API Security Standards**: OWASP best practices
+- **Audit Requirements**: Complete usage logging
+- **Rate Limit Disclosure**: Transparent user communication

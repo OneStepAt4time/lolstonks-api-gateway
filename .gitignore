@@ -87,3 +87,47 @@ docs/data/openapi.json
 # Additional security - Redis secrets
 redis.conf
 redis-secret.txt
+
+# Temporary files and backups
+temp_backup/
+backup/
+bak/
+*.bak
+*.old
+*.tmp
+*.temp
+
+# System crash dumps and error files
+*.stackdump
+*.crash
+*.dmp
+
+# Random text files that shouldn't be committed
+test.txt
+ciao.txt
+filastrocca.txt
+nul
+
+# Windows specific
+*.lnk
+*.url
+
+# Additional patterns
+output.txt
+*.pid
+
+# Local cache directories
+.cache/
+.coverage.*
+*.cover
+.hypothesis/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# Local configuration
+local_*.py
+.local/

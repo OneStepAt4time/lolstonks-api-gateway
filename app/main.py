@@ -12,6 +12,7 @@ from app.providers.registry import get_registry, initialize_providers
 from app.riot.client import riot_client
 from app.routers import (
     health,
+    monitoring,
     summoner,
     match,
     league,
@@ -118,6 +119,7 @@ app.add_middleware(ErrorMonitoringMiddleware, max_error_history=1000, alert_thre
 
 # Include routers - Health & Monitoring
 app.include_router(health.router)  # Health monitoring (basic + detailed)
+app.include_router(monitoring.router)  # Error monitoring endpoints
 
 # Include routers - Riot API
 app.include_router(account.router)  # Account API (Riot ID lookups)
