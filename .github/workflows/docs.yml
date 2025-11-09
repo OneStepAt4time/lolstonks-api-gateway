@@ -42,7 +42,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        uv sync --extra docs
+        uv sync --extra
 
     - name: Export OpenAPI schema
       env:
