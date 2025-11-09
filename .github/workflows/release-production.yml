@@ -365,63 +365,14 @@ jobs:
           echo "$CHANGES" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
-      - name: Send Slack notification
-        if: ${{ secrets.SLACK_WEBHOOK_URL != '' }}
-        uses: slackapi/slack-github-action@v1.26.0
-        with:
-          payload: |
-            {
-              "text": "Production Release ${{ steps.info.outputs.tag }}",
-              "attachments": [
-                {
-                  "color": "${{ steps.info.outputs.color }}",
-                  "fields": [
-                    {
-                      "title": "Version",
-                      "value": "${{ steps.info.outputs.tag }}",
-                      "short": true
-                    },
-                    {
-                      "title": "Status",
-                      "value": "${{ steps.info.outputs.status }}",
-                      "short": true
-                    },
-                    {
-                      "title": "Repository",
-                      "value": "${{ github.repository }}",
-                      "short": true
-                    },
-                    {
-                      "title": "Triggered by",
-                      "value": "${{ github.actor }}",
-                      "short": true
-                    },
-                    {
-                      "title": "Changes",
-                      "value": "${{ steps.changelog.outputs.changes }}",
-                      "short": false
-                    }
-                  ],
-                  "actions": [
-                    {
-                      "type": "button",
-                      "text": "View Release",
-                      "url": "https://github.com/${{ github.repository }}/releases/tag/${{ steps.info.outputs.tag }}"
-                    },
-                    {
-                      "type": "button",
-                      "text": "View Workflow",
-                      "url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-                    }
-                  ]
-                }
-              ]
-            }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      - name: Ensure Discord webhook secret is configured
+        run: |
+          if [ -z "${{ secrets.DISCORD_WEBHOOK_URL }}" ]; then
+            echo "ERROR: DISCORD_WEBHOOK_URL secret is not set. Aborting notification step."
+            exit 1
+          fi
 
       - name: Send Discord notification
-        if: ${{ secrets.DISCORD_WEBHOOK_URL != '' }}
         run: |
           curl -H "Content-Type: application/json" \
             -d "{
@@ -480,65 +431,6 @@ jobs:
             }" \
             "${{ secrets.DISCORD_WEBHOOK_URL }}"
 
-      - name: Send Microsoft Teams notification
-        if: ${{ secrets.TEAMS_WEBHOOK_URL != '' }}
-        run: |
-          curl -H "Content-Type: application/json" \
-            -d "{
-              \"@type\": \"MessageCard\",
-              \"@context\": \"https://schema.org/extensions\",
-              \"summary\": \"Production Release ${{ steps.info.outputs.tag }}\",
-              \"themeColor\": \"${{ steps.info.outputs.status == '✅ Success' && '00FF00' || 'FF0000' }}\",
-              \"title\": \"🚀 Production Release ${{ steps.info.outputs.tag }}\",
-              \"sections\": [
-                {
-                  \"activityTitle\": \"Release Details\",
-                  \"facts\": [
-                    {
-                      \"name\": \"Version\",
-                      \"value\": \"${{ steps.info.outputs.tag }}\"
-                    },
-                    {
-                      \"name\": \"Status\",
-                      \"value\": \"${{ steps.info.outputs.status }}\"
-                    },
-                    {
-                      \"name\": \"Repository\",
-                      \"value\": \"${{ github.repository }}\"
-                    },
-                    {
-                      \"name\": \"Triggered by\",
-                      \"value\": \"${{ github.actor }}\"
-                    }
-                  ],
-                  \"text\": \"${{ steps.changelog.outputs.changes }}\"
-                }
-              ],
-              \"potentialAction\": [
-                {
-                  \"@type\": \"OpenUri\",
-                  \"name\": \"View Release\",
-                  \"targets\": [
-                    {
-                      \"os\": \"default\",
-                      \"uri\": \"https://github.com/${{ github.repository }}/releases/tag/${{ steps.info.outputs.tag }}\"
-                    }
-                  ]
-                },
-                {
-                  \"@type\": \"OpenUri\",
-                  \"name\": \"View Workflow\",
-                  \"targets\": [
-                    {
-                      \"os\": \"default\",
-                      \"uri\": \"https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}\"
-                    }
-                  ]
-                }
-              ]
-            }" \
-            "${{ secrets.TEAMS_WEBHOOK_URL }}"
-
       - name: Summary
         run: |
           echo "## Release Notification Summary" >> $GITHUB_STEP_SUMMARY
@@ -547,18 +439,8 @@ jobs:
           echo "**Status**: ${{ steps.info.outputs.status }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### Notifications Sent" >> $GITHUB_STEP_SUMMARY
-          if [ -n "${{ secrets.SLACK_WEBHOOK_URL }}" ]; then
-            echo "- ✅ Slack" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "- ⚪ Slack (not configured)" >> $GITHUB_STEP_SUMMARY
-          fi
           if [ -n "${{ secrets.DISCORD_WEBHOOK_URL }}" ]; then
             echo "- ✅ Discord" >> $GITHUB_STEP_SUMMARY
           else
             echo "- ⚪ Discord (not configured)" >> $GITHUB_STEP_SUMMARY
-          fi
-          if [ -n "${{ secrets.TEAMS_WEBHOOK_URL }}" ]; then
-            echo "- ✅ Microsoft Teams" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "- ⚪ Microsoft Teams (not configured)" >> $GITHUB_STEP_SUMMARY
           fi
