@@ -1,222 +1,116 @@
 
-<!doctype html>
-<html lang="en" class="no-js">
-  <head>
-    
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width,initial-scale=1">
-      
-        <meta name="description" content="Unified League of Legends API Gateway with caching, rate limiting, and comprehensive monitoring">
-      
-      
-      
-      
-        <link rel="prev" href="../testing/">
-      
-      
-      
-      <link rel="icon" href="../../assets/logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
-    
-    
-      
-        <title>Documentation - LOLStonks API Gateway</title>
-      
-    
-    
-      <link rel="stylesheet" href="../../assets/stylesheets/main.84d31ad4.min.css">
-      
-        
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
-      
-      
+<!DOCTYPE html>
 
-
-    
-    
-      
-    
-    
-      
-        
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
-      
-    
-    
-      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
-    
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
-    
-      
-
-    
-    
-    
-  </head>
-  
-  
-    
-    
-      
-    
-    
-    
-    
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
-  
-    
-    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
-    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" for="__drawer"></label>
-    <div data-md-component="skip">
-      
-        
-        <a href="#documentation-guide" class="md-skip">
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Unified League of Legends API Gateway with caching, rate limiting, and comprehensive monitoring" name="description"/>
+<link href="../testing/" rel="prev"/>
+<link href="../../assets/logo.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.23" name="generator"/>
+<title>Documentation - LOLStonks API Gateway</title>
+<link href="../../assets/stylesheets/main.84d31ad4.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../assets/_mkdocstrings.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="blue" data-md-color-primary="blue" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#documentation-guide">
           Skip to content
         </a>
-      
-    </div>
-    <div data-md-component="announce">
-      
-    </div>
-    
-    
-      
-
-  
-
+</div>
+<div data-md-component="announce">
+</div>
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="LOLStonks API Gateway" class="md-header__button md-logo" aria-label="LOLStonks API Gateway" data-md-component="logo">
-      
-  <img src="../../assets/logo.png" alt="logo">
-
-    </a>
-    <label class="md-header__button md-icon" for="__drawer">
-      
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
-    </label>
-    <div class="md-header__title" data-md-component="header-title">
-      <div class="md-header__ellipsis">
-        <div class="md-header__topic">
-          <span class="md-ellipsis">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="LOLStonks API Gateway" class="md-header__button md-logo" data-md-component="logo" href="../.." title="LOLStonks API Gateway">
+<img alt="logo" src="../../assets/logo.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
             LOLStonks API Gateway
           </span>
-        </div>
-        <div class="md-header__topic" data-md-component="header-topic">
-          <span class="md-ellipsis">
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
             
               Documentation
             
           </span>
-        </div>
-      </div>
-    </div>
-    
-      
-        <form class="md-header__option" data-md-component="palette">
-  
-    
-    
-    
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
-    
-      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
-      </label>
-    
-  
-    
-    
-    
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
-    
-      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
-      </label>
-    
-  
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="blue" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="blue" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
 </form>
-      
-    
-    
-      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
-    
-    
-    
-      
-      
-        <label class="md-header__button md-icon" for="__search">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        </label>
-        <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
-      <label class="md-search__icon md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-      </label>
-      <nav class="md-search__options" aria-label="Search">
-        
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-        </button>
-      </nav>
-      
-        <div class="md-search__suggest" data-md-component="search-suggest"></div>
-      
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
+<ol class="md-search-result__list" role="presentation"></ol>
 </div>
-      
-    
-    
-      <div class="md-header__source">
-        <a href="https://github.com/OneStepAt4time/lolstonks-api-gateway" title="Go to repository" class="md-source" data-md-component="source">
-  <div class="md-source__icon md-icon">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
-  </div>
-  <div class="md-source__repository">
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/OneStepAt4time/lolstonks-api-gateway" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
     GitHub
   </div>
 </a>
-      </div>
-    
-  </nav>
-  
-    
-      
-<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
-  <div class="md-grid">
-    <ul class="md-tabs__list">
-      
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../.." class="md-tabs__link">
+</div>
+</nav>
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
         
   
   
@@ -225,17 +119,9 @@
   Home
 
       </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../../../CHANGELOG.md" class="md-tabs__link">
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CHANGELOG.md">
         
   
   
@@ -244,19 +130,9 @@
   Changelog
 
       </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../getting-started/installation/" class="md-tabs__link">
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../getting-started/installation/">
           
   
   
@@ -265,20 +141,9 @@
   Getting Started
 
         </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../api/openapi-spec/" class="md-tabs__link">
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../api/openapi-spec/">
           
   
   
@@ -287,20 +152,9 @@
   API Reference
 
         </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../architecture/overview/" class="md-tabs__link">
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../architecture/overview/">
           
   
   
@@ -309,20 +163,9 @@
   Architecture
 
         </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../operations/monitoring/" class="md-tabs__link">
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../operations/monitoring/">
           
   
   
@@ -331,22 +174,9 @@
   Operations
 
         </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-  
-  
-    
-    
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../contributing/" class="md-tabs__link">
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../contributing/">
           
   
   
@@ -355,1290 +185,529 @@
   Development
 
         </a>
-      </li>
-    
-  
-
-      
-    </ul>
-  </div>
+</li>
+</ul>
+</div>
 </nav>
-    
-  
 </header>
-    
-    <div class="md-container" data-md-component="container">
-      
-      
-        
-      
-      <main class="md-main" data-md-component="main">
-        <div class="md-main__inner md-grid">
-          
-            
-              
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-
-  
-
-
-<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
-  <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="LOLStonks API Gateway" class="md-nav__button md-logo" aria-label="LOLStonks API Gateway" data-md-component="logo">
-      
-  <img src="../../assets/logo.png" alt="logo">
-
-    </a>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="LOLStonks API Gateway" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="LOLStonks API Gateway">
+<img alt="logo" src="../../assets/logo.png"/>
+</a>
     LOLStonks API Gateway
   </label>
-  
-    <div class="md-nav__source">
-      <a href="https://github.com/OneStepAt4time/lolstonks-api-gateway" title="Go to repository" class="md-source" data-md-component="source">
-  <div class="md-source__icon md-icon">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
-  </div>
-  <div class="md-source__repository">
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/OneStepAt4time/lolstonks-api-gateway" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
     GitHub
   </div>
 </a>
-    </div>
-  
-  <ul class="md-nav__list" data-md-scrollfix>
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+<span class="md-ellipsis">
     Home
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../CHANGELOG.md" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CHANGELOG.md">
+<span class="md-ellipsis">
     Changelog
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
-        
-          
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+<span class="md-ellipsis">
     Getting Started
     
   </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3">
-            <span class="md-nav__icon md-icon"></span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
             Getting Started
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../getting-started/installation/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/installation/">
+<span class="md-ellipsis">
     Installation
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../getting-started/quick-start/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/quick-start/">
+<span class="md-ellipsis">
     Quick Start
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../getting-started/configuration/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/configuration/">
+<span class="md-ellipsis">
     Configuration
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../getting-started/deployment/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/deployment/">
+<span class="md-ellipsis">
     Production Deployment
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
-        
-          
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+<span class="md-ellipsis">
     API Reference
     
   </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4">
-            <span class="md-nav__icon md-icon"></span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
             API Reference
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/openapi-spec/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/openapi-spec/">
+<span class="md-ellipsis">
     OpenAPI Specification
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/overview/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/overview/">
+<span class="md-ellipsis">
     Overview
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/providers/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/providers/">
+<span class="md-ellipsis">
     Providers
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/riot-client/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/riot-client/">
+<span class="md-ellipsis">
     Riot Client
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/models/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/models/">
+<span class="md-ellipsis">
     Models
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/routers/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/routers/">
+<span class="md-ellipsis">
     Routers
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/cache/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/cache/">
+<span class="md-ellipsis">
     Cache
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/security/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/security/">
+<span class="md-ellipsis">
     Security
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
-        
-          
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
     Architecture
     
   </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5">
-            <span class="md-nav__icon md-icon"></span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
             Architecture
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/overview/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../architecture/overview/">
+<span class="md-ellipsis">
     Overview
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/implementation-details/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../architecture/diagram-guide.md">
+<span class="md-ellipsis">
+    Diagram Guide
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../architecture/system-overview.md">
+<span class="md-ellipsis">
+    System Overview
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../architecture/data-flow.md">
+<span class="md-ellipsis">
+    Data Flow
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../architecture/implementation-details/">
+<span class="md-ellipsis">
     Implementation Details
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/models/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../architecture/models/">
+<span class="md-ellipsis">
     Data Models
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/rate-limiting/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Rate Limiting
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/caching/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Caching Strategy
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
-        
-          
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
     Operations
     
   </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6">
-            <span class="md-nav__icon md-icon"></span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
             Operations
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../operations/monitoring/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operations/monitoring/">
+<span class="md-ellipsis">
     Monitoring
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../operations/troubleshooting/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operations/troubleshooting/">
+<span class="md-ellipsis">
     Troubleshooting
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../operations/security/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operations/security/">
+<span class="md-ellipsis">
     Security
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-    
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-        
-        
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
-            
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+<span class="md-ellipsis">
     Development
     
   </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_7">
-            <span class="md-nav__icon md-icon"></span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_7_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_7">
+<span class="md-nav__icon md-icon"></span>
             Development
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../contributing/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../contributing/">
+<span class="md-ellipsis">
     Contributing
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../changelog-guide/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../changelog-guide/">
+<span class="md-ellipsis">
     Changelog Guide
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../versioning/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../versioning/">
+<span class="md-ellipsis">
     Versioning
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../releases/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../releases/">
+<span class="md-ellipsis">
     Releases
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../testing/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../testing/">
+<span class="md-ellipsis">
     Testing
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
     Documentation
     
   </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
     Documentation
     
   </span>
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#documentation-system-overview" class="md-nav__link">
-    <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#documentation-system-overview">
+<span class="md-ellipsis">
       Documentation System Overview
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Documentation System Overview">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#documentation-stack" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Documentation System Overview" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#documentation-stack">
+<span class="md-ellipsis">
       Documentation Stack
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#documentation-structure" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#documentation-structure">
+<span class="md-ellipsis">
       Documentation Structure
     </span>
-  </a>
-  
+</a>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#writing-documentation" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#writing-documentation">
+<span class="md-ellipsis">
       Writing Documentation
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Writing Documentation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#markdown-guidelines" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Writing Documentation" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#markdown-guidelines">
+<span class="md-ellipsis">
       Markdown Guidelines
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Markdown Guidelines">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#headers" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Markdown Guidelines" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#headers">
+<span class="md-ellipsis">
       Headers
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#code-blocks" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#code-blocks">
+<span class="md-ellipsis">
       Code Blocks
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
+</ul>
 </nav>
-      
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-  </ul>
+</li>
+</ul>
 </nav>
-                  </div>
-                </div>
-              </div>
-            
-            
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#documentation-system-overview" class="md-nav__link">
-    <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#documentation-system-overview">
+<span class="md-ellipsis">
       Documentation System Overview
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Documentation System Overview">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#documentation-stack" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Documentation System Overview" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#documentation-stack">
+<span class="md-ellipsis">
       Documentation Stack
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#documentation-structure" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#documentation-structure">
+<span class="md-ellipsis">
       Documentation Structure
     </span>
-  </a>
-  
+</a>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#writing-documentation" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#writing-documentation">
+<span class="md-ellipsis">
       Writing Documentation
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Writing Documentation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#markdown-guidelines" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Writing Documentation" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#markdown-guidelines">
+<span class="md-ellipsis">
       Markdown Guidelines
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Markdown Guidelines">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#headers" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Markdown Guidelines" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#headers">
+<span class="md-ellipsis">
       Headers
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#code-blocks" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#code-blocks">
+<span class="md-ellipsis">
       Code Blocks
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
+</ul>
 </nav>
-                  </div>
-                </div>
-              </div>
-            
-          
-          
-            <div class="md-content" data-md-component="content">
-              <article class="md-content__inner md-typeset">
-                
-                  
-
-
-  
-  
-
-
-<h1 id="documentation-guide">Documentation Guide<a class="headerlink" href="#documentation-guide" title="Permanent link">&para;</a></h1>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="documentation-guide">Documentation Guide<a class="headerlink" href="#documentation-guide" title="Permanent link">¶</a></h1>
 <p>This guide explains how to contribute to and maintain the documentation for the LOLStonks API Gateway.</p>
-<h2 id="documentation-system-overview">Documentation System Overview<a class="headerlink" href="#documentation-system-overview" title="Permanent link">&para;</a></h2>
+<h2 id="documentation-system-overview">Documentation System Overview<a class="headerlink" href="#documentation-system-overview" title="Permanent link">¶</a></h2>
 <p>The project uses <strong>MkDocs</strong> with the <strong>mkdocstrings</strong> plugin to generate documentation directly from Python docstrings. This ensures that the documentation stays in sync with the codebase.</p>
-<h3 id="documentation-stack">Documentation Stack<a class="headerlink" href="#documentation-stack" title="Permanent link">&para;</a></h3>
+<h3 id="documentation-stack">Documentation Stack<a class="headerlink" href="#documentation-stack" title="Permanent link">¶</a></h3>
 <ul>
 <li><strong>MkDocs</strong>: Static site generator</li>
 <li><strong>mkdocstrings</strong>: Automatic API documentation from docstrings</li>
 <li><strong>Material for MkDocs</strong>: Modern documentation theme</li>
 <li><strong>Markdown</strong>: Source format for all documentation</li>
 </ul>
-<h2 id="documentation-structure">Documentation Structure<a class="headerlink" href="#documentation-structure" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>docs/
+<h2 id="documentation-structure">Documentation Structure<a class="headerlink" href="#documentation-structure" title="Permanent link">¶</a></h2>
+<pre><code>docs/
 ├── index.md                   # Homepage and project overview
 ├── getting-started/           # User guides
 │   ├── installation.md
@@ -1664,36 +733,37 @@
 │   └── architecture.md
 └── data/                      # Generated data files
     └── openapi.json
-</code></pre></div>
-<h2 id="writing-documentation">Writing Documentation<a class="headerlink" href="#writing-documentation" title="Permanent link">&para;</a></h2>
-<h3 id="markdown-guidelines">Markdown Guidelines<a class="headerlink" href="#markdown-guidelines" title="Permanent link">&para;</a></h3>
-<h4 id="headers">Headers<a class="headerlink" href="#headers" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="gh"># Level 1 Header (Page Title)</span>
-<span class="gu">## Level 2 Header</span>
-<span class="gu">### Level 3 Header</span>
-<span class="gu">#### Level 4 Header</span>
-</code></pre></div>
-<h4 id="code-blocks">Code Blocks<a class="headerlink" href="#code-blocks" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="gh"># Inline code</span>
-Use <span class="sb">`inline code`</span> for short code snippets.
+</code></pre>
+<h2 id="writing-documentation">Writing Documentation<a class="headerlink" href="#writing-documentation" title="Permanent link">¶</a></h2>
+<h3 id="markdown-guidelines">Markdown Guidelines<a class="headerlink" href="#markdown-guidelines" title="Permanent link">¶</a></h3>
+<h4 id="headers">Headers<a class="headerlink" href="#headers" title="Permanent link">¶</a></h4>
+<pre><code class="language-markdown"># Level 1 Header (Page Title)
+## Level 2 Header
+### Level 3 Header
+#### Level 4 Header
+</code></pre>
+<h4 id="code-blocks">Code Blocks<a class="headerlink" href="#code-blocks" title="Permanent link">¶</a></h4>
+<pre><code class="language-markdown"># Inline code
+Use `inline code` for short code snippets.
 
-<span class="gh"># Fenced code blocks</span>
+# Fenced code blocks
 ```python
 def example_function():
-    &quot;&quot;&quot;Example function with docstring.&quot;&quot;&quot;
-    return &quot;Hello, World!&quot;
-</code></pre></div>
-<h1 id="code-blocks-with-syntax-highlighting">Code blocks with syntax highlighting<a class="headerlink" href="#code-blocks-with-syntax-highlighting" title="Permanent link">&para;</a></h1>
-<p><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">api_request</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Make API request with error handling.&quot;&quot;&quot;</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/api/endpoint&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-    <span class="k">except</span> <span class="n">httpx</span><span class="o">.</span><span class="n">HTTPError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;API error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">None</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>#### Lists
+    """Example function with docstring."""
+    return "Hello, World!"
+</code></pre>
+<h1 id="code-blocks-with-syntax-highlighting">Code blocks with syntax highlighting<a class="headerlink" href="#code-blocks-with-syntax-highlighting" title="Permanent link">¶</a></h1>
+<pre><code class="language-python">def api_request():
+    """Make API request with error handling."""
+    try:
+        response = await client.get("/api/endpoint")
+        return response.json()
+    except httpx.HTTPError as e:
+        logger.error(f"API error: {e}")
+        return None
+</code></pre>
+<pre><code>
+#### Lists
 
 ```markdown
 # Unordered list
@@ -1708,140 +778,140 @@ def example_function():
    1. Sub-step 2.1
    2. Sub-step 2.2
 3. Third step
-</code></pre></div></p>
-<h4 id="tables">Tables<a class="headerlink" href="#tables" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>| Parameter | Type | Description | Required |
+</code></pre>
+<h4 id="tables">Tables<a class="headerlink" href="#tables" title="Permanent link">¶</a></h4>
+<pre><code class="language-markdown">| Parameter | Type | Description | Required |
 |-----------|------|-------------|----------|
 | region | str | Riot API region | Yes |
 | count | int | Number of results | No |
 | start | int | Starting index | No |
-</code></pre></div>
-<h4 id="admonitions">Admonitions<a class="headerlink" href="#admonitions" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>!!! note &quot;Note Title&quot;
+</code></pre>
+<h4 id="admonitions">Admonitions<a class="headerlink" href="#admonitions" title="Permanent link">¶</a></h4>
+<pre><code class="language-markdown">!!! note "Note Title"
     This is a note admonition.
 
-!!! tip &quot;Tip&quot;
+!!! tip "Tip"
     This is a tip for users.
 
-!!! warning &quot;Warning&quot;
+!!! warning "Warning"
     This is a warning message.
 
-!!! danger &quot;Danger&quot;
+!!! danger "Danger"
     This indicates a dangerous action.
-</code></pre></div>
-<h4 id="links">Links<a class="headerlink" href="#links" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="gh"># Internal links</span>
-[<span class="nt">Link to installation guide</span>](<span class="na">getting-started/installation.md</span>)
+</code></pre>
+<h4 id="links">Links<a class="headerlink" href="#links" title="Permanent link">¶</a></h4>
+<pre><code class="language-markdown"># Internal links
+[Link to installation guide](getting-started/installation.md)
 
-<span class="gh"># External links</span>
-[<span class="nt">Riot Developer Portal</span>](<span class="na">https://developer.riotgames.com/</span>)
+# External links
+[Riot Developer Portal](https://developer.riotgames.com/)
 
-<span class="gh"># Reference links</span>
-[<span class="nt">API Reference</span>][<span class="nl">api-reference</span>]
+# Reference links
+[API Reference][api-reference]
 
-[<span class="nl">api-reference</span>]: <span class="na">api/overview.md</span>
-</code></pre></div>
-<h2 id="docstring-standards">Docstring Standards<a class="headerlink" href="#docstring-standards" title="Permanent link">&para;</a></h2>
-<h3 id="google-style-docstrings">Google Style Docstrings<a class="headerlink" href="#google-style-docstrings" title="Permanent link">&para;</a></h3>
+[api-reference]: api/overview.md
+</code></pre>
+<h2 id="docstring-standards">Docstring Standards<a class="headerlink" href="#docstring-standards" title="Permanent link">¶</a></h2>
+<h3 id="google-style-docstrings">Google Style Docstrings<a class="headerlink" href="#google-style-docstrings" title="Permanent link">¶</a></h3>
 <p>The project uses <strong>Google Style</strong> docstrings for consistency and mkdocstrings compatibility.</p>
-<h4 id="functionmethod-docstrings">Function/Method Docstrings<a class="headerlink" href="#functionmethod-docstrings" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_summoner_by_name</span><span class="p">(</span>
-    <span class="n">summonerName</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">region</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;euw1&quot;</span><span class="p">,</span>
-    <span class="n">riot_client</span><span class="p">:</span> <span class="n">RiotClient</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(),</span>
-    <span class="n">cache</span><span class="p">:</span> <span class="n">RedisCache</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">()</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SummonerDto</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Get summoner information by summoner name.</span>
+<h4 id="functionmethod-docstrings">Function/Method Docstrings<a class="headerlink" href="#functionmethod-docstrings" title="Permanent link">¶</a></h4>
+<pre><code class="language-python">async def get_summoner_by_name(
+    summonerName: str,
+    region: str = "euw1",
+    riot_client: RiotClient = Depends(),
+    cache: RedisCache = Depends()
+) -&gt; SummonerDto:
+    """
+    Get summoner information by summoner name.
 
-<span class="sd">    Retrieves comprehensive summoner data including profile information,</span>
-<span class="sd">    level, and account details from the Riot API.</span>
+    Retrieves comprehensive summoner data including profile information,
+    level, and account details from the Riot API.
 
-<span class="sd">    Args:</span>
-<span class="sd">        summonerName: The summoner name to search for (case-insensitive)</span>
-<span class="sd">        region: Riot API region code (default: &quot;euw1&quot;)</span>
-<span class="sd">        riot_client: Dependency-injected Riot API client</span>
-<span class="sd">        cache: Dependency-injected Redis cache instance</span>
+    Args:
+        summonerName: The summoner name to search for (case-insensitive)
+        region: Riot API region code (default: "euw1")
+        riot_client: Dependency-injected Riot API client
+        cache: Dependency-injected Redis cache instance
 
-<span class="sd">    Returns:</span>
-<span class="sd">        SummonerDto: Summoner information including:</span>
-<span class="sd">            - id: Summoner ID</span>
-<span class="sd">            - accountId: Account ID</span>
-<span class="sd">            - puuid: Player UUID</span>
-<span class="sd">            - name: Summoner name</span>
-<span class="sd">            - profileIconId: Profile icon ID</span>
-<span class="sd">            - summonerLevel: Summoner level</span>
-<span class="sd">            - revisionDate: Last data revision timestamp</span>
+    Returns:
+        SummonerDto: Summoner information including:
+            - id: Summoner ID
+            - accountId: Account ID
+            - puuid: Player UUID
+            - name: Summoner name
+            - profileIconId: Profile icon ID
+            - summonerLevel: Summoner level
+            - revisionDate: Last data revision timestamp
 
-<span class="sd">    Raises:</span>
-<span class="sd">        ValueError: If summonerName is empty or invalid</span>
-<span class="sd">        httpx.HTTPStatusError: If Riot API returns an error</span>
-<span class="sd">        CacheError: If cache operations fail</span>
+    Raises:
+        ValueError: If summonerName is empty or invalid
+        httpx.HTTPStatusError: If Riot API returns an error
+        CacheError: If cache operations fail
 
-<span class="sd">    Example:</span>
-<span class="sd">        &gt;&gt;&gt; summoner = await get_summoner_by_name(&quot;Faker&quot;, &quot;kr&quot;)</span>
-<span class="sd">        &gt;&gt;&gt; print(f&quot;Summoner: {summoner[&#39;name&#39;]} (Level {summoner[&#39;summonerLevel&#39;]})&quot;)</span>
-<span class="sd">        Summoner: Faker (Level 523)</span>
+    Example:
+        &gt;&gt;&gt; summoner = await get_summoner_by_name("Faker", "kr")
+        &gt;&gt;&gt; print(f"Summoner: {summoner['name']} (Level {summoner['summonerLevel']})")
+        Summoner: Faker (Level 523)
 
-<span class="sd">    Note:</span>
-<span class="sd">        This endpoint is rate limited and cached for 1 hour to improve</span>
-<span class="sd">        performance and reduce API load.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-</code></pre></div>
-<h4 id="class-docstrings">Class Docstrings<a class="headerlink" href="#class-docstrings" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">RiotClient</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    HTTP client for Riot API with rate limiting and retry logic.</span>
+    Note:
+        This endpoint is rate limited and cached for 1 hour to improve
+        performance and reduce API load.
+    """
+</code></pre>
+<h4 id="class-docstrings">Class Docstrings<a class="headerlink" href="#class-docstrings" title="Permanent link">¶</a></h4>
+<pre><code class="language-python">class RiotClient:
+    """
+    HTTP client for Riot API with rate limiting and retry logic.
 
-<span class="sd">    Provides a robust wrapper around httpx for making requests to the Riot Games API</span>
-<span class="sd">    with automatic rate limiting, retry on 429 responses, and proper error handling.</span>
+    Provides a robust wrapper around httpx for making requests to the Riot Games API
+    with automatic rate limiting, retry on 429 responses, and proper error handling.
 
-<span class="sd">    Attributes:</span>
-<span class="sd">        api_key: Riot Games API key for authentication</span>
-<span class="sd">        client: Underlying httpx AsyncClient instance</span>
-<span class="sd">        rate_limiter: Rate limiter for API request throttling</span>
+    Attributes:
+        api_key: Riot Games API key for authentication
+        client: Underlying httpx AsyncClient instance
+        rate_limiter: Rate limiter for API request throttling
 
-<span class="sd">    Example:</span>
-<span class="sd">        &gt;&gt;&gt; client = RiotClient(&quot;RGAPI-example-key&quot;)</span>
-<span class="sd">        &gt;&gt;&gt; summoner = await client.get(</span>
-<span class="sd">        ...     &quot;/lol/summoner/v4/summoners/by-name/Faker&quot;,</span>
-<span class="sd">        ...     region=&quot;kr&quot;</span>
-<span class="sd">        ... )</span>
-<span class="sd">        &gt;&gt;&gt; print(summoner[&quot;name&quot;])</span>
-<span class="sd">        Faker</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-</code></pre></div>
-<h4 id="module-docstrings">Module Docstrings<a class="headerlink" href="#module-docstrings" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Riot API HTTP client with rate limiting and automatic retries.</span>
+    Example:
+        &gt;&gt;&gt; client = RiotClient("RGAPI-example-key")
+        &gt;&gt;&gt; summoner = await client.get(
+        ...     "/lol/summoner/v4/summoners/by-name/Faker",
+        ...     region="kr"
+        ... )
+        &gt;&gt;&gt; print(summoner["name"])
+        Faker
+    """
+</code></pre>
+<h4 id="module-docstrings">Module Docstrings<a class="headerlink" href="#module-docstrings" title="Permanent link">¶</a></h4>
+<pre><code class="language-python">"""
+Riot API HTTP client with rate limiting and automatic retries.
 
-<span class="sd">This module provides a comprehensive client for interacting with Riot Games APIs,</span>
-<span class="sd">including:</span>
+This module provides a comprehensive client for interacting with Riot Games APIs,
+including:
 
-<span class="sd">- Automatic rate limiting using token bucket algorithm</span>
-<span class="sd">- Intelligent retry logic with exponential backoff</span>
-<span class="sd">- Region-aware URL routing</span>
-<span class="sd">- Comprehensive error handling and logging</span>
-<span class="sd">- Support for all Riot API endpoints</span>
+- Automatic rate limiting using token bucket algorithm
+- Intelligent retry logic with exponential backoff
+- Region-aware URL routing
+- Comprehensive error handling and logging
+- Support for all Riot API endpoints
 
-<span class="sd">The client is designed to be production-ready with proper error handling,</span>
-<span class="sd">logging, and monitoring capabilities.</span>
+The client is designed to be production-ready with proper error handling,
+logging, and monitoring capabilities.
 
-<span class="sd">Example:</span>
-<span class="sd">    &gt;&gt;&gt; from app.riot.client import RiotClient</span>
-<span class="sd">    &gt;&gt;&gt; client = RiotClient(&quot;your-api-key&quot;)</span>
-<span class="sd">    &gt;&gt;&gt; data = await client.get(&quot;/lol/summoner/v4/summoners/by-name/Faker&quot;, &quot;kr&quot;)</span>
-<span class="sd">&quot;&quot;&quot;</span>
-</code></pre></div>
-<h2 id="api-documentation">API Documentation<a class="headerlink" href="#api-documentation" title="Permanent link">&para;</a></h2>
-<h3 id="auto-generated-api-docs">Auto-Generated API Docs<a class="headerlink" href="#auto-generated-api-docs" title="Permanent link">&para;</a></h3>
+Example:
+    &gt;&gt;&gt; from app.riot.client import RiotClient
+    &gt;&gt;&gt; client = RiotClient("your-api-key")
+    &gt;&gt;&gt; data = await client.get("/lol/summoner/v4/summoners/by-name/Faker", "kr")
+"""
+</code></pre>
+<h2 id="api-documentation">API Documentation<a class="headerlink" href="#api-documentation" title="Permanent link">¶</a></h2>
+<h3 id="auto-generated-api-docs">Auto-Generated API Docs<a class="headerlink" href="#auto-generated-api-docs" title="Permanent link">¶</a></h3>
 <p>API documentation is automatically generated from docstrings using mkdocstrings.</p>
-<h4 id="creating-api-reference-pages">Creating API Reference Pages<a class="headerlink" href="#creating-api-reference-pages" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="gh"># Riot Client</span>
+<h4 id="creating-api-reference-pages">Creating API Reference Pages<a class="headerlink" href="#creating-api-reference-pages" title="Permanent link">¶</a></h4>
+<pre><code class="language-markdown"># Riot Client
 
 This section documents the Riot API client implementation.
 
-<span class="gu">## RiotClient</span>
+## RiotClient
 
 ::: app.riot.client.RiotClient
     options:
@@ -1850,7 +920,7 @@ This section documents the Riot API client implementation.
       show_root_members_full_path: false
       members_order: source
 
-<span class="gu">## RateLimiter</span>
+## RateLimiter
 
 ::: app.riot.rate_limiter.RateLimiter
     options:
@@ -1858,38 +928,38 @@ This section documents the Riot API client implementation.
       show_root_heading: true
       show_root_members_full_path: false
       members_order: source
-</code></pre></div>
-<h4 id="mkdocstrings-configuration-options">mkdocstrings Configuration Options<a class="headerlink" href="#mkdocstrings-configuration-options" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mkdocstrings</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">handlers</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">python</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">options</span><span class="p">:</span>
-<span class="w">            </span><span class="nt">docstring_style</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">google</span>
-<span class="w">            </span><span class="nt">show_source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">            </span><span class="nt">show_root_heading</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">            </span><span class="nt">show_root_members_full_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-<span class="w">            </span><span class="nt">show_signature_annotations</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">            </span><span class="nt">signature_crossrefs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">            </span><span class="nt">merge_init_into_class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">            </span><span class="nt">members_order</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">source</span>
-<span class="w">          </span><span class="nt">paths</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">.</span><span class="p p-Indicator">]</span>
-</code></pre></div>
-<h3 id="cross-references">Cross-References<a class="headerlink" href="#cross-references" title="Permanent link">&para;</a></h3>
+</code></pre>
+<h4 id="mkdocstrings-configuration-options">mkdocstrings Configuration Options<a class="headerlink" href="#mkdocstrings-configuration-options" title="Permanent link">¶</a></h4>
+<pre><code class="language-yaml">plugins:
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            show_source: true
+            show_root_heading: true
+            show_root_members_full_path: false
+            show_signature_annotations: true
+            signature_crossrefs: true
+            merge_init_into_class: true
+            members_order: source
+          paths: [.]
+</code></pre>
+<h3 id="cross-references">Cross-References<a class="headerlink" href="#cross-references" title="Permanent link">¶</a></h3>
 <p>Use automatic cross-references to link between documentation:</p>
-<div class="highlight"><pre><span></span><code><span class="gh"># Link to specific class/methods</span>
-Use the [<span class="sb">`RiotClient`</span>][app.riot.client.RiotClient] for API requests.
+<pre><code class="language-markdown"># Link to specific class/methods
+Use the [`RiotClient`][app.riot.client.RiotClient] for API requests.
 
-<span class="gh"># Link to specific method</span>
-Call the [<span class="sb">`get()`</span>][app.riot.client.RiotClient.get] method.
+# Link to specific method
+Call the [`get()`][app.riot.client.RiotClient.get] method.
 
-<span class="gh"># Link with custom text</span>
-The [<span class="nt">rate limiting</span>][<span class="nl">app.riot.rate_limiter.RateLimiter</span>] system prevents API abuse.
-</code></pre></div>
-<h2 id="diagrams-and-visualizations">Diagrams and Visualizations<a class="headerlink" href="#diagrams-and-visualizations" title="Permanent link">&para;</a></h2>
-<h3 id="mermaid-diagrams">Mermaid Diagrams<a class="headerlink" href="#mermaid-diagrams" title="Permanent link">&para;</a></h3>
+# Link with custom text
+The [rate limiting][app.riot.rate_limiter.RateLimiter] system prevents API abuse.
+</code></pre>
+<h2 id="diagrams-and-visualizations">Diagrams and Visualizations<a class="headerlink" href="#diagrams-and-visualizations" title="Permanent link">¶</a></h2>
+<h3 id="mermaid-diagrams">Mermaid Diagrams<a class="headerlink" href="#mermaid-diagrams" title="Permanent link">¶</a></h3>
 <p>Use Mermaid for architecture diagrams and flowcharts:</p>
-<p><div class="highlight"><pre><span></span><code><span class="gu">### Request Flow</span>
+<pre><code class="language-markdown">### Request Flow
 
 ```mermaid
 sequenceDiagram
@@ -1913,8 +983,9 @@ sequenceDiagram
         G-&gt;&gt;Cache: Store in Cache
         G--&gt;&gt;C: HTTP Response
     end
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>### Architecture Diagrams
+</code></pre>
+<pre><code>
+### Architecture Diagrams
 
 ```markdown
 ### System Architecture
@@ -1926,83 +997,84 @@ graph TB
     Gateway --&gt; Cache[Redis Cache]
     Gateway --&gt; RiotAPI[Riot Games API]
 
-    subgraph &quot;Gateway Components&quot;
+    subgraph "Gateway Components"
         Gateway --&gt; FastAPI[FastAPI App]
         Gateway --&gt; Routers[API Routers]
         Gateway --&gt; Client[Riot Client]
     end
 
-    subgraph &quot;External Services&quot;
+    subgraph "External Services"
         Redis[(Redis Server)]
         Riot[Riot Developer Portal]
     end
 
     Cache --&gt; Redis
     Client --&gt; Riot
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>## Local Documentation Development
+</code></pre>
+<pre><code>
+## Local Documentation Development
 
 ### Setup
 
 ```bash
 # Install documentation dependencies (using UV - recommended)
-uv pip install -e &quot;.[docs]&quot;
+uv pip install -e ".[docs]"
 # or using pip:
-pip install -e &quot;.[docs]&quot;
-</code></pre></div></p>
-<h3 id="running-local-development-server">Running Local Development Server<a class="headerlink" href="#running-local-development-server" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Start MkDocs development server</span>
-mkdocs<span class="w"> </span>serve
+pip install -e ".[docs]"
+</code></pre>
+<h3 id="running-local-development-server">Running Local Development Server<a class="headerlink" href="#running-local-development-server" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash"># Start MkDocs development server
+mkdocs serve
 
-<span class="c1"># Start with live reload on specific port</span>
-mkdocs<span class="w"> </span>serve<span class="w"> </span>--dev-addr<span class="o">=</span><span class="m">127</span>.0.0.1:8001
+# Start with live reload on specific port
+mkdocs serve --dev-addr=127.0.0.1:8001
 
-<span class="c1"># Start with strict mode (better error checking)</span>
-mkdocs<span class="w"> </span>serve<span class="w"> </span>--strict
-</code></pre></div>
-<h3 id="building-documentation">Building Documentation<a class="headerlink" href="#building-documentation" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Build documentation</span>
-mkdocs<span class="w"> </span>build
+# Start with strict mode (better error checking)
+mkdocs serve --strict
+</code></pre>
+<h3 id="building-documentation">Building Documentation<a class="headerlink" href="#building-documentation" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash"># Build documentation
+mkdocs build
 
-<span class="c1"># Build with clean output</span>
-mkdocs<span class="w"> </span>build<span class="w"> </span>--clean
+# Build with clean output
+mkdocs build --clean
 
-<span class="c1"># Build to specific directory</span>
-mkdocs<span class="w"> </span>build<span class="w"> </span>--site-dir<span class="w"> </span>/path/to/output
-</code></pre></div>
-<h3 id="development-workflow">Development Workflow<a class="headerlink" href="#development-workflow" title="Permanent link">&para;</a></h3>
+# Build to specific directory
+mkdocs build --site-dir /path/to/output
+</code></pre>
+<h3 id="development-workflow">Development Workflow<a class="headerlink" href="#development-workflow" title="Permanent link">¶</a></h3>
 <ol>
 <li>
 <p><strong>Make Changes</strong>
-   <div class="highlight"><pre><span></span><code><span class="c1"># Edit documentation files</span>
-vim<span class="w"> </span>docs/getting-started/installation.md
-</code></pre></div></p>
+<code>bash
+   # Edit documentation files
+   vim docs/getting-started/installation.md</code></p>
 </li>
 <li>
 <p><strong>Preview Changes</strong>
-   <div class="highlight"><pre><span></span><code><span class="c1"># Start development server</span>
-mkdocs<span class="w"> </span>serve
-<span class="c1"># Visit http://127.0.0.1:8000</span>
-</code></pre></div></p>
+<code>bash
+   # Start development server
+   mkdocs serve
+   # Visit http://127.0.0.1:8000</code></p>
 </li>
 <li>
 <p><strong>Check for Issues</strong>
-   <div class="highlight"><pre><span></span><code><span class="c1"># Build with strict checking</span>
-mkdocs<span class="w"> </span>build<span class="w"> </span>--strict
-
-<span class="c1"># Check for broken links</span>
-mkdocs<span class="w"> </span>build<span class="w"> </span>--strict<span class="w"> </span>--verbose
-</code></pre></div></p>
-</li>
-<li>
-<p><strong>Test Documentation</strong>
-   <div class="highlight"><pre><span></span><code><span class="c1"># Verify API documentation generates correctly</span>
-curl<span class="w"> </span>http://127.0.0.1:8000/api/riot-client/
-</code></pre></div></p>
+   ```bash
+   # Build with strict checking
+   mkdocs build --strict</p>
 </li>
 </ol>
-<h2 id="documentation-quality">Documentation Quality<a class="headerlink" href="#documentation-quality" title="Permanent link">&para;</a></h2>
-<h3 id="review-checklist">Review Checklist<a class="headerlink" href="#review-checklist" title="Permanent link">&para;</a></h3>
+<p># Check for broken links
+   mkdocs build --strict --verbose
+   ```</p>
+<ol>
+<li><strong>Test Documentation</strong>
+<code>bash
+   # Verify API documentation generates correctly
+   curl http://127.0.0.1:8000/api/riot-client/</code></li>
+</ol>
+<h2 id="documentation-quality">Documentation Quality<a class="headerlink" href="#documentation-quality" title="Permanent link">¶</a></h2>
+<h3 id="review-checklist">Review Checklist<a class="headerlink" href="#review-checklist" title="Permanent link">¶</a></h3>
 <p>Before submitting documentation changes:</p>
 <ul>
 <li>[ ] <strong>Accuracy</strong>: Information is correct and up-to-date</li>
@@ -2014,7 +1086,7 @@ curl<span class="w"> </span>http://127.0.0.1:8000/api/riot-client/
 <li>[ ] <strong>Code Examples</strong>: Code examples are tested and working</li>
 <li>[ ] <strong>Diagrams</strong>: Diagrams are clear and accurate</li>
 </ul>
-<h3 id="style-guidelines">Style Guidelines<a class="headerlink" href="#style-guidelines" title="Permanent link">&para;</a></h3>
+<h3 id="style-guidelines">Style Guidelines<a class="headerlink" href="#style-guidelines" title="Permanent link">¶</a></h3>
 <ol>
 <li><strong>Active Voice</strong>: Use active voice ("Click here" not "The button should be clicked")</li>
 <li><strong>Present Tense</strong>: Use present tense for instructions ("Open the file" not "Open the file")</li>
@@ -2022,62 +1094,62 @@ curl<span class="w"> </span>http://127.0.0.1:8000/api/riot-client/
 <li><strong>Consistent Terminology</strong>: Use the same terms throughout the documentation</li>
 <li><strong>Examples</strong>: Provide concrete examples for complex concepts</li>
 </ol>
-<h2 id="automated-documentation">Automated Documentation<a class="headerlink" href="#automated-documentation" title="Permanent link">&para;</a></h2>
-<h3 id="api-documentation-generation">API Documentation Generation<a class="headerlink" href="#api-documentation-generation" title="Permanent link">&para;</a></h3>
+<h2 id="automated-documentation">Automated Documentation<a class="headerlink" href="#automated-documentation" title="Permanent link">¶</a></h2>
+<h3 id="api-documentation-generation">API Documentation Generation<a class="headerlink" href="#api-documentation-generation" title="Permanent link">¶</a></h3>
 <p>The existing script generates API documentation from the running FastAPI app:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># scripts/generate_api_docs.py</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">httpx</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<pre><code class="language-python"># scripts/generate_api_docs.py
+import asyncio
+import httpx
+import json
+from pathlib import Path
 
-<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">generate_api_docs</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate comprehensive API documentation.&quot;&quot;&quot;</span>
+async def generate_api_docs():
+    """Generate comprehensive API documentation."""
 
-    <span class="c1"># Get OpenAPI schema from running app</span>
-    <span class="k">async</span> <span class="k">with</span> <span class="n">httpx</span><span class="o">.</span><span class="n">AsyncClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
-        <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;http://localhost:8000/openapi.json&quot;</span><span class="p">)</span>
-        <span class="n">openapi_schema</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    # Get OpenAPI schema from running app
+    async with httpx.AsyncClient() as client:
+        response = await client.get("http://localhost:8000/openapi.json")
+        openapi_schema = response.json()
 
-    <span class="c1"># Generate documentation pages</span>
-    <span class="n">generate_endpoints_overview</span><span class="p">(</span><span class="n">openapi_schema</span><span class="p">)</span>
-    <span class="n">generate_schemas_documentation</span><span class="p">(</span><span class="n">openapi_schema</span><span class="p">)</span>
-</code></pre></div>
-<h3 id="cicd-integration">CI/CD Integration<a class="headerlink" href="#cicd-integration" title="Permanent link">&para;</a></h3>
+    # Generate documentation pages
+    generate_endpoints_overview(openapi_schema)
+    generate_schemas_documentation(openapi_schema)
+</code></pre>
+<h3 id="cicd-integration">CI/CD Integration<a class="headerlink" href="#cicd-integration" title="Permanent link">¶</a></h3>
 <p>Documentation is automatically built and deployed:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># .github/workflows/docs.yml</span>
-<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy Documentation</span>
+<pre><code class="language-yaml"># .github/workflows/docs.yml
+name: Deploy Documentation
 
-<span class="nt">on</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">push</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">main</span><span class="w"> </span><span class="p p-Indicator">]</span>
+on:
+  push:
+    branches: [ main ]
 
-<span class="nt">jobs</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">build-and-deploy</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
-<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v4</span>
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
 
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Setup Python</span>
-<span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v4</span>
-<span class="w">      </span><span class="nt">with</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.12&#39;</span>
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
 
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install dependencies</span>
-<span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<span class="w">        </span><span class="no">pip install -e &quot;.[docs]&quot;</span>
+    - name: Install dependencies
+      run: |
+        pip install -e ".[docs]"
 
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build documentation</span>
-<span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mkdocs build</span>
+    - name: Build documentation
+      run: mkdocs build
 
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy to GitHub Pages</span>
-<span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">peaceiris/actions-gh-pages@v3</span>
-<span class="w">      </span><span class="nt">with</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">github_token</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.GITHUB_TOKEN }}</span>
-<span class="w">        </span><span class="nt">publish_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./site</span>
-</code></pre></div>
-<h2 id="contributing-to-documentation">Contributing to Documentation<a class="headerlink" href="#contributing-to-documentation" title="Permanent link">&para;</a></h2>
-<h3 id="adding-new-documentation">Adding New Documentation<a class="headerlink" href="#adding-new-documentation" title="Permanent link">&para;</a></h3>
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./site
+</code></pre>
+<h2 id="contributing-to-documentation">Contributing to Documentation<a class="headerlink" href="#contributing-to-documentation" title="Permanent link">¶</a></h2>
+<h3 id="adding-new-documentation">Adding New Documentation<a class="headerlink" href="#adding-new-documentation" title="Permanent link">¶</a></h3>
 <ol>
 <li><strong>Create the file</strong> in the appropriate directory</li>
 <li><strong>Follow the style guidelines</strong> for formatting and structure</li>
@@ -2086,7 +1158,7 @@ curl<span class="w"> </span>http://127.0.0.1:8000/api/riot-client/
 <li><strong>Test locally</strong> with <code>mkdocs serve</code></li>
 <li><strong>Submit pull request</strong> with clear description</li>
 </ol>
-<h3 id="updating-existing-documentation">Updating Existing Documentation<a class="headerlink" href="#updating-existing-documentation" title="Permanent link">&para;</a></h3>
+<h3 id="updating-existing-documentation">Updating Existing Documentation<a class="headerlink" href="#updating-existing-documentation" title="Permanent link">¶</a></h3>
 <ol>
 <li><strong>Make minimal changes</strong> to fix issues</li>
 <li><strong>Preserve existing style</strong> and structure</li>
@@ -2094,7 +1166,7 @@ curl<span class="w"> </span>http://127.0.0.1:8000/api/riot-client/
 <li><strong>Test changes</strong> thoroughly</li>
 <li><strong>Document the changes</strong> in pull request</li>
 </ol>
-<h3 id="documentation-review-process">Documentation Review Process<a class="headerlink" href="#documentation-review-process" title="Permanent link">&para;</a></h3>
+<h3 id="documentation-review-process">Documentation Review Process<a class="headerlink" href="#documentation-review-process" title="Permanent link">¶</a></h3>
 <ol>
 <li><strong>Self-review</strong> your changes before submitting</li>
 <li><strong>Check links</strong> and formatting</li>
@@ -2102,8 +1174,8 @@ curl<span class="w"> </span>http://127.0.0.1:8000/api/riot-client/
 <li><strong>Request review</strong> from maintainers</li>
 <li><strong>Address feedback</strong> promptly</li>
 </ol>
-<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
-<h3 id="documentation-maintenance">Documentation Maintenance<a class="headerlink" href="#documentation-maintenance" title="Permanent link">&para;</a></h3>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">¶</a></h2>
+<h3 id="documentation-maintenance">Documentation Maintenance<a class="headerlink" href="#documentation-maintenance" title="Permanent link">¶</a></h3>
 <ol>
 <li><strong>Keep documentation current</strong> with code changes</li>
 <li><strong>Review regularly</strong> for accuracy and completeness</li>
@@ -2111,14 +1183,14 @@ curl<span class="w"> </span>http://127.0.0.1:8000/api/riot-client/
 <li><strong>Remove outdated information</strong> promptly</li>
 <li><strong>Add new features</strong> to documentation as they're added</li>
 </ol>
-<h3 id="performance-considerations">Performance Considerations<a class="headerlink" href="#performance-considerations" title="Permanent link">&para;</a></h3>
+<h3 id="performance-considerations">Performance Considerations<a class="headerlink" href="#performance-considerations" title="Permanent link">¶</a></h3>
 <ol>
 <li><strong>Optimize images</strong> for web (compress, appropriate formats)</li>
 <li><strong>Minimize external dependencies</strong> in documentation</li>
 <li><strong>Use code highlighting</strong> efficiently</li>
 <li><strong>Avoid excessive nesting</strong> in documentation structure</li>
 </ol>
-<h3 id="accessibility">Accessibility<a class="headerlink" href="#accessibility" title="Permanent link">&para;</a></h3>
+<h3 id="accessibility">Accessibility<a class="headerlink" href="#accessibility" title="Permanent link">¶</a></h3>
 <ol>
 <li><strong>Use semantic HTML</strong> in generated output</li>
 <li><strong>Provide alt text</strong> for images and diagrams</li>
@@ -2126,59 +1198,465 @@ curl<span class="w"> </span>http://127.0.0.1:8000/api/riot-client/
 <li><strong>Use descriptive link text</strong> instead of "click here"</li>
 </ol>
 <p>This documentation system ensures that the LOLStonks API Gateway has comprehensive, maintainable, and user-friendly documentation that stays synchronized with the codebase.</p>
-
-
-
-
-
-
-
-
-
-
-
-
-                
-              </article>
-            </div>
-          
-          
+</article>
+</div>
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
-        </div>
-        
-      </main>
-      
-        <footer class="md-footer">
-  
-  <div class="md-footer-meta md-typeset">
-    <div class="md-footer-meta__inner md-grid">
-      <div class="md-copyright">
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
   
   
     Made with
-    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
       Material for MkDocs
     </a>
-  
 </div>
-      
-    </div>
-  </div>
+</div>
+</div>
 </footer>
-      
-    </div>
-    <div class="md-dialog" data-md-component="dialog">
-      <div class="md-dialog__inner md-typeset"></div>
-    </div>
-    
-    
-    
-      
-      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
-    
-    
-      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
-      
-    
-  </body>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+<script>
+        // Enhanced Mermaid Interactivity for LOLStonks Documentation
+        (function() {
+            'use strict';
+
+            console.log('Initializing Mermaid interactivity...');
+
+            // Wait for DOM to be ready and Mermaid diagrams to render
+            const waitForMermaid = () => {
+                const mermaidElements = document.querySelectorAll('.mermaid');
+                console.log('Found Mermaid elements:', mermaidElements.length);
+
+                if (mermaidElements.length === 0) {
+                    console.log('No Mermaid elements found, retrying in 2 seconds...');
+                    setTimeout(waitForMermaid, 2000);
+                    return;
+                }
+
+                mermaidElements.forEach((element, index) => {
+                    const id = element.id || 'mermaid-diagram-' + index;
+                    element.setAttribute('id', id);
+
+                    // Wait for the diagram to be rendered as SVG
+                    const waitForSVG = () => {
+                        const svg = element.querySelector('svg');
+                        if (svg) {
+                            console.log('SVG found for element:', id);
+                            addInteractivityToDiagram(element, id);
+                        } else {
+                            console.log('SVG not found yet for element:', id, 'retrying...');
+                            setTimeout(waitForSVG, 500);
+                        }
+                    };
+
+                    waitForSVG();
+                });
+            };
+
+            const addInteractivityToDiagram = (element, id) => {
+                // Add interactive controls container
+                if (!element.previousSibling) {
+                    const controls = createInteractiveControls(id, element);
+                    element.parentNode.insertBefore(controls, element);
+                }
+
+                // Add zoom controls
+                addZoomControls(element, id);
+
+                // Add click handlers
+                addClickHandlers(element);
+
+                // Add tooltips
+                addTooltips(element);
+
+                // Make responsive
+                makeResponsive(element);
+
+                // Add pan and zoom
+                addPanAndZoom(element, id);
+            };
+
+            const createInteractiveControls = (id, element) => {
+                const controls = document.createElement('div');
+                controls.className = 'mermaid-controls';
+                controls.style.cssText = `
+                    margin: 10px 0;
+                    padding: 10px;
+                    background: #f5f5f5;
+                    border-radius: 5px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    gap: 10px;
+                    font-size: 14px;
+                    font-family: Arial, sans-serif;
+                `;
+
+                // Zoom controls
+                const zoomControls = document.createElement('div');
+                zoomControls.innerHTML = `
+                    <span style="font-weight: bold;">🔍 Zoom:</span>
+                    <button onclick="zoomDiagram('${id}', 1.2)" style="margin: 0 2px; padding: 4px 8px; background: #1976d2; color: white; border: none; border-radius: 3px; cursor: pointer;">+</button>
+                    <button onclick="zoomDiagram('${id}', 0.8)" style="margin: 0 2px; padding: 4px 8px; background: #1976d2; color: white; border: none; border-radius: 3px; cursor: pointer;">−</button>
+                    <button onclick="resetZoom('${id}')" style="margin: 0 2px; padding: 4px 8px; background: #666; color: white; border: none; border-radius: 3px; cursor: pointer;">Reset</button>
+                `;
+
+                // Navigation info
+                const navInfo = document.createElement('div');
+                navInfo.innerHTML = `<span style="color: #666;">🖱️ Click nodes for details • Scroll to zoom • Drag to pan</span>`;
+
+                // Fullscreen button
+                const fullscreenBtn = document.createElement('button');
+                fullscreenBtn.textContent = '⛶ Fullscreen';
+                fullscreenBtn.style.cssText = `
+                    padding: 4px 12px;
+                    background: #388e3c;
+                    color: white;
+                    border: none;
+                    border-radius: 3px;
+                    cursor: pointer;
+                `;
+                fullscreenBtn.onclick = () => toggleFullscreen(id, element);
+
+                // Download button
+                const downloadBtn = document.createElement('button');
+                downloadBtn.textContent = '📥 Download';
+                downloadBtn.style.cssText = `
+                    padding: 4px 12px;
+                    background: #ff9800;
+                    color: white;
+                    border: none;
+                    border-radius: 3px;
+                    cursor: pointer;
+                `;
+                downloadBtn.onclick = () => downloadDiagram(id, element);
+
+                controls.appendChild(zoomControls);
+                controls.appendChild(navInfo);
+                controls.appendChild(fullscreenBtn);
+                controls.appendChild(downloadBtn);
+
+                return controls;
+            };
+
+            const addZoomControls = (element, id) => {
+                element.style.transform = 'scale(1)';
+                element.style.transformOrigin = 'center top';
+                element.style.transition = 'transform 0.3s ease';
+                element.dataset.originalTransform = 'scale(1)';
+                element.dataset.currentZoom = '1';
+            };
+
+            const addPanAndZoom = (element, id) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                let isPanning = false;
+                let startX = 0, startY = 0, translateX = 0, translateY = 0;
+
+                // Mouse wheel zoom
+                element.addEventListener('wheel', function(e) {
+                    if (e.ctrlKey || e.metaKey) {
+                        e.preventDefault();
+                        const delta = e.deltaY > 0 ? 0.9 : 1.1;
+                        zoomDiagram(id, delta);
+                    }
+                });
+
+                // Pan functionality
+                svg.style.cursor = 'grab';
+                svg.addEventListener('mousedown', function(e) {
+                    if (e.button === 0 && !e.shiftKey) {
+                        isPanning = true;
+                        startX = e.clientX - translateX;
+                        startY = e.clientY - translateY;
+                        svg.style.cursor = 'grabbing';
+                        e.preventDefault();
+                    }
+                });
+
+                document.addEventListener('mousemove', function(e) {
+                    if (isPanning) {
+                        translateX = e.clientX - startX;
+                        translateY = e.clientY - startY;
+                        const currentZoom = parseFloat(element.dataset.currentZoom || 1);
+                        svg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
+                    }
+                });
+
+                document.addEventListener('mouseup', function() {
+                    isPanning = false;
+                    svg.style.cursor = 'grab';
+                });
+
+                // Touch support for mobile
+                let touchStartDistance = 0;
+                let touchStartZoom = 1;
+
+                element.addEventListener('touchstart', function(e) {
+                    if (e.touches.length === 2) {
+                        const dx = e.touches[0].clientX - e.touches[1].clientX;
+                        const dy = e.touches[0].clientY - e.touches[1].clientY;
+                        touchStartDistance = Math.sqrt(dx * dx + dy * dy);
+                        touchStartZoom = parseFloat(element.dataset.currentZoom || 1);
+                    }
+                });
+
+                element.addEventListener('touchmove', function(e) {
+                    if (e.touches.length === 2) {
+                        const dx = e.touches[0].clientX - e.touches[1].clientX;
+                        const dy = e.touches[0].clientY - e.touches[1].clientY;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        const scale = Math.max(0.5, Math.min(3, touchStartZoom * (distance / touchStartDistance)));
+                        element.dataset.currentZoom = scale;
+                        const svg = element.querySelector('svg');
+                        const currentZoom = parseFloat(element.dataset.currentZoom || 1);
+                        svg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
+                    }
+                });
+            };
+
+            const addClickHandlers = (element) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                const clickableElements = svg.querySelectorAll('g.node, g.edgePath, .cluster');
+                clickableElements.forEach(el => {
+                    el.style.cursor = 'pointer';
+                    el.addEventListener('click', function(e) {
+                        if (!e.shiftKey && !e.ctrlKey) {
+                            e.preventDefault();
+                            showNodeDetails(el, element);
+                        }
+                    });
+                });
+            };
+
+            const addTooltips = (element) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                const nodes = svg.querySelectorAll('g.node');
+                nodes.forEach(node => {
+                    const rect = node.querySelector('rect');
+                    const text = node.querySelector('text');
+                    if (rect && text) {
+                        node.title = text.textContent + ' - Click for more information';
+
+                        node.addEventListener('mouseenter', function() {
+                            rect.style.filter = 'brightness(1.2)';
+                            rect.style.transition = 'filter 0.2s ease';
+                        });
+
+                        node.addEventListener('mouseleave', function() {
+                            rect.style.filter = 'brightness(1)';
+                        });
+                    }
+                });
+            };
+
+            const makeResponsive = (element) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                svg.style.maxWidth = '100%';
+                svg.style.height = 'auto';
+                svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+
+                const resizeObserver = new ResizeObserver(() => {
+                    adjustDiagramSize(element);
+                });
+                resizeObserver.observe(element);
+            };
+
+            const adjustDiagramSize = (element) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                const container = element.parentElement;
+                const containerWidth = container.clientWidth;
+
+                if (containerWidth < 800) {
+                    const mobileZoom = Math.max(0.5, containerWidth / 800);
+                    element.dataset.currentZoom = mobileZoom;
+                    const translateMatch = svg.style.transform.match(/translate\(([^)]+)px/);
+                    const translate = translateMatch ? translateMatch[1] : '0px, 0px';
+                    svg.style.transform = `translate(${translate}) scale(${mobileZoom})`;
+                }
+            };
+
+            const showNodeDetails = (nodeElement, diagramElement) => {
+                const modal = document.createElement('div');
+                modal.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.5);
+                    z-index: 1000;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                `;
+
+                const content = document.createElement('div');
+                content.style.cssText = `
+                    background: white;
+                    padding: 20px;
+                    border-radius: 8px;
+                    max-width: 600px;
+                    max-height: 80%;
+                    overflow-y: auto;
+                `;
+
+                const text = nodeElement.querySelector('text');
+                const title = text ? text.textContent : 'Node Details';
+
+                content.innerHTML = `
+                    <h3>${title}</h3>
+                    <p><strong>Diagram:</strong> ${diagramElement.closest('h1, h2, h3, h4, h5, h6')?.textContent || 'Architecture Diagram'}</p>
+                    <p><strong>Component Type:</strong> ${getNodeInfo(nodeElement).type}</p>
+                    <p>${getNodeInfo(nodeElement).description}</p>
+                    <button onclick="this.closest('div[style*=fixed]').remove()" style="
+                        margin-top: 15px;
+                        padding: 8px 16px;
+                        background: #1976d2;
+                        color: white;
+                        border: none;
+                        border-radius: 4px;
+                        cursor: pointer;
+                    ">Close</button>
+                `;
+
+                modal.appendChild(content);
+                modal.appendChild(document.createElement('button'));
+                modal.onclick = (e) => {
+                    if (e.target === modal) modal.remove();
+                };
+
+                document.body.appendChild(modal);
+            };
+
+            const getNodeInfo = (nodeElement) => {
+                const text = nodeElement.querySelector('text')?.textContent?.toLowerCase() || '';
+
+                if (text.includes('api') || text.includes('gateway')) {
+                    return {
+                        type: 'API Component',
+                        description: 'This component handles API requests, routing, and response processing in the LOLStonks Gateway.'
+                    };
+                } else if (text.includes('cache') || text.includes('redis')) {
+                    return {
+                        type: 'Cache Layer',
+                        description: 'This component provides caching functionality to improve API response times and reduce external API calls.'
+                    };
+                } else if (text.includes('rate') || text.includes('limit')) {
+                    return {
+                        type: 'Rate Limiter',
+                        description: 'This component enforces rate limits to prevent API abuse and ensure fair usage across all clients.'
+                    };
+                } else if (text.includes('auth') || text.includes('security')) {
+                    return {
+                        type: 'Security Component',
+                        description: 'This component handles authentication, authorization, and security validation for API requests.'
+                    };
+                } else if (text.includes('provider') || text.includes('riot')) {
+                    return {
+                        type: 'External Provider',
+                        description: 'This component interfaces with external APIs (like Riot Games API) to fetch game data.'
+                    };
+                } else {
+                    return {
+                        type: 'System Component',
+                        description: 'This component is part of the LOLStonks API Gateway architecture. Click on different components to explore the system design.'
+                    };
+                }
+            };
+
+            // Global functions for button controls
+            window.zoomDiagram = function(id, factor) {
+                const element = document.getElementById(id);
+                if (!element) return;
+
+                const currentZoom = parseFloat(element.dataset.currentZoom || 1);
+                const newZoom = Math.max(0.1, Math.min(3, currentZoom * factor));
+
+                const svg = element.querySelector('svg');
+                const currentTransform = svg.style.transform || '';
+                const translateMatch = currentTransform.match(/translate\(([^)]+)px/);
+                const translate = translateMatch ? translateMatch[1] : '0px, 0px';
+
+                svg.style.transform = `translate(${translate}) scale(${newZoom})`;
+                element.dataset.currentZoom = newZoom;
+            };
+
+            window.resetZoom = function(id) {
+                const element = document.getElementById(id);
+                if (!element) return;
+
+                const svg = element.querySelector('svg');
+                svg.style.transform = 'translate(0px, 0px) scale(1)';
+                element.dataset.currentZoom = '1';
+            };
+
+            window.toggleFullscreen = function(id, element) {
+                if (element.style.position === 'fixed') {
+                    // Exit fullscreen
+                    element.style.position = '';
+                    element.style.top = '';
+                    element.style.left = '';
+                    element.style.width = '';
+                    element.style.height = '';
+                    element.style.zIndex = '';
+                    element.style.backgroundColor = '';
+                    element.style.padding = '';
+                    element.style.overflow = '';
+                    resetZoom(id);
+                } else {
+                    // Enter fullscreen
+                    element.style.position = 'fixed';
+                    element.style.top = '0';
+                    element.style.left = '0';
+                    element.style.width = '100vw';
+                    element.style.height = '100vh';
+                    element.style.zIndex = '999';
+                    element.style.backgroundColor = 'white';
+                    element.style.padding = '20px';
+                    element.style.overflow = 'auto';
+                    zoomDiagram(id, 1.5);
+                }
+            };
+
+            window.downloadDiagram = function(id, element) {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                const svgData = new XMLSerializer().serializeToString(svg);
+                const svgBlob = new Blob([svgData], {type: 'image/svg+xml;charset=utf-8'});
+                const svgUrl = URL.createObjectURL(svgBlob);
+
+                const downloadLink = document.createElement('a');
+                downloadLink.href = svgUrl;
+                downloadLink.download = `${id || 'diagram'}-${Date.now()}.svg`;
+                downloadLink.click();
+
+                URL.revokeObjectURL(svgUrl);
+            };
+
+            // Initialize everything
+            waitForMermaid();
+
+        })();
+    </script>
+</body>
 </html>

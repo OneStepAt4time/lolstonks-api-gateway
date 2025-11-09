@@ -1,224 +1,117 @@
 
-<!doctype html>
-<html lang="en" class="no-js">
-  <head>
-    
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width,initial-scale=1">
-      
-        <meta name="description" content="Unified League of Legends API Gateway with caching, rate limiting, and comprehensive monitoring">
-      
-      
-      
-      
-        <link rel="prev" href="../releases/">
-      
-      
-        <link rel="next" href="../documentation/">
-      
-      
-      <link rel="icon" href="../../assets/logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
-    
-    
-      
-        <title>Testing - LOLStonks API Gateway</title>
-      
-    
-    
-      <link rel="stylesheet" href="../../assets/stylesheets/main.84d31ad4.min.css">
-      
-        
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
-      
-      
+<!DOCTYPE html>
 
-
-    
-    
-      
-    
-    
-      
-        
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
-      
-    
-    
-      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
-    
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
-    
-      
-
-    
-    
-    
-  </head>
-  
-  
-    
-    
-      
-    
-    
-    
-    
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
-  
-    
-    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
-    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" for="__drawer"></label>
-    <div data-md-component="skip">
-      
-        
-        <a href="#testing-guide" class="md-skip">
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Unified League of Legends API Gateway with caching, rate limiting, and comprehensive monitoring" name="description"/>
+<link href="../releases/" rel="prev"/>
+<link href="../documentation/" rel="next"/>
+<link href="../../assets/logo.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.23" name="generator"/>
+<title>Testing - LOLStonks API Gateway</title>
+<link href="../../assets/stylesheets/main.84d31ad4.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../assets/_mkdocstrings.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="blue" data-md-color-primary="blue" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#testing-guide">
           Skip to content
         </a>
-      
-    </div>
-    <div data-md-component="announce">
-      
-    </div>
-    
-    
-      
-
-  
-
+</div>
+<div data-md-component="announce">
+</div>
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="LOLStonks API Gateway" class="md-header__button md-logo" aria-label="LOLStonks API Gateway" data-md-component="logo">
-      
-  <img src="../../assets/logo.png" alt="logo">
-
-    </a>
-    <label class="md-header__button md-icon" for="__drawer">
-      
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
-    </label>
-    <div class="md-header__title" data-md-component="header-title">
-      <div class="md-header__ellipsis">
-        <div class="md-header__topic">
-          <span class="md-ellipsis">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="LOLStonks API Gateway" class="md-header__button md-logo" data-md-component="logo" href="../.." title="LOLStonks API Gateway">
+<img alt="logo" src="../../assets/logo.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
             LOLStonks API Gateway
           </span>
-        </div>
-        <div class="md-header__topic" data-md-component="header-topic">
-          <span class="md-ellipsis">
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
             
               Testing
             
           </span>
-        </div>
-      </div>
-    </div>
-    
-      
-        <form class="md-header__option" data-md-component="palette">
-  
-    
-    
-    
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
-    
-      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
-      </label>
-    
-  
-    
-    
-    
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
-    
-      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
-      </label>
-    
-  
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="blue" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="blue" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
 </form>
-      
-    
-    
-      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
-    
-    
-    
-      
-      
-        <label class="md-header__button md-icon" for="__search">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        </label>
-        <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
-      <label class="md-search__icon md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-      </label>
-      <nav class="md-search__options" aria-label="Search">
-        
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-        </button>
-      </nav>
-      
-        <div class="md-search__suggest" data-md-component="search-suggest"></div>
-      
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
+<ol class="md-search-result__list" role="presentation"></ol>
 </div>
-      
-    
-    
-      <div class="md-header__source">
-        <a href="https://github.com/OneStepAt4time/lolstonks-api-gateway" title="Go to repository" class="md-source" data-md-component="source">
-  <div class="md-source__icon md-icon">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
-  </div>
-  <div class="md-source__repository">
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/OneStepAt4time/lolstonks-api-gateway" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
     GitHub
   </div>
 </a>
-      </div>
-    
-  </nav>
-  
-    
-      
-<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
-  <div class="md-grid">
-    <ul class="md-tabs__list">
-      
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../.." class="md-tabs__link">
+</div>
+</nav>
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
         
   
   
@@ -227,17 +120,9 @@
   Home
 
       </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../../../CHANGELOG.md" class="md-tabs__link">
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CHANGELOG.md">
         
   
   
@@ -246,19 +131,9 @@
   Changelog
 
       </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../getting-started/installation/" class="md-tabs__link">
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../getting-started/installation/">
           
   
   
@@ -267,20 +142,9 @@
   Getting Started
 
         </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../api/openapi-spec/" class="md-tabs__link">
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../api/openapi-spec/">
           
   
   
@@ -289,20 +153,9 @@
   API Reference
 
         </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../architecture/overview/" class="md-tabs__link">
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../architecture/overview/">
           
   
   
@@ -311,20 +164,9 @@
   Architecture
 
         </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../operations/monitoring/" class="md-tabs__link">
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../operations/monitoring/">
           
   
   
@@ -333,22 +175,9 @@
   Operations
 
         </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-  
-  
-    
-    
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../contributing/" class="md-tabs__link">
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../contributing/">
           
   
   
@@ -357,1646 +186,797 @@
   Development
 
         </a>
-      </li>
-    
-  
-
-      
-    </ul>
-  </div>
+</li>
+</ul>
+</div>
 </nav>
-    
-  
 </header>
-    
-    <div class="md-container" data-md-component="container">
-      
-      
-        
-      
-      <main class="md-main" data-md-component="main">
-        <div class="md-main__inner md-grid">
-          
-            
-              
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-
-  
-
-
-<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
-  <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="LOLStonks API Gateway" class="md-nav__button md-logo" aria-label="LOLStonks API Gateway" data-md-component="logo">
-      
-  <img src="../../assets/logo.png" alt="logo">
-
-    </a>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="LOLStonks API Gateway" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="LOLStonks API Gateway">
+<img alt="logo" src="../../assets/logo.png"/>
+</a>
     LOLStonks API Gateway
   </label>
-  
-    <div class="md-nav__source">
-      <a href="https://github.com/OneStepAt4time/lolstonks-api-gateway" title="Go to repository" class="md-source" data-md-component="source">
-  <div class="md-source__icon md-icon">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
-  </div>
-  <div class="md-source__repository">
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/OneStepAt4time/lolstonks-api-gateway" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
     GitHub
   </div>
 </a>
-    </div>
-  
-  <ul class="md-nav__list" data-md-scrollfix>
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+<span class="md-ellipsis">
     Home
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../CHANGELOG.md" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CHANGELOG.md">
+<span class="md-ellipsis">
     Changelog
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
-        
-          
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+<span class="md-ellipsis">
     Getting Started
     
   </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3">
-            <span class="md-nav__icon md-icon"></span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
             Getting Started
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../getting-started/installation/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/installation/">
+<span class="md-ellipsis">
     Installation
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../getting-started/quick-start/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/quick-start/">
+<span class="md-ellipsis">
     Quick Start
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../getting-started/configuration/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/configuration/">
+<span class="md-ellipsis">
     Configuration
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../getting-started/deployment/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/deployment/">
+<span class="md-ellipsis">
     Production Deployment
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
-        
-          
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+<span class="md-ellipsis">
     API Reference
     
   </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4">
-            <span class="md-nav__icon md-icon"></span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
             API Reference
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/openapi-spec/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/openapi-spec/">
+<span class="md-ellipsis">
     OpenAPI Specification
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/overview/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/overview/">
+<span class="md-ellipsis">
     Overview
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/providers/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/providers/">
+<span class="md-ellipsis">
     Providers
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/riot-client/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/riot-client/">
+<span class="md-ellipsis">
     Riot Client
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/models/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/models/">
+<span class="md-ellipsis">
     Models
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/routers/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/routers/">
+<span class="md-ellipsis">
     Routers
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/cache/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/cache/">
+<span class="md-ellipsis">
     Cache
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/security/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/security/">
+<span class="md-ellipsis">
     Security
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
-        
-          
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
     Architecture
     
   </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5">
-            <span class="md-nav__icon md-icon"></span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
             Architecture
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/overview/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../architecture/overview/">
+<span class="md-ellipsis">
     Overview
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/implementation-details/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../architecture/diagram-guide.md">
+<span class="md-ellipsis">
+    Diagram Guide
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../architecture/system-overview.md">
+<span class="md-ellipsis">
+    System Overview
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../architecture/data-flow.md">
+<span class="md-ellipsis">
+    Data Flow
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../architecture/implementation-details/">
+<span class="md-ellipsis">
     Implementation Details
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/models/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../architecture/models/">
+<span class="md-ellipsis">
     Data Models
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/rate-limiting/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Rate Limiting
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/caching/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Caching Strategy
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
-        
-          
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
     Operations
     
   </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6">
-            <span class="md-nav__icon md-icon"></span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
             Operations
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../operations/monitoring/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operations/monitoring/">
+<span class="md-ellipsis">
     Monitoring
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../operations/troubleshooting/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operations/troubleshooting/">
+<span class="md-ellipsis">
     Troubleshooting
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../operations/security/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operations/security/">
+<span class="md-ellipsis">
     Security
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-    
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-        
-        
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
-            
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+<span class="md-ellipsis">
     Development
     
   </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_7">
-            <span class="md-nav__icon md-icon"></span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_7_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_7">
+<span class="md-nav__icon md-icon"></span>
             Development
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../contributing/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../contributing/">
+<span class="md-ellipsis">
     Contributing
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../changelog-guide/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../changelog-guide/">
+<span class="md-ellipsis">
     Changelog Guide
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../versioning/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../versioning/">
+<span class="md-ellipsis">
     Versioning
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../releases/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../releases/">
+<span class="md-ellipsis">
     Releases
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
     Testing
     
   </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
     Testing
     
   </span>
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#testing-overview" class="md-nav__link">
-    <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#testing-overview">
+<span class="md-ellipsis">
       Testing Overview
     </span>
-  </a>
-  
+</a>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#test-setup" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#test-setup">
+<span class="md-ellipsis">
       Test Setup
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Test Setup">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Test Setup" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#installation">
+<span class="md-ellipsis">
       Installation
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#test-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#test-configuration">
+<span class="md-ellipsis">
       Test Configuration
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#running-tests" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#running-tests">
+<span class="md-ellipsis">
       Running Tests
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Running Tests">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#basic-test-commands" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Running Tests" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#basic-test-commands">
+<span class="md-ellipsis">
       Basic Test Commands
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#test-configuration_1" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#test-configuration_1">
+<span class="md-ellipsis">
       Test Configuration
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#test-structure" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#test-structure">
+<span class="md-ellipsis">
       Test Structure
     </span>
-  </a>
-  
+</a>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#fixtures-and-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#fixtures-and-configuration">
+<span class="md-ellipsis">
       Fixtures and Configuration
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Fixtures and Configuration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#conftestpy" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Fixtures and Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#conftestpy">
+<span class="md-ellipsis">
       conftest.py
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#unit-tests" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#unit-tests">
+<span class="md-ellipsis">
       Unit Tests
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Unit Tests">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#rate-limiter-tests" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Unit Tests" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rate-limiter-tests">
+<span class="md-ellipsis">
       Rate Limiter Tests
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#cache-tests" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cache-tests">
+<span class="md-ellipsis">
       Cache Tests
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#model-tests" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#model-tests">
+<span class="md-ellipsis">
       Model Tests
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#integration-tests" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#integration-tests">
+<span class="md-ellipsis">
       Integration Tests
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Integration Tests">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#client-integration-tests" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Integration Tests" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#client-integration-tests">
+<span class="md-ellipsis">
       Client Integration Tests
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#router-integration-tests" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#router-integration-tests">
+<span class="md-ellipsis">
       Router Integration Tests
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#performance-tests" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#performance-tests">
+<span class="md-ellipsis">
       Performance Tests
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Performance Tests">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#load-testing" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Performance Tests" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#load-testing">
+<span class="md-ellipsis">
       Load Testing
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#external-api-tests" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#external-api-tests">
+<span class="md-ellipsis">
       External API Tests
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="External API Tests">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#real-api-tests" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="External API Tests" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#real-api-tests">
+<span class="md-ellipsis">
       Real API Tests
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#troubleshooting">
+<span class="md-ellipsis">
       Troubleshooting
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Troubleshooting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#common-test-issues" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Troubleshooting" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#common-test-issues">
+<span class="md-ellipsis">
       Common Test Issues
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#debugging-tests" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#debugging-tests">
+<span class="md-ellipsis">
       Debugging Tests
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
+</ul>
 </nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../documentation/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../documentation/">
+<span class="md-ellipsis">
     Documentation
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-  </ul>
+</a>
+</li>
+</ul>
 </nav>
-                  </div>
-                </div>
-              </div>
-            
-            
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#testing-overview" class="md-nav__link">
-    <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#testing-overview">
+<span class="md-ellipsis">
       Testing Overview
     </span>
-  </a>
-  
+</a>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#test-setup" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#test-setup">
+<span class="md-ellipsis">
       Test Setup
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Test Setup">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Test Setup" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#installation">
+<span class="md-ellipsis">
       Installation
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#test-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#test-configuration">
+<span class="md-ellipsis">
       Test Configuration
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#running-tests" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#running-tests">
+<span class="md-ellipsis">
       Running Tests
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Running Tests">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#basic-test-commands" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Running Tests" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#basic-test-commands">
+<span class="md-ellipsis">
       Basic Test Commands
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#test-configuration_1" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#test-configuration_1">
+<span class="md-ellipsis">
       Test Configuration
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#test-structure" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#test-structure">
+<span class="md-ellipsis">
       Test Structure
     </span>
-  </a>
-  
+</a>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#fixtures-and-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#fixtures-and-configuration">
+<span class="md-ellipsis">
       Fixtures and Configuration
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Fixtures and Configuration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#conftestpy" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Fixtures and Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#conftestpy">
+<span class="md-ellipsis">
       conftest.py
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#unit-tests" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#unit-tests">
+<span class="md-ellipsis">
       Unit Tests
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Unit Tests">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#rate-limiter-tests" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Unit Tests" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rate-limiter-tests">
+<span class="md-ellipsis">
       Rate Limiter Tests
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#cache-tests" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cache-tests">
+<span class="md-ellipsis">
       Cache Tests
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#model-tests" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#model-tests">
+<span class="md-ellipsis">
       Model Tests
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#integration-tests" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#integration-tests">
+<span class="md-ellipsis">
       Integration Tests
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Integration Tests">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#client-integration-tests" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Integration Tests" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#client-integration-tests">
+<span class="md-ellipsis">
       Client Integration Tests
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#router-integration-tests" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#router-integration-tests">
+<span class="md-ellipsis">
       Router Integration Tests
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#performance-tests" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#performance-tests">
+<span class="md-ellipsis">
       Performance Tests
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Performance Tests">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#load-testing" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Performance Tests" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#load-testing">
+<span class="md-ellipsis">
       Load Testing
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#external-api-tests" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#external-api-tests">
+<span class="md-ellipsis">
       External API Tests
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="External API Tests">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#real-api-tests" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="External API Tests" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#real-api-tests">
+<span class="md-ellipsis">
       Real API Tests
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#troubleshooting">
+<span class="md-ellipsis">
       Troubleshooting
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Troubleshooting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#common-test-issues" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Troubleshooting" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#common-test-issues">
+<span class="md-ellipsis">
       Common Test Issues
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#debugging-tests" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#debugging-tests">
+<span class="md-ellipsis">
       Debugging Tests
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
+</ul>
 </nav>
-                  </div>
-                </div>
-              </div>
-            
-          
-          
-            <div class="md-content" data-md-component="content">
-              <article class="md-content__inner md-typeset">
-                
-                  
-
-
-  
-  
-
-
-<h1 id="testing-guide">Testing Guide<a class="headerlink" href="#testing-guide" title="Permanent link">&para;</a></h1>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="testing-guide">Testing Guide<a class="headerlink" href="#testing-guide" title="Permanent link">¶</a></h1>
 <p>This guide covers testing strategies, tools, and best practices for the LOLStonks API Gateway.</p>
-<h2 id="testing-overview">Testing Overview<a class="headerlink" href="#testing-overview" title="Permanent link">&para;</a></h2>
+<h2 id="testing-overview">Testing Overview<a class="headerlink" href="#testing-overview" title="Permanent link">¶</a></h2>
 <p>The project uses a comprehensive testing approach with multiple test types:</p>
 <ul>
 <li><strong>Unit Tests</strong>: Test individual components in isolation</li>
@@ -2004,60 +984,60 @@
 <li><strong>End-to-End Tests</strong>: Test complete request flows</li>
 <li><strong>Performance Tests</strong>: Test system performance under load</li>
 </ul>
-<h2 id="test-setup">Test Setup<a class="headerlink" href="#test-setup" title="Permanent link">&para;</a></h2>
-<h3 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Install test dependencies</span>
-pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev]&quot;</span>
+<h2 id="test-setup">Test Setup<a class="headerlink" href="#test-setup" title="Permanent link">¶</a></h2>
+<h3 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash"># Install test dependencies
+pip install -e ".[dev]"
 
-<span class="c1"># Or with uv</span>
-uv<span class="w"> </span>install<span class="w"> </span>--extra<span class="w"> </span>dev
-</code></pre></div>
-<h3 id="test-configuration">Test Configuration<a class="headerlink" href="#test-configuration" title="Permanent link">&para;</a></h3>
+# Or with uv
+uv install --extra dev
+</code></pre>
+<h3 id="test-configuration">Test Configuration<a class="headerlink" href="#test-configuration" title="Permanent link">¶</a></h3>
 <p>Create a test environment file:</p>
-<div class="highlight"><pre><span></span><code># .env.test
+<pre><code class="language-env"># .env.test
 RIOT_API_KEY=test-key-for-testing
 REDIS_HOST=localhost
 REDIS_PORT=6379
 REDIS_DB=1  # Separate database for testing
 LOG_LEVEL=DEBUG
 RATE_LIMIT_RPS=1000  # High limits for testing
-</code></pre></div>
-<h2 id="running-tests">Running Tests<a class="headerlink" href="#running-tests" title="Permanent link">&para;</a></h2>
-<h3 id="basic-test-commands">Basic Test Commands<a class="headerlink" href="#basic-test-commands" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Run all tests</span>
+</code></pre>
+<h2 id="running-tests">Running Tests<a class="headerlink" href="#running-tests" title="Permanent link">¶</a></h2>
+<h3 id="basic-test-commands">Basic Test Commands<a class="headerlink" href="#basic-test-commands" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash"># Run all tests
 pytest
 
-<span class="c1"># Run tests with coverage</span>
-pytest<span class="w"> </span>--cov<span class="o">=</span>app<span class="w"> </span>--cov-report<span class="o">=</span>html
+# Run tests with coverage
+pytest --cov=app --cov-report=html
 
-<span class="c1"># Run specific test file</span>
-pytest<span class="w"> </span>tests/test_summoner.py
+# Run specific test file
+pytest tests/test_summoner.py
 
-<span class="c1"># Run tests with specific marker</span>
-pytest<span class="w"> </span>-m<span class="w"> </span>unit
-pytest<span class="w"> </span>-m<span class="w"> </span>integration
-pytest<span class="w"> </span>-m<span class="w"> </span>slow
-</code></pre></div>
-<h3 id="test-configuration_1">Test Configuration<a class="headerlink" href="#test-configuration_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># pytest.ini</span>
-<span class="k">[tool:pytest]</span>
-<span class="na">testpaths</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">tests</span>
-<span class="na">python_files</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">test_*.py</span>
-<span class="na">python_classes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">Test*</span>
-<span class="na">python_functions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">test_*</span>
-<span class="na">addopts</span><span class="w"> </span><span class="o">=</span>
-<span class="w">    </span><span class="na">--strict-markers</span>
-<span class="w">    </span><span class="na">--strict-config</span>
-<span class="w">    </span><span class="na">--tb</span><span class="o">=</span><span class="s">short</span>
-<span class="w">    </span><span class="na">-v</span>
-<span class="na">markers</span><span class="w"> </span><span class="o">=</span>
-<span class="w">    </span><span class="na">unit</span><span class="o">:</span><span class="w"> </span><span class="s">Unit tests (fast, no external dependencies)</span>
-<span class="w">    </span><span class="na">integration</span><span class="o">:</span><span class="w"> </span><span class="s">Integration tests (requires external services)</span>
-<span class="w">    </span><span class="na">slow</span><span class="o">:</span><span class="w"> </span><span class="s">Slow tests (performance, load testing)</span>
-<span class="w">    </span><span class="na">external</span><span class="o">:</span><span class="w"> </span><span class="s">Tests that hit external APIs</span>
-</code></pre></div>
-<h2 id="test-structure">Test Structure<a class="headerlink" href="#test-structure" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>tests/
+# Run tests with specific marker
+pytest -m unit
+pytest -m integration
+pytest -m slow
+</code></pre>
+<h3 id="test-configuration_1">Test Configuration<a class="headerlink" href="#test-configuration_1" title="Permanent link">¶</a></h3>
+<pre><code class="language-ini"># pytest.ini
+[tool:pytest]
+testpaths = tests
+python_files = test_*.py
+python_classes = Test*
+python_functions = test_*
+addopts =
+    --strict-markers
+    --strict-config
+    --tb=short
+    -v
+markers =
+    unit: Unit tests (fast, no external dependencies)
+    integration: Integration tests (requires external services)
+    slow: Slow tests (performance, load testing)
+    external: Tests that hit external APIs
+</code></pre>
+<h2 id="test-structure">Test Structure<a class="headerlink" href="#test-structure" title="Permanent link">¶</a></h2>
+<pre><code>tests/
 ├── conftest.py              # Pytest configuration and fixtures
 ├── unit/                    # Unit tests
 │   ├── test_rate_limiter.py
@@ -2077,717 +1057,1123 @@ pytest<span class="w"> </span>-m<span class="w"> </span>slow
     ├── summoner_data.json
     ├── match_data.json
     └── league_data.json
-</code></pre></div>
-<h2 id="fixtures-and-configuration">Fixtures and Configuration<a class="headerlink" href="#fixtures-and-configuration" title="Permanent link">&para;</a></h2>
-<h3 id="conftestpy">conftest.py<a class="headerlink" href="#conftestpy" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># tests/conftest.py</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">unittest.mock</span><span class="w"> </span><span class="kn">import</span> <span class="n">AsyncMock</span><span class="p">,</span> <span class="n">MagicMock</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">httpx</span><span class="w"> </span><span class="kn">import</span> <span class="n">AsyncClient</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">app.main</span><span class="w"> </span><span class="kn">import</span> <span class="n">app</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">app.riot.client</span><span class="w"> </span><span class="kn">import</span> <span class="n">RiotClient</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">app.cache.redis_cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">RedisCache</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">app.cache.tracking</span><span class="w"> </span><span class="kn">import</span> <span class="n">MatchTracker</span>
-
-<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;session&quot;</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">event_loop</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create an instance of the default event loop for the test session.&quot;&quot;&quot;</span>
-    <span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop_policy</span><span class="p">()</span><span class="o">.</span><span class="n">new_event_loop</span><span class="p">()</span>
-    <span class="k">yield</span> <span class="n">loop</span>
-    <span class="n">loop</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-
-<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
-<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">client</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test client for FastAPI app.&quot;&quot;&quot;</span>
-    <span class="k">async</span> <span class="k">with</span> <span class="n">AsyncClient</span><span class="p">(</span><span class="n">app</span><span class="o">=</span><span class="n">app</span><span class="p">,</span> <span class="n">base_url</span><span class="o">=</span><span class="s2">&quot;http://test&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ac</span><span class="p">:</span>
-        <span class="k">yield</span> <span class="n">ac</span>
-
-<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">mock_redis</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Mock Redis client for testing.&quot;&quot;&quot;</span>
-    <span class="n">redis_mock</span> <span class="o">=</span> <span class="n">AsyncMock</span><span class="p">()</span>
-    <span class="n">redis_mock</span><span class="o">.</span><span class="n">get</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">redis_mock</span><span class="o">.</span><span class="n">setex</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="kc">True</span>
-    <span class="n">redis_mock</span><span class="o">.</span><span class="n">delete</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="kc">True</span>
-    <span class="n">redis_mock</span><span class="o">.</span><span class="n">sismember</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="n">redis_mock</span><span class="o">.</span><span class="n">sadd</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="kc">True</span>
-    <span class="k">return</span> <span class="n">redis_mock</span>
-
-<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">cache</span><span class="p">(</span><span class="n">mock_redis</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Redis cache fixture with mocked Redis.&quot;&quot;&quot;</span>
-    <span class="n">cache</span> <span class="o">=</span> <span class="n">RedisCache</span><span class="p">()</span>
-    <span class="n">cache</span><span class="o">.</span><span class="n">redis</span> <span class="o">=</span> <span class="n">mock_redis</span>
-    <span class="k">return</span> <span class="n">cache</span>
-
-<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">mock_riot_client</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Mock Riot client for testing.&quot;&quot;&quot;</span>
-    <span class="n">client</span> <span class="o">=</span> <span class="n">AsyncMock</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">client</span>
-
-<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">rate_limiter</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Rate limiter fixture for testing.&quot;&quot;&quot;</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">app.riot.rate_limiter</span><span class="w"> </span><span class="kn">import</span> <span class="n">RateLimiter</span>
-    <span class="k">return</span> <span class="n">RateLimiter</span><span class="p">(</span><span class="n">rate</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">capacity</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>  <span class="c1"># High limits for tests</span>
-
-<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">match_tracker</span><span class="p">(</span><span class="n">cache</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Match tracker fixture.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">MatchTracker</span><span class="p">(</span><span class="n">cache</span><span class="p">)</span>
-
-<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">sample_summoner_data</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Sample summoner data for testing.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="p">{</span>
-        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;test-summoner-id&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;accountId&quot;</span><span class="p">:</span> <span class="s2">&quot;test-account-id&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;puuid&quot;</span><span class="p">:</span> <span class="s2">&quot;test-puuid&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;TestSummoner&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;profileIconId&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="s2">&quot;revisionDate&quot;</span><span class="p">:</span> <span class="mi">1234567890</span><span class="p">,</span>
-        <span class="s2">&quot;summonerLevel&quot;</span><span class="p">:</span> <span class="mi">30</span>
-    <span class="p">}</span>
-
-<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">sample_match_data</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Sample match data for testing.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="p">{</span>
-        <span class="s2">&quot;gameId&quot;</span><span class="p">:</span> <span class="mi">1234567890</span><span class="p">,</span>
-        <span class="s2">&quot;gameDuration&quot;</span><span class="p">:</span> <span class="mi">1800</span><span class="p">,</span>
-        <span class="s2">&quot;gameMode&quot;</span><span class="p">:</span> <span class="s2">&quot;CLASSIC&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;gameType&quot;</span><span class="p">:</span> <span class="s2">&quot;MATCHED_GAME&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;participants&quot;</span><span class="p">:</span> <span class="p">[],</span>
-        <span class="s2">&quot;teams&quot;</span><span class="p">:</span> <span class="p">[]</span>
-    <span class="p">}</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">load_fixture</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load test data from JSON fixture.&quot;&quot;&quot;</span>
-    <span class="n">fixture_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">&quot;fixtures&quot;</span> <span class="o">/</span> <span class="n">filename</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fixture_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-</code></pre></div>
-<h2 id="unit-tests">Unit Tests<a class="headerlink" href="#unit-tests" title="Permanent link">&para;</a></h2>
-<h3 id="rate-limiter-tests">Rate Limiter Tests<a class="headerlink" href="#rate-limiter-tests" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># tests/unit/test_rate_limiter.py</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">unittest.mock</span><span class="w"> </span><span class="kn">import</span> <span class="n">patch</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">app.riot.rate_limiter</span><span class="w"> </span><span class="kn">import</span> <span class="n">RateLimiter</span>
-
-<span class="k">class</span><span class="w"> </span><span class="nc">TestRateLimiter</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test the rate limiter implementation.&quot;&quot;&quot;</span>
-
-    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">unit</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">test_rate_limiter_initialization</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test rate limiter initialization.&quot;&quot;&quot;</span>
-        <span class="n">limiter</span> <span class="o">=</span> <span class="n">RateLimiter</span><span class="p">(</span><span class="n">rate</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">capacity</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="n">limiter</span><span class="o">.</span><span class="n">rate</span> <span class="o">==</span> <span class="mi">10</span>
-        <span class="k">assert</span> <span class="n">limiter</span><span class="o">.</span><span class="n">capacity</span> <span class="o">==</span> <span class="mi">50</span>
-        <span class="k">assert</span> <span class="n">limiter</span><span class="o">.</span><span class="n">tokens</span> <span class="o">==</span> <span class="mi">50</span>
-
-    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">unit</span>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_token_consumption</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test token consumption.&quot;&quot;&quot;</span>
-        <span class="n">limiter</span> <span class="o">=</span> <span class="n">RateLimiter</span><span class="p">(</span><span class="n">rate</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">capacity</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
-
-        <span class="c1"># Should consume one token</span>
-        <span class="k">await</span> <span class="n">limiter</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
-        <span class="k">assert</span> <span class="n">limiter</span><span class="o">.</span><span class="n">tokens</span> <span class="o">==</span> <span class="mi">49</span>
-
-    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">unit</span>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_token_refill</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test token refill over time.&quot;&quot;&quot;</span>
-        <span class="n">limiter</span> <span class="o">=</span> <span class="n">RateLimiter</span><span class="p">(</span><span class="n">rate</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">capacity</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
-
-        <span class="c1"># Consume all tokens</span>
-        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
-            <span class="k">await</span> <span class="n">limiter</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
-
-        <span class="k">assert</span> <span class="n">limiter</span><span class="o">.</span><span class="n">tokens</span> <span class="o">==</span> <span class="mi">0</span>
-
-        <span class="c1"># Wait for refill (mock time passage)</span>
-        <span class="k">with</span> <span class="n">patch</span><span class="p">(</span><span class="s1">&#39;datetime.datetime&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">mock_datetime</span><span class="p">:</span>
-            <span class="n">mock_datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-            <span class="k">await</span> <span class="n">limiter</span><span class="o">.</span><span class="n">_refill</span><span class="p">()</span>
-
-            <span class="c1"># Should have 20 tokens after 2 seconds (10 * 2)</span>
-            <span class="k">assert</span> <span class="n">limiter</span><span class="o">.</span><span class="n">tokens</span> <span class="o">==</span> <span class="mi">20</span>
-
-    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">unit</span>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_rate_limit_exceeded</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test behavior when rate limit is exceeded.&quot;&quot;&quot;</span>
-        <span class="n">limiter</span> <span class="o">=</span> <span class="n">RateLimiter</span><span class="p">(</span><span class="n">rate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">capacity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-
-        <span class="c1"># Consume all tokens</span>
-        <span class="k">await</span> <span class="n">limiter</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
-        <span class="k">await</span> <span class="n">limiter</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
-
-        <span class="c1"># Next acquire should wait</span>
-        <span class="n">start_time</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-        <span class="k">await</span> <span class="n">limiter</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
-        <span class="n">end_time</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-
-        <span class="c1"># Should have waited at least 1 second</span>
-        <span class="k">assert</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span> <span class="o">&gt;=</span> <span class="mf">1.0</span>
-
-    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">unit</span>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_concurrent_acquisition</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test concurrent token acquisition.&quot;&quot;&quot;</span>
-        <span class="n">limiter</span> <span class="o">=</span> <span class="n">RateLimiter</span><span class="p">(</span><span class="n">rate</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">capacity</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-
-        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">acquire_tokens</span><span class="p">():</span>
-            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
-                <span class="k">await</span> <span class="n">limiter</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
-
-        <span class="c1"># Run multiple concurrent tasks</span>
-        <span class="n">tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">acquire_tokens</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
-        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="n">tasks</span><span class="p">)</span>
-
-        <span class="c1"># Should have consumed exactly 100 tokens</span>
-        <span class="k">assert</span> <span class="n">limiter</span><span class="o">.</span><span class="n">tokens</span> <span class="o">==</span> <span class="mi">0</span>
-</code></pre></div>
-<h3 id="cache-tests">Cache Tests<a class="headerlink" href="#cache-tests" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># tests/unit/test_cache.py</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">unittest.mock</span><span class="w"> </span><span class="kn">import</span> <span class="n">AsyncMock</span><span class="p">,</span> <span class="n">patch</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">app.cache.redis_cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">RedisCache</span>
-
-<span class="k">class</span><span class="w"> </span><span class="nc">TestRedisCache</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test Redis cache implementation.&quot;&quot;&quot;</span>
-
-    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">unit</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">test_cache_key_generation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test cache key generation.&quot;&quot;&quot;</span>
-        <span class="n">cache</span> <span class="o">=</span> <span class="n">RedisCache</span><span class="p">()</span>
-
-        <span class="n">key</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">_generate_key</span><span class="p">(</span><span class="s2">&quot;summoner&quot;</span><span class="p">,</span> <span class="s2">&quot;euw1&quot;</span><span class="p">,</span> <span class="s2">&quot;test-id&quot;</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;lolstonks:summoner:euw1:test-id&quot;</span>
-
-    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">unit</span>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_cache_set_and_get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mock_redis</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test setting and getting cache values.&quot;&quot;&quot;</span>
-        <span class="n">cache</span> <span class="o">=</span> <span class="n">RedisCache</span><span class="p">()</span>
-        <span class="n">cache</span><span class="o">.</span><span class="n">redis</span> <span class="o">=</span> <span class="n">mock_redis</span>
-
-        <span class="n">test_data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Test User&quot;</span><span class="p">}</span>
-
-        <span class="c1"># Set cache</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">cache</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;summoner&quot;</span><span class="p">,</span> <span class="s2">&quot;euw1&quot;</span><span class="p">,</span> <span class="s2">&quot;test-id&quot;</span><span class="p">,</span> <span class="n">test_data</span><span class="p">,</span> <span class="n">ttl</span><span class="o">=</span><span class="mi">3600</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">True</span>
-
-        <span class="c1"># Configure mock for get</span>
-        <span class="n">mock_redis</span><span class="o">.</span><span class="n">get</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
-
-        <span class="c1"># Get cache</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;summoner&quot;</span><span class="p">,</span> <span class="s2">&quot;euw1&quot;</span><span class="p">,</span> <span class="s2">&quot;test-id&quot;</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="n">test_data</span>
-
-    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">unit</span>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_cache_miss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mock_redis</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test cache miss scenario.&quot;&quot;&quot;</span>
-        <span class="n">cache</span> <span class="o">=</span> <span class="n">RedisCache</span><span class="p">()</span>
-        <span class="n">cache</span><span class="o">.</span><span class="n">redis</span> <span class="o">=</span> <span class="n">mock_redis</span>
-
-        <span class="c1"># Configure mock to return None (cache miss)</span>
-        <span class="n">mock_redis</span><span class="o">.</span><span class="n">get</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="kc">None</span>
-
-        <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;summoner&quot;</span><span class="p">,</span> <span class="s2">&quot;euw1&quot;</span><span class="p">,</span> <span class="s2">&quot;nonexistent&quot;</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span>
-
-    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">unit</span>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_cache_delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mock_redis</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test cache deletion.&quot;&quot;&quot;</span>
-        <span class="n">cache</span> <span class="o">=</span> <span class="n">RedisCache</span><span class="p">()</span>
-        <span class="n">cache</span><span class="o">.</span><span class="n">redis</span> <span class="o">=</span> <span class="n">mock_redis</span>
-
-        <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">cache</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s2">&quot;summoner&quot;</span><span class="p">,</span> <span class="s2">&quot;euw1&quot;</span><span class="p">,</span> <span class="s2">&quot;test-id&quot;</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">True</span>
-
-        <span class="n">mock_redis</span><span class="o">.</span><span class="n">delete</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span><span class="s2">&quot;lolstonks:summoner:euw1:test-id&quot;</span><span class="p">)</span>
-
-    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">unit</span>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_cache_error_handling</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mock_redis</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test cache error handling.&quot;&quot;&quot;</span>
-        <span class="n">cache</span> <span class="o">=</span> <span class="n">RedisCache</span><span class="p">()</span>
-        <span class="n">cache</span><span class="o">.</span><span class="n">redis</span> <span class="o">=</span> <span class="n">mock_redis</span>
-
-        <span class="c1"># Configure mock to raise exception</span>
-        <span class="n">mock_redis</span><span class="o">.</span><span class="n">get</span><span class="o">.</span><span class="n">side_effect</span> <span class="o">=</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Redis error&quot;</span><span class="p">)</span>
-
-        <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;summoner&quot;</span><span class="p">,</span> <span class="s2">&quot;euw1&quot;</span><span class="p">,</span> <span class="s2">&quot;test-id&quot;</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span>
-
-    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">unit</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">test_ttl_config_loading</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">monkeypatch</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test TTL configuration loading.&quot;&quot;&quot;</span>
-        <span class="c1"># Set environment variables</span>
-        <span class="n">monkeypatch</span><span class="o">.</span><span class="n">setenv</span><span class="p">(</span><span class="s2">&quot;CACHE_TTL_SUMMONER&quot;</span><span class="p">,</span> <span class="s2">&quot;7200&quot;</span><span class="p">)</span>
-        <span class="n">monkeypatch</span><span class="o">.</span><span class="n">setenv</span><span class="p">(</span><span class="s2">&quot;CACHE_TTL_MATCH&quot;</span><span class="p">,</span> <span class="s2">&quot;86400&quot;</span><span class="p">)</span>
-
-        <span class="n">cache</span> <span class="o">=</span> <span class="n">RedisCache</span><span class="p">()</span>
-
-        <span class="k">assert</span> <span class="n">cache</span><span class="o">.</span><span class="n">ttl_config</span><span class="p">[</span><span class="s2">&quot;summoner&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">7200</span>
-        <span class="k">assert</span> <span class="n">cache</span><span class="o">.</span><span class="n">ttl_config</span><span class="p">[</span><span class="s2">&quot;match&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">86400</span>
-</code></pre></div>
-<h3 id="model-tests">Model Tests<a class="headerlink" href="#model-tests" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># tests/unit/test_models.py</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">ValidationError</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">app.models.summoner</span><span class="w"> </span><span class="kn">import</span> <span class="n">SummonerDto</span><span class="p">,</span> <span class="n">SummonerByNameParams</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">app.models.match</span><span class="w"> </span><span class="kn">import</span> <span class="n">MatchDto</span><span class="p">,</span> <span class="n">MatchIdsByPuuidParams</span>
-
-<span class="k">class</span><span class="w"> </span><span class="nc">TestModels</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test Pydantic models.&quot;&quot;&quot;</span>
-
-    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">unit</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">test_summoner_dto_validation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sample_summoner_data</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test SummonerDto validation.&quot;&quot;&quot;</span>
-        <span class="n">summoner</span> <span class="o">=</span> <span class="n">SummonerDto</span><span class="p">(</span><span class="o">**</span><span class="n">sample_summoner_data</span><span class="p">)</span>
-
-        <span class="k">assert</span> <span class="n">summoner</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="s2">&quot;test-summoner-id&quot;</span>
-        <span class="k">assert</span> <span class="n">summoner</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;TestSummoner&quot;</span>
-        <span class="k">assert</span> <span class="n">summoner</span><span class="o">.</span><span class="n">summonerLevel</span> <span class="o">==</span> <span class="mi">30</span>
-
-    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">unit</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">test_summoner_dto_missing_required_fields</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test SummonerDto validation with missing fields.&quot;&quot;&quot;</span>
-        <span class="n">invalid_data</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;test-id&quot;</span><span class="p">,</span>
-            <span class="c1"># Missing required fields</span>
-        <span class="p">}</span>
-
-        <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">ValidationError</span><span class="p">):</span>
-            <span class="n">SummonerDto</span><span class="p">(</span><span class="o">**</span><span class="n">invalid_data</span><span class="p">)</span>
-
-    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">unit</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">test_summoner_by_name_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test SummonerByNameParams validation.&quot;&quot;&quot;</span>
-        <span class="n">params</span> <span class="o">=</span> <span class="n">SummonerByNameParams</span><span class="p">(</span><span class="n">summonerName</span><span class="o">=</span><span class="s2">&quot;TestSummoner&quot;</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="n">params</span><span class="o">.</span><span class="n">summonerName</span> <span class="o">==</span> <span class="s2">&quot;TestSummoner&quot;</span>
-
-    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">unit</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">test_match_ids_by_puuid_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test MatchIdsByPuuidParams validation.&quot;&quot;&quot;</span>
-        <span class="n">params</span> <span class="o">=</span> <span class="n">MatchIdsByPuuidParams</span><span class="p">(</span>
-            <span class="n">puuid</span><span class="o">=</span><span class="s2">&quot;test-puuid&quot;</span><span class="p">,</span>
-            <span class="n">count</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-            <span class="n">start</span><span class="o">=</span><span class="mi">0</span>
-        <span class="p">)</span>
-        <span class="k">assert</span> <span class="n">params</span><span class="o">.</span><span class="n">puuid</span> <span class="o">==</span> <span class="s2">&quot;test-puuid&quot;</span>
-        <span class="k">assert</span> <span class="n">params</span><span class="o">.</span><span class="n">count</span> <span class="o">==</span> <span class="mi">10</span>
-        <span class="k">assert</span> <span class="n">params</span><span class="o">.</span><span class="n">start</span> <span class="o">==</span> <span class="mi">0</span>
-
-    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">unit</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">test_model_serialization</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sample_summoner_data</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test model serialization.&quot;&quot;&quot;</span>
-        <span class="n">summoner</span> <span class="o">=</span> <span class="n">SummonerDto</span><span class="p">(</span><span class="o">**</span><span class="n">sample_summoner_data</span><span class="p">)</span>
-
-        <span class="n">serialized</span> <span class="o">=</span> <span class="n">summoner</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()</span>
-        <span class="k">assert</span> <span class="n">serialized</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;test-summoner-id&quot;</span>
-        <span class="k">assert</span> <span class="n">serialized</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;TestSummoner&quot;</span>
-
-    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">unit</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">test_model_json_serialization</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sample_summoner_data</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test model JSON serialization.&quot;&quot;&quot;</span>
-        <span class="n">summoner</span> <span class="o">=</span> <span class="n">SummonerDto</span><span class="p">(</span><span class="o">**</span><span class="n">sample_summoner_data</span><span class="p">)</span>
-
-        <span class="n">json_str</span> <span class="o">=</span> <span class="n">summoner</span><span class="o">.</span><span class="n">model_dump_json</span><span class="p">()</span>
-        <span class="k">assert</span> <span class="s2">&quot;test-summoner-id&quot;</span> <span class="ow">in</span> <span class="n">json_str</span>
-        <span class="k">assert</span> <span class="s2">&quot;TestSummoner&quot;</span> <span class="ow">in</span> <span class="n">json_str</span>
-</code></pre></div>
-<h2 id="integration-tests">Integration Tests<a class="headerlink" href="#integration-tests" title="Permanent link">&para;</a></h2>
-<h3 id="client-integration-tests">Client Integration Tests<a class="headerlink" href="#client-integration-tests" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># tests/integration/test_client.py</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">unittest.mock</span><span class="w"> </span><span class="kn">import</span> <span class="n">AsyncMock</span><span class="p">,</span> <span class="n">patch</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">httpx</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">app.riot.client</span><span class="w"> </span><span class="kn">import</span> <span class="n">RiotClient</span><span class="p">,</span> <span class="n">RateLimitExceeded</span>
-
-<span class="k">class</span><span class="w"> </span><span class="nc">TestRiotClient</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test Riot client integration.&quot;&quot;&quot;</span>
-
-    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">integration</span>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_successful_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mock_riot_client</span><span class="p">,</span> <span class="n">rate_limiter</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test successful API request.&quot;&quot;&quot;</span>
-        <span class="n">mock_riot_client</span><span class="o">.</span><span class="n">get</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;test-summoner-id&quot;</span><span class="p">}</span>
-
-        <span class="n">client</span> <span class="o">=</span> <span class="n">RiotClient</span><span class="p">(</span><span class="s2">&quot;test-api-key&quot;</span><span class="p">)</span>
-        <span class="n">client</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">mock_riot_client</span>
-        <span class="n">client</span><span class="o">.</span><span class="n">rate_limiter</span> <span class="o">=</span> <span class="n">rate_limiter</span>
-
-        <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/summoner/v4/summoners/by-name/test&quot;</span><span class="p">,</span> <span class="s2">&quot;euw1&quot;</span><span class="p">)</span>
-
-        <span class="k">assert</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;test-summoner-id&quot;</span>
-
-    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">integration</span>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_rate_limit_handling</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mock_riot_client</span><span class="p">,</span> <span class="n">rate_limiter</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test rate limit handling.&quot;&quot;&quot;</span>
-        <span class="c1"># Mock 429 response</span>
-        <span class="n">mock_response</span> <span class="o">=</span> <span class="n">AsyncMock</span><span class="p">()</span>
-        <span class="n">mock_response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">=</span> <span class="mi">429</span>
-        <span class="n">mock_response</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Retry-After&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">}</span>
-        <span class="n">mock_riot_client</span><span class="o">.</span><span class="n">get</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="n">mock_response</span>
-
-        <span class="n">client</span> <span class="o">=</span> <span class="n">RiotClient</span><span class="p">(</span><span class="s2">&quot;test-api-key&quot;</span><span class="p">)</span>
-        <span class="n">client</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">mock_riot_client</span>
-        <span class="n">client</span><span class="o">.</span><span class="n">rate_limiter</span> <span class="o">=</span> <span class="n">rate_limiter</span>
-
-        <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">RateLimitExceeded</span><span class="p">):</span>
-            <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/summoner/v4/summoners/by-name/test&quot;</span><span class="p">,</span> <span class="s2">&quot;euw1&quot;</span><span class="p">)</span>
-
-    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">integration</span>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_retry_mechanism</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mock_riot_client</span><span class="p">,</span> <span class="n">rate_limiter</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test retry mechanism.&quot;&quot;&quot;</span>
-        <span class="c1"># First call returns 429, second call succeeds</span>
-        <span class="n">mock_429_response</span> <span class="o">=</span> <span class="n">AsyncMock</span><span class="p">()</span>
-        <span class="n">mock_429_response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">=</span> <span class="mi">429</span>
-        <span class="n">mock_429_response</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Retry-After&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">}</span>
-
-        <span class="n">mock_success_response</span> <span class="o">=</span> <span class="n">AsyncMock</span><span class="p">()</span>
-        <span class="n">mock_success_response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">=</span> <span class="mi">200</span>
-        <span class="n">mock_success_response</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;test-summoner-id&quot;</span><span class="p">}</span>
-
-        <span class="n">mock_riot_client</span><span class="o">.</span><span class="n">get</span><span class="o">.</span><span class="n">side_effect</span> <span class="o">=</span> <span class="p">[</span><span class="n">mock_429_response</span><span class="p">,</span> <span class="n">mock_success_response</span><span class="p">]</span>
-
-        <span class="n">client</span> <span class="o">=</span> <span class="n">RiotClient</span><span class="p">(</span><span class="s2">&quot;test-api-key&quot;</span><span class="p">)</span>
-        <span class="n">client</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">mock_riot_client</span>
-        <span class="n">client</span><span class="o">.</span><span class="n">rate_limiter</span> <span class="o">=</span> <span class="n">rate_limiter</span>
-
-        <span class="k">with</span> <span class="n">patch</span><span class="p">(</span><span class="s1">&#39;asyncio.sleep&#39;</span><span class="p">):</span>  <span class="c1"># Skip actual sleep</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/summoner/v4/summoners/by-name/test&quot;</span><span class="p">,</span> <span class="s2">&quot;euw1&quot;</span><span class="p">)</span>
-
-        <span class="k">assert</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;test-summoner-id&quot;</span>
-        <span class="k">assert</span> <span class="n">mock_riot_client</span><span class="o">.</span><span class="n">get</span><span class="o">.</span><span class="n">call_count</span> <span class="o">==</span> <span class="mi">2</span>
-</code></pre></div>
-<h3 id="router-integration-tests">Router Integration Tests<a class="headerlink" href="#router-integration-tests" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># tests/integration/test_routers.py</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">unittest.mock</span><span class="w"> </span><span class="kn">import</span> <span class="n">AsyncMock</span><span class="p">,</span> <span class="n">patch</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">fastapi.testclient</span><span class="w"> </span><span class="kn">import</span> <span class="n">TestClient</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">app.main</span><span class="w"> </span><span class="kn">import</span> <span class="n">app</span>
-
-<span class="k">class</span><span class="w"> </span><span class="nc">TestRouters</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test router integration.&quot;&quot;&quot;</span>
-
-    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">integration</span>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_summoner_by_name_endpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">,</span> <span class="n">mock_riot_client</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test summoner by name endpoint.&quot;&quot;&quot;</span>
-        <span class="n">sample_response</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;test-summoner-id&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;TestSummoner&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;summonerLevel&quot;</span><span class="p">:</span> <span class="mi">30</span>
-        <span class="p">}</span>
-
-        <span class="k">with</span> <span class="n">patch</span><span class="p">(</span><span class="s1">&#39;app.routers.summoner.riot_client&#39;</span><span class="p">,</span> <span class="n">mock_riot_client</span><span class="p">):</span>
-            <span class="n">mock_riot_client</span><span class="o">.</span><span class="n">get</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="n">sample_response</span>
-
-            <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-                <span class="s2">&quot;/summoner/by-name/TestSummoner?region=euw1&quot;</span>
-            <span class="p">)</span>
-
-            <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-            <span class="k">assert</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;test-summoner-id&quot;</span>
-            <span class="k">assert</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;TestSummoner&quot;</span>
-
-    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">integration</span>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_summoner_not_found</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">,</span> <span class="n">mock_riot_client</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test summoner not found scenario.&quot;&quot;&quot;</span>
-        <span class="k">with</span> <span class="n">patch</span><span class="p">(</span><span class="s1">&#39;app.routers.summoner.riot_client&#39;</span><span class="p">,</span> <span class="n">mock_riot_client</span><span class="p">):</span>
-            <span class="n">mock_riot_client</span><span class="o">.</span><span class="n">get</span><span class="o">.</span><span class="n">side_effect</span> <span class="o">=</span> <span class="n">httpx</span><span class="o">.</span><span class="n">HTTPStatusError</span><span class="p">(</span>
-                <span class="s2">&quot;Not Found&quot;</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="n">AsyncMock</span><span class="p">(),</span> <span class="n">response</span><span class="o">=</span><span class="n">AsyncMock</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">)</span>
-            <span class="p">)</span>
-
-            <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-                <span class="s2">&quot;/summoner/by-name/NonexistentSummoner?region=euw1&quot;</span>
-            <span class="p">)</span>
-
-            <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">404</span>
-
-    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">integration</span>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_health_check_endpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test health check endpoint.&quot;&quot;&quot;</span>
-        <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/health&quot;</span><span class="p">)</span>
-
-        <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-        <span class="k">assert</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;ok&quot;</span>
-
-    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">integration</span>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_rate_limit_headers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">,</span> <span class="n">mock_riot_client</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test rate limit headers in response.&quot;&quot;&quot;</span>
-        <span class="n">sample_response</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;test-id&quot;</span><span class="p">}</span>
-
-        <span class="k">with</span> <span class="n">patch</span><span class="p">(</span><span class="s1">&#39;app.routers.summoner.riot_client&#39;</span><span class="p">,</span> <span class="n">mock_riot_client</span><span class="p">):</span>
-            <span class="n">mock_riot_client</span><span class="o">.</span><span class="n">get</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="n">sample_response</span>
-
-            <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-                <span class="s2">&quot;/summoner/by-name/Test?region=euw1&quot;</span>
-            <span class="p">)</span>
-
-            <span class="c1"># Check for rate limit headers</span>
-            <span class="k">assert</span> <span class="s2">&quot;X-Rate-Limit-Remaining&quot;</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span>
-            <span class="k">assert</span> <span class="s2">&quot;X-Rate-Limit-Limit&quot;</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span>
-</code></pre></div>
-<h2 id="performance-tests">Performance Tests<a class="headerlink" href="#performance-tests" title="Permanent link">&para;</a></h2>
-<h3 id="load-testing">Load Testing<a class="headerlink" href="#load-testing" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># tests/performance/test_load.py</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">concurrent.futures</span><span class="w"> </span><span class="kn">import</span> <span class="n">ThreadPoolExecutor</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">app.riot.rate_limiter</span><span class="w"> </span><span class="kn">import</span> <span class="n">RateLimiter</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">app.cache.redis_cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">RedisCache</span>
-
-<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">slow</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">TestPerformance</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Performance and load tests.&quot;&quot;&quot;</span>
-
-    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">slow</span>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_rate_limiter_performance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test rate limiter under load.&quot;&quot;&quot;</span>
-        <span class="n">limiter</span> <span class="o">=</span> <span class="n">RateLimiter</span><span class="p">(</span><span class="n">rate</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">capacity</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
-
-        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-
-        <span class="c1"># Make 1000 concurrent requests</span>
-        <span class="n">tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">limiter</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">)]</span>
-        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="n">tasks</span><span class="p">)</span>
-
-        <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-        <span class="n">duration</span> <span class="o">=</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span>
-
-        <span class="c1"># Should complete in reasonable time (within 15 seconds)</span>
-        <span class="k">assert</span> <span class="n">duration</span> <span class="o">&lt;</span> <span class="mf">15.0</span>
-
-        <span class="c1"># Rate limiter should still work</span>
-        <span class="k">assert</span> <span class="n">limiter</span><span class="o">.</span><span class="n">tokens</span> <span class="o">&gt;=</span> <span class="mi">0</span>
-
-    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">slow</span>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_cache_performance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cache</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test cache performance under load.&quot;&quot;&quot;</span>
-        <span class="n">test_data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="s2">&quot;x&quot;</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">}</span>  <span class="c1"># 1KB data</span>
-
-        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-
-        <span class="c1"># Perform 1000 cache operations</span>
-        <span class="n">tasks</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
-            <span class="n">tasks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cache</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="s2">&quot;euw1&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;key</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">test_data</span><span class="p">))</span>
-            <span class="n">tasks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="s2">&quot;euw1&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;key</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
-
-        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="n">tasks</span><span class="p">)</span>
-
-        <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-        <span class="n">duration</span> <span class="o">=</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span>
-
-        <span class="c1"># Should complete quickly (within 5 seconds)</span>
-        <span class="k">assert</span> <span class="n">duration</span> <span class="o">&lt;</span> <span class="mf">5.0</span>
-
-        <span class="c1"># Performance: at least 200 operations per second</span>
-        <span class="n">operations_per_second</span> <span class="o">=</span> <span class="mi">2000</span> <span class="o">/</span> <span class="n">duration</span>
-        <span class="k">assert</span> <span class="n">operations_per_second</span> <span class="o">&gt;</span> <span class="mi">200</span>
-
-    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">slow</span>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_concurrent_api_requests</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test concurrent API request handling.&quot;&quot;&quot;</span>
-        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">make_request</span><span class="p">():</span>
-            <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/health&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span>
-
-        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-
-        <span class="c1"># Make 100 concurrent requests</span>
-        <span class="n">tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">make_request</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)]</span>
-        <span class="n">results</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="n">tasks</span><span class="p">)</span>
-
-        <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-        <span class="n">duration</span> <span class="o">=</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span>
-
-        <span class="c1"># All requests should succeed</span>
-        <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="n">status</span> <span class="o">==</span> <span class="mi">200</span> <span class="k">for</span> <span class="n">status</span> <span class="ow">in</span> <span class="n">results</span><span class="p">)</span>
-
-        <span class="c1"># Should complete quickly (within 2 seconds)</span>
-        <span class="k">assert</span> <span class="n">duration</span> <span class="o">&lt;</span> <span class="mf">2.0</span>
-
-        <span class="c1"># Performance: at least 50 requests per second</span>
-        <span class="n">requests_per_second</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">/</span> <span class="n">duration</span>
-        <span class="k">assert</span> <span class="n">requests_per_second</span> <span class="o">&gt;</span> <span class="mi">50</span>
-</code></pre></div>
-<h2 id="external-api-tests">External API Tests<a class="headerlink" href="#external-api-tests" title="Permanent link">&para;</a></h2>
-<h3 id="real-api-tests">Real API Tests<a class="headerlink" href="#real-api-tests" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># tests/integration/test_external_api.py</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">app.riot.client</span><span class="w"> </span><span class="kn">import</span> <span class="n">RiotClient</span>
-
-<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">external</span>
-<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">slow</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">TestExternalAPI</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Tests against real Riot API (requires API key).&quot;&quot;&quot;</span>
-
-    <span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">real_riot_client</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Real Riot client using actual API key.&quot;&quot;&quot;</span>
-        <span class="n">api_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;RIOT_API_KEY&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">api_key</span><span class="p">:</span>
-            <span class="n">pytest</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="s2">&quot;No RIOT_API_KEY environment variable set&quot;</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">RiotClient</span><span class="p">(</span><span class="n">api_key</span><span class="p">)</span>
-
-    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">external</span>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_real_summoner_lookup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_riot_client</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test real summoner lookup.&quot;&quot;&quot;</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">real_riot_client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-                <span class="s2">&quot;/lol/summoner/v4/summoners/by-name/Faker&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;kr&quot;</span>
-            <span class="p">)</span>
-
-            <span class="k">assert</span> <span class="s2">&quot;id&quot;</span> <span class="ow">in</span> <span class="n">result</span>
-            <span class="k">assert</span> <span class="s2">&quot;name&quot;</span> <span class="ow">in</span> <span class="n">result</span>
-            <span class="k">assert</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Faker&quot;</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="n">pytest</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;External API test failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">external</span>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_real_challenger_lookup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_riot_client</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test real challenger league lookup.&quot;&quot;&quot;</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">real_riot_client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-                <span class="s2">&quot;/lol/league/v4/challengerleagues/by-queue/RANKED_SOLO_5x5&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;kr&quot;</span>
-            <span class="p">)</span>
-
-            <span class="k">assert</span> <span class="s2">&quot;tier&quot;</span> <span class="ow">in</span> <span class="n">result</span>
-            <span class="k">assert</span> <span class="s2">&quot;entries&quot;</span> <span class="ow">in</span> <span class="n">result</span>
-            <span class="k">assert</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;tier&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;CHALLENGER&quot;</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="n">pytest</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;External API test failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</code></pre></div>
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<h3 id="common-test-issues">Common Test Issues<a class="headerlink" href="#common-test-issues" title="Permanent link">&para;</a></h3>
+</code></pre>
+<h2 id="fixtures-and-configuration">Fixtures and Configuration<a class="headerlink" href="#fixtures-and-configuration" title="Permanent link">¶</a></h2>
+<h3 id="conftestpy">conftest.py<a class="headerlink" href="#conftestpy" title="Permanent link">¶</a></h3>
+<pre><code class="language-python"># tests/conftest.py
+import pytest
+import asyncio
+import json
+from pathlib import Path
+from unittest.mock import AsyncMock, MagicMock
+from httpx import AsyncClient
+
+from app.main import app
+from app.riot.client import RiotClient
+from app.cache.redis_cache import RedisCache
+from app.cache.tracking import MatchTracker
+
+@pytest.fixture(scope="session")
+def event_loop():
+    """Create an instance of the default event loop for the test session."""
+    loop = asyncio.get_event_loop_policy().new_event_loop()
+    yield loop
+    loop.close()
+
+@pytest.fixture
+async def client():
+    """Test client for FastAPI app."""
+    async with AsyncClient(app=app, base_url="http://test") as ac:
+        yield ac
+
+@pytest.fixture
+def mock_redis():
+    """Mock Redis client for testing."""
+    redis_mock = AsyncMock()
+    redis_mock.get.return_value = None
+    redis_mock.setex.return_value = True
+    redis_mock.delete.return_value = True
+    redis_mock.sismember.return_value = False
+    redis_mock.sadd.return_value = True
+    return redis_mock
+
+@pytest.fixture
+def cache(mock_redis):
+    """Redis cache fixture with mocked Redis."""
+    cache = RedisCache()
+    cache.redis = mock_redis
+    return cache
+
+@pytest.fixture
+def mock_riot_client():
+    """Mock Riot client for testing."""
+    client = AsyncMock()
+    return client
+
+@pytest.fixture
+def rate_limiter():
+    """Rate limiter fixture for testing."""
+    from app.riot.rate_limiter import RateLimiter
+    return RateLimiter(rate=100, capacity=1000)  # High limits for tests
+
+@pytest.fixture
+def match_tracker(cache):
+    """Match tracker fixture."""
+    return MatchTracker(cache)
+
+@pytest.fixture
+def sample_summoner_data():
+    """Sample summoner data for testing."""
+    return {
+        "id": "test-summoner-id",
+        "accountId": "test-account-id",
+        "puuid": "test-puuid",
+        "name": "TestSummoner",
+        "profileIconId": 1,
+        "revisionDate": 1234567890,
+        "summonerLevel": 30
+    }
+
+@pytest.fixture
+def sample_match_data():
+    """Sample match data for testing."""
+    return {
+        "gameId": 1234567890,
+        "gameDuration": 1800,
+        "gameMode": "CLASSIC",
+        "gameType": "MATCHED_GAME",
+        "participants": [],
+        "teams": []
+    }
+
+def load_fixture(filename):
+    """Load test data from JSON fixture."""
+    fixture_path = Path(__file__).parent / "fixtures" / filename
+    with open(fixture_path, 'r') as f:
+        return json.load(f)
+</code></pre>
+<h2 id="unit-tests">Unit Tests<a class="headerlink" href="#unit-tests" title="Permanent link">¶</a></h2>
+<h3 id="rate-limiter-tests">Rate Limiter Tests<a class="headerlink" href="#rate-limiter-tests" title="Permanent link">¶</a></h3>
+<pre><code class="language-python"># tests/unit/test_rate_limiter.py
+import pytest
+import asyncio
+from unittest.mock import patch
+from datetime import datetime, timedelta
+
+from app.riot.rate_limiter import RateLimiter
+
+class TestRateLimiter:
+    """Test the rate limiter implementation."""
+
+    @pytest.mark.unit
+    def test_rate_limiter_initialization(self):
+        """Test rate limiter initialization."""
+        limiter = RateLimiter(rate=10, capacity=50)
+        assert limiter.rate == 10
+        assert limiter.capacity == 50
+        assert limiter.tokens == 50
+
+    @pytest.mark.unit
+    async def test_token_consumption(self):
+        """Test token consumption."""
+        limiter = RateLimiter(rate=10, capacity=50)
+
+        # Should consume one token
+        await limiter.acquire()
+        assert limiter.tokens == 49
+
+    @pytest.mark.unit
+    async def test_token_refill(self):
+        """Test token refill over time."""
+        limiter = RateLimiter(rate=10, capacity=50)
+
+        # Consume all tokens
+        for _ in range(50):
+            await limiter.acquire()
+
+        assert limiter.tokens == 0
+
+        # Wait for refill (mock time passage)
+        with patch('datetime.datetime') as mock_datetime:
+            mock_datetime.utcnow.return_value = datetime.utcnow() + timedelta(seconds=2)
+            await limiter._refill()
+
+            # Should have 20 tokens after 2 seconds (10 * 2)
+            assert limiter.tokens == 20
+
+    @pytest.mark.unit
+    async def test_rate_limit_exceeded(self):
+        """Test behavior when rate limit is exceeded."""
+        limiter = RateLimiter(rate=1, capacity=2)
+
+        # Consume all tokens
+        await limiter.acquire()
+        await limiter.acquire()
+
+        # Next acquire should wait
+        start_time = asyncio.get_event_loop().time()
+        await limiter.acquire()
+        end_time = asyncio.get_event_loop().time()
+
+        # Should have waited at least 1 second
+        assert end_time - start_time &gt;= 1.0
+
+    @pytest.mark.unit
+    async def test_concurrent_acquisition(self):
+        """Test concurrent token acquisition."""
+        limiter = RateLimiter(rate=100, capacity=100)
+
+        async def acquire_tokens():
+            for _ in range(10):
+                await limiter.acquire()
+
+        # Run multiple concurrent tasks
+        tasks = [acquire_tokens() for _ in range(10)]
+        await asyncio.gather(*tasks)
+
+        # Should have consumed exactly 100 tokens
+        assert limiter.tokens == 0
+</code></pre>
+<h3 id="cache-tests">Cache Tests<a class="headerlink" href="#cache-tests" title="Permanent link">¶</a></h3>
+<pre><code class="language-python"># tests/unit/test_cache.py
+import pytest
+from unittest.mock import AsyncMock, patch
+import json
+
+from app.cache.redis_cache import RedisCache
+
+class TestRedisCache:
+    """Test Redis cache implementation."""
+
+    @pytest.mark.unit
+    def test_cache_key_generation(self):
+        """Test cache key generation."""
+        cache = RedisCache()
+
+        key = cache._generate_key("summoner", "euw1", "test-id")
+        assert key == "lolstonks:summoner:euw1:test-id"
+
+    @pytest.mark.unit
+    async def test_cache_set_and_get(self, mock_redis):
+        """Test setting and getting cache values."""
+        cache = RedisCache()
+        cache.redis = mock_redis
+
+        test_data = {"id": "test", "name": "Test User"}
+
+        # Set cache
+        result = await cache.set("summoner", "euw1", "test-id", test_data, ttl=3600)
+        assert result is True
+
+        # Configure mock for get
+        mock_redis.get.return_value = json.dumps(test_data)
+
+        # Get cache
+        result = await cache.get("summoner", "euw1", "test-id")
+        assert result == test_data
+
+    @pytest.mark.unit
+    async def test_cache_miss(self, mock_redis):
+        """Test cache miss scenario."""
+        cache = RedisCache()
+        cache.redis = mock_redis
+
+        # Configure mock to return None (cache miss)
+        mock_redis.get.return_value = None
+
+        result = await cache.get("summoner", "euw1", "nonexistent")
+        assert result is None
+
+    @pytest.mark.unit
+    async def test_cache_delete(self, mock_redis):
+        """Test cache deletion."""
+        cache = RedisCache()
+        cache.redis = mock_redis
+
+        result = await cache.delete("summoner", "euw1", "test-id")
+        assert result is True
+
+        mock_redis.delete.assert_called_once_with("lolstonks:summoner:euw1:test-id")
+
+    @pytest.mark.unit
+    async def test_cache_error_handling(self, mock_redis):
+        """Test cache error handling."""
+        cache = RedisCache()
+        cache.redis = mock_redis
+
+        # Configure mock to raise exception
+        mock_redis.get.side_effect = Exception("Redis error")
+
+        result = await cache.get("summoner", "euw1", "test-id")
+        assert result is None
+
+    @pytest.mark.unit
+    def test_ttl_config_loading(self, monkeypatch):
+        """Test TTL configuration loading."""
+        # Set environment variables
+        monkeypatch.setenv("CACHE_TTL_SUMMONER", "7200")
+        monkeypatch.setenv("CACHE_TTL_MATCH", "86400")
+
+        cache = RedisCache()
+
+        assert cache.ttl_config["summoner"] == 7200
+        assert cache.ttl_config["match"] == 86400
+</code></pre>
+<h3 id="model-tests">Model Tests<a class="headerlink" href="#model-tests" title="Permanent link">¶</a></h3>
+<pre><code class="language-python"># tests/unit/test_models.py
+import pytest
+from pydantic import ValidationError
+
+from app.models.summoner import SummonerDto, SummonerByNameParams
+from app.models.match import MatchDto, MatchIdsByPuuidParams
+
+class TestModels:
+    """Test Pydantic models."""
+
+    @pytest.mark.unit
+    def test_summoner_dto_validation(self, sample_summoner_data):
+        """Test SummonerDto validation."""
+        summoner = SummonerDto(**sample_summoner_data)
+
+        assert summoner.id == "test-summoner-id"
+        assert summoner.name == "TestSummoner"
+        assert summoner.summonerLevel == 30
+
+    @pytest.mark.unit
+    def test_summoner_dto_missing_required_fields(self):
+        """Test SummonerDto validation with missing fields."""
+        invalid_data = {
+            "id": "test-id",
+            # Missing required fields
+        }
+
+        with pytest.raises(ValidationError):
+            SummonerDto(**invalid_data)
+
+    @pytest.mark.unit
+    def test_summoner_by_name_params(self):
+        """Test SummonerByNameParams validation."""
+        params = SummonerByNameParams(summonerName="TestSummoner")
+        assert params.summonerName == "TestSummoner"
+
+    @pytest.mark.unit
+    def test_match_ids_by_puuid_params(self):
+        """Test MatchIdsByPuuidParams validation."""
+        params = MatchIdsByPuuidParams(
+            puuid="test-puuid",
+            count=10,
+            start=0
+        )
+        assert params.puuid == "test-puuid"
+        assert params.count == 10
+        assert params.start == 0
+
+    @pytest.mark.unit
+    def test_model_serialization(self, sample_summoner_data):
+        """Test model serialization."""
+        summoner = SummonerDto(**sample_summoner_data)
+
+        serialized = summoner.model_dump()
+        assert serialized["id"] == "test-summoner-id"
+        assert serialized["name"] == "TestSummoner"
+
+    @pytest.mark.unit
+    def test_model_json_serialization(self, sample_summoner_data):
+        """Test model JSON serialization."""
+        summoner = SummonerDto(**sample_summoner_data)
+
+        json_str = summoner.model_dump_json()
+        assert "test-summoner-id" in json_str
+        assert "TestSummoner" in json_str
+</code></pre>
+<h2 id="integration-tests">Integration Tests<a class="headerlink" href="#integration-tests" title="Permanent link">¶</a></h2>
+<h3 id="client-integration-tests">Client Integration Tests<a class="headerlink" href="#client-integration-tests" title="Permanent link">¶</a></h3>
+<pre><code class="language-python"># tests/integration/test_client.py
+import pytest
+from unittest.mock import AsyncMock, patch
+import httpx
+
+from app.riot.client import RiotClient, RateLimitExceeded
+
+class TestRiotClient:
+    """Test Riot client integration."""
+
+    @pytest.mark.integration
+    async def test_successful_request(self, mock_riot_client, rate_limiter):
+        """Test successful API request."""
+        mock_riot_client.get.return_value = {"id": "test-summoner-id"}
+
+        client = RiotClient("test-api-key")
+        client.client = mock_riot_client
+        client.rate_limiter = rate_limiter
+
+        result = await client.get("/summoner/v4/summoners/by-name/test", "euw1")
+
+        assert result["id"] == "test-summoner-id"
+
+    @pytest.mark.integration
+    async def test_rate_limit_handling(self, mock_riot_client, rate_limiter):
+        """Test rate limit handling."""
+        # Mock 429 response
+        mock_response = AsyncMock()
+        mock_response.status_code = 429
+        mock_response.headers = {"Retry-After": "1"}
+        mock_riot_client.get.return_value = mock_response
+
+        client = RiotClient("test-api-key")
+        client.client = mock_riot_client
+        client.rate_limiter = rate_limiter
+
+        with pytest.raises(RateLimitExceeded):
+            await client.get("/summoner/v4/summoners/by-name/test", "euw1")
+
+    @pytest.mark.integration
+    async def test_retry_mechanism(self, mock_riot_client, rate_limiter):
+        """Test retry mechanism."""
+        # First call returns 429, second call succeeds
+        mock_429_response = AsyncMock()
+        mock_429_response.status_code = 429
+        mock_429_response.headers = {"Retry-After": "1"}
+
+        mock_success_response = AsyncMock()
+        mock_success_response.status_code = 200
+        mock_success_response.json.return_value = {"id": "test-summoner-id"}
+
+        mock_riot_client.get.side_effect = [mock_429_response, mock_success_response]
+
+        client = RiotClient("test-api-key")
+        client.client = mock_riot_client
+        client.rate_limiter = rate_limiter
+
+        with patch('asyncio.sleep'):  # Skip actual sleep
+            result = await client.get("/summoner/v4/summoners/by-name/test", "euw1")
+
+        assert result["id"] == "test-summoner-id"
+        assert mock_riot_client.get.call_count == 2
+</code></pre>
+<h3 id="router-integration-tests">Router Integration Tests<a class="headerlink" href="#router-integration-tests" title="Permanent link">¶</a></h3>
+<pre><code class="language-python"># tests/integration/test_routers.py
+import pytest
+from unittest.mock import AsyncMock, patch
+from fastapi.testclient import TestClient
+
+from app.main import app
+
+class TestRouters:
+    """Test router integration."""
+
+    @pytest.mark.integration
+    async def test_summoner_by_name_endpoint(self, client, mock_riot_client):
+        """Test summoner by name endpoint."""
+        sample_response = {
+            "id": "test-summoner-id",
+            "name": "TestSummoner",
+            "summonerLevel": 30
+        }
+
+        with patch('app.routers.summoner.riot_client', mock_riot_client):
+            mock_riot_client.get.return_value = sample_response
+
+            response = await client.get(
+                "/summoner/by-name/TestSummoner?region=euw1"
+            )
+
+            assert response.status_code == 200
+            data = response.json()
+            assert data["id"] == "test-summoner-id"
+            assert data["name"] == "TestSummoner"
+
+    @pytest.mark.integration
+    async def test_summoner_not_found(self, client, mock_riot_client):
+        """Test summoner not found scenario."""
+        with patch('app.routers.summoner.riot_client', mock_riot_client):
+            mock_riot_client.get.side_effect = httpx.HTTPStatusError(
+                "Not Found", request=AsyncMock(), response=AsyncMock(status_code=404)
+            )
+
+            response = await client.get(
+                "/summoner/by-name/NonexistentSummoner?region=euw1"
+            )
+
+            assert response.status_code == 404
+
+    @pytest.mark.integration
+    async def test_health_check_endpoint(self, client):
+        """Test health check endpoint."""
+        response = await client.get("/health")
+
+        assert response.status_code == 200
+        data = response.json()
+        assert data["status"] == "ok"
+
+    @pytest.mark.integration
+    async def test_rate_limit_headers(self, client, mock_riot_client):
+        """Test rate limit headers in response."""
+        sample_response = {"id": "test-id"}
+
+        with patch('app.routers.summoner.riot_client', mock_riot_client):
+            mock_riot_client.get.return_value = sample_response
+
+            response = await client.get(
+                "/summoner/by-name/Test?region=euw1"
+            )
+
+            # Check for rate limit headers
+            assert "X-Rate-Limit-Remaining" in response.headers
+            assert "X-Rate-Limit-Limit" in response.headers
+</code></pre>
+<h2 id="performance-tests">Performance Tests<a class="headerlink" href="#performance-tests" title="Permanent link">¶</a></h2>
+<h3 id="load-testing">Load Testing<a class="headerlink" href="#load-testing" title="Permanent link">¶</a></h3>
+<pre><code class="language-python"># tests/performance/test_load.py
+import pytest
+import asyncio
+import time
+from concurrent.futures import ThreadPoolExecutor
+
+from app.riot.rate_limiter import RateLimiter
+from app.cache.redis_cache import RedisCache
+
+@pytest.mark.slow
+class TestPerformance:
+    """Performance and load tests."""
+
+    @pytest.mark.slow
+    async def test_rate_limiter_performance(self):
+        """Test rate limiter under load."""
+        limiter = RateLimiter(rate=100, capacity=1000)
+
+        start_time = time.time()
+
+        # Make 1000 concurrent requests
+        tasks = [limiter.acquire() for _ in range(1000)]
+        await asyncio.gather(*tasks)
+
+        end_time = time.time()
+        duration = end_time - start_time
+
+        # Should complete in reasonable time (within 15 seconds)
+        assert duration &lt; 15.0
+
+        # Rate limiter should still work
+        assert limiter.tokens &gt;= 0
+
+    @pytest.mark.slow
+    async def test_cache_performance(self, cache):
+        """Test cache performance under load."""
+        test_data = {"id": "test", "data": "x" * 1000}  # 1KB data
+
+        start_time = time.time()
+
+        # Perform 1000 cache operations
+        tasks = []
+        for i in range(1000):
+            tasks.append(cache.set("test", "euw1", f"key{i}", test_data))
+            tasks.append(cache.get("test", "euw1", f"key{i}"))
+
+        await asyncio.gather(*tasks)
+
+        end_time = time.time()
+        duration = end_time - start_time
+
+        # Should complete quickly (within 5 seconds)
+        assert duration &lt; 5.0
+
+        # Performance: at least 200 operations per second
+        operations_per_second = 2000 / duration
+        assert operations_per_second &gt; 200
+
+    @pytest.mark.slow
+    async def test_concurrent_api_requests(self, client):
+        """Test concurrent API request handling."""
+        async def make_request():
+            response = await client.get("/health")
+            return response.status_code
+
+        start_time = time.time()
+
+        # Make 100 concurrent requests
+        tasks = [make_request() for _ in range(100)]
+        results = await asyncio.gather(*tasks)
+
+        end_time = time.time()
+        duration = end_time - start_time
+
+        # All requests should succeed
+        assert all(status == 200 for status in results)
+
+        # Should complete quickly (within 2 seconds)
+        assert duration &lt; 2.0
+
+        # Performance: at least 50 requests per second
+        requests_per_second = 100 / duration
+        assert requests_per_second &gt; 50
+</code></pre>
+<h2 id="external-api-tests">External API Tests<a class="headerlink" href="#external-api-tests" title="Permanent link">¶</a></h2>
+<h3 id="real-api-tests">Real API Tests<a class="headerlink" href="#real-api-tests" title="Permanent link">¶</a></h3>
+<pre><code class="language-python"># tests/integration/test_external_api.py
+import pytest
+import os
+
+from app.riot.client import RiotClient
+
+@pytest.mark.external
+@pytest.mark.slow
+class TestExternalAPI:
+    """Tests against real Riot API (requires API key)."""
+
+    @pytest.fixture
+    def real_riot_client(self):
+        """Real Riot client using actual API key."""
+        api_key = os.getenv("RIOT_API_KEY")
+        if not api_key:
+            pytest.skip("No RIOT_API_KEY environment variable set")
+
+        return RiotClient(api_key)
+
+    @pytest.mark.external
+    async def test_real_summoner_lookup(self, real_riot_client):
+        """Test real summoner lookup."""
+        try:
+            result = await real_riot_client.get(
+                "/lol/summoner/v4/summoners/by-name/Faker",
+                "kr"
+            )
+
+            assert "id" in result
+            assert "name" in result
+            assert result["name"] == "Faker"
+        except Exception as e:
+            pytest.skip(f"External API test failed: {e}")
+
+    @pytest.mark.external
+    async def test_real_challenger_lookup(self, real_riot_client):
+        """Test real challenger league lookup."""
+        try:
+            result = await real_riot_client.get(
+                "/lol/league/v4/challengerleagues/by-queue/RANKED_SOLO_5x5",
+                "kr"
+            )
+
+            assert "tier" in result
+            assert "entries" in result
+            assert result["tier"] == "CHALLENGER"
+        except Exception as e:
+            pytest.skip(f"External API test failed: {e}")
+</code></pre>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">¶</a></h2>
+<h3 id="common-test-issues">Common Test Issues<a class="headerlink" href="#common-test-issues" title="Permanent link">¶</a></h3>
+<ol>
+<li><strong>Redis Connection Errors</strong>
+   ```bash
+   # Make sure Redis is running
+   redis-server</li>
+</ol>
+<p># Or run in Docker
+   docker run -d -p 6379:6379 redis:7-alpine
+   ```</p>
 <ol>
 <li>
-<p><strong>Redis Connection Errors</strong>
-   <div class="highlight"><pre><span></span><code><span class="c1"># Make sure Redis is running</span>
-redis-server
-
-<span class="c1"># Or run in Docker</span>
-docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">6379</span>:6379<span class="w"> </span>redis:7-alpine
-</code></pre></div></p>
-</li>
-<li>
 <p><strong>Rate Limiting in Tests</strong>
-   <div class="highlight"><pre><span></span><code><span class="c1"># Set high rate limits for tests</span>
-<span class="n">RATE_LIMIT_RPS</span><span class="o">=</span><span class="mi">1000</span>
-<span class="n">RATE_LIMIT_BURST</span><span class="o">=</span><span class="mi">10000</span>
-</code></pre></div></p>
+<code>python
+   # Set high rate limits for tests
+   RATE_LIMIT_RPS=1000
+   RATE_LIMIT_BURST=10000</code></p>
 </li>
 <li>
 <p><strong>Test Database Issues</strong>
-   <div class="highlight"><pre><span></span><code><span class="c1"># Use separate Redis database for testing</span>
-<span class="nv">REDIS_DB</span><span class="o">=</span><span class="m">1</span>
-
-<span class="c1"># Flush test database between runs</span>
-redis-cli<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span>FLUSHDB
-</code></pre></div></p>
-</li>
-<li>
-<p><strong>Import Errors</strong>
-   <div class="highlight"><pre><span></span><code><span class="c1"># Make sure you&#39;re in the project root</span>
-<span class="nb">cd</span><span class="w"> </span>/path/to/lolstonks-api-gateway
-
-<span class="c1"># Install in development mode</span>
-pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev]&quot;</span>
-</code></pre></div></p>
+   ```bash
+   # Use separate Redis database for testing
+   REDIS_DB=1</p>
 </li>
 </ol>
-<h3 id="debugging-tests">Debugging Tests<a class="headerlink" href="#debugging-tests" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Run with verbose output</span>
-pytest<span class="w"> </span>-v<span class="w"> </span>-s
+<p># Flush test database between runs
+   redis-cli -n 1 FLUSHDB
+   ```</p>
+<ol>
+<li><strong>Import Errors</strong>
+   ```bash
+   # Make sure you're in the project root
+   cd /path/to/lolstonks-api-gateway</li>
+</ol>
+<p># Install in development mode
+   pip install -e ".[dev]"
+   ```</p>
+<h3 id="debugging-tests">Debugging Tests<a class="headerlink" href="#debugging-tests" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash"># Run with verbose output
+pytest -v -s
 
-<span class="c1"># Stop on first failure</span>
-pytest<span class="w"> </span>-x
+# Stop on first failure
+pytest -x
 
-<span class="c1"># Run with debugger</span>
-pytest<span class="w"> </span>--pdb
+# Run with debugger
+pytest --pdb
 
-<span class="c1"># Show local variables on failure</span>
-pytest<span class="w"> </span>-l
+# Show local variables on failure
+pytest -l
 
-<span class="c1"># Run specific test with debug</span>
-pytest<span class="w"> </span>tests/unit/test_rate_limiter.py::TestRateLimiter::test_token_consumption<span class="w"> </span>-v<span class="w"> </span>-s
-</code></pre></div>
+# Run specific test with debug
+pytest tests/unit/test_rate_limiter.py::TestRateLimiter::test_token_consumption -v -s
+</code></pre>
 <p>This comprehensive testing strategy ensures the LOLStonks API Gateway is reliable, performant, and maintainable across different scenarios and conditions.</p>
-
-
-
-
-
-
-
-
-
-
-
-
-                
-              </article>
-            </div>
-          
-          
+</article>
+</div>
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
-        </div>
-        
-      </main>
-      
-        <footer class="md-footer">
-  
-  <div class="md-footer-meta md-typeset">
-    <div class="md-footer-meta__inner md-grid">
-      <div class="md-copyright">
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
   
   
     Made with
-    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
       Material for MkDocs
     </a>
-  
 </div>
-      
-    </div>
-  </div>
+</div>
+</div>
 </footer>
-      
-    </div>
-    <div class="md-dialog" data-md-component="dialog">
-      <div class="md-dialog__inner md-typeset"></div>
-    </div>
-    
-    
-    
-      
-      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
-    
-    
-      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
-      
-    
-  </body>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+<script>
+        // Enhanced Mermaid Interactivity for LOLStonks Documentation
+        (function() {
+            'use strict';
+
+            console.log('Initializing Mermaid interactivity...');
+
+            // Wait for DOM to be ready and Mermaid diagrams to render
+            const waitForMermaid = () => {
+                const mermaidElements = document.querySelectorAll('.mermaid');
+                console.log('Found Mermaid elements:', mermaidElements.length);
+
+                if (mermaidElements.length === 0) {
+                    console.log('No Mermaid elements found, retrying in 2 seconds...');
+                    setTimeout(waitForMermaid, 2000);
+                    return;
+                }
+
+                mermaidElements.forEach((element, index) => {
+                    const id = element.id || 'mermaid-diagram-' + index;
+                    element.setAttribute('id', id);
+
+                    // Wait for the diagram to be rendered as SVG
+                    const waitForSVG = () => {
+                        const svg = element.querySelector('svg');
+                        if (svg) {
+                            console.log('SVG found for element:', id);
+                            addInteractivityToDiagram(element, id);
+                        } else {
+                            console.log('SVG not found yet for element:', id, 'retrying...');
+                            setTimeout(waitForSVG, 500);
+                        }
+                    };
+
+                    waitForSVG();
+                });
+            };
+
+            const addInteractivityToDiagram = (element, id) => {
+                // Add interactive controls container
+                if (!element.previousSibling) {
+                    const controls = createInteractiveControls(id, element);
+                    element.parentNode.insertBefore(controls, element);
+                }
+
+                // Add zoom controls
+                addZoomControls(element, id);
+
+                // Add click handlers
+                addClickHandlers(element);
+
+                // Add tooltips
+                addTooltips(element);
+
+                // Make responsive
+                makeResponsive(element);
+
+                // Add pan and zoom
+                addPanAndZoom(element, id);
+            };
+
+            const createInteractiveControls = (id, element) => {
+                const controls = document.createElement('div');
+                controls.className = 'mermaid-controls';
+                controls.style.cssText = `
+                    margin: 10px 0;
+                    padding: 10px;
+                    background: #f5f5f5;
+                    border-radius: 5px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    gap: 10px;
+                    font-size: 14px;
+                    font-family: Arial, sans-serif;
+                `;
+
+                // Zoom controls
+                const zoomControls = document.createElement('div');
+                zoomControls.innerHTML = `
+                    <span style="font-weight: bold;">🔍 Zoom:</span>
+                    <button onclick="zoomDiagram('${id}', 1.2)" style="margin: 0 2px; padding: 4px 8px; background: #1976d2; color: white; border: none; border-radius: 3px; cursor: pointer;">+</button>
+                    <button onclick="zoomDiagram('${id}', 0.8)" style="margin: 0 2px; padding: 4px 8px; background: #1976d2; color: white; border: none; border-radius: 3px; cursor: pointer;">−</button>
+                    <button onclick="resetZoom('${id}')" style="margin: 0 2px; padding: 4px 8px; background: #666; color: white; border: none; border-radius: 3px; cursor: pointer;">Reset</button>
+                `;
+
+                // Navigation info
+                const navInfo = document.createElement('div');
+                navInfo.innerHTML = `<span style="color: #666;">🖱️ Click nodes for details • Scroll to zoom • Drag to pan</span>`;
+
+                // Fullscreen button
+                const fullscreenBtn = document.createElement('button');
+                fullscreenBtn.textContent = '⛶ Fullscreen';
+                fullscreenBtn.style.cssText = `
+                    padding: 4px 12px;
+                    background: #388e3c;
+                    color: white;
+                    border: none;
+                    border-radius: 3px;
+                    cursor: pointer;
+                `;
+                fullscreenBtn.onclick = () => toggleFullscreen(id, element);
+
+                // Download button
+                const downloadBtn = document.createElement('button');
+                downloadBtn.textContent = '📥 Download';
+                downloadBtn.style.cssText = `
+                    padding: 4px 12px;
+                    background: #ff9800;
+                    color: white;
+                    border: none;
+                    border-radius: 3px;
+                    cursor: pointer;
+                `;
+                downloadBtn.onclick = () => downloadDiagram(id, element);
+
+                controls.appendChild(zoomControls);
+                controls.appendChild(navInfo);
+                controls.appendChild(fullscreenBtn);
+                controls.appendChild(downloadBtn);
+
+                return controls;
+            };
+
+            const addZoomControls = (element, id) => {
+                element.style.transform = 'scale(1)';
+                element.style.transformOrigin = 'center top';
+                element.style.transition = 'transform 0.3s ease';
+                element.dataset.originalTransform = 'scale(1)';
+                element.dataset.currentZoom = '1';
+            };
+
+            const addPanAndZoom = (element, id) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                let isPanning = false;
+                let startX = 0, startY = 0, translateX = 0, translateY = 0;
+
+                // Mouse wheel zoom
+                element.addEventListener('wheel', function(e) {
+                    if (e.ctrlKey || e.metaKey) {
+                        e.preventDefault();
+                        const delta = e.deltaY > 0 ? 0.9 : 1.1;
+                        zoomDiagram(id, delta);
+                    }
+                });
+
+                // Pan functionality
+                svg.style.cursor = 'grab';
+                svg.addEventListener('mousedown', function(e) {
+                    if (e.button === 0 && !e.shiftKey) {
+                        isPanning = true;
+                        startX = e.clientX - translateX;
+                        startY = e.clientY - translateY;
+                        svg.style.cursor = 'grabbing';
+                        e.preventDefault();
+                    }
+                });
+
+                document.addEventListener('mousemove', function(e) {
+                    if (isPanning) {
+                        translateX = e.clientX - startX;
+                        translateY = e.clientY - startY;
+                        const currentZoom = parseFloat(element.dataset.currentZoom || 1);
+                        svg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
+                    }
+                });
+
+                document.addEventListener('mouseup', function() {
+                    isPanning = false;
+                    svg.style.cursor = 'grab';
+                });
+
+                // Touch support for mobile
+                let touchStartDistance = 0;
+                let touchStartZoom = 1;
+
+                element.addEventListener('touchstart', function(e) {
+                    if (e.touches.length === 2) {
+                        const dx = e.touches[0].clientX - e.touches[1].clientX;
+                        const dy = e.touches[0].clientY - e.touches[1].clientY;
+                        touchStartDistance = Math.sqrt(dx * dx + dy * dy);
+                        touchStartZoom = parseFloat(element.dataset.currentZoom || 1);
+                    }
+                });
+
+                element.addEventListener('touchmove', function(e) {
+                    if (e.touches.length === 2) {
+                        const dx = e.touches[0].clientX - e.touches[1].clientX;
+                        const dy = e.touches[0].clientY - e.touches[1].clientY;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        const scale = Math.max(0.5, Math.min(3, touchStartZoom * (distance / touchStartDistance)));
+                        element.dataset.currentZoom = scale;
+                        const svg = element.querySelector('svg');
+                        const currentZoom = parseFloat(element.dataset.currentZoom || 1);
+                        svg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
+                    }
+                });
+            };
+
+            const addClickHandlers = (element) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                const clickableElements = svg.querySelectorAll('g.node, g.edgePath, .cluster');
+                clickableElements.forEach(el => {
+                    el.style.cursor = 'pointer';
+                    el.addEventListener('click', function(e) {
+                        if (!e.shiftKey && !e.ctrlKey) {
+                            e.preventDefault();
+                            showNodeDetails(el, element);
+                        }
+                    });
+                });
+            };
+
+            const addTooltips = (element) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                const nodes = svg.querySelectorAll('g.node');
+                nodes.forEach(node => {
+                    const rect = node.querySelector('rect');
+                    const text = node.querySelector('text');
+                    if (rect && text) {
+                        node.title = text.textContent + ' - Click for more information';
+
+                        node.addEventListener('mouseenter', function() {
+                            rect.style.filter = 'brightness(1.2)';
+                            rect.style.transition = 'filter 0.2s ease';
+                        });
+
+                        node.addEventListener('mouseleave', function() {
+                            rect.style.filter = 'brightness(1)';
+                        });
+                    }
+                });
+            };
+
+            const makeResponsive = (element) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                svg.style.maxWidth = '100%';
+                svg.style.height = 'auto';
+                svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+
+                const resizeObserver = new ResizeObserver(() => {
+                    adjustDiagramSize(element);
+                });
+                resizeObserver.observe(element);
+            };
+
+            const adjustDiagramSize = (element) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                const container = element.parentElement;
+                const containerWidth = container.clientWidth;
+
+                if (containerWidth < 800) {
+                    const mobileZoom = Math.max(0.5, containerWidth / 800);
+                    element.dataset.currentZoom = mobileZoom;
+                    const translateMatch = svg.style.transform.match(/translate\(([^)]+)px/);
+                    const translate = translateMatch ? translateMatch[1] : '0px, 0px';
+                    svg.style.transform = `translate(${translate}) scale(${mobileZoom})`;
+                }
+            };
+
+            const showNodeDetails = (nodeElement, diagramElement) => {
+                const modal = document.createElement('div');
+                modal.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.5);
+                    z-index: 1000;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                `;
+
+                const content = document.createElement('div');
+                content.style.cssText = `
+                    background: white;
+                    padding: 20px;
+                    border-radius: 8px;
+                    max-width: 600px;
+                    max-height: 80%;
+                    overflow-y: auto;
+                `;
+
+                const text = nodeElement.querySelector('text');
+                const title = text ? text.textContent : 'Node Details';
+
+                content.innerHTML = `
+                    <h3>${title}</h3>
+                    <p><strong>Diagram:</strong> ${diagramElement.closest('h1, h2, h3, h4, h5, h6')?.textContent || 'Architecture Diagram'}</p>
+                    <p><strong>Component Type:</strong> ${getNodeInfo(nodeElement).type}</p>
+                    <p>${getNodeInfo(nodeElement).description}</p>
+                    <button onclick="this.closest('div[style*=fixed]').remove()" style="
+                        margin-top: 15px;
+                        padding: 8px 16px;
+                        background: #1976d2;
+                        color: white;
+                        border: none;
+                        border-radius: 4px;
+                        cursor: pointer;
+                    ">Close</button>
+                `;
+
+                modal.appendChild(content);
+                modal.appendChild(document.createElement('button'));
+                modal.onclick = (e) => {
+                    if (e.target === modal) modal.remove();
+                };
+
+                document.body.appendChild(modal);
+            };
+
+            const getNodeInfo = (nodeElement) => {
+                const text = nodeElement.querySelector('text')?.textContent?.toLowerCase() || '';
+
+                if (text.includes('api') || text.includes('gateway')) {
+                    return {
+                        type: 'API Component',
+                        description: 'This component handles API requests, routing, and response processing in the LOLStonks Gateway.'
+                    };
+                } else if (text.includes('cache') || text.includes('redis')) {
+                    return {
+                        type: 'Cache Layer',
+                        description: 'This component provides caching functionality to improve API response times and reduce external API calls.'
+                    };
+                } else if (text.includes('rate') || text.includes('limit')) {
+                    return {
+                        type: 'Rate Limiter',
+                        description: 'This component enforces rate limits to prevent API abuse and ensure fair usage across all clients.'
+                    };
+                } else if (text.includes('auth') || text.includes('security')) {
+                    return {
+                        type: 'Security Component',
+                        description: 'This component handles authentication, authorization, and security validation for API requests.'
+                    };
+                } else if (text.includes('provider') || text.includes('riot')) {
+                    return {
+                        type: 'External Provider',
+                        description: 'This component interfaces with external APIs (like Riot Games API) to fetch game data.'
+                    };
+                } else {
+                    return {
+                        type: 'System Component',
+                        description: 'This component is part of the LOLStonks API Gateway architecture. Click on different components to explore the system design.'
+                    };
+                }
+            };
+
+            // Global functions for button controls
+            window.zoomDiagram = function(id, factor) {
+                const element = document.getElementById(id);
+                if (!element) return;
+
+                const currentZoom = parseFloat(element.dataset.currentZoom || 1);
+                const newZoom = Math.max(0.1, Math.min(3, currentZoom * factor));
+
+                const svg = element.querySelector('svg');
+                const currentTransform = svg.style.transform || '';
+                const translateMatch = currentTransform.match(/translate\(([^)]+)px/);
+                const translate = translateMatch ? translateMatch[1] : '0px, 0px';
+
+                svg.style.transform = `translate(${translate}) scale(${newZoom})`;
+                element.dataset.currentZoom = newZoom;
+            };
+
+            window.resetZoom = function(id) {
+                const element = document.getElementById(id);
+                if (!element) return;
+
+                const svg = element.querySelector('svg');
+                svg.style.transform = 'translate(0px, 0px) scale(1)';
+                element.dataset.currentZoom = '1';
+            };
+
+            window.toggleFullscreen = function(id, element) {
+                if (element.style.position === 'fixed') {
+                    // Exit fullscreen
+                    element.style.position = '';
+                    element.style.top = '';
+                    element.style.left = '';
+                    element.style.width = '';
+                    element.style.height = '';
+                    element.style.zIndex = '';
+                    element.style.backgroundColor = '';
+                    element.style.padding = '';
+                    element.style.overflow = '';
+                    resetZoom(id);
+                } else {
+                    // Enter fullscreen
+                    element.style.position = 'fixed';
+                    element.style.top = '0';
+                    element.style.left = '0';
+                    element.style.width = '100vw';
+                    element.style.height = '100vh';
+                    element.style.zIndex = '999';
+                    element.style.backgroundColor = 'white';
+                    element.style.padding = '20px';
+                    element.style.overflow = 'auto';
+                    zoomDiagram(id, 1.5);
+                }
+            };
+
+            window.downloadDiagram = function(id, element) {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                const svgData = new XMLSerializer().serializeToString(svg);
+                const svgBlob = new Blob([svgData], {type: 'image/svg+xml;charset=utf-8'});
+                const svgUrl = URL.createObjectURL(svgBlob);
+
+                const downloadLink = document.createElement('a');
+                downloadLink.href = svgUrl;
+                downloadLink.download = `${id || 'diagram'}-${Date.now()}.svg`;
+                downloadLink.click();
+
+                URL.revokeObjectURL(svgUrl);
+            };
+
+            // Initialize everything
+            waitForMermaid();
+
+        })();
+    </script>
+</body>
 </html>

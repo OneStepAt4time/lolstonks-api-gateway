@@ -82,6 +82,191 @@
         }
       }
     },
+    "/monitoring/errors": {
+      "get": {
+        "tags": [
+          "monitoring"
+        ],
+        "summary": "Get Error Metrics",
+        "description": "Get comprehensive error metrics for monitoring systems.\n\nReturns detailed error statistics including:\n- Total error counts by type\n- Error rates by endpoint and provider\n- Recent error trends (5min, 1hour)\n- Consecutive failure tracking\n- Active alerts\n\nReturns:\n    ErrorMetrics object with current error statistics\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/monitoring/errors\"",
+        "operationId": "get_error_metrics_monitoring_errors_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMetrics"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/monitoring/errors/recent": {
+      "get": {
+        "tags": [
+          "monitoring"
+        ],
+        "summary": "Get Recent Errors",
+        "description": "Get recent error records for debugging and monitoring.\n\nReturns detailed information about recent errors including:\n- Timestamp and endpoint\n- Provider information\n- Error type and message\n- Request duration\n- HTTP status codes\n\nArgs:\n    limit: Maximum number of error records to return (1-1000)\n    include_client_errors: Whether to include 4xx client errors in results\n\nReturns:\n    List of ErrorRecord objects with detailed error information\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/monitoring/errors/recent?limit=20\"",
+        "operationId": "get_recent_errors_monitoring_errors_recent_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 1000,
+              "minimum": 1,
+              "description": "Maximum number of errors to return",
+              "default": 50,
+              "title": "Limit"
+            },
+            "description": "Maximum number of errors to return"
+          },
+          {
+            "name": "include_client_errors",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Include 4xx client errors",
+              "default": false,
+              "title": "Include Client Errors"
+            },
+            "description": "Include 4xx client errors"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/monitoring/errors/summary": {
+      "get": {
+        "tags": [
+          "monitoring"
+        ],
+        "summary": "Get Error Summary",
+        "description": "Get summarized error statistics for a specific time window.\n\nProvides aggregated error statistics for monitoring dashboards and alerts:\n- Error rates by time window\n- Top error-producing endpoints\n- Provider-specific error rates\n- Error type distribution\n- Alert status\n\nArgs:\n    time_window: Time window for analysis (5m, 15m, 1h, 6h, 24h)\n\nReturns:\n    Dict with summarized error statistics\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/monitoring/errors/summary?time_window=1h\"",
+        "operationId": "get_error_summary_monitoring_errors_summary_get",
+        "parameters": [
+          {
+            "name": "time_window",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "pattern": "^(5m|15m|1h|6h|24h)$",
+              "description": "Time window for analysis (5m, 15m, 1h, 6h, 24h)",
+              "default": "1h",
+              "title": "Time Window"
+            },
+            "description": "Time window for analysis (5m, 15m, 1h, 6h, 24h)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/monitoring/alerts": {
+      "get": {
+        "tags": [
+          "monitoring"
+        ],
+        "summary": "Get Active Alerts",
+        "description": "Get currently active alerts and warnings.\n\nReturns information about active alerts including:\n- Alert types and severity\n- Affected endpoints and providers\n- Alert duration\n- Recommended actions\n\nReturns:\n    Dict with active alert information\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/monitoring/alerts\"",
+        "operationId": "get_active_alerts_monitoring_alerts_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/monitoring/reset": {
+      "post": {
+        "tags": [
+          "monitoring"
+        ],
+        "summary": "Reset Monitoring Metrics",
+        "description": "Reset all error monitoring metrics.\n\nWARNING: This will clear all error history and metrics.\nUse only for testing or maintenance purposes.\n\nReturns:\n    Confirmation message\n\nExample:\n    >>> curl -X POST \"http://127.0.0.1:8080/monitoring/reset\"",
+        "operationId": "reset_monitoring_metrics_monitoring_reset_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/monitoring/status": {
+      "get": {
+        "tags": [
+          "monitoring"
+        ],
+        "summary": "Get Monitoring Status",
+        "description": "Get status of the monitoring system itself.\n\nReturns information about:\n- Monitoring middleware status\n- Data collection health\n- Storage capacity\n- Performance impact\n\nReturns:\n    Dict with monitoring system status\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/monitoring/status\"",
+        "operationId": "get_monitoring_status_monitoring_status_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
     "/riot/account/v1/accounts/by-puuid/{puuid}": {
       "get": {
         "tags": [
@@ -3919,6 +4104,93 @@
         ],
         "title": "Division",
         "description": "Division within a tier.\n\nUsed for Iron through Diamond (and Emerald) tiers.\nMaster, Grandmaster, and Challenger don't use divisions."
+      },
+      "ErrorMetrics": {
+        "properties": {
+          "total_errors": {
+            "type": "integer",
+            "title": "Total Errors"
+          },
+          "server_errors": {
+            "type": "integer",
+            "title": "Server Errors"
+          },
+          "client_errors": {
+            "type": "integer",
+            "title": "Client Errors"
+          },
+          "recent_errors_5min": {
+            "type": "integer",
+            "title": "Recent Errors 5Min"
+          },
+          "recent_errors_1hour": {
+            "type": "integer",
+            "title": "Recent Errors 1Hour"
+          },
+          "error_rates_by_endpoint": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Error Rates By Endpoint"
+          },
+          "error_rates_by_provider": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Error Rates By Provider"
+          },
+          "status_code_distribution": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Status Code Distribution"
+          },
+          "consecutive_failures": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Consecutive Failures"
+          },
+          "last_success_times": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Last Success Times"
+          },
+          "active_alerts": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Active Alerts"
+          },
+          "last_updated": {
+            "type": "number",
+            "title": "Last Updated"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total_errors",
+          "server_errors",
+          "client_errors",
+          "recent_errors_5min",
+          "recent_errors_1hour",
+          "error_rates_by_endpoint",
+          "error_rates_by_provider",
+          "status_code_distribution",
+          "consecutive_failures",
+          "last_success_times",
+          "active_alerts",
+          "last_updated"
+        ],
+        "title": "ErrorMetrics",
+        "description": "Comprehensive error metrics for monitoring."
       },
       "GameRegion": {
         "type": "string",

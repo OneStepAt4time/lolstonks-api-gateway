@@ -1,224 +1,117 @@
 
-<!doctype html>
-<html lang="en" class="no-js">
-  <head>
-    
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width,initial-scale=1">
-      
-        <meta name="description" content="Unified League of Legends API Gateway with caching, rate limiting, and comprehensive monitoring">
-      
-      
-      
-      
-        <link rel="prev" href="../configuration/">
-      
-      
-        <link rel="next" href="../../api/openapi-spec/">
-      
-      
-      <link rel="icon" href="../../assets/logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
-    
-    
-      
-        <title>Production Deployment - LOLStonks API Gateway</title>
-      
-    
-    
-      <link rel="stylesheet" href="../../assets/stylesheets/main.84d31ad4.min.css">
-      
-        
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
-      
-      
+<!DOCTYPE html>
 
-
-    
-    
-      
-    
-    
-      
-        
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
-      
-    
-    
-      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
-    
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
-    
-      
-
-    
-    
-    
-  </head>
-  
-  
-    
-    
-      
-    
-    
-    
-    
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
-  
-    
-    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
-    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" for="__drawer"></label>
-    <div data-md-component="skip">
-      
-        
-        <a href="#production-deployment" class="md-skip">
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Unified League of Legends API Gateway with caching, rate limiting, and comprehensive monitoring" name="description"/>
+<link href="../configuration/" rel="prev"/>
+<link href="../../api/openapi-spec/" rel="next"/>
+<link href="../../assets/logo.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.23" name="generator"/>
+<title>Production Deployment - LOLStonks API Gateway</title>
+<link href="../../assets/stylesheets/main.84d31ad4.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../assets/_mkdocstrings.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="blue" data-md-color-primary="blue" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#production-deployment">
           Skip to content
         </a>
-      
-    </div>
-    <div data-md-component="announce">
-      
-    </div>
-    
-    
-      
-
-  
-
+</div>
+<div data-md-component="announce">
+</div>
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="LOLStonks API Gateway" class="md-header__button md-logo" aria-label="LOLStonks API Gateway" data-md-component="logo">
-      
-  <img src="../../assets/logo.png" alt="logo">
-
-    </a>
-    <label class="md-header__button md-icon" for="__drawer">
-      
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
-    </label>
-    <div class="md-header__title" data-md-component="header-title">
-      <div class="md-header__ellipsis">
-        <div class="md-header__topic">
-          <span class="md-ellipsis">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="LOLStonks API Gateway" class="md-header__button md-logo" data-md-component="logo" href="../.." title="LOLStonks API Gateway">
+<img alt="logo" src="../../assets/logo.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
             LOLStonks API Gateway
           </span>
-        </div>
-        <div class="md-header__topic" data-md-component="header-topic">
-          <span class="md-ellipsis">
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
             
               Production Deployment
             
           </span>
-        </div>
-      </div>
-    </div>
-    
-      
-        <form class="md-header__option" data-md-component="palette">
-  
-    
-    
-    
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
-    
-      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
-      </label>
-    
-  
-    
-    
-    
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
-    
-      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
-      </label>
-    
-  
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="blue" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="blue" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
 </form>
-      
-    
-    
-      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
-    
-    
-    
-      
-      
-        <label class="md-header__button md-icon" for="__search">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        </label>
-        <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
-      <label class="md-search__icon md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-      </label>
-      <nav class="md-search__options" aria-label="Search">
-        
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-        </button>
-      </nav>
-      
-        <div class="md-search__suggest" data-md-component="search-suggest"></div>
-      
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
+<ol class="md-search-result__list" role="presentation"></ol>
 </div>
-      
-    
-    
-      <div class="md-header__source">
-        <a href="https://github.com/OneStepAt4time/lolstonks-api-gateway" title="Go to repository" class="md-source" data-md-component="source">
-  <div class="md-source__icon md-icon">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
-  </div>
-  <div class="md-source__repository">
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/OneStepAt4time/lolstonks-api-gateway" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
     GitHub
   </div>
 </a>
-      </div>
-    
-  </nav>
-  
-    
-      
-<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
-  <div class="md-grid">
-    <ul class="md-tabs__list">
-      
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../.." class="md-tabs__link">
+</div>
+</nav>
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
         
   
   
@@ -227,17 +120,9 @@
   Home
 
       </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../../../CHANGELOG.md" class="md-tabs__link">
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CHANGELOG.md">
         
   
   
@@ -246,21 +131,9 @@
   Changelog
 
       </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-    
-  
-  
-    
-    
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../installation/" class="md-tabs__link">
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../installation/">
           
   
   
@@ -269,20 +142,9 @@
   Getting Started
 
         </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../api/openapi-spec/" class="md-tabs__link">
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../api/openapi-spec/">
           
   
   
@@ -291,20 +153,9 @@
   API Reference
 
         </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../architecture/overview/" class="md-tabs__link">
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../architecture/overview/">
           
   
   
@@ -313,20 +164,9 @@
   Architecture
 
         </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../operations/monitoring/" class="md-tabs__link">
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../operations/monitoring/">
           
   
   
@@ -335,20 +175,9 @@
   Operations
 
         </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../development/contributing/" class="md-tabs__link">
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../development/contributing/">
           
   
   
@@ -357,2049 +186,1104 @@
   Development
 
         </a>
-      </li>
-    
-  
-
-      
-    </ul>
-  </div>
+</li>
+</ul>
+</div>
 </nav>
-    
-  
 </header>
-    
-    <div class="md-container" data-md-component="container">
-      
-      
-        
-      
-      <main class="md-main" data-md-component="main">
-        <div class="md-main__inner md-grid">
-          
-            
-              
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-
-  
-
-
-<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
-  <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="LOLStonks API Gateway" class="md-nav__button md-logo" aria-label="LOLStonks API Gateway" data-md-component="logo">
-      
-  <img src="../../assets/logo.png" alt="logo">
-
-    </a>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="LOLStonks API Gateway" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="LOLStonks API Gateway">
+<img alt="logo" src="../../assets/logo.png"/>
+</a>
     LOLStonks API Gateway
   </label>
-  
-    <div class="md-nav__source">
-      <a href="https://github.com/OneStepAt4time/lolstonks-api-gateway" title="Go to repository" class="md-source" data-md-component="source">
-  <div class="md-source__icon md-icon">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
-  </div>
-  <div class="md-source__repository">
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/OneStepAt4time/lolstonks-api-gateway" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
     GitHub
   </div>
 </a>
-    </div>
-  
-  <ul class="md-nav__list" data-md-scrollfix>
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+<span class="md-ellipsis">
     Home
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../CHANGELOG.md" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CHANGELOG.md">
+<span class="md-ellipsis">
     Changelog
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-    
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-        
-        
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
-            
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-ellipsis">
     Getting Started
     
   </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_3">
-            <span class="md-nav__icon md-icon"></span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
             Getting Started
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../installation/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../installation/">
+<span class="md-ellipsis">
     Installation
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../quick-start/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../quick-start/">
+<span class="md-ellipsis">
     Quick Start
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../configuration/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../configuration/">
+<span class="md-ellipsis">
     Configuration
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
     Production Deployment
     
   </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
     Production Deployment
     
   </span>
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#prerequisites">
+<span class="md-ellipsis">
       Prerequisites
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Prerequisites">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#system-requirements" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Prerequisites" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#system-requirements">
+<span class="md-ellipsis">
       System Requirements
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#external-dependencies" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#external-dependencies">
+<span class="md-ellipsis">
       External Dependencies
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#installation">
+<span class="md-ellipsis">
       Installation
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Installation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-system-preparation" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Installation" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-system-preparation">
+<span class="md-ellipsis">
       1. System Preparation
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2-application-setup" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-application-setup">
+<span class="md-ellipsis">
       2. Application Setup
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#3-environment-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-environment-configuration">
+<span class="md-ellipsis">
       3. Environment Configuration
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#process-management" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#process-management">
+<span class="md-ellipsis">
       Process Management
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Process Management">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#systemd-service-recommended" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Process Management" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#systemd-service-recommended">
+<span class="md-ellipsis">
       Systemd Service (Recommended)
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#supervisor-alternative" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#supervisor-alternative">
+<span class="md-ellipsis">
       Supervisor Alternative
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#reverse-proxy-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#reverse-proxy-configuration">
+<span class="md-ellipsis">
       Reverse Proxy Configuration
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Reverse Proxy Configuration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#nginx-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Reverse Proxy Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#nginx-configuration">
+<span class="md-ellipsis">
       Nginx Configuration
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#redis-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#redis-configuration">
+<span class="md-ellipsis">
       Redis Configuration
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Redis Configuration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#production-redis-setup" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Redis Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#production-redis-setup">
+<span class="md-ellipsis">
       Production Redis Setup
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#ssl-certificate-setup" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ssl-certificate-setup">
+<span class="md-ellipsis">
       SSL Certificate Setup
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="SSL Certificate Setup">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#lets-encrypt-recommended" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="SSL Certificate Setup" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lets-encrypt-recommended">
+<span class="md-ellipsis">
       Let's Encrypt (Recommended)
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#monitoring-and-logging" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#monitoring-and-logging">
+<span class="md-ellipsis">
       Monitoring and Logging
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Monitoring and Logging">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#log-management" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Monitoring and Logging" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#log-management">
+<span class="md-ellipsis">
       Log Management
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#health-monitoring" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#health-monitoring">
+<span class="md-ellipsis">
       Health Monitoring
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#performance-optimization" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#performance-optimization">
+<span class="md-ellipsis">
       Performance Optimization
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Performance Optimization">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#system-tuning" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Performance Optimization" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#system-tuning">
+<span class="md-ellipsis">
       System Tuning
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#application-performance" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#application-performance">
+<span class="md-ellipsis">
       Application Performance
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#security-hardening" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#security-hardening">
+<span class="md-ellipsis">
       Security Hardening
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Security Hardening">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#firewall-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Security Hardening" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#firewall-configuration">
+<span class="md-ellipsis">
       Firewall Configuration
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#application-security" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#application-security">
+<span class="md-ellipsis">
       Application Security
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#backup-and-recovery" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#backup-and-recovery">
+<span class="md-ellipsis">
       Backup and Recovery
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Backup and Recovery">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#configuration-backup" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Backup and Recovery" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuration-backup">
+<span class="md-ellipsis">
       Configuration Backup
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#disaster-recovery" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#disaster-recovery">
+<span class="md-ellipsis">
       Disaster Recovery
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#rollback-procedures" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rollback-procedures">
+<span class="md-ellipsis">
       Rollback Procedures
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Rollback Procedures">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#docker-based-rollback" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Rollback Procedures" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#docker-based-rollback">
+<span class="md-ellipsis">
       Docker-based Rollback
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#git-based-rollback-systemdnative-deployment" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#git-based-rollback-systemdnative-deployment">
+<span class="md-ellipsis">
       Git-based Rollback (Systemd/Native Deployment)
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#emergency-rollback-script" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#emergency-rollback-script">
+<span class="md-ellipsis">
       Emergency Rollback Script
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#docker-rollback-script" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#docker-rollback-script">
+<span class="md-ellipsis">
       Docker Rollback Script
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#rollback-verification-checklist" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rollback-verification-checklist">
+<span class="md-ellipsis">
       Rollback Verification Checklist
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#preventing-future-rollbacks" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#preventing-future-rollbacks">
+<span class="md-ellipsis">
       Preventing Future Rollbacks
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#database-migration-rollback" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#database-migration-rollback">
+<span class="md-ellipsis">
       Database Migration Rollback
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#emergency-hotfix-process" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#emergency-hotfix-process">
+<span class="md-ellipsis">
       Emergency Hotfix Process
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#scaling-considerations" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#scaling-considerations">
+<span class="md-ellipsis">
       Scaling Considerations
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Scaling Considerations">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#horizontal-scaling" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Scaling Considerations" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#horizontal-scaling">
+<span class="md-ellipsis">
       Horizontal Scaling
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#performance-monitoring" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#performance-monitoring">
+<span class="md-ellipsis">
       Performance Monitoring
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#troubleshooting">
+<span class="md-ellipsis">
       Troubleshooting
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Troubleshooting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#common-issues" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Troubleshooting" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#common-issues">
+<span class="md-ellipsis">
       Common Issues
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#debug-commands" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#debug-commands">
+<span class="md-ellipsis">
       Debug Commands
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
+</ul>
 </nav>
-      
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
-        
-          
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+<span class="md-ellipsis">
     API Reference
     
   </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4">
-            <span class="md-nav__icon md-icon"></span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
             API Reference
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/openapi-spec/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/openapi-spec/">
+<span class="md-ellipsis">
     OpenAPI Specification
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/overview/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/overview/">
+<span class="md-ellipsis">
     Overview
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/providers/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/providers/">
+<span class="md-ellipsis">
     Providers
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/riot-client/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/riot-client/">
+<span class="md-ellipsis">
     Riot Client
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/models/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/models/">
+<span class="md-ellipsis">
     Models
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/routers/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/routers/">
+<span class="md-ellipsis">
     Routers
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/cache/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/cache/">
+<span class="md-ellipsis">
     Cache
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/security/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/security/">
+<span class="md-ellipsis">
     Security
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
-        
-          
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
     Architecture
     
   </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5">
-            <span class="md-nav__icon md-icon"></span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
             Architecture
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/overview/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../architecture/overview/">
+<span class="md-ellipsis">
     Overview
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/implementation-details/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../architecture/diagram-guide.md">
+<span class="md-ellipsis">
+    Diagram Guide
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../architecture/system-overview.md">
+<span class="md-ellipsis">
+    System Overview
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../architecture/data-flow.md">
+<span class="md-ellipsis">
+    Data Flow
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../architecture/implementation-details/">
+<span class="md-ellipsis">
     Implementation Details
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/models/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../architecture/models/">
+<span class="md-ellipsis">
     Data Models
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/rate-limiting/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Rate Limiting
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/caching/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Caching Strategy
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
-        
-          
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
     Operations
     
   </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6">
-            <span class="md-nav__icon md-icon"></span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
             Operations
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../operations/monitoring/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operations/monitoring/">
+<span class="md-ellipsis">
     Monitoring
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../operations/troubleshooting/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operations/troubleshooting/">
+<span class="md-ellipsis">
     Troubleshooting
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../operations/security/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operations/security/">
+<span class="md-ellipsis">
     Security
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
-        
-          
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+<span class="md-ellipsis">
     Development
     
   </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_7">
-            <span class="md-nav__icon md-icon"></span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_7_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_7">
+<span class="md-nav__icon md-icon"></span>
             Development
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../development/contributing/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../development/contributing/">
+<span class="md-ellipsis">
     Contributing
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../development/changelog-guide/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../development/changelog-guide/">
+<span class="md-ellipsis">
     Changelog Guide
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../development/versioning/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../development/versioning/">
+<span class="md-ellipsis">
     Versioning
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../development/releases/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../development/releases/">
+<span class="md-ellipsis">
     Releases
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../development/testing/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../development/testing/">
+<span class="md-ellipsis">
     Testing
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../development/documentation/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../development/documentation/">
+<span class="md-ellipsis">
     Documentation
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-  </ul>
+</a>
+</li>
+</ul>
 </nav>
-                  </div>
-                </div>
-              </div>
-            
-            
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#prerequisites">
+<span class="md-ellipsis">
       Prerequisites
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Prerequisites">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#system-requirements" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Prerequisites" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#system-requirements">
+<span class="md-ellipsis">
       System Requirements
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#external-dependencies" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#external-dependencies">
+<span class="md-ellipsis">
       External Dependencies
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#installation">
+<span class="md-ellipsis">
       Installation
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Installation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-system-preparation" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Installation" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-system-preparation">
+<span class="md-ellipsis">
       1. System Preparation
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2-application-setup" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-application-setup">
+<span class="md-ellipsis">
       2. Application Setup
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#3-environment-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-environment-configuration">
+<span class="md-ellipsis">
       3. Environment Configuration
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#process-management" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#process-management">
+<span class="md-ellipsis">
       Process Management
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Process Management">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#systemd-service-recommended" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Process Management" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#systemd-service-recommended">
+<span class="md-ellipsis">
       Systemd Service (Recommended)
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#supervisor-alternative" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#supervisor-alternative">
+<span class="md-ellipsis">
       Supervisor Alternative
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#reverse-proxy-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#reverse-proxy-configuration">
+<span class="md-ellipsis">
       Reverse Proxy Configuration
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Reverse Proxy Configuration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#nginx-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Reverse Proxy Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#nginx-configuration">
+<span class="md-ellipsis">
       Nginx Configuration
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#redis-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#redis-configuration">
+<span class="md-ellipsis">
       Redis Configuration
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Redis Configuration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#production-redis-setup" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Redis Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#production-redis-setup">
+<span class="md-ellipsis">
       Production Redis Setup
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#ssl-certificate-setup" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ssl-certificate-setup">
+<span class="md-ellipsis">
       SSL Certificate Setup
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="SSL Certificate Setup">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#lets-encrypt-recommended" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="SSL Certificate Setup" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lets-encrypt-recommended">
+<span class="md-ellipsis">
       Let's Encrypt (Recommended)
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#monitoring-and-logging" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#monitoring-and-logging">
+<span class="md-ellipsis">
       Monitoring and Logging
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Monitoring and Logging">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#log-management" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Monitoring and Logging" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#log-management">
+<span class="md-ellipsis">
       Log Management
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#health-monitoring" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#health-monitoring">
+<span class="md-ellipsis">
       Health Monitoring
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#performance-optimization" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#performance-optimization">
+<span class="md-ellipsis">
       Performance Optimization
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Performance Optimization">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#system-tuning" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Performance Optimization" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#system-tuning">
+<span class="md-ellipsis">
       System Tuning
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#application-performance" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#application-performance">
+<span class="md-ellipsis">
       Application Performance
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#security-hardening" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#security-hardening">
+<span class="md-ellipsis">
       Security Hardening
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Security Hardening">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#firewall-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Security Hardening" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#firewall-configuration">
+<span class="md-ellipsis">
       Firewall Configuration
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#application-security" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#application-security">
+<span class="md-ellipsis">
       Application Security
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#backup-and-recovery" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#backup-and-recovery">
+<span class="md-ellipsis">
       Backup and Recovery
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Backup and Recovery">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#configuration-backup" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Backup and Recovery" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuration-backup">
+<span class="md-ellipsis">
       Configuration Backup
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#disaster-recovery" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#disaster-recovery">
+<span class="md-ellipsis">
       Disaster Recovery
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#rollback-procedures" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rollback-procedures">
+<span class="md-ellipsis">
       Rollback Procedures
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Rollback Procedures">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#docker-based-rollback" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Rollback Procedures" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#docker-based-rollback">
+<span class="md-ellipsis">
       Docker-based Rollback
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#git-based-rollback-systemdnative-deployment" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#git-based-rollback-systemdnative-deployment">
+<span class="md-ellipsis">
       Git-based Rollback (Systemd/Native Deployment)
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#emergency-rollback-script" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#emergency-rollback-script">
+<span class="md-ellipsis">
       Emergency Rollback Script
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#docker-rollback-script" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#docker-rollback-script">
+<span class="md-ellipsis">
       Docker Rollback Script
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#rollback-verification-checklist" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rollback-verification-checklist">
+<span class="md-ellipsis">
       Rollback Verification Checklist
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#preventing-future-rollbacks" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#preventing-future-rollbacks">
+<span class="md-ellipsis">
       Preventing Future Rollbacks
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#database-migration-rollback" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#database-migration-rollback">
+<span class="md-ellipsis">
       Database Migration Rollback
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#emergency-hotfix-process" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#emergency-hotfix-process">
+<span class="md-ellipsis">
       Emergency Hotfix Process
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#scaling-considerations" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#scaling-considerations">
+<span class="md-ellipsis">
       Scaling Considerations
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Scaling Considerations">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#horizontal-scaling" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Scaling Considerations" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#horizontal-scaling">
+<span class="md-ellipsis">
       Horizontal Scaling
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#performance-monitoring" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#performance-monitoring">
+<span class="md-ellipsis">
       Performance Monitoring
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#troubleshooting">
+<span class="md-ellipsis">
       Troubleshooting
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Troubleshooting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#common-issues" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Troubleshooting" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#common-issues">
+<span class="md-ellipsis">
       Common Issues
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#debug-commands" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#debug-commands">
+<span class="md-ellipsis">
       Debug Commands
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
+</ul>
 </nav>
-                  </div>
-                </div>
-              </div>
-            
-          
-          
-            <div class="md-content" data-md-component="content">
-              <article class="md-content__inner md-typeset">
-                
-                  
-
-
-  
-  
-
-
-<h1 id="production-deployment">Production Deployment<a class="headerlink" href="#production-deployment" title="Permanent link">&para;</a></h1>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="production-deployment">Production Deployment<a class="headerlink" href="#production-deployment" title="Permanent link">¶</a></h1>
 <p>This guide covers deploying the LOLStonks API Gateway to production environments with proper security, monitoring, and scalability considerations.</p>
-<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
-<h3 id="system-requirements">System Requirements<a class="headerlink" href="#system-requirements" title="Permanent link">&para;</a></h3>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
+<h3 id="system-requirements">System Requirements<a class="headerlink" href="#system-requirements" title="Permanent link">¶</a></h3>
 <ul>
 <li><strong>CPU</strong>: 2+ cores (4+ recommended for high traffic)</li>
 <li><strong>RAM</strong>: 4GB+ (8GB+ recommended for production)</li>
@@ -2407,47 +1291,47 @@
 <li><strong>Network</strong>: Stable internet connection with low latency to Riot API servers</li>
 <li><strong>Operating System</strong>: Linux (Ubuntu 20.04+, CentOS 8+, or similar)</li>
 </ul>
-<h3 id="external-dependencies">External Dependencies<a class="headerlink" href="#external-dependencies" title="Permanent link">&para;</a></h3>
+<h3 id="external-dependencies">External Dependencies<a class="headerlink" href="#external-dependencies" title="Permanent link">¶</a></h3>
 <ul>
 <li><strong>Redis Server</strong>: 6.0+ for caching and session management</li>
 <li><strong>Reverse Proxy</strong>: Nginx 1.18+ or similar for SSL termination</li>
 <li><strong>Process Manager</strong>: systemd, supervisor, or similar</li>
 <li><strong>SSL Certificate</strong>: Valid SSL certificate for HTTPS</li>
 </ul>
-<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
-<h3 id="1-system-preparation">1. System Preparation<a class="headerlink" href="#1-system-preparation" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Update system packages</span>
-sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>upgrade<span class="w"> </span>-y
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">¶</a></h2>
+<h3 id="1-system-preparation">1. System Preparation<a class="headerlink" href="#1-system-preparation" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash"># Update system packages
+sudo apt update &amp;&amp; sudo apt upgrade -y
 
-<span class="c1"># Install required system packages</span>
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>python3.12<span class="w"> </span>python3.12-venv<span class="w"> </span>python3-pip<span class="w"> </span>nginx<span class="w"> </span>redis-server
+# Install required system packages
+sudo apt install -y python3.12 python3.12-venv python3-pip nginx redis-server
 
-<span class="c1"># Create application user</span>
-sudo<span class="w"> </span>useradd<span class="w"> </span>-m<span class="w"> </span>-s<span class="w"> </span>/bin/bash<span class="w"> </span>lolstonks
-sudo<span class="w"> </span>usermod<span class="w"> </span>-aG<span class="w"> </span>sudo<span class="w"> </span>lolstonks
-</code></pre></div>
-<h3 id="2-application-setup">2. Application Setup<a class="headerlink" href="#2-application-setup" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Switch to application user</span>
-sudo<span class="w"> </span>su<span class="w"> </span>-<span class="w"> </span>lolstonks
+# Create application user
+sudo useradd -m -s /bin/bash lolstonks
+sudo usermod -aG sudo lolstonks
+</code></pre>
+<h3 id="2-application-setup">2. Application Setup<a class="headerlink" href="#2-application-setup" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash"># Switch to application user
+sudo su - lolstonks
 
-<span class="c1"># Install UV</span>
-curl<span class="w"> </span>-LsSf<span class="w"> </span>https://astral.sh/uv/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
-<span class="nb">source</span><span class="w"> </span>~/.bashrc
+# Install UV
+curl -LsSf https://astral.sh/uv/install.sh | sh
+source ~/.bashrc
 
-<span class="c1"># Clone the repository</span>
-git<span class="w"> </span>clone<span class="w"> </span>https://github.com/OneStepAt4time/lolstonks-api-gateway.git
-<span class="nb">cd</span><span class="w"> </span>lolstonks-api-gateway
+# Clone the repository
+git clone https://github.com/OneStepAt4time/lolstonks-api-gateway.git
+cd lolstonks-api-gateway
 
-<span class="c1"># Install dependencies</span>
-uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[docs]&quot;</span>
+# Install dependencies
+uv pip install -e ".[docs]"
 
-<span class="c1"># Create environment file</span>
-cp<span class="w"> </span>.env.example<span class="w"> </span>.env
-nano<span class="w"> </span>.env<span class="w">  </span><span class="c1"># Edit with your configuration</span>
-</code></pre></div>
-<h3 id="3-environment-configuration">3. Environment Configuration<a class="headerlink" href="#3-environment-configuration" title="Permanent link">&para;</a></h3>
+# Create environment file
+cp .env.example .env
+nano .env  # Edit with your configuration
+</code></pre>
+<h3 id="3-environment-configuration">3. Environment Configuration<a class="headerlink" href="#3-environment-configuration" title="Permanent link">¶</a></h3>
 <p>Create a secure <code>.env</code> file:</p>
-<div class="highlight"><pre><span></span><code># Production Configuration
+<pre><code class="language-env"># Production Configuration
 # Option 1: Single key (basic)
 RIOT_API_KEY=RGAPI-your-production-api-key
 
@@ -2479,134 +1363,134 @@ ALLOWED_HOSTS=yourdomain.com
 # Monitoring
 ENABLE_METRICS=true
 METRICS_PORT=9090
-</code></pre></div>
-<h2 id="process-management">Process Management<a class="headerlink" href="#process-management" title="Permanent link">&para;</a></h2>
-<h3 id="systemd-service-recommended">Systemd Service (Recommended)<a class="headerlink" href="#systemd-service-recommended" title="Permanent link">&para;</a></h3>
+</code></pre>
+<h2 id="process-management">Process Management<a class="headerlink" href="#process-management" title="Permanent link">¶</a></h2>
+<h3 id="systemd-service-recommended">Systemd Service (Recommended)<a class="headerlink" href="#systemd-service-recommended" title="Permanent link">¶</a></h3>
 <p>Create a systemd service file:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/systemd/system/lolstonks-api.service
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="k">[Unit]</span>
-<span class="na">Description</span><span class="o">=</span><span class="s">LOLStonks API Gateway</span>
-<span class="na">After</span><span class="o">=</span><span class="s">network.target redis.service</span>
+<pre><code class="language-bash">sudo nano /etc/systemd/system/lolstonks-api.service
+</code></pre>
+<pre><code class="language-ini">[Unit]
+Description=LOLStonks API Gateway
+After=network.target redis.service
 
-<span class="k">[Service]</span>
-<span class="na">Type</span><span class="o">=</span><span class="s">exec</span>
-<span class="na">User</span><span class="o">=</span><span class="s">lolstonks</span>
-<span class="na">Group</span><span class="o">=</span><span class="s">lolstonks</span>
-<span class="na">WorkingDirectory</span><span class="o">=</span><span class="s">/home/lolstonks/lolstonks-api-gateway</span>
-<span class="na">Environment</span><span class="o">=</span><span class="s">PATH=/home/lolstonks/.local/bin:/usr/local/bin:/usr/bin:/bin</span>
-<span class="na">EnvironmentFile</span><span class="o">=</span><span class="s">/home/lolstonks/lolstonks-api-gateway/.env</span>
-<span class="na">ExecStart</span><span class="o">=</span><span class="s">/home/lolstonks/.local/bin/uv run uvicorn app.main:app --host 0.0.0.0 --port 8080</span>
-<span class="na">Restart</span><span class="o">=</span><span class="s">always</span>
-<span class="na">RestartSec</span><span class="o">=</span><span class="s">10</span>
-<span class="na">StandardOutput</span><span class="o">=</span><span class="s">journal</span>
-<span class="na">StandardError</span><span class="o">=</span><span class="s">journal</span>
+[Service]
+Type=exec
+User=lolstonks
+Group=lolstonks
+WorkingDirectory=/home/lolstonks/lolstonks-api-gateway
+Environment=PATH=/home/lolstonks/.local/bin:/usr/local/bin:/usr/bin:/bin
+EnvironmentFile=/home/lolstonks/lolstonks-api-gateway/.env
+ExecStart=/home/lolstonks/.local/bin/uv run uvicorn app.main:app --host 0.0.0.0 --port 8080
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
 
-<span class="c1"># Security settings</span>
-<span class="na">NoNewPrivileges</span><span class="o">=</span><span class="s">true</span>
-<span class="na">PrivateTmp</span><span class="o">=</span><span class="s">true</span>
-<span class="na">ProtectSystem</span><span class="o">=</span><span class="s">strict</span>
-<span class="na">ProtectHome</span><span class="o">=</span><span class="s">true</span>
-<span class="na">ReadWritePaths</span><span class="o">=</span><span class="s">/home/lolstonks/lolstonks-api-gateway/logs</span>
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/home/lolstonks/lolstonks-api-gateway/logs
 
-<span class="k">[Install]</span>
-<span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
-</code></pre></div>
+[Install]
+WantedBy=multi-user.target
+</code></pre>
 <p>Enable and start the service:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
-sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>lolstonks-api.service
-sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>lolstonks-api.service
-</code></pre></div>
-<h3 id="supervisor-alternative">Supervisor Alternative<a class="headerlink" href="#supervisor-alternative" title="Permanent link">&para;</a></h3>
+<pre><code class="language-bash">sudo systemctl daemon-reload
+sudo systemctl enable lolstonks-api.service
+sudo systemctl start lolstonks-api.service
+</code></pre>
+<h3 id="supervisor-alternative">Supervisor Alternative<a class="headerlink" href="#supervisor-alternative" title="Permanent link">¶</a></h3>
 <p>If using supervisor, create <code>/etc/supervisor/conf.d/lolstonks-api.conf</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[program:lolstonks-api]</span>
-<span class="na">command</span><span class="o">=</span><span class="s">/home/lolstonks/.local/bin/uv run uvicorn app.main:app --host 0.0.0.0 --port 8080</span>
-<span class="na">directory</span><span class="o">=</span><span class="s">/home/lolstonks/lolstonks-api-gateway</span>
-<span class="na">user</span><span class="o">=</span><span class="s">lolstonks</span>
-<span class="na">autostart</span><span class="o">=</span><span class="s">true</span>
-<span class="na">autorestart</span><span class="o">=</span><span class="s">true</span>
-<span class="na">redirect_stderr</span><span class="o">=</span><span class="s">true</span>
-<span class="na">stdout_logfile</span><span class="o">=</span><span class="s">/var/log/lolstonks/api.log</span>
-<span class="na">stdout_logfile_maxbytes</span><span class="o">=</span><span class="s">50MB</span>
-<span class="na">stdout_logfile_backups</span><span class="o">=</span><span class="s">10</span>
-<span class="na">environment=PATH</span><span class="o">=</span><span class="s">&quot;/home/lolstonks/.local/bin:/usr/local/bin&quot;</span>
-</code></pre></div>
-<h2 id="reverse-proxy-configuration">Reverse Proxy Configuration<a class="headerlink" href="#reverse-proxy-configuration" title="Permanent link">&para;</a></h2>
-<h3 id="nginx-configuration">Nginx Configuration<a class="headerlink" href="#nginx-configuration" title="Permanent link">&para;</a></h3>
+<pre><code class="language-ini">[program:lolstonks-api]
+command=/home/lolstonks/.local/bin/uv run uvicorn app.main:app --host 0.0.0.0 --port 8080
+directory=/home/lolstonks/lolstonks-api-gateway
+user=lolstonks
+autostart=true
+autorestart=true
+redirect_stderr=true
+stdout_logfile=/var/log/lolstonks/api.log
+stdout_logfile_maxbytes=50MB
+stdout_logfile_backups=10
+environment=PATH="/home/lolstonks/.local/bin:/usr/local/bin"
+</code></pre>
+<h2 id="reverse-proxy-configuration">Reverse Proxy Configuration<a class="headerlink" href="#reverse-proxy-configuration" title="Permanent link">¶</a></h2>
+<h3 id="nginx-configuration">Nginx Configuration<a class="headerlink" href="#nginx-configuration" title="Permanent link">¶</a></h3>
 <p>Create <code>/etc/nginx/sites-available/lolstonks-api</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">server</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kn">listen</span><span class="w"> </span><span class="mi">80</span><span class="p">;</span>
-<span class="w">    </span><span class="kn">server_name</span><span class="w"> </span><span class="s">yourdomain.com</span><span class="w"> </span><span class="s">www.yourdomain.com</span><span class="p">;</span>
-<span class="w">    </span><span class="kn">return</span><span class="w"> </span><span class="mi">301</span><span class="w"> </span><span class="s">https://</span><span class="nv">$server_name$request_uri</span><span class="p">;</span>
-<span class="p">}</span>
+<pre><code class="language-nginx">server {
+    listen 80;
+    server_name yourdomain.com www.yourdomain.com;
+    return 301 https://$server_name$request_uri;
+}
 
-<span class="k">server</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kn">listen</span><span class="w"> </span><span class="mi">443</span><span class="w"> </span><span class="s">ssl</span><span class="w"> </span><span class="s">http2</span><span class="p">;</span>
-<span class="w">    </span><span class="kn">server_name</span><span class="w"> </span><span class="s">yourdomain.com</span><span class="w"> </span><span class="s">www.yourdomain.com</span><span class="p">;</span>
+server {
+    listen 443 ssl http2;
+    server_name yourdomain.com www.yourdomain.com;
 
-<span class="w">    </span><span class="c1"># SSL Configuration</span>
-<span class="w">    </span><span class="kn">ssl_certificate</span><span class="w"> </span><span class="s">/etc/letsencrypt/live/yourdomain.com/fullchain.pem</span><span class="p">;</span>
-<span class="w">    </span><span class="kn">ssl_certificate_key</span><span class="w"> </span><span class="s">/etc/letsencrypt/live/yourdomain.com/privkey.pem</span><span class="p">;</span>
-<span class="w">    </span><span class="kn">ssl_protocols</span><span class="w"> </span><span class="s">TLSv1.2</span><span class="w"> </span><span class="s">TLSv1.3</span><span class="p">;</span>
-<span class="w">    </span><span class="kn">ssl_ciphers</span><span class="w"> </span><span class="s">ECDHE-RSA-AES256-GCM-SHA512:DHE-RSA-AES256-GCM-SHA512:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES256-GCM-SHA384</span><span class="p">;</span>
-<span class="w">    </span><span class="kn">ssl_prefer_server_ciphers</span><span class="w"> </span><span class="no">off</span><span class="p">;</span>
+    # SSL Configuration
+    ssl_certificate /etc/letsencrypt/live/yourdomain.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/yourdomain.com/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers ECDHE-RSA-AES256-GCM-SHA512:DHE-RSA-AES256-GCM-SHA512:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES256-GCM-SHA384;
+    ssl_prefer_server_ciphers off;
 
-<span class="w">    </span><span class="c1"># Security Headers</span>
-<span class="w">    </span><span class="kn">add_header</span><span class="w"> </span><span class="s">X-Frame-Options</span><span class="w"> </span><span class="s">DENY</span><span class="p">;</span>
-<span class="w">    </span><span class="kn">add_header</span><span class="w"> </span><span class="s">X-Content-Type-Options</span><span class="w"> </span><span class="s">nosniff</span><span class="p">;</span>
-<span class="w">    </span><span class="kn">add_header</span><span class="w"> </span><span class="s">X-XSS-Protection</span><span class="w"> </span><span class="s">&quot;1</span><span class="p">;</span><span class="w"> </span><span class="kn">mode=block&quot;</span><span class="p">;</span>
-<span class="w">    </span><span class="kn">add_header</span><span class="w"> </span><span class="s">Strict-Transport-Security</span><span class="w"> </span><span class="s">&quot;max-age=63072000</span><span class="p">;</span><span class="w"> </span><span class="kn">includeSubDomains</span><span class="p">;</span><span class="w"> </span><span class="kn">preload&quot;</span><span class="p">;</span>
+    # Security Headers
+    add_header X-Frame-Options DENY;
+    add_header X-Content-Type-Options nosniff;
+    add_header X-XSS-Protection "1; mode=block";
+    add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload";
 
-<span class="w">    </span><span class="c1"># Rate Limiting</span>
-<span class="w">    </span><span class="kn">limit_req_zone</span><span class="w"> </span><span class="nv">$binary_remote_addr</span><span class="w"> </span><span class="s">zone=api:10m</span><span class="w"> </span><span class="s">rate=10r/s</span><span class="p">;</span>
-<span class="w">    </span><span class="kn">limit_req</span><span class="w"> </span><span class="s">zone=api</span><span class="w"> </span><span class="s">burst=20</span><span class="w"> </span><span class="s">nodelay</span><span class="p">;</span>
+    # Rate Limiting
+    limit_req_zone $binary_remote_addr zone=api:10m rate=10r/s;
+    limit_req zone=api burst=20 nodelay;
 
-<span class="w">    </span><span class="kn">location</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://127.0.0.1:8080</span><span class="p">;</span>
-<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Host</span><span class="w"> </span><span class="nv">$host</span><span class="p">;</span>
-<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Real-IP</span><span class="w"> </span><span class="nv">$remote_addr</span><span class="p">;</span>
-<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-For</span><span class="w"> </span><span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
-<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-Proto</span><span class="w"> </span><span class="nv">$scheme</span><span class="p">;</span>
+    location / {
+        proxy_pass http://127.0.0.1:8080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
 
-<span class="w">        </span><span class="c1"># Timeouts</span>
-<span class="w">        </span><span class="kn">proxy_connect_timeout</span><span class="w"> </span><span class="s">30s</span><span class="p">;</span>
-<span class="w">        </span><span class="kn">proxy_send_timeout</span><span class="w"> </span><span class="s">30s</span><span class="p">;</span>
-<span class="w">        </span><span class="kn">proxy_read_timeout</span><span class="w"> </span><span class="s">30s</span><span class="p">;</span>
+        # Timeouts
+        proxy_connect_timeout 30s;
+        proxy_send_timeout 30s;
+        proxy_read_timeout 30s;
 
-<span class="w">        </span><span class="c1"># Buffer settings</span>
-<span class="w">        </span><span class="kn">proxy_buffering</span><span class="w"> </span><span class="no">on</span><span class="p">;</span>
-<span class="w">        </span><span class="kn">proxy_buffer_size</span><span class="w"> </span><span class="mi">4k</span><span class="p">;</span>
-<span class="w">        </span><span class="kn">proxy_buffers</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">4k</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
+        # Buffer settings
+        proxy_buffering on;
+        proxy_buffer_size 4k;
+        proxy_buffers 8 4k;
+    }
 
-<span class="w">    </span><span class="c1"># Health endpoint (no rate limiting)</span>
-<span class="w">    </span><span class="kn">location</span><span class="w"> </span><span class="s">/health</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://127.0.0.1:8080/health</span><span class="p">;</span>
-<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Host</span><span class="w"> </span><span class="nv">$host</span><span class="p">;</span>
-<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Real-IP</span><span class="w"> </span><span class="nv">$remote_addr</span><span class="p">;</span>
-<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-For</span><span class="w"> </span><span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
-<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-Proto</span><span class="w"> </span><span class="nv">$scheme</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
+    # Health endpoint (no rate limiting)
+    location /health {
+        proxy_pass http://127.0.0.1:8080/health;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
 
-<span class="w">    </span><span class="c1"># API documentation</span>
-<span class="w">    </span><span class="kn">location</span><span class="w"> </span><span class="s">/docs</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://127.0.0.1:8080/docs</span><span class="p">;</span>
-<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Host</span><span class="w"> </span><span class="nv">$host</span><span class="p">;</span>
-<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Real-IP</span><span class="w"> </span><span class="nv">$remote_addr</span><span class="p">;</span>
-<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-For</span><span class="w"> </span><span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
-<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-Proto</span><span class="w"> </span><span class="nv">$scheme</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+    # API documentation
+    location /docs {
+        proxy_pass http://127.0.0.1:8080/docs;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+</code></pre>
 <p>Enable the site:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/etc/nginx/sites-available/lolstonks-api<span class="w"> </span>/etc/nginx/sites-enabled/
-sudo<span class="w"> </span>nginx<span class="w"> </span>-t
-sudo<span class="w"> </span>systemctl<span class="w"> </span>reload<span class="w"> </span>nginx
-</code></pre></div>
-<h2 id="redis-configuration">Redis Configuration<a class="headerlink" href="#redis-configuration" title="Permanent link">&para;</a></h2>
-<h3 id="production-redis-setup">Production Redis Setup<a class="headerlink" href="#production-redis-setup" title="Permanent link">&para;</a></h3>
+<pre><code class="language-bash">sudo ln -s /etc/nginx/sites-available/lolstonks-api /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx
+</code></pre>
+<h2 id="redis-configuration">Redis Configuration<a class="headerlink" href="#redis-configuration" title="Permanent link">¶</a></h2>
+<h3 id="production-redis-setup">Production Redis Setup<a class="headerlink" href="#production-redis-setup" title="Permanent link">¶</a></h3>
 <p>Edit <code>/etc/redis/redis.conf</code>:</p>
-<div class="highlight"><pre><span></span><code># Security
+<pre><code class="language-conf"># Security
 bind 127.0.0.1
 requirepass your-redis-password
 port 6379
@@ -2627,34 +1511,34 @@ loglevel notice
 # Performance
 tcp-keepalive 300
 timeout 0
-</code></pre></div>
+</code></pre>
 <p>Restart Redis:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>redis-server
-sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>redis-server
-</code></pre></div>
-<h2 id="ssl-certificate-setup">SSL Certificate Setup<a class="headerlink" href="#ssl-certificate-setup" title="Permanent link">&para;</a></h2>
-<h3 id="lets-encrypt-recommended">Let's Encrypt (Recommended)<a class="headerlink" href="#lets-encrypt-recommended" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Install certbot</span>
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>certbot<span class="w"> </span>python3-certbot-nginx
+<pre><code class="language-bash">sudo systemctl restart redis-server
+sudo systemctl enable redis-server
+</code></pre>
+<h2 id="ssl-certificate-setup">SSL Certificate Setup<a class="headerlink" href="#ssl-certificate-setup" title="Permanent link">¶</a></h2>
+<h3 id="lets-encrypt-recommended">Let's Encrypt (Recommended)<a class="headerlink" href="#lets-encrypt-recommended" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash"># Install certbot
+sudo apt install certbot python3-certbot-nginx
 
-<span class="c1"># Obtain certificate</span>
-sudo<span class="w"> </span>certbot<span class="w"> </span>--nginx<span class="w"> </span>-d<span class="w"> </span>yourdomain.com<span class="w"> </span>-d<span class="w"> </span>www.yourdomain.com
+# Obtain certificate
+sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com
 
-<span class="c1"># Set up auto-renewal</span>
-sudo<span class="w"> </span>crontab<span class="w"> </span>-e
-<span class="c1"># Add this line:</span>
-<span class="m">0</span><span class="w"> </span><span class="m">12</span><span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>/usr/bin/certbot<span class="w"> </span>renew<span class="w"> </span>--quiet
-</code></pre></div>
-<h2 id="monitoring-and-logging">Monitoring and Logging<a class="headerlink" href="#monitoring-and-logging" title="Permanent link">&para;</a></h2>
-<h3 id="log-management">Log Management<a class="headerlink" href="#log-management" title="Permanent link">&para;</a></h3>
+# Set up auto-renewal
+sudo crontab -e
+# Add this line:
+0 12 * * * /usr/bin/certbot renew --quiet
+</code></pre>
+<h2 id="monitoring-and-logging">Monitoring and Logging<a class="headerlink" href="#monitoring-and-logging" title="Permanent link">¶</a></h2>
+<h3 id="log-management">Log Management<a class="headerlink" href="#log-management" title="Permanent link">¶</a></h3>
 <p>Create log directories:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/var/log/lolstonks
-sudo<span class="w"> </span>chown<span class="w"> </span>lolstonks:lolstonks<span class="w"> </span>/var/log/lolstonks
-</code></pre></div>
+<pre><code class="language-bash">sudo mkdir -p /var/log/lolstonks
+sudo chown lolstonks:lolstonks /var/log/lolstonks
+</code></pre>
 <p>Configure log rotation:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/logrotate.d/lolstonks-api
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>/var/log/lolstonks/*.log {
+<pre><code class="language-bash">sudo nano /etc/logrotate.d/lolstonks-api
+</code></pre>
+<pre><code>/var/log/lolstonks/*.log {
     daily
     missingok
     rotate 30
@@ -2666,41 +1550,41 @@ sudo<span class="w"> </span>chown<span class="w"> </span>lolstonks:lolstonks<spa
         systemctl reload lolstonks-api.service
     endscript
 }
-</code></pre></div>
-<h3 id="health-monitoring">Health Monitoring<a class="headerlink" href="#health-monitoring" title="Permanent link">&para;</a></h3>
+</code></pre>
+<h3 id="health-monitoring">Health Monitoring<a class="headerlink" href="#health-monitoring" title="Permanent link">¶</a></h3>
 <p>Set up monitoring for the health endpoint:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Simple monitoring script</span>
-cat<span class="w"> </span>&gt;<span class="w"> </span>/home/lolstonks/health_check.sh<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
-<span class="s">#!/bin/bash</span>
-<span class="s">HEALTH_URL=&quot;http://127.0.0.1:8080/health&quot;</span>
-<span class="s">RESPONSE=$(curl -s -o /dev/null -w &quot;%{http_code}&quot; $HEALTH_URL)</span>
+<pre><code class="language-bash"># Simple monitoring script
+cat &gt; /home/lolstonks/health_check.sh &lt;&lt; 'EOF'
+#!/bin/bash
+HEALTH_URL="http://127.0.0.1:8080/health"
+RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" $HEALTH_URL)
 
-<span class="s">if [ $RESPONSE -ne 200 ]; then</span>
-<span class="s">    echo &quot;Health check failed with status $RESPONSE&quot;</span>
-<span class="s">    # Send alert (configure your preferred alerting method)</span>
-<span class="s">    systemctl restart lolstonks-api.service</span>
-<span class="s">fi</span>
-<span class="s">EOF</span>
+if [ $RESPONSE -ne 200 ]; then
+    echo "Health check failed with status $RESPONSE"
+    # Send alert (configure your preferred alerting method)
+    systemctl restart lolstonks-api.service
+fi
+EOF
 
-chmod<span class="w"> </span>+x<span class="w"> </span>/home/lolstonks/health_check.sh
+chmod +x /home/lolstonks/health_check.sh
 
-<span class="c1"># Add to crontab for monitoring every minute</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;* * * * * /home/lolstonks/health_check.sh&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>crontab<span class="w"> </span>-u<span class="w"> </span>lolstonks<span class="w"> </span>-
-</code></pre></div>
-<h2 id="performance-optimization">Performance Optimization<a class="headerlink" href="#performance-optimization" title="Permanent link">&para;</a></h2>
-<h3 id="system-tuning">System Tuning<a class="headerlink" href="#system-tuning" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Increase file descriptor limits</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;lolstonks soft nofile 65536&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>/etc/security/limits.conf
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;lolstonks hard nofile 65536&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>/etc/security/limits.conf
+# Add to crontab for monitoring every minute
+echo "* * * * * /home/lolstonks/health_check.sh" | crontab -u lolstonks -
+</code></pre>
+<h2 id="performance-optimization">Performance Optimization<a class="headerlink" href="#performance-optimization" title="Permanent link">¶</a></h2>
+<h3 id="system-tuning">System Tuning<a class="headerlink" href="#system-tuning" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash"># Increase file descriptor limits
+echo "lolstonks soft nofile 65536" | sudo tee -a /etc/security/limits.conf
+echo "lolstonks hard nofile 65536" | sudo tee -a /etc/security/limits.conf
 
-<span class="c1"># Optimize network settings</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;net.core.somaxconn = 65535&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>/etc/sysctl.conf
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;net.ipv4.tcp_max_syn_backlog = 65535&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>/etc/sysctl.conf
-sudo<span class="w"> </span>sysctl<span class="w"> </span>-p
-</code></pre></div>
-<h3 id="application-performance">Application Performance<a class="headerlink" href="#application-performance" title="Permanent link">&para;</a></h3>
+# Optimize network settings
+echo "net.core.somaxconn = 65535" | sudo tee -a /etc/sysctl.conf
+echo "net.ipv4.tcp_max_syn_backlog = 65535" | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
+</code></pre>
+<h3 id="application-performance">Application Performance<a class="headerlink" href="#application-performance" title="Permanent link">¶</a></h3>
 <p>Update <code>.env</code> for production:</p>
-<div class="highlight"><pre><span></span><code># Performance settings
+<pre><code class="language-env"># Performance settings
 UVICORN_WORKERS=4  # Number of worker processes
 UVICORN_WORKER_CONNECTIONS=1000
 UVICORN_BACKLOG=2048
@@ -2709,25 +1593,25 @@ UVICORN_BACKLOG=2048
 CACHE_TTL_SUMMONER=3600    # 1 hour
 CACHE_TTL_MATCH=86400      # 24 hours
 CACHE_TTL_LEAGUE=1800      # 30 minutes
-</code></pre></div>
-<h2 id="security-hardening">Security Hardening<a class="headerlink" href="#security-hardening" title="Permanent link">&para;</a></h2>
-<h3 id="firewall-configuration">Firewall Configuration<a class="headerlink" href="#firewall-configuration" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Configure UFW firewall</span>
-sudo<span class="w"> </span>ufw<span class="w"> </span><span class="nb">enable</span>
-sudo<span class="w"> </span>ufw<span class="w"> </span>default<span class="w"> </span>deny<span class="w"> </span>incoming
-sudo<span class="w"> </span>ufw<span class="w"> </span>default<span class="w"> </span>allow<span class="w"> </span>outgoing
+</code></pre>
+<h2 id="security-hardening">Security Hardening<a class="headerlink" href="#security-hardening" title="Permanent link">¶</a></h2>
+<h3 id="firewall-configuration">Firewall Configuration<a class="headerlink" href="#firewall-configuration" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash"># Configure UFW firewall
+sudo ufw enable
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
 
-<span class="c1"># Allow SSH (change port if needed)</span>
-sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span>ssh
+# Allow SSH (change port if needed)
+sudo ufw allow ssh
 
-<span class="c1"># Allow HTTP/HTTPS</span>
-sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">80</span>
-sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">443</span>
+# Allow HTTP/HTTPS
+sudo ufw allow 80
+sudo ufw allow 443
 
-<span class="c1"># Allow Redis only locally</span>
-sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span>from<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>to<span class="w"> </span>any<span class="w"> </span>port<span class="w"> </span><span class="m">6379</span>
-</code></pre></div>
-<h3 id="application-security">Application Security<a class="headerlink" href="#application-security" title="Permanent link">&para;</a></h3>
+# Allow Redis only locally
+sudo ufw allow from 127.0.0.1 to any port 6379
+</code></pre>
+<h3 id="application-security">Application Security<a class="headerlink" href="#application-security" title="Permanent link">¶</a></h3>
 <ol>
 <li><strong>API Key Rotation</strong>: Use multiple API keys with <code>RIOT_API_KEYS</code> for automatic rotation. The gateway uses round-robin rotation across all provided keys to distribute load and provide redundancy.</li>
 <li><strong>Input Validation</strong>: Ensure all inputs are validated (handled by Pydantic)</li>
@@ -2735,289 +1619,289 @@ sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </s
 <li><strong>Access Controls</strong>: Implement IP whitelisting if needed</li>
 <li><strong>Regular Updates</strong>: Keep system and dependencies updated</li>
 </ol>
-<h2 id="backup-and-recovery">Backup and Recovery<a class="headerlink" href="#backup-and-recovery" title="Permanent link">&para;</a></h2>
-<h3 id="configuration-backup">Configuration Backup<a class="headerlink" href="#configuration-backup" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Create backup script</span>
-cat<span class="w"> </span>&gt;<span class="w"> </span>/home/lolstonks/backup.sh<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
-<span class="s">#!/bin/bash</span>
-<span class="s">BACKUP_DIR=&quot;/home/lolstonks/backups&quot;</span>
-<span class="s">DATE=$(date +%Y%m%d_%H%M%S)</span>
+<h2 id="backup-and-recovery">Backup and Recovery<a class="headerlink" href="#backup-and-recovery" title="Permanent link">¶</a></h2>
+<h3 id="configuration-backup">Configuration Backup<a class="headerlink" href="#configuration-backup" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash"># Create backup script
+cat &gt; /home/lolstonks/backup.sh &lt;&lt; 'EOF'
+#!/bin/bash
+BACKUP_DIR="/home/lolstonks/backups"
+DATE=$(date +%Y%m%d_%H%M%S)
 
-<span class="s">mkdir -p $BACKUP_DIR</span>
+mkdir -p $BACKUP_DIR
 
-<span class="s"># Backup configuration</span>
-<span class="s">tar -czf $BACKUP_DIR/config_$DATE.tar.gz \</span>
-<span class="s">    /home/lolstonks/lolstonks-api-gateway/.env \</span>
-<span class="s">    /etc/nginx/sites-available/lolstonks-api \</span>
-<span class="s">    /etc/systemd/system/lolstonks-api.service</span>
+# Backup configuration
+tar -czf $BACKUP_DIR/config_$DATE.tar.gz \
+    /home/lolstonks/lolstonks-api-gateway/.env \
+    /etc/nginx/sites-available/lolstonks-api \
+    /etc/systemd/system/lolstonks-api.service
 
-<span class="s"># Keep last 7 days</span>
-<span class="s">find $BACKUP_DIR -name &quot;config_*.tar.gz&quot; -mtime +7 -delete</span>
-<span class="s">EOF</span>
+# Keep last 7 days
+find $BACKUP_DIR -name "config_*.tar.gz" -mtime +7 -delete
+EOF
 
-chmod<span class="w"> </span>+x<span class="w"> </span>/home/lolstonks/backup.sh
+chmod +x /home/lolstonks/backup.sh
 
-<span class="c1"># Add to crontab for daily backup at 2 AM</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;0 2 * * * /home/lolstonks/backup.sh&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>crontab<span class="w"> </span>-u<span class="w"> </span>lolstonks<span class="w"> </span>-
-</code></pre></div>
-<h3 id="disaster-recovery">Disaster Recovery<a class="headerlink" href="#disaster-recovery" title="Permanent link">&para;</a></h3>
+# Add to crontab for daily backup at 2 AM
+echo "0 2 * * * /home/lolstonks/backup.sh" | crontab -u lolstonks -
+</code></pre>
+<h3 id="disaster-recovery">Disaster Recovery<a class="headerlink" href="#disaster-recovery" title="Permanent link">¶</a></h3>
 <ol>
 <li><strong>Documentation</strong>: Keep deployment documentation updated</li>
 <li><strong>Monitoring</strong>: Set up alerts for service failures</li>
 <li><strong>Backups</strong>: Regular configuration and code backups</li>
 <li><strong>Testing</strong>: Regular disaster recovery testing</li>
 </ol>
-<h2 id="rollback-procedures">Rollback Procedures<a class="headerlink" href="#rollback-procedures" title="Permanent link">&para;</a></h2>
+<h2 id="rollback-procedures">Rollback Procedures<a class="headerlink" href="#rollback-procedures" title="Permanent link">¶</a></h2>
 <p>When a deployment fails or issues are discovered in production, you can rollback to a previous stable version using these procedures.</p>
-<h3 id="docker-based-rollback">Docker-based Rollback<a class="headerlink" href="#docker-based-rollback" title="Permanent link">&para;</a></h3>
+<h3 id="docker-based-rollback">Docker-based Rollback<a class="headerlink" href="#docker-based-rollback" title="Permanent link">¶</a></h3>
 <p>If you're using Docker, rollback is straightforward:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Stop the current container</span>
-docker-compose<span class="w"> </span>down
+<pre><code class="language-bash"># Stop the current container
+docker-compose down
 
-<span class="c1"># Or if running standalone:</span>
-docker<span class="w"> </span>stop<span class="w"> </span>lolstonks-api
-docker<span class="w"> </span>rm<span class="w"> </span>lolstonks-api
+# Or if running standalone:
+docker stop lolstonks-api
+docker rm lolstonks-api
 
-<span class="c1"># Pull and run a specific previous version</span>
-docker<span class="w"> </span>pull<span class="w"> </span>ghcr.io/onestepat4time/lolstonks-api-gateway:2.0.0
+# Pull and run a specific previous version
+docker pull ghcr.io/onestepat4time/lolstonks-api-gateway:2.0.0
 
-<span class="c1"># Using docker-compose, edit docker-compose.yml to specify the version:</span>
-<span class="c1"># image: ghcr.io/onestepat4time/lolstonks-api-gateway:2.0.0</span>
+# Using docker-compose, edit docker-compose.yml to specify the version:
+# image: ghcr.io/onestepat4time/lolstonks-api-gateway:2.0.0
 
-<span class="c1"># Start with the previous version</span>
-docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+# Start with the previous version
+docker-compose up -d
 
-<span class="c1"># Or standalone:</span>
-docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--name<span class="w"> </span>lolstonks-api<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--env-file<span class="w"> </span>.env<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>ghcr.io/onestepat4time/lolstonks-api-gateway:2.0.0
-</code></pre></div>
-<h3 id="git-based-rollback-systemdnative-deployment">Git-based Rollback (Systemd/Native Deployment)<a class="headerlink" href="#git-based-rollback-systemdnative-deployment" title="Permanent link">&para;</a></h3>
+# Or standalone:
+docker run -d \
+  --name lolstonks-api \
+  -p 8080:8080 \
+  --env-file .env \
+  ghcr.io/onestepat4time/lolstonks-api-gateway:2.0.0
+</code></pre>
+<h3 id="git-based-rollback-systemdnative-deployment">Git-based Rollback (Systemd/Native Deployment)<a class="headerlink" href="#git-based-rollback-systemdnative-deployment" title="Permanent link">¶</a></h3>
 <p>For native deployments using systemd:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># 1. Stop the service</span>
-sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>lolstonks-api.service
+<pre><code class="language-bash"># 1. Stop the service
+sudo systemctl stop lolstonks-api.service
 
-<span class="c1"># 2. Navigate to application directory</span>
-<span class="nb">cd</span><span class="w"> </span>/home/lolstonks/lolstonks-api-gateway
+# 2. Navigate to application directory
+cd /home/lolstonks/lolstonks-api-gateway
 
-<span class="c1"># 3. Identify the version to rollback to</span>
-git<span class="w"> </span>tag<span class="w"> </span>--list<span class="w">  </span><span class="c1"># List all available versions</span>
-git<span class="w"> </span>log<span class="w"> </span>--oneline<span class="w"> </span>-n<span class="w"> </span><span class="m">10</span><span class="w">  </span><span class="c1"># Or check recent commits</span>
+# 3. Identify the version to rollback to
+git tag --list  # List all available versions
+git log --oneline -n 10  # Or check recent commits
 
-<span class="c1"># 4. Rollback to a specific version tag</span>
-git<span class="w"> </span>checkout<span class="w"> </span>v2.0.0
+# 4. Rollback to a specific version tag
+git checkout v2.0.0
 
-<span class="c1"># Or rollback to a specific commit</span>
-<span class="c1"># git checkout &lt;commit-hash&gt;</span>
+# Or rollback to a specific commit
+# git checkout &lt;commit-hash&gt;
 
-<span class="c1"># 5. Reinstall dependencies (if needed)</span>
-uv<span class="w"> </span>sync
+# 5. Reinstall dependencies (if needed)
+uv sync
 
-<span class="c1"># 6. Restart the service</span>
-sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>lolstonks-api.service
+# 6. Restart the service
+sudo systemctl start lolstonks-api.service
 
-<span class="c1"># 7. Verify the rollback</span>
-sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>lolstonks-api.service
-curl<span class="w"> </span>http://127.0.0.1:8080/health
+# 7. Verify the rollback
+sudo systemctl status lolstonks-api.service
+curl http://127.0.0.1:8080/health
 
-<span class="c1"># 8. Check application version</span>
-curl<span class="w"> </span>http://127.0.0.1:8080/health<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.version&#39;</span>
-</code></pre></div>
-<h3 id="emergency-rollback-script">Emergency Rollback Script<a class="headerlink" href="#emergency-rollback-script" title="Permanent link">&para;</a></h3>
+# 8. Check application version
+curl http://127.0.0.1:8080/health | jq '.version'
+</code></pre>
+<h3 id="emergency-rollback-script">Emergency Rollback Script<a class="headerlink" href="#emergency-rollback-script" title="Permanent link">¶</a></h3>
 <p>Create an automated rollback script for faster recovery:</p>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>/home/lolstonks/rollback.sh<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
-<span class="s">#!/bin/bash</span>
+<pre><code class="language-bash">cat &gt; /home/lolstonks/rollback.sh &lt;&lt; 'EOF'
+#!/bin/bash
 
-<span class="s"># Emergency Rollback Script for LOLStonks API Gateway</span>
-<span class="s"># Usage: ./rollback.sh &lt;version_tag&gt;</span>
-<span class="s"># Example: ./rollback.sh v2.0.0</span>
+# Emergency Rollback Script for LOLStonks API Gateway
+# Usage: ./rollback.sh &lt;version_tag&gt;
+# Example: ./rollback.sh v2.0.0
 
-<span class="s">if [ -z &quot;$1&quot; ]; then</span>
-<span class="s">    echo &quot;Usage: $0 &lt;version_tag&gt;&quot;</span>
-<span class="s">    echo &quot;Example: $0 v2.0.0&quot;</span>
-<span class="s">    exit 1</span>
-<span class="s">fi</span>
+if [ -z "$1" ]; then
+    echo "Usage: $0 &lt;version_tag&gt;"
+    echo "Example: $0 v2.0.0"
+    exit 1
+fi
 
-<span class="s">VERSION=$1</span>
-<span class="s">APP_DIR=&quot;/home/lolstonks/lolstonks-api-gateway&quot;</span>
-<span class="s">BACKUP_DIR=&quot;/home/lolstonks/rollback_backups&quot;</span>
-<span class="s">TIMESTAMP=$(date +%Y%m%d_%H%M%S)</span>
+VERSION=$1
+APP_DIR="/home/lolstonks/lolstonks-api-gateway"
+BACKUP_DIR="/home/lolstonks/rollback_backups"
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 
-<span class="s">echo &quot;🔄 Starting rollback to $VERSION...&quot;</span>
+echo "🔄 Starting rollback to $VERSION..."
 
-<span class="s"># Create backup of current state</span>
-<span class="s">echo &quot;📦 Creating backup of current state...&quot;</span>
-<span class="s">mkdir -p $BACKUP_DIR</span>
-<span class="s">cd $APP_DIR</span>
-<span class="s">CURRENT_VERSION=$(cat VERSION 2&gt;/dev/null || echo &quot;unknown&quot;)</span>
-<span class="s">git rev-parse HEAD &gt; $BACKUP_DIR/pre_rollback_commit_$TIMESTAMP.txt</span>
-<span class="s">echo &quot;$CURRENT_VERSION&quot; &gt; $BACKUP_DIR/pre_rollback_version_$TIMESTAMP.txt</span>
+# Create backup of current state
+echo "📦 Creating backup of current state..."
+mkdir -p $BACKUP_DIR
+cd $APP_DIR
+CURRENT_VERSION=$(cat VERSION 2&gt;/dev/null || echo "unknown")
+git rev-parse HEAD &gt; $BACKUP_DIR/pre_rollback_commit_$TIMESTAMP.txt
+echo "$CURRENT_VERSION" &gt; $BACKUP_DIR/pre_rollback_version_$TIMESTAMP.txt
 
-<span class="s"># Stop the service</span>
-<span class="s">echo &quot;⏹️  Stopping service...&quot;</span>
-<span class="s">sudo systemctl stop lolstonks-api.service</span>
+# Stop the service
+echo "⏹️  Stopping service..."
+sudo systemctl stop lolstonks-api.service
 
-<span class="s"># Verify the version exists</span>
-<span class="s">if ! git tag | grep -q &quot;^$VERSION$&quot;; then</span>
-<span class="s">    echo &quot;❌ Error: Version tag $VERSION not found!&quot;</span>
-<span class="s">    echo &quot;Available versions:&quot;</span>
-<span class="s">    git tag --list</span>
-<span class="s">    sudo systemctl start lolstonks-api.service</span>
-<span class="s">    exit 1</span>
-<span class="s">fi</span>
+# Verify the version exists
+if ! git tag | grep -q "^$VERSION$"; then
+    echo "❌ Error: Version tag $VERSION not found!"
+    echo "Available versions:"
+    git tag --list
+    sudo systemctl start lolstonks-api.service
+    exit 1
+fi
 
-<span class="s"># Checkout the specified version</span>
-<span class="s">echo &quot;📥 Checking out version $VERSION...&quot;</span>
-<span class="s">git fetch --tags</span>
-<span class="s">git checkout $VERSION</span>
+# Checkout the specified version
+echo "📥 Checking out version $VERSION..."
+git fetch --tags
+git checkout $VERSION
 
-<span class="s"># Reinstall dependencies</span>
-<span class="s">echo &quot;📦 Reinstalling dependencies...&quot;</span>
-<span class="s">uv sync</span>
+# Reinstall dependencies
+echo "📦 Reinstalling dependencies..."
+uv sync
 
-<span class="s"># Start the service</span>
-<span class="s">echo &quot;▶️  Starting service...&quot;</span>
-<span class="s">sudo systemctl start lolstonks-api.service</span>
+# Start the service
+echo "▶️  Starting service..."
+sudo systemctl start lolstonks-api.service
 
-<span class="s"># Wait for service to start</span>
-<span class="s">sleep 5</span>
+# Wait for service to start
+sleep 5
 
-<span class="s"># Verify the service is running</span>
-<span class="s">if systemctl is-active --quiet lolstonks-api.service; then</span>
-<span class="s">    echo &quot;✅ Service is running&quot;</span>
+# Verify the service is running
+if systemctl is-active --quiet lolstonks-api.service; then
+    echo "✅ Service is running"
 
-<span class="s">    # Check health endpoint</span>
-<span class="s">    HEALTH_CHECK=$(curl -s -o /dev/null -w &quot;%{http_code}&quot; http://127.0.0.1:8080/health)</span>
-<span class="s">    if [ &quot;$HEALTH_CHECK&quot; = &quot;200&quot; ]; then</span>
-<span class="s">        echo &quot;✅ Health check passed&quot;</span>
-<span class="s">        echo &quot;✅ Rollback to $VERSION completed successfully!&quot;</span>
-<span class="s">        echo &quot;&quot;</span>
-<span class="s">        echo &quot;Rolled back from: $CURRENT_VERSION&quot;</span>
-<span class="s">        echo &quot;Rolled back to: $VERSION&quot;</span>
-<span class="s">        echo &quot;Backup location: $BACKUP_DIR/pre_rollback_*_$TIMESTAMP.txt&quot;</span>
-<span class="s">    else</span>
-<span class="s">        echo &quot;⚠️  Warning: Service started but health check failed (HTTP $HEALTH_CHECK)&quot;</span>
-<span class="s">        echo &quot;Check logs: sudo journalctl -u lolstonks-api.service -n 50&quot;</span>
-<span class="s">    fi</span>
-<span class="s">else</span>
-<span class="s">    echo &quot;❌ Error: Service failed to start after rollback&quot;</span>
-<span class="s">    echo &quot;Check logs: sudo journalctl -u lolstonks-api.service -n 50&quot;</span>
-<span class="s">    exit 1</span>
-<span class="s">fi</span>
-<span class="s">EOF</span>
+    # Check health endpoint
+    HEALTH_CHECK=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8080/health)
+    if [ "$HEALTH_CHECK" = "200" ]; then
+        echo "✅ Health check passed"
+        echo "✅ Rollback to $VERSION completed successfully!"
+        echo ""
+        echo "Rolled back from: $CURRENT_VERSION"
+        echo "Rolled back to: $VERSION"
+        echo "Backup location: $BACKUP_DIR/pre_rollback_*_$TIMESTAMP.txt"
+    else
+        echo "⚠️  Warning: Service started but health check failed (HTTP $HEALTH_CHECK)"
+        echo "Check logs: sudo journalctl -u lolstonks-api.service -n 50"
+    fi
+else
+    echo "❌ Error: Service failed to start after rollback"
+    echo "Check logs: sudo journalctl -u lolstonks-api.service -n 50"
+    exit 1
+fi
+EOF
 
-chmod<span class="w"> </span>+x<span class="w"> </span>/home/lolstonks/rollback.sh
-</code></pre></div>
-<h3 id="docker-rollback-script">Docker Rollback Script<a class="headerlink" href="#docker-rollback-script" title="Permanent link">&para;</a></h3>
+chmod +x /home/lolstonks/rollback.sh
+</code></pre>
+<h3 id="docker-rollback-script">Docker Rollback Script<a class="headerlink" href="#docker-rollback-script" title="Permanent link">¶</a></h3>
 <p>For Docker deployments:</p>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>/home/lolstonks/docker-rollback.sh<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
-<span class="s">#!/bin/bash</span>
+<pre><code class="language-bash">cat &gt; /home/lolstonks/docker-rollback.sh &lt;&lt; 'EOF'
+#!/bin/bash
 
-<span class="s"># Docker Rollback Script for LOLStonks API Gateway</span>
-<span class="s"># Usage: ./docker-rollback.sh &lt;version&gt;</span>
-<span class="s"># Example: ./docker-rollback.sh 2.0.0</span>
+# Docker Rollback Script for LOLStonks API Gateway
+# Usage: ./docker-rollback.sh &lt;version&gt;
+# Example: ./docker-rollback.sh 2.0.0
 
-<span class="s">if [ -z &quot;$1&quot; ]; then</span>
-<span class="s">    echo &quot;Usage: $0 &lt;version&gt;&quot;</span>
-<span class="s">    echo &quot;Example: $0 2.0.0&quot;</span>
-<span class="s">    echo &quot;&quot;</span>
-<span class="s">    echo &quot;Available versions:&quot;</span>
-<span class="s">    docker pull ghcr.io/onestepat4time/lolstonks-api-gateway:latest 2&gt;/dev/null</span>
-<span class="s">    echo &quot;Check: https://github.com/OneStepAt4time/lolstonks-api-gateway/pkgs/container/lolstonks-api-gateway&quot;</span>
-<span class="s">    exit 1</span>
-<span class="s">fi</span>
+if [ -z "$1" ]; then
+    echo "Usage: $0 &lt;version&gt;"
+    echo "Example: $0 2.0.0"
+    echo ""
+    echo "Available versions:"
+    docker pull ghcr.io/onestepat4time/lolstonks-api-gateway:latest 2&gt;/dev/null
+    echo "Check: https://github.com/OneStepAt4time/lolstonks-api-gateway/pkgs/container/lolstonks-api-gateway"
+    exit 1
+fi
 
-<span class="s">VERSION=$1</span>
-<span class="s">IMAGE=&quot;ghcr.io/onestepat4time/lolstonks-api-gateway:$VERSION&quot;</span>
+VERSION=$1
+IMAGE="ghcr.io/onestepat4time/lolstonks-api-gateway:$VERSION"
 
-<span class="s">echo &quot;🔄 Starting Docker rollback to version $VERSION...&quot;</span>
+echo "🔄 Starting Docker rollback to version $VERSION..."
 
-<span class="s"># Stop current container</span>
-<span class="s">echo &quot;⏹️  Stopping current container...&quot;</span>
-<span class="s">docker-compose down || docker stop lolstonks-api</span>
+# Stop current container
+echo "⏹️  Stopping current container..."
+docker-compose down || docker stop lolstonks-api
 
-<span class="s"># Pull the specified version</span>
-<span class="s">echo &quot;📥 Pulling version $VERSION...&quot;</span>
-<span class="s">if ! docker pull $IMAGE; then</span>
-<span class="s">    echo &quot;❌ Error: Failed to pull image $IMAGE&quot;</span>
-<span class="s">    echo &quot;Check if version exists: https://github.com/OneStepAt4time/lolstonks-api-gateway/releases&quot;</span>
-<span class="s">    exit 1</span>
-<span class="s">fi</span>
+# Pull the specified version
+echo "📥 Pulling version $VERSION..."
+if ! docker pull $IMAGE; then
+    echo "❌ Error: Failed to pull image $IMAGE"
+    echo "Check if version exists: https://github.com/OneStepAt4time/lolstonks-api-gateway/releases"
+    exit 1
+fi
 
-<span class="s"># Update docker-compose.yml to use specific version</span>
-<span class="s">echo &quot;📝 Updating docker-compose.yml...&quot;</span>
-<span class="s">sed -i.bak &quot;s|image:.*lolstonks-api-gateway:.*|image: $IMAGE|g&quot; docker-compose.yml</span>
+# Update docker-compose.yml to use specific version
+echo "📝 Updating docker-compose.yml..."
+sed -i.bak "s|image:.*lolstonks-api-gateway:.*|image: $IMAGE|g" docker-compose.yml
 
-<span class="s"># Start with the new version</span>
-<span class="s">echo &quot;▶️  Starting container with version $VERSION...&quot;</span>
-<span class="s">docker-compose up -d</span>
+# Start with the new version
+echo "▶️  Starting container with version $VERSION..."
+docker-compose up -d
 
-<span class="s"># Wait for container to be healthy</span>
-<span class="s">echo &quot;⏳ Waiting for container to be healthy...&quot;</span>
-<span class="s">sleep 10</span>
+# Wait for container to be healthy
+echo "⏳ Waiting for container to be healthy..."
+sleep 10
 
-<span class="s"># Check health</span>
-<span class="s">HEALTH_CHECK=$(curl -s -o /dev/null -w &quot;%{http_code}&quot; http://127.0.0.1:8080/health)</span>
-<span class="s">if [ &quot;$HEALTH_CHECK&quot; = &quot;200&quot; ]; then</span>
-<span class="s">    echo &quot;✅ Rollback to version $VERSION completed successfully!&quot;</span>
-<span class="s">    echo &quot;✅ Health check passed&quot;</span>
-<span class="s">    docker-compose ps</span>
-<span class="s">else</span>
-<span class="s">    echo &quot;⚠️  Warning: Health check failed (HTTP $HEALTH_CHECK)&quot;</span>
-<span class="s">    echo &quot;Container logs:&quot;</span>
-<span class="s">    docker-compose logs --tail=50 app</span>
-<span class="s">fi</span>
-<span class="s">EOF</span>
+# Check health
+HEALTH_CHECK=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8080/health)
+if [ "$HEALTH_CHECK" = "200" ]; then
+    echo "✅ Rollback to version $VERSION completed successfully!"
+    echo "✅ Health check passed"
+    docker-compose ps
+else
+    echo "⚠️  Warning: Health check failed (HTTP $HEALTH_CHECK)"
+    echo "Container logs:"
+    docker-compose logs --tail=50 app
+fi
+EOF
 
-chmod<span class="w"> </span>+x<span class="w"> </span>/home/lolstonks/docker-rollback.sh
-</code></pre></div>
-<h3 id="rollback-verification-checklist">Rollback Verification Checklist<a class="headerlink" href="#rollback-verification-checklist" title="Permanent link">&para;</a></h3>
+chmod +x /home/lolstonks/docker-rollback.sh
+</code></pre>
+<h3 id="rollback-verification-checklist">Rollback Verification Checklist<a class="headerlink" href="#rollback-verification-checklist" title="Permanent link">¶</a></h3>
 <p>After performing a rollback, verify the following:</p>
 <ol>
 <li>
 <p><strong>Service Status</strong>: Confirm the service is running
-   <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>lolstonks-api.service
-<span class="c1"># Or for Docker:</span>
-docker-compose<span class="w"> </span>ps
-</code></pre></div></p>
+   <code>bash
+   sudo systemctl status lolstonks-api.service
+   # Or for Docker:
+   docker-compose ps</code></p>
 </li>
 <li>
 <p><strong>Health Check</strong>: Verify the health endpoint responds
-   <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://127.0.0.1:8080/health
-</code></pre></div></p>
+   <code>bash
+   curl http://127.0.0.1:8080/health</code></p>
 </li>
 <li>
 <p><strong>Version Verification</strong>: Confirm the correct version is running
-   <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://127.0.0.1:8080/health<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.version&#39;</span>
-</code></pre></div></p>
+   <code>bash
+   curl http://127.0.0.1:8080/health | jq '.version'</code></p>
 </li>
 <li>
 <p><strong>Functionality Test</strong>: Test critical endpoints
-   <div class="highlight"><pre><span></span><code><span class="c1"># Test a simple endpoint</span>
-curl<span class="w"> </span>http://127.0.0.1:8080/api/v1/summoner/by-name/euw1/test
-</code></pre></div></p>
+   <code>bash
+   # Test a simple endpoint
+   curl http://127.0.0.1:8080/api/v1/summoner/by-name/euw1/test</code></p>
 </li>
 <li>
 <p><strong>Log Review</strong>: Check for errors in recent logs
-   <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>journalctl<span class="w"> </span>-u<span class="w"> </span>lolstonks-api.service<span class="w"> </span>-n<span class="w"> </span><span class="m">100</span><span class="w"> </span>--no-pager
-<span class="c1"># Or for Docker:</span>
-docker-compose<span class="w"> </span>logs<span class="w"> </span>--tail<span class="o">=</span><span class="m">100</span><span class="w"> </span>app
-</code></pre></div></p>
+   <code>bash
+   sudo journalctl -u lolstonks-api.service -n 100 --no-pager
+   # Or for Docker:
+   docker-compose logs --tail=100 app</code></p>
 </li>
 <li>
 <p><strong>Redis Connectivity</strong>: Verify Redis connection
-   <div class="highlight"><pre><span></span><code>redis-cli<span class="w"> </span>-a<span class="w"> </span>your-password<span class="w"> </span>ping
-</code></pre></div></p>
+   <code>bash
+   redis-cli -a your-password ping</code></p>
 </li>
 <li>
 <p><strong>External Access</strong>: Test through Nginx/load balancer
-   <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>https://yourdomain.com/health
-</code></pre></div></p>
+   <code>bash
+   curl https://yourdomain.com/health</code></p>
 </li>
 </ol>
-<h3 id="preventing-future-rollbacks">Preventing Future Rollbacks<a class="headerlink" href="#preventing-future-rollbacks" title="Permanent link">&para;</a></h3>
+<h3 id="preventing-future-rollbacks">Preventing Future Rollbacks<a class="headerlink" href="#preventing-future-rollbacks" title="Permanent link">¶</a></h3>
 <p>To minimize the need for rollbacks:</p>
 <ol>
 <li><strong>Staging Environment</strong>: Always test releases in staging first</li>
@@ -3028,37 +1912,37 @@ docker-compose<span class="w"> </span>logs<span class="w"> </span>--tail<span cl
 <li><strong>Database Migrations</strong>: Always use reversible database migrations</li>
 <li><strong>Feature Flags</strong>: Use feature flags to disable problematic features without rollback</li>
 </ol>
-<h3 id="database-migration-rollback">Database Migration Rollback<a class="headerlink" href="#database-migration-rollback" title="Permanent link">&para;</a></h3>
+<h3 id="database-migration-rollback">Database Migration Rollback<a class="headerlink" href="#database-migration-rollback" title="Permanent link">¶</a></h3>
 <p>If your rollback includes database schema changes:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># This project currently uses Redis (no schema migrations)</span>
-<span class="c1"># But if you add a SQL database later, use migration tools like Alembic:</span>
+<pre><code class="language-bash"># This project currently uses Redis (no schema migrations)
+# But if you add a SQL database later, use migration tools like Alembic:
 
-<span class="c1"># Example with Alembic (for future reference):</span>
-<span class="c1"># alembic downgrade -1  # Rollback one migration</span>
-<span class="c1"># alembic downgrade &lt;revision&gt;  # Rollback to specific revision</span>
-</code></pre></div>
-<h3 id="emergency-hotfix-process">Emergency Hotfix Process<a class="headerlink" href="#emergency-hotfix-process" title="Permanent link">&para;</a></h3>
+# Example with Alembic (for future reference):
+# alembic downgrade -1  # Rollback one migration
+# alembic downgrade &lt;revision&gt;  # Rollback to specific revision
+</code></pre>
+<h3 id="emergency-hotfix-process">Emergency Hotfix Process<a class="headerlink" href="#emergency-hotfix-process" title="Permanent link">¶</a></h3>
 <p>If a critical bug is found in production:</p>
 <ol>
 <li>
 <p><strong>Create hotfix branch</strong> from the production tag:
-   <div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>hotfix/critical-bug-fix<span class="w"> </span>v2.0.0
-</code></pre></div></p>
+   <code>bash
+   git checkout -b hotfix/critical-bug-fix v2.0.0</code></p>
 </li>
 <li>
 <p><strong>Apply minimal fix</strong> and test thoroughly</p>
 </li>
 <li>
 <p><strong>Version bump</strong> using patch version:
-   <div class="highlight"><pre><span></span><code>python<span class="w"> </span>scripts/bump_version.py<span class="w"> </span>patch
-</code></pre></div></p>
+   <code>bash
+   python scripts/bump_version.py patch</code></p>
 </li>
 <li>
 <p><strong>Create hotfix tag</strong>:
-   <div class="highlight"><pre><span></span><code>git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v2.0.1<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Hotfix: Critical bug fix&quot;</span>
-git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>hotfix/critical-bug-fix
-git<span class="w"> </span>push<span class="w"> </span>--tags
-</code></pre></div></p>
+   <code>bash
+   git tag -a v2.0.1 -m "Hotfix: Critical bug fix"
+   git push origin hotfix/critical-bug-fix
+   git push --tags</code></p>
 </li>
 <li>
 <p><strong>Deploy hotfix</strong> immediately</p>
@@ -3067,8 +1951,8 @@ git<span class="w"> </span>push<span class="w"> </span>--tags
 <p><strong>Merge back</strong> to develop and main branches</p>
 </li>
 </ol>
-<h2 id="scaling-considerations">Scaling Considerations<a class="headerlink" href="#scaling-considerations" title="Permanent link">&para;</a></h2>
-<h3 id="horizontal-scaling">Horizontal Scaling<a class="headerlink" href="#horizontal-scaling" title="Permanent link">&para;</a></h3>
+<h2 id="scaling-considerations">Scaling Considerations<a class="headerlink" href="#scaling-considerations" title="Permanent link">¶</a></h2>
+<h3 id="horizontal-scaling">Horizontal Scaling<a class="headerlink" href="#horizontal-scaling" title="Permanent link">¶</a></h3>
 <p>For high-traffic deployments:</p>
 <ol>
 <li><strong>Load Balancer</strong>: Use HAProxy or cloud load balancer</li>
@@ -3076,95 +1960,501 @@ git<span class="w"> </span>push<span class="w"> </span>--tags
 <li><strong>Redis Cluster</strong>: Use Redis cluster for distributed caching</li>
 <li><strong>Database Sharding</strong>: Consider database sharding if needed</li>
 </ol>
-<h3 id="performance-monitoring">Performance Monitoring<a class="headerlink" href="#performance-monitoring" title="Permanent link">&para;</a></h3>
+<h3 id="performance-monitoring">Performance Monitoring<a class="headerlink" href="#performance-monitoring" title="Permanent link">¶</a></h3>
 <p>Monitor key metrics:
 - Request rate and response times
 - Error rates and types
 - Cache hit rates
 - Memory and CPU usage
 - Redis performance</p>
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<h3 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">&para;</a></h3>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">¶</a></h2>
+<h3 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">¶</a></h3>
 <ol>
 <li><strong>Service Won't Start</strong>: Check logs with <code>journalctl -u lolstonks-api.service</code></li>
 <li><strong>High Memory Usage</strong>: Check Redis memory usage and adjust limits</li>
 <li><strong>Slow Responses</strong>: Check rate limiting and cache performance</li>
 <li><strong>API Errors</strong>: Verify Riot API key and rate limits</li>
 </ol>
-<h3 id="debug-commands">Debug Commands<a class="headerlink" href="#debug-commands" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Check service status</span>
-sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>lolstonks-api.service
+<h3 id="debug-commands">Debug Commands<a class="headerlink" href="#debug-commands" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash"># Check service status
+sudo systemctl status lolstonks-api.service
 
-<span class="c1"># View logs</span>
-sudo<span class="w"> </span>journalctl<span class="w"> </span>-u<span class="w"> </span>lolstonks-api.service<span class="w"> </span>-f
+# View logs
+sudo journalctl -u lolstonks-api.service -f
 
-<span class="c1"># Check Redis</span>
-redis-cli<span class="w"> </span>-a<span class="w"> </span>your-password<span class="w"> </span>ping
+# Check Redis
+redis-cli -a your-password ping
 
-<span class="c1"># Test API locally</span>
-curl<span class="w"> </span>http://127.0.0.1:8080/health
+# Test API locally
+curl http://127.0.0.1:8080/health
 
-<span class="c1"># Check Nginx configuration</span>
-sudo<span class="w"> </span>nginx<span class="w"> </span>-t
+# Check Nginx configuration
+sudo nginx -t
 
-<span class="c1"># Monitor system resources</span>
+# Monitor system resources
 htop
-iostat<span class="w"> </span>-x<span class="w"> </span><span class="m">1</span>
-</code></pre></div>
+iostat -x 1
+</code></pre>
 <p>This deployment guide provides a comprehensive foundation for running the LOLStonks API Gateway in production with proper security, monitoring, and scalability considerations.</p>
-
-
-
-
-
-
-
-
-
-
-
-
-                
-              </article>
-            </div>
-          
-          
+</article>
+</div>
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
-        </div>
-        
-      </main>
-      
-        <footer class="md-footer">
-  
-  <div class="md-footer-meta md-typeset">
-    <div class="md-footer-meta__inner md-grid">
-      <div class="md-copyright">
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
   
   
     Made with
-    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
       Material for MkDocs
     </a>
-  
 </div>
-      
-    </div>
-  </div>
+</div>
+</div>
 </footer>
-      
-    </div>
-    <div class="md-dialog" data-md-component="dialog">
-      <div class="md-dialog__inner md-typeset"></div>
-    </div>
-    
-    
-    
-      
-      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
-    
-    
-      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
-      
-    
-  </body>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+<script>
+        // Enhanced Mermaid Interactivity for LOLStonks Documentation
+        (function() {
+            'use strict';
+
+            console.log('Initializing Mermaid interactivity...');
+
+            // Wait for DOM to be ready and Mermaid diagrams to render
+            const waitForMermaid = () => {
+                const mermaidElements = document.querySelectorAll('.mermaid');
+                console.log('Found Mermaid elements:', mermaidElements.length);
+
+                if (mermaidElements.length === 0) {
+                    console.log('No Mermaid elements found, retrying in 2 seconds...');
+                    setTimeout(waitForMermaid, 2000);
+                    return;
+                }
+
+                mermaidElements.forEach((element, index) => {
+                    const id = element.id || 'mermaid-diagram-' + index;
+                    element.setAttribute('id', id);
+
+                    // Wait for the diagram to be rendered as SVG
+                    const waitForSVG = () => {
+                        const svg = element.querySelector('svg');
+                        if (svg) {
+                            console.log('SVG found for element:', id);
+                            addInteractivityToDiagram(element, id);
+                        } else {
+                            console.log('SVG not found yet for element:', id, 'retrying...');
+                            setTimeout(waitForSVG, 500);
+                        }
+                    };
+
+                    waitForSVG();
+                });
+            };
+
+            const addInteractivityToDiagram = (element, id) => {
+                // Add interactive controls container
+                if (!element.previousSibling) {
+                    const controls = createInteractiveControls(id, element);
+                    element.parentNode.insertBefore(controls, element);
+                }
+
+                // Add zoom controls
+                addZoomControls(element, id);
+
+                // Add click handlers
+                addClickHandlers(element);
+
+                // Add tooltips
+                addTooltips(element);
+
+                // Make responsive
+                makeResponsive(element);
+
+                // Add pan and zoom
+                addPanAndZoom(element, id);
+            };
+
+            const createInteractiveControls = (id, element) => {
+                const controls = document.createElement('div');
+                controls.className = 'mermaid-controls';
+                controls.style.cssText = `
+                    margin: 10px 0;
+                    padding: 10px;
+                    background: #f5f5f5;
+                    border-radius: 5px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    gap: 10px;
+                    font-size: 14px;
+                    font-family: Arial, sans-serif;
+                `;
+
+                // Zoom controls
+                const zoomControls = document.createElement('div');
+                zoomControls.innerHTML = `
+                    <span style="font-weight: bold;">🔍 Zoom:</span>
+                    <button onclick="zoomDiagram('${id}', 1.2)" style="margin: 0 2px; padding: 4px 8px; background: #1976d2; color: white; border: none; border-radius: 3px; cursor: pointer;">+</button>
+                    <button onclick="zoomDiagram('${id}', 0.8)" style="margin: 0 2px; padding: 4px 8px; background: #1976d2; color: white; border: none; border-radius: 3px; cursor: pointer;">−</button>
+                    <button onclick="resetZoom('${id}')" style="margin: 0 2px; padding: 4px 8px; background: #666; color: white; border: none; border-radius: 3px; cursor: pointer;">Reset</button>
+                `;
+
+                // Navigation info
+                const navInfo = document.createElement('div');
+                navInfo.innerHTML = `<span style="color: #666;">🖱️ Click nodes for details • Scroll to zoom • Drag to pan</span>`;
+
+                // Fullscreen button
+                const fullscreenBtn = document.createElement('button');
+                fullscreenBtn.textContent = '⛶ Fullscreen';
+                fullscreenBtn.style.cssText = `
+                    padding: 4px 12px;
+                    background: #388e3c;
+                    color: white;
+                    border: none;
+                    border-radius: 3px;
+                    cursor: pointer;
+                `;
+                fullscreenBtn.onclick = () => toggleFullscreen(id, element);
+
+                // Download button
+                const downloadBtn = document.createElement('button');
+                downloadBtn.textContent = '📥 Download';
+                downloadBtn.style.cssText = `
+                    padding: 4px 12px;
+                    background: #ff9800;
+                    color: white;
+                    border: none;
+                    border-radius: 3px;
+                    cursor: pointer;
+                `;
+                downloadBtn.onclick = () => downloadDiagram(id, element);
+
+                controls.appendChild(zoomControls);
+                controls.appendChild(navInfo);
+                controls.appendChild(fullscreenBtn);
+                controls.appendChild(downloadBtn);
+
+                return controls;
+            };
+
+            const addZoomControls = (element, id) => {
+                element.style.transform = 'scale(1)';
+                element.style.transformOrigin = 'center top';
+                element.style.transition = 'transform 0.3s ease';
+                element.dataset.originalTransform = 'scale(1)';
+                element.dataset.currentZoom = '1';
+            };
+
+            const addPanAndZoom = (element, id) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                let isPanning = false;
+                let startX = 0, startY = 0, translateX = 0, translateY = 0;
+
+                // Mouse wheel zoom
+                element.addEventListener('wheel', function(e) {
+                    if (e.ctrlKey || e.metaKey) {
+                        e.preventDefault();
+                        const delta = e.deltaY > 0 ? 0.9 : 1.1;
+                        zoomDiagram(id, delta);
+                    }
+                });
+
+                // Pan functionality
+                svg.style.cursor = 'grab';
+                svg.addEventListener('mousedown', function(e) {
+                    if (e.button === 0 && !e.shiftKey) {
+                        isPanning = true;
+                        startX = e.clientX - translateX;
+                        startY = e.clientY - translateY;
+                        svg.style.cursor = 'grabbing';
+                        e.preventDefault();
+                    }
+                });
+
+                document.addEventListener('mousemove', function(e) {
+                    if (isPanning) {
+                        translateX = e.clientX - startX;
+                        translateY = e.clientY - startY;
+                        const currentZoom = parseFloat(element.dataset.currentZoom || 1);
+                        svg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
+                    }
+                });
+
+                document.addEventListener('mouseup', function() {
+                    isPanning = false;
+                    svg.style.cursor = 'grab';
+                });
+
+                // Touch support for mobile
+                let touchStartDistance = 0;
+                let touchStartZoom = 1;
+
+                element.addEventListener('touchstart', function(e) {
+                    if (e.touches.length === 2) {
+                        const dx = e.touches[0].clientX - e.touches[1].clientX;
+                        const dy = e.touches[0].clientY - e.touches[1].clientY;
+                        touchStartDistance = Math.sqrt(dx * dx + dy * dy);
+                        touchStartZoom = parseFloat(element.dataset.currentZoom || 1);
+                    }
+                });
+
+                element.addEventListener('touchmove', function(e) {
+                    if (e.touches.length === 2) {
+                        const dx = e.touches[0].clientX - e.touches[1].clientX;
+                        const dy = e.touches[0].clientY - e.touches[1].clientY;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        const scale = Math.max(0.5, Math.min(3, touchStartZoom * (distance / touchStartDistance)));
+                        element.dataset.currentZoom = scale;
+                        const svg = element.querySelector('svg');
+                        const currentZoom = parseFloat(element.dataset.currentZoom || 1);
+                        svg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
+                    }
+                });
+            };
+
+            const addClickHandlers = (element) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                const clickableElements = svg.querySelectorAll('g.node, g.edgePath, .cluster');
+                clickableElements.forEach(el => {
+                    el.style.cursor = 'pointer';
+                    el.addEventListener('click', function(e) {
+                        if (!e.shiftKey && !e.ctrlKey) {
+                            e.preventDefault();
+                            showNodeDetails(el, element);
+                        }
+                    });
+                });
+            };
+
+            const addTooltips = (element) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                const nodes = svg.querySelectorAll('g.node');
+                nodes.forEach(node => {
+                    const rect = node.querySelector('rect');
+                    const text = node.querySelector('text');
+                    if (rect && text) {
+                        node.title = text.textContent + ' - Click for more information';
+
+                        node.addEventListener('mouseenter', function() {
+                            rect.style.filter = 'brightness(1.2)';
+                            rect.style.transition = 'filter 0.2s ease';
+                        });
+
+                        node.addEventListener('mouseleave', function() {
+                            rect.style.filter = 'brightness(1)';
+                        });
+                    }
+                });
+            };
+
+            const makeResponsive = (element) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                svg.style.maxWidth = '100%';
+                svg.style.height = 'auto';
+                svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+
+                const resizeObserver = new ResizeObserver(() => {
+                    adjustDiagramSize(element);
+                });
+                resizeObserver.observe(element);
+            };
+
+            const adjustDiagramSize = (element) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                const container = element.parentElement;
+                const containerWidth = container.clientWidth;
+
+                if (containerWidth < 800) {
+                    const mobileZoom = Math.max(0.5, containerWidth / 800);
+                    element.dataset.currentZoom = mobileZoom;
+                    const translateMatch = svg.style.transform.match(/translate\(([^)]+)px/);
+                    const translate = translateMatch ? translateMatch[1] : '0px, 0px';
+                    svg.style.transform = `translate(${translate}) scale(${mobileZoom})`;
+                }
+            };
+
+            const showNodeDetails = (nodeElement, diagramElement) => {
+                const modal = document.createElement('div');
+                modal.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.5);
+                    z-index: 1000;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                `;
+
+                const content = document.createElement('div');
+                content.style.cssText = `
+                    background: white;
+                    padding: 20px;
+                    border-radius: 8px;
+                    max-width: 600px;
+                    max-height: 80%;
+                    overflow-y: auto;
+                `;
+
+                const text = nodeElement.querySelector('text');
+                const title = text ? text.textContent : 'Node Details';
+
+                content.innerHTML = `
+                    <h3>${title}</h3>
+                    <p><strong>Diagram:</strong> ${diagramElement.closest('h1, h2, h3, h4, h5, h6')?.textContent || 'Architecture Diagram'}</p>
+                    <p><strong>Component Type:</strong> ${getNodeInfo(nodeElement).type}</p>
+                    <p>${getNodeInfo(nodeElement).description}</p>
+                    <button onclick="this.closest('div[style*=fixed]').remove()" style="
+                        margin-top: 15px;
+                        padding: 8px 16px;
+                        background: #1976d2;
+                        color: white;
+                        border: none;
+                        border-radius: 4px;
+                        cursor: pointer;
+                    ">Close</button>
+                `;
+
+                modal.appendChild(content);
+                modal.appendChild(document.createElement('button'));
+                modal.onclick = (e) => {
+                    if (e.target === modal) modal.remove();
+                };
+
+                document.body.appendChild(modal);
+            };
+
+            const getNodeInfo = (nodeElement) => {
+                const text = nodeElement.querySelector('text')?.textContent?.toLowerCase() || '';
+
+                if (text.includes('api') || text.includes('gateway')) {
+                    return {
+                        type: 'API Component',
+                        description: 'This component handles API requests, routing, and response processing in the LOLStonks Gateway.'
+                    };
+                } else if (text.includes('cache') || text.includes('redis')) {
+                    return {
+                        type: 'Cache Layer',
+                        description: 'This component provides caching functionality to improve API response times and reduce external API calls.'
+                    };
+                } else if (text.includes('rate') || text.includes('limit')) {
+                    return {
+                        type: 'Rate Limiter',
+                        description: 'This component enforces rate limits to prevent API abuse and ensure fair usage across all clients.'
+                    };
+                } else if (text.includes('auth') || text.includes('security')) {
+                    return {
+                        type: 'Security Component',
+                        description: 'This component handles authentication, authorization, and security validation for API requests.'
+                    };
+                } else if (text.includes('provider') || text.includes('riot')) {
+                    return {
+                        type: 'External Provider',
+                        description: 'This component interfaces with external APIs (like Riot Games API) to fetch game data.'
+                    };
+                } else {
+                    return {
+                        type: 'System Component',
+                        description: 'This component is part of the LOLStonks API Gateway architecture. Click on different components to explore the system design.'
+                    };
+                }
+            };
+
+            // Global functions for button controls
+            window.zoomDiagram = function(id, factor) {
+                const element = document.getElementById(id);
+                if (!element) return;
+
+                const currentZoom = parseFloat(element.dataset.currentZoom || 1);
+                const newZoom = Math.max(0.1, Math.min(3, currentZoom * factor));
+
+                const svg = element.querySelector('svg');
+                const currentTransform = svg.style.transform || '';
+                const translateMatch = currentTransform.match(/translate\(([^)]+)px/);
+                const translate = translateMatch ? translateMatch[1] : '0px, 0px';
+
+                svg.style.transform = `translate(${translate}) scale(${newZoom})`;
+                element.dataset.currentZoom = newZoom;
+            };
+
+            window.resetZoom = function(id) {
+                const element = document.getElementById(id);
+                if (!element) return;
+
+                const svg = element.querySelector('svg');
+                svg.style.transform = 'translate(0px, 0px) scale(1)';
+                element.dataset.currentZoom = '1';
+            };
+
+            window.toggleFullscreen = function(id, element) {
+                if (element.style.position === 'fixed') {
+                    // Exit fullscreen
+                    element.style.position = '';
+                    element.style.top = '';
+                    element.style.left = '';
+                    element.style.width = '';
+                    element.style.height = '';
+                    element.style.zIndex = '';
+                    element.style.backgroundColor = '';
+                    element.style.padding = '';
+                    element.style.overflow = '';
+                    resetZoom(id);
+                } else {
+                    // Enter fullscreen
+                    element.style.position = 'fixed';
+                    element.style.top = '0';
+                    element.style.left = '0';
+                    element.style.width = '100vw';
+                    element.style.height = '100vh';
+                    element.style.zIndex = '999';
+                    element.style.backgroundColor = 'white';
+                    element.style.padding = '20px';
+                    element.style.overflow = 'auto';
+                    zoomDiagram(id, 1.5);
+                }
+            };
+
+            window.downloadDiagram = function(id, element) {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                const svgData = new XMLSerializer().serializeToString(svg);
+                const svgBlob = new Blob([svgData], {type: 'image/svg+xml;charset=utf-8'});
+                const svgUrl = URL.createObjectURL(svgBlob);
+
+                const downloadLink = document.createElement('a');
+                downloadLink.href = svgUrl;
+                downloadLink.download = `${id || 'diagram'}-${Date.now()}.svg`;
+                downloadLink.click();
+
+                URL.revokeObjectURL(svgUrl);
+            };
+
+            // Initialize everything
+            waitForMermaid();
+
+        })();
+    </script>
+</body>
 </html>

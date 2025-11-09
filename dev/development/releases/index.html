@@ -1,224 +1,117 @@
 
-<!doctype html>
-<html lang="en" class="no-js">
-  <head>
-    
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width,initial-scale=1">
-      
-        <meta name="description" content="Unified League of Legends API Gateway with caching, rate limiting, and comprehensive monitoring">
-      
-      
-      
-      
-        <link rel="prev" href="../versioning/">
-      
-      
-        <link rel="next" href="../testing/">
-      
-      
-      <link rel="icon" href="../../assets/logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
-    
-    
-      
-        <title>Releases - LOLStonks API Gateway</title>
-      
-    
-    
-      <link rel="stylesheet" href="../../assets/stylesheets/main.84d31ad4.min.css">
-      
-        
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
-      
-      
+<!DOCTYPE html>
 
-
-    
-    
-      
-    
-    
-      
-        
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
-      
-    
-    
-      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
-    
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
-    
-      
-
-    
-    
-    
-  </head>
-  
-  
-    
-    
-      
-    
-    
-    
-    
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
-  
-    
-    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
-    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" for="__drawer"></label>
-    <div data-md-component="skip">
-      
-        
-        <a href="#release-management" class="md-skip">
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Unified League of Legends API Gateway with caching, rate limiting, and comprehensive monitoring" name="description"/>
+<link href="../versioning/" rel="prev"/>
+<link href="../testing/" rel="next"/>
+<link href="../../assets/logo.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.23" name="generator"/>
+<title>Releases - LOLStonks API Gateway</title>
+<link href="../../assets/stylesheets/main.84d31ad4.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../assets/_mkdocstrings.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="blue" data-md-color-primary="blue" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#release-management">
           Skip to content
         </a>
-      
-    </div>
-    <div data-md-component="announce">
-      
-    </div>
-    
-    
-      
-
-  
-
+</div>
+<div data-md-component="announce">
+</div>
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="LOLStonks API Gateway" class="md-header__button md-logo" aria-label="LOLStonks API Gateway" data-md-component="logo">
-      
-  <img src="../../assets/logo.png" alt="logo">
-
-    </a>
-    <label class="md-header__button md-icon" for="__drawer">
-      
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
-    </label>
-    <div class="md-header__title" data-md-component="header-title">
-      <div class="md-header__ellipsis">
-        <div class="md-header__topic">
-          <span class="md-ellipsis">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="LOLStonks API Gateway" class="md-header__button md-logo" data-md-component="logo" href="../.." title="LOLStonks API Gateway">
+<img alt="logo" src="../../assets/logo.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
             LOLStonks API Gateway
           </span>
-        </div>
-        <div class="md-header__topic" data-md-component="header-topic">
-          <span class="md-ellipsis">
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
             
               Releases
             
           </span>
-        </div>
-      </div>
-    </div>
-    
-      
-        <form class="md-header__option" data-md-component="palette">
-  
-    
-    
-    
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
-    
-      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
-      </label>
-    
-  
-    
-    
-    
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
-    
-      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
-      </label>
-    
-  
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="blue" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="blue" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
 </form>
-      
-    
-    
-      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
-    
-    
-    
-      
-      
-        <label class="md-header__button md-icon" for="__search">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        </label>
-        <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
-      <label class="md-search__icon md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-      </label>
-      <nav class="md-search__options" aria-label="Search">
-        
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-        </button>
-      </nav>
-      
-        <div class="md-search__suggest" data-md-component="search-suggest"></div>
-      
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
+<ol class="md-search-result__list" role="presentation"></ol>
 </div>
-      
-    
-    
-      <div class="md-header__source">
-        <a href="https://github.com/OneStepAt4time/lolstonks-api-gateway" title="Go to repository" class="md-source" data-md-component="source">
-  <div class="md-source__icon md-icon">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
-  </div>
-  <div class="md-source__repository">
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/OneStepAt4time/lolstonks-api-gateway" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
     GitHub
   </div>
 </a>
-      </div>
-    
-  </nav>
-  
-    
-      
-<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
-  <div class="md-grid">
-    <ul class="md-tabs__list">
-      
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../.." class="md-tabs__link">
+</div>
+</nav>
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
         
   
   
@@ -227,17 +120,9 @@
   Home
 
       </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../../../CHANGELOG.md" class="md-tabs__link">
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CHANGELOG.md">
         
   
   
@@ -246,19 +131,9 @@
   Changelog
 
       </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../getting-started/installation/" class="md-tabs__link">
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../getting-started/installation/">
           
   
   
@@ -267,20 +142,9 @@
   Getting Started
 
         </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../api/openapi-spec/" class="md-tabs__link">
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../api/openapi-spec/">
           
   
   
@@ -289,20 +153,9 @@
   API Reference
 
         </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../architecture/overview/" class="md-tabs__link">
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../architecture/overview/">
           
   
   
@@ -311,20 +164,9 @@
   Architecture
 
         </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../operations/monitoring/" class="md-tabs__link">
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../operations/monitoring/">
           
   
   
@@ -333,22 +175,9 @@
   Operations
 
         </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-  
-  
-    
-    
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../contributing/" class="md-tabs__link">
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../contributing/">
           
   
   
@@ -357,1988 +186,1059 @@
   Development
 
         </a>
-      </li>
-    
-  
-
-      
-    </ul>
-  </div>
+</li>
+</ul>
+</div>
 </nav>
-    
-  
 </header>
-    
-    <div class="md-container" data-md-component="container">
-      
-      
-        
-      
-      <main class="md-main" data-md-component="main">
-        <div class="md-main__inner md-grid">
-          
-            
-              
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-
-  
-
-
-<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
-  <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="LOLStonks API Gateway" class="md-nav__button md-logo" aria-label="LOLStonks API Gateway" data-md-component="logo">
-      
-  <img src="../../assets/logo.png" alt="logo">
-
-    </a>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="LOLStonks API Gateway" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="LOLStonks API Gateway">
+<img alt="logo" src="../../assets/logo.png"/>
+</a>
     LOLStonks API Gateway
   </label>
-  
-    <div class="md-nav__source">
-      <a href="https://github.com/OneStepAt4time/lolstonks-api-gateway" title="Go to repository" class="md-source" data-md-component="source">
-  <div class="md-source__icon md-icon">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
-  </div>
-  <div class="md-source__repository">
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/OneStepAt4time/lolstonks-api-gateway" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
     GitHub
   </div>
 </a>
-    </div>
-  
-  <ul class="md-nav__list" data-md-scrollfix>
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+<span class="md-ellipsis">
     Home
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../CHANGELOG.md" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CHANGELOG.md">
+<span class="md-ellipsis">
     Changelog
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
-        
-          
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+<span class="md-ellipsis">
     Getting Started
     
   </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3">
-            <span class="md-nav__icon md-icon"></span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
             Getting Started
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../getting-started/installation/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/installation/">
+<span class="md-ellipsis">
     Installation
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../getting-started/quick-start/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/quick-start/">
+<span class="md-ellipsis">
     Quick Start
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../getting-started/configuration/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/configuration/">
+<span class="md-ellipsis">
     Configuration
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../getting-started/deployment/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/deployment/">
+<span class="md-ellipsis">
     Production Deployment
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
-        
-          
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+<span class="md-ellipsis">
     API Reference
     
   </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4">
-            <span class="md-nav__icon md-icon"></span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
             API Reference
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/openapi-spec/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/openapi-spec/">
+<span class="md-ellipsis">
     OpenAPI Specification
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/overview/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/overview/">
+<span class="md-ellipsis">
     Overview
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/providers/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/providers/">
+<span class="md-ellipsis">
     Providers
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/riot-client/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/riot-client/">
+<span class="md-ellipsis">
     Riot Client
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/models/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/models/">
+<span class="md-ellipsis">
     Models
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/routers/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/routers/">
+<span class="md-ellipsis">
     Routers
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/cache/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/cache/">
+<span class="md-ellipsis">
     Cache
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/security/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/security/">
+<span class="md-ellipsis">
     Security
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
-        
-          
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
     Architecture
     
   </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5">
-            <span class="md-nav__icon md-icon"></span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
             Architecture
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/overview/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../architecture/overview/">
+<span class="md-ellipsis">
     Overview
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/implementation-details/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../architecture/diagram-guide.md">
+<span class="md-ellipsis">
+    Diagram Guide
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../architecture/system-overview.md">
+<span class="md-ellipsis">
+    System Overview
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../architecture/data-flow.md">
+<span class="md-ellipsis">
+    Data Flow
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../architecture/implementation-details/">
+<span class="md-ellipsis">
     Implementation Details
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/models/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../architecture/models/">
+<span class="md-ellipsis">
     Data Models
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/rate-limiting/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Rate Limiting
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/caching/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Caching Strategy
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
-        
-          
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
     Operations
     
   </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6">
-            <span class="md-nav__icon md-icon"></span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
             Operations
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../operations/monitoring/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operations/monitoring/">
+<span class="md-ellipsis">
     Monitoring
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../operations/troubleshooting/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operations/troubleshooting/">
+<span class="md-ellipsis">
     Troubleshooting
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../operations/security/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operations/security/">
+<span class="md-ellipsis">
     Security
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-    
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-        
-        
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
-            
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+<span class="md-ellipsis">
     Development
     
   </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_7">
-            <span class="md-nav__icon md-icon"></span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_7_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_7">
+<span class="md-nav__icon md-icon"></span>
             Development
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../contributing/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../contributing/">
+<span class="md-ellipsis">
     Contributing
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../changelog-guide/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../changelog-guide/">
+<span class="md-ellipsis">
     Changelog Guide
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../versioning/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../versioning/">
+<span class="md-ellipsis">
     Versioning
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
     Releases
     
   </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
     Releases
     
   </span>
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#table-of-contents" class="md-nav__link">
-    <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#table-of-contents">
+<span class="md-ellipsis">
       Table of Contents
     </span>
-  </a>
-  
+</a>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#release-types" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#release-types">
+<span class="md-ellipsis">
       Release Types
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Release Types">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-production-releases" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Release Types" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-production-releases">
+<span class="md-ellipsis">
       1. Production Releases
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2-developmentpre-release-versions" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-developmentpre-release-versions">
+<span class="md-ellipsis">
       2. Development/Pre-Release Versions
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#release-process" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#release-process">
+<span class="md-ellipsis">
       Release Process
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Release Process">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#production-release" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Release Process" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#production-release">
+<span class="md-ellipsis">
       Production Release
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Production Release">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-prepare-code" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Production Release" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-1-prepare-code">
+<span class="md-ellipsis">
       Step 1: Prepare Code
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-update-changelog" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-2-update-changelog">
+<span class="md-ellipsis">
       Step 2: Update CHANGELOG
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-bump-version" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-3-bump-version">
+<span class="md-ellipsis">
       Step 3: Bump Version
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-review-and-commit" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-4-review-and-commit">
+<span class="md-ellipsis">
       Step 4: Review and Commit
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#step-5-merge-to-main" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-5-merge-to-main">
+<span class="md-ellipsis">
       Step 5: Merge to Main
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#step-6-create-tag" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-6-create-tag">
+<span class="md-ellipsis">
       Step 6: Create Tag
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#step-7-verify-release" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-7-verify-release">
+<span class="md-ellipsis">
       Step 7: Verify Release
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#development-release" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#development-release">
+<span class="md-ellipsis">
       Development Release
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Development Release">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#quick-development-release" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Development Release" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#quick-development-release">
+<span class="md-ellipsis">
       Quick Development Release
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#structured-pre-release-process" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#structured-pre-release-process">
+<span class="md-ellipsis">
       Structured Pre-Release Process
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#automated-workflows" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#automated-workflows">
+<span class="md-ellipsis">
       Automated Workflows
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Automated Workflows">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#production-release-workflow" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Automated Workflows" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#production-release-workflow">
+<span class="md-ellipsis">
       Production Release Workflow
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#development-release-workflow" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#development-release-workflow">
+<span class="md-ellipsis">
       Development Release Workflow
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#version-tagging" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#version-tagging">
+<span class="md-ellipsis">
       Version Tagging
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Version Tagging">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#tag-naming-convention" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Version Tagging" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tag-naming-convention">
+<span class="md-ellipsis">
       Tag Naming Convention
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#creating-tags" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#creating-tags">
+<span class="md-ellipsis">
       Creating Tags
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#signing-tags" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#signing-tags">
+<span class="md-ellipsis">
       Signing Tags
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#git-hooks" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#git-hooks">
+<span class="md-ellipsis">
       Git Hooks
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Git Hooks">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pre-push-hook" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Git Hooks" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#pre-push-hook">
+<span class="md-ellipsis">
       Pre-Push Hook
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#hook-output-examples" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hook-output-examples">
+<span class="md-ellipsis">
       Hook Output Examples
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#docker-images" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#docker-images">
+<span class="md-ellipsis">
       Docker Images
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Docker Images">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#image-tags" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Docker Images" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#image-tags">
+<span class="md-ellipsis">
       Image Tags
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#using-docker-images" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#using-docker-images">
+<span class="md-ellipsis">
       Using Docker Images
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#rollback-procedure" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rollback-procedure">
+<span class="md-ellipsis">
       Rollback Procedure
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Rollback Procedure">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-immediately-deploy-previous-version" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Rollback Procedure" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-immediately-deploy-previous-version">
+<span class="md-ellipsis">
       1. Immediately Deploy Previous Version
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2-delete-bad-release" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-delete-bad-release">
+<span class="md-ellipsis">
       2. Delete Bad Release
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#3-fix-issues-and-re-release" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-fix-issues-and-re-release">
+<span class="md-ellipsis">
       3. Fix Issues and Re-release
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#best-practices" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#best-practices">
+<span class="md-ellipsis">
       Best Practices
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Best Practices">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#dos" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Best Practices" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#dos">
+<span class="md-ellipsis">
       Do's ✅
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#donts" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#donts">
+<span class="md-ellipsis">
       Don'ts ❌
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#troubleshooting">
+<span class="md-ellipsis">
       Troubleshooting
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Troubleshooting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#hook-prevents-push" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Troubleshooting" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hook-prevents-push">
+<span class="md-ellipsis">
       Hook Prevents Push
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#version-mismatch" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#version-mismatch">
+<span class="md-ellipsis">
       Version Mismatch
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#github-action-fails" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#github-action-fails">
+<span class="md-ellipsis">
       GitHub Action Fails
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#further-reading" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#further-reading">
+<span class="md-ellipsis">
       Further Reading
     </span>
-  </a>
-  
+</a>
 </li>
-      
-    </ul>
-  
+</ul>
 </nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../testing/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../testing/">
+<span class="md-ellipsis">
     Testing
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../documentation/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../documentation/">
+<span class="md-ellipsis">
     Documentation
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-  </ul>
+</a>
+</li>
+</ul>
 </nav>
-                  </div>
-                </div>
-              </div>
-            
-            
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#table-of-contents" class="md-nav__link">
-    <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#table-of-contents">
+<span class="md-ellipsis">
       Table of Contents
     </span>
-  </a>
-  
+</a>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#release-types" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#release-types">
+<span class="md-ellipsis">
       Release Types
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Release Types">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-production-releases" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Release Types" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-production-releases">
+<span class="md-ellipsis">
       1. Production Releases
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2-developmentpre-release-versions" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-developmentpre-release-versions">
+<span class="md-ellipsis">
       2. Development/Pre-Release Versions
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#release-process" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#release-process">
+<span class="md-ellipsis">
       Release Process
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Release Process">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#production-release" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Release Process" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#production-release">
+<span class="md-ellipsis">
       Production Release
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Production Release">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-prepare-code" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Production Release" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-1-prepare-code">
+<span class="md-ellipsis">
       Step 1: Prepare Code
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-update-changelog" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-2-update-changelog">
+<span class="md-ellipsis">
       Step 2: Update CHANGELOG
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-bump-version" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-3-bump-version">
+<span class="md-ellipsis">
       Step 3: Bump Version
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-review-and-commit" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-4-review-and-commit">
+<span class="md-ellipsis">
       Step 4: Review and Commit
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#step-5-merge-to-main" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-5-merge-to-main">
+<span class="md-ellipsis">
       Step 5: Merge to Main
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#step-6-create-tag" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-6-create-tag">
+<span class="md-ellipsis">
       Step 6: Create Tag
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#step-7-verify-release" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-7-verify-release">
+<span class="md-ellipsis">
       Step 7: Verify Release
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#development-release" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#development-release">
+<span class="md-ellipsis">
       Development Release
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Development Release">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#quick-development-release" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Development Release" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#quick-development-release">
+<span class="md-ellipsis">
       Quick Development Release
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#structured-pre-release-process" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#structured-pre-release-process">
+<span class="md-ellipsis">
       Structured Pre-Release Process
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#automated-workflows" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#automated-workflows">
+<span class="md-ellipsis">
       Automated Workflows
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Automated Workflows">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#production-release-workflow" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Automated Workflows" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#production-release-workflow">
+<span class="md-ellipsis">
       Production Release Workflow
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#development-release-workflow" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#development-release-workflow">
+<span class="md-ellipsis">
       Development Release Workflow
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#version-tagging" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#version-tagging">
+<span class="md-ellipsis">
       Version Tagging
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Version Tagging">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#tag-naming-convention" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Version Tagging" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tag-naming-convention">
+<span class="md-ellipsis">
       Tag Naming Convention
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#creating-tags" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#creating-tags">
+<span class="md-ellipsis">
       Creating Tags
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#signing-tags" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#signing-tags">
+<span class="md-ellipsis">
       Signing Tags
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#git-hooks" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#git-hooks">
+<span class="md-ellipsis">
       Git Hooks
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Git Hooks">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pre-push-hook" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Git Hooks" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#pre-push-hook">
+<span class="md-ellipsis">
       Pre-Push Hook
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#hook-output-examples" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hook-output-examples">
+<span class="md-ellipsis">
       Hook Output Examples
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#docker-images" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#docker-images">
+<span class="md-ellipsis">
       Docker Images
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Docker Images">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#image-tags" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Docker Images" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#image-tags">
+<span class="md-ellipsis">
       Image Tags
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#using-docker-images" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#using-docker-images">
+<span class="md-ellipsis">
       Using Docker Images
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#rollback-procedure" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rollback-procedure">
+<span class="md-ellipsis">
       Rollback Procedure
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Rollback Procedure">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-immediately-deploy-previous-version" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Rollback Procedure" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-immediately-deploy-previous-version">
+<span class="md-ellipsis">
       1. Immediately Deploy Previous Version
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2-delete-bad-release" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-delete-bad-release">
+<span class="md-ellipsis">
       2. Delete Bad Release
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#3-fix-issues-and-re-release" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-fix-issues-and-re-release">
+<span class="md-ellipsis">
       3. Fix Issues and Re-release
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#best-practices" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#best-practices">
+<span class="md-ellipsis">
       Best Practices
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Best Practices">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#dos" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Best Practices" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#dos">
+<span class="md-ellipsis">
       Do's ✅
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#donts" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#donts">
+<span class="md-ellipsis">
       Don'ts ❌
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#troubleshooting">
+<span class="md-ellipsis">
       Troubleshooting
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Troubleshooting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#hook-prevents-push" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Troubleshooting" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hook-prevents-push">
+<span class="md-ellipsis">
       Hook Prevents Push
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#version-mismatch" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#version-mismatch">
+<span class="md-ellipsis">
       Version Mismatch
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#github-action-fails" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#github-action-fails">
+<span class="md-ellipsis">
       GitHub Action Fails
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#further-reading" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#further-reading">
+<span class="md-ellipsis">
       Further Reading
     </span>
-  </a>
-  
+</a>
 </li>
-      
-    </ul>
-  
+</ul>
 </nav>
-                  </div>
-                </div>
-              </div>
-            
-          
-          
-            <div class="md-content" data-md-component="content">
-              <article class="md-content__inner md-typeset">
-                
-                  
-
-
-  
-  
-
-
-<h1 id="release-management">Release Management<a class="headerlink" href="#release-management" title="Permanent link">&para;</a></h1>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="release-management">Release Management<a class="headerlink" href="#release-management" title="Permanent link">¶</a></h1>
 <p>Complete guide to creating and managing releases for LOLStonks API Gateway.</p>
-<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">¶</a></h2>
 <ul>
 <li><a href="#release-types">Release Types</a></li>
 <li><a href="#release-process">Release Process</a></li>
@@ -2347,9 +1247,9 @@
 <li><a href="#git-hooks">Git Hooks</a></li>
 <li><a href="#docker-images">Docker Images</a></li>
 </ul>
-<h2 id="release-types">Release Types<a class="headerlink" href="#release-types" title="Permanent link">&para;</a></h2>
+<h2 id="release-types">Release Types<a class="headerlink" href="#release-types" title="Permanent link">¶</a></h2>
 <p>The project supports two types of releases:</p>
-<h3 id="1-production-releases">1. Production Releases<a class="headerlink" href="#1-production-releases" title="Permanent link">&para;</a></h3>
+<h3 id="1-production-releases">1. Production Releases<a class="headerlink" href="#1-production-releases" title="Permanent link">¶</a></h3>
 <p>Production releases are stable, tested versions intended for production use.</p>
 <p><strong>Tag Format:</strong> <code>v{MAJOR}.{MINOR}.{PATCH}</code>
 - Examples: <code>v2.0.0</code>, <code>v2.1.0</code>, <code>v2.0.1</code></p>
@@ -2364,7 +1264,7 @@
 - <code>latest</code>
 - <code>v{VERSION}</code>
 - <code>{VERSION}</code></p>
-<h3 id="2-developmentpre-release-versions">2. Development/Pre-Release Versions<a class="headerlink" href="#2-developmentpre-release-versions" title="Permanent link">&para;</a></h3>
+<h3 id="2-developmentpre-release-versions">2. Development/Pre-Release Versions<a class="headerlink" href="#2-developmentpre-release-versions" title="Permanent link">¶</a></h3>
 <p>Development releases are for testing and preview purposes.</p>
 <p><strong>Tag Formats:</strong>
 - <strong>Development:</strong> <code>v{MAJOR}.{MINOR}.{PATCH}-dev.{BUILD}</code>
@@ -2397,71 +1297,71 @@
 <p><strong>Docker Tags:</strong>
 - <code>dev</code> / <code>alpha</code> / <code>beta</code> / <code>rc</code>
 - <code>{FULL_VERSION}</code> (e.g., <code>2.1.0-dev.1</code>)</p>
-<h2 id="release-process">Release Process<a class="headerlink" href="#release-process" title="Permanent link">&para;</a></h2>
-<h3 id="production-release">Production Release<a class="headerlink" href="#production-release" title="Permanent link">&para;</a></h3>
-<h4 id="step-1-prepare-code">Step 1: Prepare Code<a class="headerlink" href="#step-1-prepare-code" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="c1"># Create feature branch</span>
-git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature/my-feature<span class="w"> </span>develop
+<h2 id="release-process">Release Process<a class="headerlink" href="#release-process" title="Permanent link">¶</a></h2>
+<h3 id="production-release">Production Release<a class="headerlink" href="#production-release" title="Permanent link">¶</a></h3>
+<h4 id="step-1-prepare-code">Step 1: Prepare Code<a class="headerlink" href="#step-1-prepare-code" title="Permanent link">¶</a></h4>
+<pre><code class="language-bash"># Create feature branch
+git checkout -b feature/my-feature develop
 
-<span class="c1"># Make changes and commit</span>
-git<span class="w"> </span>add<span class="w"> </span>.
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: add new feature&quot;</span>
+# Make changes and commit
+git add .
+git commit -m "feat: add new feature"
 
-<span class="c1"># Push and create PR</span>
-git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>feature/my-feature
-</code></pre></div>
-<h4 id="step-2-update-changelog">Step 2: Update CHANGELOG<a class="headerlink" href="#step-2-update-changelog" title="Permanent link">&para;</a></h4>
+# Push and create PR
+git push origin feature/my-feature
+</code></pre>
+<h4 id="step-2-update-changelog">Step 2: Update CHANGELOG<a class="headerlink" href="#step-2-update-changelog" title="Permanent link">¶</a></h4>
 <p>Add entries to <code>CHANGELOG.md</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="gu">## [Unreleased]</span>
+<pre><code class="language-markdown">## [Unreleased]
 
-<span class="gu">### Added</span>
-<span class="k">-</span><span class="w"> </span>New feature X
-<span class="k">-</span><span class="w"> </span>New endpoint Y
+### Added
+- New feature X
+- New endpoint Y
 
-<span class="gu">### Fixed</span>
-<span class="k">-</span><span class="w"> </span>Bug in Z
-</code></pre></div>
-<h4 id="step-3-bump-version">Step 3: Bump Version<a class="headerlink" href="#step-3-bump-version" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="c1"># Bump version (updates all files)</span>
-python<span class="w"> </span>scripts/bump_version.py<span class="w"> </span>minor<span class="w">  </span><span class="c1"># 2.0.0 -&gt; 2.1.0</span>
+### Fixed
+- Bug in Z
+</code></pre>
+<h4 id="step-3-bump-version">Step 3: Bump Version<a class="headerlink" href="#step-3-bump-version" title="Permanent link">¶</a></h4>
+<pre><code class="language-bash"># Bump version (updates all files)
+python scripts/bump_version.py minor  # 2.0.0 -&gt; 2.1.0
 
-<span class="c1"># This updates:</span>
-<span class="c1"># - VERSION</span>
-<span class="c1"># - pyproject.toml</span>
-<span class="c1"># - app/__init__.py</span>
-<span class="c1"># - CHANGELOG.md (moves [Unreleased] to version section)</span>
-</code></pre></div>
-<h4 id="step-4-review-and-commit">Step 4: Review and Commit<a class="headerlink" href="#step-4-review-and-commit" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="c1"># Review changes</span>
-git<span class="w"> </span>diff
+# This updates:
+# - VERSION
+# - pyproject.toml
+# - app/__init__.py
+# - CHANGELOG.md (moves [Unreleased] to version section)
+</code></pre>
+<h4 id="step-4-review-and-commit">Step 4: Review and Commit<a class="headerlink" href="#step-4-review-and-commit" title="Permanent link">¶</a></h4>
+<pre><code class="language-bash"># Review changes
+git diff
 
-<span class="c1"># Commit version bump</span>
-git<span class="w"> </span>add<span class="w"> </span>VERSION<span class="w"> </span>pyproject.toml<span class="w"> </span>app/__init__.py<span class="w"> </span>CHANGELOG.md
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;chore: bump version to 2.1.0&quot;</span>
-</code></pre></div>
-<h4 id="step-5-merge-to-main">Step 5: Merge to Main<a class="headerlink" href="#step-5-merge-to-main" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="c1"># Merge to main branch</span>
-git<span class="w"> </span>checkout<span class="w"> </span>main
-git<span class="w"> </span>merge<span class="w"> </span>develop
-git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
-</code></pre></div>
-<h4 id="step-6-create-tag">Step 6: Create Tag<a class="headerlink" href="#step-6-create-tag" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="c1"># Create annotated tag</span>
-git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v2.1.0<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Release v2.1.0</span>
+# Commit version bump
+git add VERSION pyproject.toml app/__init__.py CHANGELOG.md
+git commit -m "chore: bump version to 2.1.0"
+</code></pre>
+<h4 id="step-5-merge-to-main">Step 5: Merge to Main<a class="headerlink" href="#step-5-merge-to-main" title="Permanent link">¶</a></h4>
+<pre><code class="language-bash"># Merge to main branch
+git checkout main
+git merge develop
+git push origin main
+</code></pre>
+<h4 id="step-6-create-tag">Step 6: Create Tag<a class="headerlink" href="#step-6-create-tag" title="Permanent link">¶</a></h4>
+<pre><code class="language-bash"># Create annotated tag
+git tag -a v2.1.0 -m "Release v2.1.0
 
-<span class="s2">## Highlights</span>
-<span class="s2">- New multi-provider architecture</span>
-<span class="s2">- 76+ API endpoints</span>
-<span class="s2">- Enhanced security monitoring</span>
+## Highlights
+- New multi-provider architecture
+- 76+ API endpoints
+- Enhanced security monitoring
 
-<span class="s2">## Changes</span>
-<span class="s2">See CHANGELOG.md for full details</span>
-<span class="s2">&quot;</span>
+## Changes
+See CHANGELOG.md for full details
+"
 
-<span class="c1"># Push tag (triggers GitHub Actions)</span>
-git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>v2.1.0
-</code></pre></div>
-<h4 id="step-7-verify-release">Step 7: Verify Release<a class="headerlink" href="#step-7-verify-release" title="Permanent link">&para;</a></h4>
+# Push tag (triggers GitHub Actions)
+git push origin v2.1.0
+</code></pre>
+<h4 id="step-7-verify-release">Step 7: Verify Release<a class="headerlink" href="#step-7-verify-release" title="Permanent link">¶</a></h4>
 <p>GitHub Actions will automatically:
 1. ✅ Validate version consistency
 2. ✅ Run tests
@@ -2469,47 +1369,47 @@ git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </
 4. ✅ Create GitHub release
 5. ✅ Build and push Docker images</p>
 <p>Check: https://github.com/OneStepAt4time/lolstonks-api-gateway/releases</p>
-<h3 id="development-release">Development Release<a class="headerlink" href="#development-release" title="Permanent link">&para;</a></h3>
-<h4 id="quick-development-release">Quick Development Release<a class="headerlink" href="#quick-development-release" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="c1"># Ensure you&#39;re on develop branch</span>
-git<span class="w"> </span>checkout<span class="w"> </span>develop
+<h3 id="development-release">Development Release<a class="headerlink" href="#development-release" title="Permanent link">¶</a></h3>
+<h4 id="quick-development-release">Quick Development Release<a class="headerlink" href="#quick-development-release" title="Permanent link">¶</a></h4>
+<pre><code class="language-bash"># Ensure you're on develop branch
+git checkout develop
 
-<span class="c1"># Make and commit changes</span>
-git<span class="w"> </span>add<span class="w"> </span>.
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: experimental feature&quot;</span>
+# Make and commit changes
+git add .
+git commit -m "feat: experimental feature"
 
-<span class="c1"># Push changes</span>
-git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>develop
+# Push changes
+git push origin develop
 
-<span class="c1"># Create development tag (no version bump needed)</span>
-git<span class="w"> </span>tag<span class="w"> </span>v2.1.0-dev.1
-git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>v2.1.0-dev.1
-</code></pre></div>
-<h4 id="structured-pre-release-process">Structured Pre-Release Process<a class="headerlink" href="#structured-pre-release-process" title="Permanent link">&para;</a></h4>
-<p><strong>Alpha Release:</strong>
-<div class="highlight"><pre><span></span><code><span class="c1"># Feature is started but incomplete</span>
-git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v2.1.0-alpha.1<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Alpha release: Testing new provider system&quot;</span>
-git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>v2.1.0-alpha.1
-</code></pre></div></p>
-<p><strong>Beta Release:</strong>
-<div class="highlight"><pre><span></span><code><span class="c1"># Feature is complete, needs testing</span>
-git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v2.1.0-beta.1<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Beta release: Provider system ready for testing&quot;</span>
-git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>v2.1.0-beta.1
-</code></pre></div></p>
-<p><strong>Release Candidate:</strong>
-<div class="highlight"><pre><span></span><code><span class="c1"># Final testing before production</span>
-git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v2.1.0-rc.1<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Release candidate: Final testing&quot;</span>
-git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>v2.1.0-rc.1
-</code></pre></div></p>
-<p><strong>Production Release:</strong>
-<div class="highlight"><pre><span></span><code><span class="c1"># RC is approved, create production release</span>
-python<span class="w"> </span>scripts/bump_version.py<span class="w"> </span><span class="m">2</span>.1.0
-git<span class="w"> </span>commit<span class="w"> </span>-am<span class="w"> </span><span class="s2">&quot;chore: bump version to 2.1.0&quot;</span>
-git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v2.1.0<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Release v2.1.0&quot;</span>
-git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main<span class="w"> </span>--tags
-</code></pre></div></p>
-<h2 id="automated-workflows">Automated Workflows<a class="headerlink" href="#automated-workflows" title="Permanent link">&para;</a></h2>
-<h3 id="production-release-workflow">Production Release Workflow<a class="headerlink" href="#production-release-workflow" title="Permanent link">&para;</a></h3>
+# Create development tag (no version bump needed)
+git tag v2.1.0-dev.1
+git push origin v2.1.0-dev.1
+</code></pre>
+<h4 id="structured-pre-release-process">Structured Pre-Release Process<a class="headerlink" href="#structured-pre-release-process" title="Permanent link">¶</a></h4>
+<p><strong>Alpha Release:</strong></p>
+<pre><code class="language-bash"># Feature is started but incomplete
+git tag -a v2.1.0-alpha.1 -m "Alpha release: Testing new provider system"
+git push origin v2.1.0-alpha.1
+</code></pre>
+<p><strong>Beta Release:</strong></p>
+<pre><code class="language-bash"># Feature is complete, needs testing
+git tag -a v2.1.0-beta.1 -m "Beta release: Provider system ready for testing"
+git push origin v2.1.0-beta.1
+</code></pre>
+<p><strong>Release Candidate:</strong></p>
+<pre><code class="language-bash"># Final testing before production
+git tag -a v2.1.0-rc.1 -m "Release candidate: Final testing"
+git push origin v2.1.0-rc.1
+</code></pre>
+<p><strong>Production Release:</strong></p>
+<pre><code class="language-bash"># RC is approved, create production release
+python scripts/bump_version.py 2.1.0
+git commit -am "chore: bump version to 2.1.0"
+git tag -a v2.1.0 -m "Release v2.1.0"
+git push origin main --tags
+</code></pre>
+<h2 id="automated-workflows">Automated Workflows<a class="headerlink" href="#automated-workflows" title="Permanent link">¶</a></h2>
+<h3 id="production-release-workflow">Production Release Workflow<a class="headerlink" href="#production-release-workflow" title="Permanent link">¶</a></h3>
 <p><strong>Trigger:</strong> Push tag matching <code>v[0-9]+.[0-9]+.[0-9]+</code></p>
 <p><strong>Workflow:</strong> <code>.github/workflows/release-production.yml</code></p>
 <p><strong>Steps:</strong>
@@ -2540,7 +1440,7 @@ git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </
 <li>Push to GitHub Container Registry</li>
 <li>Tag as <code>latest</code> and version</li>
 </ol>
-<h3 id="development-release-workflow">Development Release Workflow<a class="headerlink" href="#development-release-workflow" title="Permanent link">&para;</a></h3>
+<h3 id="development-release-workflow">Development Release Workflow<a class="headerlink" href="#development-release-workflow" title="Permanent link">¶</a></h3>
 <p><strong>Trigger:</strong> Push tag matching <code>v*-dev.*</code>, <code>v*-alpha.*</code>, <code>v*-beta.*</code>, <code>v*-rc.*</code></p>
 <p><strong>Workflow:</strong> <code>.github/workflows/release-develop.yml</code></p>
 <p><strong>Steps:</strong>
@@ -2567,9 +1467,9 @@ git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </
 <li>Build and push with appropriate tags</li>
 <li>Tag as <code>dev</code>/<code>alpha</code>/<code>beta</code>/<code>rc</code></li>
 </ol>
-<h2 id="version-tagging">Version Tagging<a class="headerlink" href="#version-tagging" title="Permanent link">&para;</a></h2>
-<h3 id="tag-naming-convention">Tag Naming Convention<a class="headerlink" href="#tag-naming-convention" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>v{MAJOR}.{MINOR}.{PATCH}[-{PRERELEASE}]
+<h2 id="version-tagging">Version Tagging<a class="headerlink" href="#version-tagging" title="Permanent link">¶</a></h2>
+<h3 id="tag-naming-convention">Tag Naming Convention<a class="headerlink" href="#tag-naming-convention" title="Permanent link">¶</a></h3>
+<pre><code>v{MAJOR}.{MINOR}.{PATCH}[-{PRERELEASE}]
 
 Examples:
 v2.0.0          # Production
@@ -2577,44 +1477,44 @@ v2.1.0-dev.1    # Development
 v2.1.0-alpha.1  # Alpha
 v2.1.0-beta.1   # Beta
 v2.1.0-rc.1     # Release Candidate
-</code></pre></div>
-<h3 id="creating-tags">Creating Tags<a class="headerlink" href="#creating-tags" title="Permanent link">&para;</a></h3>
-<p><strong>Lightweight tag (not recommended):</strong>
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>tag<span class="w"> </span>v2.1.0
-</code></pre></div></p>
-<p><strong>Annotated tag (recommended):</strong>
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v2.1.0<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Release message&quot;</span>
-</code></pre></div></p>
-<p><strong>Delete tag:</strong>
-<div class="highlight"><pre><span></span><code><span class="c1"># Local</span>
-git<span class="w"> </span>tag<span class="w"> </span>-d<span class="w"> </span>v2.1.0
+</code></pre>
+<h3 id="creating-tags">Creating Tags<a class="headerlink" href="#creating-tags" title="Permanent link">¶</a></h3>
+<p><strong>Lightweight tag (not recommended):</strong></p>
+<pre><code class="language-bash">git tag v2.1.0
+</code></pre>
+<p><strong>Annotated tag (recommended):</strong></p>
+<pre><code class="language-bash">git tag -a v2.1.0 -m "Release message"
+</code></pre>
+<p><strong>Delete tag:</strong></p>
+<pre><code class="language-bash"># Local
+git tag -d v2.1.0
 
-<span class="c1"># Remote</span>
-git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>:refs/tags/v2.1.0
-</code></pre></div></p>
-<h3 id="signing-tags">Signing Tags<a class="headerlink" href="#signing-tags" title="Permanent link">&para;</a></h3>
+# Remote
+git push origin :refs/tags/v2.1.0
+</code></pre>
+<h3 id="signing-tags">Signing Tags<a class="headerlink" href="#signing-tags" title="Permanent link">¶</a></h3>
 <p>For production releases, use GPG-signed tags:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Configure GPG</span>
-git<span class="w"> </span>config<span class="w"> </span>user.signingkey<span class="w"> </span>YOUR_GPG_KEY
-git<span class="w"> </span>config<span class="w"> </span>tag.gpgSign<span class="w"> </span><span class="nb">true</span>
+<pre><code class="language-bash"># Configure GPG
+git config user.signingkey YOUR_GPG_KEY
+git config tag.gpgSign true
 
-<span class="c1"># Create signed tag</span>
-git<span class="w"> </span>tag<span class="w"> </span>-s<span class="w"> </span>v2.1.0<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Release v2.1.0&quot;</span>
+# Create signed tag
+git tag -s v2.1.0 -m "Release v2.1.0"
 
-<span class="c1"># Verify signature</span>
-git<span class="w"> </span>tag<span class="w"> </span>-v<span class="w"> </span>v2.1.0
-</code></pre></div>
-<h2 id="git-hooks">Git Hooks<a class="headerlink" href="#git-hooks" title="Permanent link">&para;</a></h2>
-<h3 id="pre-push-hook">Pre-Push Hook<a class="headerlink" href="#pre-push-hook" title="Permanent link">&para;</a></h3>
+# Verify signature
+git tag -v v2.1.0
+</code></pre>
+<h2 id="git-hooks">Git Hooks<a class="headerlink" href="#git-hooks" title="Permanent link">¶</a></h2>
+<h3 id="pre-push-hook">Pre-Push Hook<a class="headerlink" href="#pre-push-hook" title="Permanent link">¶</a></h3>
 <p>The project includes a pre-push hook that validates releases.</p>
-<p><strong>Install:</strong>
-<div class="highlight"><pre><span></span><code><span class="c1"># Run setup script</span>
-bash<span class="w"> </span>scripts/setup-hooks.sh
+<p><strong>Install:</strong></p>
+<pre><code class="language-bash"># Run setup script
+bash scripts/setup-hooks.sh
 
-<span class="c1"># Or manually</span>
-git<span class="w"> </span>config<span class="w"> </span>core.hooksPath<span class="w"> </span>.githooks
-chmod<span class="w"> </span>+x<span class="w"> </span>.githooks/pre-push
-</code></pre></div></p>
+# Or manually
+git config core.hooksPath .githooks
+chmod +x .githooks/pre-push
+</code></pre>
 <p><strong>What it checks:</strong></p>
 <p>For production tags (<code>v{X}.{Y}.{Z}</code>):
 - ✅ VERSION file matches tag
@@ -2624,12 +1524,12 @@ chmod<span class="w"> </span>+x<span class="w"> </span>.githooks/pre-push
 <p>For development tags (<code>v{X}.{Y}.{Z}-{type}.{N}</code>):
 - ℹ️ Shows warnings but allows push
 - ⚠️ Reminds you it's a pre-release</p>
-<p><strong>Bypass hook (if needed):</strong>
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>push<span class="w"> </span>--no-verify
-</code></pre></div></p>
-<h3 id="hook-output-examples">Hook Output Examples<a class="headerlink" href="#hook-output-examples" title="Permanent link">&para;</a></h3>
-<p><strong>Success:</strong>
-<div class="highlight"><pre><span></span><code>Running pre-push hook...
+<p><strong>Bypass hook (if needed):</strong></p>
+<pre><code class="language-bash">git push --no-verify
+</code></pre>
+<h3 id="hook-output-examples">Hook Output Examples<a class="headerlink" href="#hook-output-examples" title="Permanent link">¶</a></h3>
+<p><strong>Success:</strong></p>
+<pre><code>Running pre-push hook...
 Validating tag: v2.1.0
   Tag version: 2.1.0
   Production release tag detected
@@ -2639,83 +1539,83 @@ Validating production release requirements...
   ✓ app/__init__.py version matches tag
   ✓ CHANGELOG.md has entry for 2.1.0
 ✅ All production release validations passed!
-</code></pre></div></p>
-<p><strong>Failure:</strong>
-<div class="highlight"><pre><span></span><code>Running pre-push hook...
+</code></pre>
+<p><strong>Failure:</strong></p>
+<pre><code>Running pre-push hook...
 Validating tag: v2.1.0
 ❌ Version mismatch!
   VERSION file: 2.0.0
   Git tag: 2.1.0
 
   Fix: python scripts/bump_version.py 2.1.0
-</code></pre></div></p>
-<h2 id="docker-images">Docker Images<a class="headerlink" href="#docker-images" title="Permanent link">&para;</a></h2>
-<h3 id="image-tags">Image Tags<a class="headerlink" href="#image-tags" title="Permanent link">&para;</a></h3>
-<p><strong>Production Release (<code>v2.1.0</code>):</strong>
-<div class="highlight"><pre><span></span><code>ghcr.io/onestepat4time/lolstonks-api-gateway:latest
+</code></pre>
+<h2 id="docker-images">Docker Images<a class="headerlink" href="#docker-images" title="Permanent link">¶</a></h2>
+<h3 id="image-tags">Image Tags<a class="headerlink" href="#image-tags" title="Permanent link">¶</a></h3>
+<p><strong>Production Release (<code>v2.1.0</code>):</strong></p>
+<pre><code>ghcr.io/onestepat4time/lolstonks-api-gateway:latest
 ghcr.io/onestepat4time/lolstonks-api-gateway:2.1.0
 ghcr.io/onestepat4time/lolstonks-api-gateway:v2.1.0
-</code></pre></div></p>
-<p><strong>Development Release (<code>v2.1.0-dev.1</code>):</strong>
-<div class="highlight"><pre><span></span><code>ghcr.io/onestepat4time/lolstonks-api-gateway:dev
+</code></pre>
+<p><strong>Development Release (<code>v2.1.0-dev.1</code>):</strong></p>
+<pre><code>ghcr.io/onestepat4time/lolstonks-api-gateway:dev
 ghcr.io/onestepat4time/lolstonks-api-gateway:2.1.0-dev.1
-</code></pre></div></p>
-<p><strong>Alpha Release (<code>v2.1.0-alpha.1</code>):</strong>
-<div class="highlight"><pre><span></span><code>ghcr.io/onestepat4time/lolstonks-api-gateway:alpha
+</code></pre>
+<p><strong>Alpha Release (<code>v2.1.0-alpha.1</code>):</strong></p>
+<pre><code>ghcr.io/onestepat4time/lolstonks-api-gateway:alpha
 ghcr.io/onestepat4time/lolstonks-api-gateway:2.1.0-alpha.1
-</code></pre></div></p>
-<h3 id="using-docker-images">Using Docker Images<a class="headerlink" href="#using-docker-images" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Latest production</span>
-docker<span class="w"> </span>pull<span class="w"> </span>ghcr.io/onestepat4time/lolstonks-api-gateway:latest
-docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span>ghcr.io/onestepat4time/lolstonks-api-gateway:latest
+</code></pre>
+<h3 id="using-docker-images">Using Docker Images<a class="headerlink" href="#using-docker-images" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash"># Latest production
+docker pull ghcr.io/onestepat4time/lolstonks-api-gateway:latest
+docker run -p 8080:8080 ghcr.io/onestepat4time/lolstonks-api-gateway:latest
 
-<span class="c1"># Specific version</span>
-docker<span class="w"> </span>pull<span class="w"> </span>ghcr.io/onestepat4time/lolstonks-api-gateway:2.1.0
-docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span>ghcr.io/onestepat4time/lolstonks-api-gateway:2.1.0
+# Specific version
+docker pull ghcr.io/onestepat4time/lolstonks-api-gateway:2.1.0
+docker run -p 8080:8080 ghcr.io/onestepat4time/lolstonks-api-gateway:2.1.0
 
-<span class="c1"># Development version</span>
-docker<span class="w"> </span>pull<span class="w"> </span>ghcr.io/onestepat4time/lolstonks-api-gateway:dev
-docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span>ghcr.io/onestepat4time/lolstonks-api-gateway:dev
-</code></pre></div>
-<h2 id="rollback-procedure">Rollback Procedure<a class="headerlink" href="#rollback-procedure" title="Permanent link">&para;</a></h2>
+# Development version
+docker pull ghcr.io/onestepat4time/lolstonks-api-gateway:dev
+docker run -p 8080:8080 ghcr.io/onestepat4time/lolstonks-api-gateway:dev
+</code></pre>
+<h2 id="rollback-procedure">Rollback Procedure<a class="headerlink" href="#rollback-procedure" title="Permanent link">¶</a></h2>
 <p>If a release has critical issues:</p>
-<h3 id="1-immediately-deploy-previous-version">1. Immediately Deploy Previous Version<a class="headerlink" href="#1-immediately-deploy-previous-version" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Docker</span>
-docker<span class="w"> </span>pull<span class="w"> </span>ghcr.io/onestepat4time/lolstonks-api-gateway:2.0.1
-docker-compose<span class="w"> </span>down
-docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+<h3 id="1-immediately-deploy-previous-version">1. Immediately Deploy Previous Version<a class="headerlink" href="#1-immediately-deploy-previous-version" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash"># Docker
+docker pull ghcr.io/onestepat4time/lolstonks-api-gateway:2.0.1
+docker-compose down
+docker-compose up -d
 
-<span class="c1"># Kubernetes</span>
-kubectl<span class="w"> </span><span class="nb">set</span><span class="w"> </span>image<span class="w"> </span>deployment/lolstonks-api<span class="w"> </span>lolstonks-api<span class="o">=</span>ghcr.io/onestepat4time/lolstonks-api-gateway:2.0.1
-</code></pre></div>
-<h3 id="2-delete-bad-release">2. Delete Bad Release<a class="headerlink" href="#2-delete-bad-release" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Delete local tag</span>
-git<span class="w"> </span>tag<span class="w"> </span>-d<span class="w"> </span>v2.1.0
+# Kubernetes
+kubectl set image deployment/lolstonks-api lolstonks-api=ghcr.io/onestepat4time/lolstonks-api-gateway:2.0.1
+</code></pre>
+<h3 id="2-delete-bad-release">2. Delete Bad Release<a class="headerlink" href="#2-delete-bad-release" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash"># Delete local tag
+git tag -d v2.1.0
 
-<span class="c1"># Delete remote tag</span>
-git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>:refs/tags/v2.1.0
+# Delete remote tag
+git push origin :refs/tags/v2.1.0
 
-<span class="c1"># Delete GitHub release manually via web UI</span>
-</code></pre></div>
-<h3 id="3-fix-issues-and-re-release">3. Fix Issues and Re-release<a class="headerlink" href="#3-fix-issues-and-re-release" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Fix the issue</span>
-git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>hotfix/critical-bug
+# Delete GitHub release manually via web UI
+</code></pre>
+<h3 id="3-fix-issues-and-re-release">3. Fix Issues and Re-release<a class="headerlink" href="#3-fix-issues-and-re-release" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash"># Fix the issue
+git checkout -b hotfix/critical-bug
 
-<span class="c1"># Fix and commit</span>
-git<span class="w"> </span>commit<span class="w"> </span>-am<span class="w"> </span><span class="s2">&quot;fix: critical bug&quot;</span>
+# Fix and commit
+git commit -am "fix: critical bug"
 
-<span class="c1"># Merge to main</span>
-git<span class="w"> </span>checkout<span class="w"> </span>main
-git<span class="w"> </span>merge<span class="w"> </span>hotfix/critical-bug
+# Merge to main
+git checkout main
+git merge hotfix/critical-bug
 
-<span class="c1"># Create new release</span>
-python<span class="w"> </span>scripts/bump_version.py<span class="w"> </span><span class="m">2</span>.1.1
-git<span class="w"> </span>commit<span class="w"> </span>-am<span class="w"> </span><span class="s2">&quot;chore: bump version to 2.1.1&quot;</span>
-git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v2.1.1<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Hotfix: Fixed critical bug&quot;</span>
-git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main<span class="w"> </span>--tags
-</code></pre></div>
-<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
-<h3 id="dos">Do's ✅<a class="headerlink" href="#dos" title="Permanent link">&para;</a></h3>
+# Create new release
+python scripts/bump_version.py 2.1.1
+git commit -am "chore: bump version to 2.1.1"
+git tag -a v2.1.1 -m "Hotfix: Fixed critical bug"
+git push origin main --tags
+</code></pre>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">¶</a></h2>
+<h3 id="dos">Do's ✅<a class="headerlink" href="#dos" title="Permanent link">¶</a></h3>
 <ul>
 <li><strong>Always bump version before tagging</strong></li>
 <li><strong>Write meaningful changelog entries</strong></li>
@@ -2725,7 +1625,7 @@ git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </
 <li><strong>Automate as much as possible</strong></li>
 <li><strong>Keep release notes clear and user-focused</strong></li>
 </ul>
-<h3 id="donts">Don'ts ❌<a class="headerlink" href="#donts" title="Permanent link">&para;</a></h3>
+<h3 id="donts">Don'ts ❌<a class="headerlink" href="#donts" title="Permanent link">¶</a></h3>
 <ul>
 <li><strong>Don't skip version numbers</strong> (2.0.0 → 2.2.0)</li>
 <li><strong>Don't reuse or move tags</strong></li>
@@ -2734,30 +1634,30 @@ git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </
 <li><strong>Don't force-push tags</strong></li>
 <li><strong>Don't bypass hooks without good reason</strong></li>
 </ul>
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<h3 id="hook-prevents-push">Hook Prevents Push<a class="headerlink" href="#hook-prevents-push" title="Permanent link">&para;</a></h3>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">¶</a></h2>
+<h3 id="hook-prevents-push">Hook Prevents Push<a class="headerlink" href="#hook-prevents-push" title="Permanent link">¶</a></h3>
 <p><strong>Problem:</strong> Pre-push hook blocks your tag push</p>
-<p><strong>Solution:</strong>
-<div class="highlight"><pre><span></span><code><span class="c1"># Check what&#39;s wrong</span>
-python<span class="w"> </span>scripts/bump_version.py<span class="w">  </span><span class="c1"># Shows current version</span>
+<p><strong>Solution:</strong></p>
+<pre><code class="language-bash"># Check what's wrong
+python scripts/bump_version.py  # Shows current version
 
-<span class="c1"># Fix version files</span>
-python<span class="w"> </span>scripts/bump_version.py<span class="w"> </span><span class="m">2</span>.1.0
+# Fix version files
+python scripts/bump_version.py 2.1.0
 
-<span class="c1"># Or bypass if intentional</span>
-git<span class="w"> </span>push<span class="w"> </span>--no-verify
-</code></pre></div></p>
-<h3 id="version-mismatch">Version Mismatch<a class="headerlink" href="#version-mismatch" title="Permanent link">&para;</a></h3>
+# Or bypass if intentional
+git push --no-verify
+</code></pre>
+<h3 id="version-mismatch">Version Mismatch<a class="headerlink" href="#version-mismatch" title="Permanent link">¶</a></h3>
 <p><strong>Problem:</strong> Different versions in different files</p>
-<p><strong>Solution:</strong>
-<div class="highlight"><pre><span></span><code><span class="c1"># Use bump script to sync all files</span>
-python<span class="w"> </span>scripts/bump_version.py<span class="w"> </span><span class="m">2</span>.1.0
+<p><strong>Solution:</strong></p>
+<pre><code class="language-bash"># Use bump script to sync all files
+python scripts/bump_version.py 2.1.0
 
-<span class="c1"># Commit the changes</span>
-git<span class="w"> </span>add<span class="w"> </span>VERSION<span class="w"> </span>pyproject.toml<span class="w"> </span>app/__init__.py<span class="w"> </span>CHANGELOG.md
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;chore: sync versions to 2.1.0&quot;</span>
-</code></pre></div></p>
-<h3 id="github-action-fails">GitHub Action Fails<a class="headerlink" href="#github-action-fails" title="Permanent link">&para;</a></h3>
+# Commit the changes
+git add VERSION pyproject.toml app/__init__.py CHANGELOG.md
+git commit -m "chore: sync versions to 2.1.0"
+</code></pre>
+<h3 id="github-action-fails">GitHub Action Fails<a class="headerlink" href="#github-action-fails" title="Permanent link">¶</a></h3>
 <p><strong>Problem:</strong> Release workflow fails</p>
 <p><strong>Solution:</strong>
 1. Check workflow logs in GitHub Actions
@@ -2765,7 +1665,7 @@ git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </sp
 3. Ensure tests pass locally: <code>pytest</code>
 4. Ensure linting passes: <code>ruff check app/</code>
 5. Re-run failed jobs if it was a temporary issue</p>
-<h2 id="further-reading">Further Reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
+<h2 id="further-reading">Further Reading<a class="headerlink" href="#further-reading" title="Permanent link">¶</a></h2>
 <ul>
 <li><a href="../versioning/">Versioning Guide</a></li>
 <li><a href="../changelog-guide/">Changelog Guide</a></li>
@@ -2773,59 +1673,465 @@ git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </sp
 <li><a href="https://semver.org/">Semantic Versioning</a></li>
 <li><a href="https://keepachangelog.com/">Keep a Changelog</a></li>
 </ul>
-
-
-
-
-
-
-
-
-
-
-
-
-                
-              </article>
-            </div>
-          
-          
+</article>
+</div>
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
-        </div>
-        
-      </main>
-      
-        <footer class="md-footer">
-  
-  <div class="md-footer-meta md-typeset">
-    <div class="md-footer-meta__inner md-grid">
-      <div class="md-copyright">
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
   
   
     Made with
-    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
       Material for MkDocs
     </a>
-  
 </div>
-      
-    </div>
-  </div>
+</div>
+</div>
 </footer>
-      
-    </div>
-    <div class="md-dialog" data-md-component="dialog">
-      <div class="md-dialog__inner md-typeset"></div>
-    </div>
-    
-    
-    
-      
-      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
-    
-    
-      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
-      
-    
-  </body>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+<script>
+        // Enhanced Mermaid Interactivity for LOLStonks Documentation
+        (function() {
+            'use strict';
+
+            console.log('Initializing Mermaid interactivity...');
+
+            // Wait for DOM to be ready and Mermaid diagrams to render
+            const waitForMermaid = () => {
+                const mermaidElements = document.querySelectorAll('.mermaid');
+                console.log('Found Mermaid elements:', mermaidElements.length);
+
+                if (mermaidElements.length === 0) {
+                    console.log('No Mermaid elements found, retrying in 2 seconds...');
+                    setTimeout(waitForMermaid, 2000);
+                    return;
+                }
+
+                mermaidElements.forEach((element, index) => {
+                    const id = element.id || 'mermaid-diagram-' + index;
+                    element.setAttribute('id', id);
+
+                    // Wait for the diagram to be rendered as SVG
+                    const waitForSVG = () => {
+                        const svg = element.querySelector('svg');
+                        if (svg) {
+                            console.log('SVG found for element:', id);
+                            addInteractivityToDiagram(element, id);
+                        } else {
+                            console.log('SVG not found yet for element:', id, 'retrying...');
+                            setTimeout(waitForSVG, 500);
+                        }
+                    };
+
+                    waitForSVG();
+                });
+            };
+
+            const addInteractivityToDiagram = (element, id) => {
+                // Add interactive controls container
+                if (!element.previousSibling) {
+                    const controls = createInteractiveControls(id, element);
+                    element.parentNode.insertBefore(controls, element);
+                }
+
+                // Add zoom controls
+                addZoomControls(element, id);
+
+                // Add click handlers
+                addClickHandlers(element);
+
+                // Add tooltips
+                addTooltips(element);
+
+                // Make responsive
+                makeResponsive(element);
+
+                // Add pan and zoom
+                addPanAndZoom(element, id);
+            };
+
+            const createInteractiveControls = (id, element) => {
+                const controls = document.createElement('div');
+                controls.className = 'mermaid-controls';
+                controls.style.cssText = `
+                    margin: 10px 0;
+                    padding: 10px;
+                    background: #f5f5f5;
+                    border-radius: 5px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    gap: 10px;
+                    font-size: 14px;
+                    font-family: Arial, sans-serif;
+                `;
+
+                // Zoom controls
+                const zoomControls = document.createElement('div');
+                zoomControls.innerHTML = `
+                    <span style="font-weight: bold;">🔍 Zoom:</span>
+                    <button onclick="zoomDiagram('${id}', 1.2)" style="margin: 0 2px; padding: 4px 8px; background: #1976d2; color: white; border: none; border-radius: 3px; cursor: pointer;">+</button>
+                    <button onclick="zoomDiagram('${id}', 0.8)" style="margin: 0 2px; padding: 4px 8px; background: #1976d2; color: white; border: none; border-radius: 3px; cursor: pointer;">−</button>
+                    <button onclick="resetZoom('${id}')" style="margin: 0 2px; padding: 4px 8px; background: #666; color: white; border: none; border-radius: 3px; cursor: pointer;">Reset</button>
+                `;
+
+                // Navigation info
+                const navInfo = document.createElement('div');
+                navInfo.innerHTML = `<span style="color: #666;">🖱️ Click nodes for details • Scroll to zoom • Drag to pan</span>`;
+
+                // Fullscreen button
+                const fullscreenBtn = document.createElement('button');
+                fullscreenBtn.textContent = '⛶ Fullscreen';
+                fullscreenBtn.style.cssText = `
+                    padding: 4px 12px;
+                    background: #388e3c;
+                    color: white;
+                    border: none;
+                    border-radius: 3px;
+                    cursor: pointer;
+                `;
+                fullscreenBtn.onclick = () => toggleFullscreen(id, element);
+
+                // Download button
+                const downloadBtn = document.createElement('button');
+                downloadBtn.textContent = '📥 Download';
+                downloadBtn.style.cssText = `
+                    padding: 4px 12px;
+                    background: #ff9800;
+                    color: white;
+                    border: none;
+                    border-radius: 3px;
+                    cursor: pointer;
+                `;
+                downloadBtn.onclick = () => downloadDiagram(id, element);
+
+                controls.appendChild(zoomControls);
+                controls.appendChild(navInfo);
+                controls.appendChild(fullscreenBtn);
+                controls.appendChild(downloadBtn);
+
+                return controls;
+            };
+
+            const addZoomControls = (element, id) => {
+                element.style.transform = 'scale(1)';
+                element.style.transformOrigin = 'center top';
+                element.style.transition = 'transform 0.3s ease';
+                element.dataset.originalTransform = 'scale(1)';
+                element.dataset.currentZoom = '1';
+            };
+
+            const addPanAndZoom = (element, id) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                let isPanning = false;
+                let startX = 0, startY = 0, translateX = 0, translateY = 0;
+
+                // Mouse wheel zoom
+                element.addEventListener('wheel', function(e) {
+                    if (e.ctrlKey || e.metaKey) {
+                        e.preventDefault();
+                        const delta = e.deltaY > 0 ? 0.9 : 1.1;
+                        zoomDiagram(id, delta);
+                    }
+                });
+
+                // Pan functionality
+                svg.style.cursor = 'grab';
+                svg.addEventListener('mousedown', function(e) {
+                    if (e.button === 0 && !e.shiftKey) {
+                        isPanning = true;
+                        startX = e.clientX - translateX;
+                        startY = e.clientY - translateY;
+                        svg.style.cursor = 'grabbing';
+                        e.preventDefault();
+                    }
+                });
+
+                document.addEventListener('mousemove', function(e) {
+                    if (isPanning) {
+                        translateX = e.clientX - startX;
+                        translateY = e.clientY - startY;
+                        const currentZoom = parseFloat(element.dataset.currentZoom || 1);
+                        svg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
+                    }
+                });
+
+                document.addEventListener('mouseup', function() {
+                    isPanning = false;
+                    svg.style.cursor = 'grab';
+                });
+
+                // Touch support for mobile
+                let touchStartDistance = 0;
+                let touchStartZoom = 1;
+
+                element.addEventListener('touchstart', function(e) {
+                    if (e.touches.length === 2) {
+                        const dx = e.touches[0].clientX - e.touches[1].clientX;
+                        const dy = e.touches[0].clientY - e.touches[1].clientY;
+                        touchStartDistance = Math.sqrt(dx * dx + dy * dy);
+                        touchStartZoom = parseFloat(element.dataset.currentZoom || 1);
+                    }
+                });
+
+                element.addEventListener('touchmove', function(e) {
+                    if (e.touches.length === 2) {
+                        const dx = e.touches[0].clientX - e.touches[1].clientX;
+                        const dy = e.touches[0].clientY - e.touches[1].clientY;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        const scale = Math.max(0.5, Math.min(3, touchStartZoom * (distance / touchStartDistance)));
+                        element.dataset.currentZoom = scale;
+                        const svg = element.querySelector('svg');
+                        const currentZoom = parseFloat(element.dataset.currentZoom || 1);
+                        svg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
+                    }
+                });
+            };
+
+            const addClickHandlers = (element) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                const clickableElements = svg.querySelectorAll('g.node, g.edgePath, .cluster');
+                clickableElements.forEach(el => {
+                    el.style.cursor = 'pointer';
+                    el.addEventListener('click', function(e) {
+                        if (!e.shiftKey && !e.ctrlKey) {
+                            e.preventDefault();
+                            showNodeDetails(el, element);
+                        }
+                    });
+                });
+            };
+
+            const addTooltips = (element) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                const nodes = svg.querySelectorAll('g.node');
+                nodes.forEach(node => {
+                    const rect = node.querySelector('rect');
+                    const text = node.querySelector('text');
+                    if (rect && text) {
+                        node.title = text.textContent + ' - Click for more information';
+
+                        node.addEventListener('mouseenter', function() {
+                            rect.style.filter = 'brightness(1.2)';
+                            rect.style.transition = 'filter 0.2s ease';
+                        });
+
+                        node.addEventListener('mouseleave', function() {
+                            rect.style.filter = 'brightness(1)';
+                        });
+                    }
+                });
+            };
+
+            const makeResponsive = (element) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                svg.style.maxWidth = '100%';
+                svg.style.height = 'auto';
+                svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+
+                const resizeObserver = new ResizeObserver(() => {
+                    adjustDiagramSize(element);
+                });
+                resizeObserver.observe(element);
+            };
+
+            const adjustDiagramSize = (element) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                const container = element.parentElement;
+                const containerWidth = container.clientWidth;
+
+                if (containerWidth < 800) {
+                    const mobileZoom = Math.max(0.5, containerWidth / 800);
+                    element.dataset.currentZoom = mobileZoom;
+                    const translateMatch = svg.style.transform.match(/translate\(([^)]+)px/);
+                    const translate = translateMatch ? translateMatch[1] : '0px, 0px';
+                    svg.style.transform = `translate(${translate}) scale(${mobileZoom})`;
+                }
+            };
+
+            const showNodeDetails = (nodeElement, diagramElement) => {
+                const modal = document.createElement('div');
+                modal.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.5);
+                    z-index: 1000;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                `;
+
+                const content = document.createElement('div');
+                content.style.cssText = `
+                    background: white;
+                    padding: 20px;
+                    border-radius: 8px;
+                    max-width: 600px;
+                    max-height: 80%;
+                    overflow-y: auto;
+                `;
+
+                const text = nodeElement.querySelector('text');
+                const title = text ? text.textContent : 'Node Details';
+
+                content.innerHTML = `
+                    <h3>${title}</h3>
+                    <p><strong>Diagram:</strong> ${diagramElement.closest('h1, h2, h3, h4, h5, h6')?.textContent || 'Architecture Diagram'}</p>
+                    <p><strong>Component Type:</strong> ${getNodeInfo(nodeElement).type}</p>
+                    <p>${getNodeInfo(nodeElement).description}</p>
+                    <button onclick="this.closest('div[style*=fixed]').remove()" style="
+                        margin-top: 15px;
+                        padding: 8px 16px;
+                        background: #1976d2;
+                        color: white;
+                        border: none;
+                        border-radius: 4px;
+                        cursor: pointer;
+                    ">Close</button>
+                `;
+
+                modal.appendChild(content);
+                modal.appendChild(document.createElement('button'));
+                modal.onclick = (e) => {
+                    if (e.target === modal) modal.remove();
+                };
+
+                document.body.appendChild(modal);
+            };
+
+            const getNodeInfo = (nodeElement) => {
+                const text = nodeElement.querySelector('text')?.textContent?.toLowerCase() || '';
+
+                if (text.includes('api') || text.includes('gateway')) {
+                    return {
+                        type: 'API Component',
+                        description: 'This component handles API requests, routing, and response processing in the LOLStonks Gateway.'
+                    };
+                } else if (text.includes('cache') || text.includes('redis')) {
+                    return {
+                        type: 'Cache Layer',
+                        description: 'This component provides caching functionality to improve API response times and reduce external API calls.'
+                    };
+                } else if (text.includes('rate') || text.includes('limit')) {
+                    return {
+                        type: 'Rate Limiter',
+                        description: 'This component enforces rate limits to prevent API abuse and ensure fair usage across all clients.'
+                    };
+                } else if (text.includes('auth') || text.includes('security')) {
+                    return {
+                        type: 'Security Component',
+                        description: 'This component handles authentication, authorization, and security validation for API requests.'
+                    };
+                } else if (text.includes('provider') || text.includes('riot')) {
+                    return {
+                        type: 'External Provider',
+                        description: 'This component interfaces with external APIs (like Riot Games API) to fetch game data.'
+                    };
+                } else {
+                    return {
+                        type: 'System Component',
+                        description: 'This component is part of the LOLStonks API Gateway architecture. Click on different components to explore the system design.'
+                    };
+                }
+            };
+
+            // Global functions for button controls
+            window.zoomDiagram = function(id, factor) {
+                const element = document.getElementById(id);
+                if (!element) return;
+
+                const currentZoom = parseFloat(element.dataset.currentZoom || 1);
+                const newZoom = Math.max(0.1, Math.min(3, currentZoom * factor));
+
+                const svg = element.querySelector('svg');
+                const currentTransform = svg.style.transform || '';
+                const translateMatch = currentTransform.match(/translate\(([^)]+)px/);
+                const translate = translateMatch ? translateMatch[1] : '0px, 0px';
+
+                svg.style.transform = `translate(${translate}) scale(${newZoom})`;
+                element.dataset.currentZoom = newZoom;
+            };
+
+            window.resetZoom = function(id) {
+                const element = document.getElementById(id);
+                if (!element) return;
+
+                const svg = element.querySelector('svg');
+                svg.style.transform = 'translate(0px, 0px) scale(1)';
+                element.dataset.currentZoom = '1';
+            };
+
+            window.toggleFullscreen = function(id, element) {
+                if (element.style.position === 'fixed') {
+                    // Exit fullscreen
+                    element.style.position = '';
+                    element.style.top = '';
+                    element.style.left = '';
+                    element.style.width = '';
+                    element.style.height = '';
+                    element.style.zIndex = '';
+                    element.style.backgroundColor = '';
+                    element.style.padding = '';
+                    element.style.overflow = '';
+                    resetZoom(id);
+                } else {
+                    // Enter fullscreen
+                    element.style.position = 'fixed';
+                    element.style.top = '0';
+                    element.style.left = '0';
+                    element.style.width = '100vw';
+                    element.style.height = '100vh';
+                    element.style.zIndex = '999';
+                    element.style.backgroundColor = 'white';
+                    element.style.padding = '20px';
+                    element.style.overflow = 'auto';
+                    zoomDiagram(id, 1.5);
+                }
+            };
+
+            window.downloadDiagram = function(id, element) {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                const svgData = new XMLSerializer().serializeToString(svg);
+                const svgBlob = new Blob([svgData], {type: 'image/svg+xml;charset=utf-8'});
+                const svgUrl = URL.createObjectURL(svgBlob);
+
+                const downloadLink = document.createElement('a');
+                downloadLink.href = svgUrl;
+                downloadLink.download = `${id || 'diagram'}-${Date.now()}.svg`;
+                downloadLink.click();
+
+                URL.revokeObjectURL(svgUrl);
+            };
+
+            // Initialize everything
+            waitForMermaid();
+
+        })();
+    </script>
+</body>
 </html>
