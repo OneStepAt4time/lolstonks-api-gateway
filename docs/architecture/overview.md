@@ -348,7 +348,7 @@ sequenceDiagram
 ### Caching Strategy
 
 **Cache Key Pattern:**
-```
+```text
 lolstonks:{endpoint}:{region}:{identifier}
 ```
 
@@ -476,6 +476,98 @@ async def health_check():
 - **Request Tracking**: Unique request IDs for tracing
 - **Performance Metrics**: Request timing and cache hit rates
 - **Error Tracking**: Comprehensive error logging and alerting
+
+## Architecture Decisions
+
+This section documents key architectural decisions and their rationale.
+
+### Decision 1: Three-Provider Architecture
+
+**Decision**: Support multiple data sources (Riot API, Data Dragon, Community Dragon) through a unified provider abstraction layer.
+
+**Rationale**:
+- Riot API provides live data but has strict rate limits
+- Data Dragon offers static data without rate limits
+- Community Dragon provides enhanced assets not available elsewhere
+- Provider abstraction allows adding new sources without changing core logic
+
+**Trade-offs**:
+- Increased complexity vs. single-provider implementation
+- Multiple external dependencies vs. simplified architecture
+- **Chosen approach**: Complexity justified by comprehensive data access and reduced rate limit pressure
+
+### Decision 2: aiolimiter Library for Rate Limiting
+
+**Decision**: Use aiolimiter library instead of custom rate limiter implementation.
+
+**Rationale**:
+- Production-tested token bucket algorithm
+- Handles edge cases (concurrent requests, token refill timing)
+- Async/await native without threading complexity
+- Reduces maintenance burden
+
+**Alternatives Considered**:
+- Custom token bucket implementation: More control but higher maintenance
+- No rate limiting: Unacceptable - would violate Riot API terms
+- **Chosen approach**: aiolimiter provides optimal balance of simplicity and reliability
+
+### Decision 3: aiocache Library for Caching
+
+**Decision**: Use aiocache with Redis backend instead of direct redis-py or custom cache layer.
+
+**Rationale**:
+- Simple API reduces implementation complexity
+- Built-in JSON serialization
+- Connection pooling handled automatically
+- Namespace support for key isolation
+
+**Alternatives Considered**:
+- Direct redis-py: More control but requires manual connection pooling and serialization
+- Custom cache decorator: Would duplicate aiocache functionality
+- **Chosen approach**: aiocache sufficient for current requirements; extend only if needed
+
+### Decision 4: Pydantic V2 for Input Validation
+
+**Decision**: Use Pydantic models for all endpoint input validation.
+
+**Rationale**:
+- Type safety catches errors at development time
+- Automatic OpenAPI schema generation
+- Consistent validation across all endpoints
+- Self-documenting API through model definitions
+
+**Trade-offs**:
+- Additional model definition overhead vs. manual validation
+- Learning curve for Pydantic syntax
+- **Chosen approach**: Benefits far outweigh overhead; reduces runtime errors significantly
+
+### Decision 5: Stateless Design
+
+**Decision**: No server-side session state; all state in Redis or external APIs.
+
+**Rationale**:
+- Enables horizontal scaling without session affinity
+- Simplifies deployment (no sticky sessions required)
+- Improves fault tolerance (any instance can handle any request)
+
+**Implications**:
+- All caching must be centralized (Redis)
+- No in-memory state between requests
+- Rate limiting coordinated through Redis for multi-instance deployments
+
+### Decision 6: Direct router implementation over decorators
+
+**Decision**: Use explicit cache.get()/cache.set() calls in routers instead of @cached decorators.
+
+**Rationale**:
+- Code clarity: cache logic visible in endpoint
+- Flexibility: different cache strategies per endpoint
+- Debuggability: easier to trace cache behavior
+- Simplicity: avoids decorator complexity
+
+**Trade-offs**:
+- More verbose code vs. decorator magic
+- **Chosen approach**: Explicit over implicit aligns with project philosophy
 
 ## Design Principles
 

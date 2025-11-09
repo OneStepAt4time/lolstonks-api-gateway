@@ -22,7 +22,7 @@ The system consists of four primary layers:
 
 ## Application Structure
 
-```
+```text
 app/
 ├── config.py              # Configuration management
 ├── main.py                # FastAPI application entry point

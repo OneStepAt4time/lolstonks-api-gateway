@@ -207,7 +207,7 @@ Comprehensive documentation available at: **[onestepat4time.github.io/lolstonks-
 
 ## Architecture
 
-```
+```text
 ┌─────────────┐
 │   Client    │
 └──────┬──────┘

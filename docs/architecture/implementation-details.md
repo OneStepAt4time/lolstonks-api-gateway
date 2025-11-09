@@ -171,7 +171,7 @@ async def get_summoner_by_name(summonerName: str, region: str):
 - Multiple backend support (Redis, Memcached, Memory)
 
 **Cache Key Pattern**:
-```
+```text
 lol:{resource}:{region}:{identifier}
 ```
 
@@ -357,7 +357,7 @@ The implementation follows these principles:
 
 ### Where to Find Key Components
 
-```
+```text
 app/
 ├── config.py              # Settings (23 TTL variables)
 ├── main.py                # FastAPI app (34 endpoints)

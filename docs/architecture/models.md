@@ -16,7 +16,7 @@ All API endpoints use Pydantic V2 models for input validation, providing:
 
 ### Directory Structure
 
-```
+```text
 app/models/
 ├── __init__.py          # Central exports and registry
 ├── common.py            # Base models, enums, and shared utilities
