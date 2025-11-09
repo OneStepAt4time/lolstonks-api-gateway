@@ -131,3 +131,14 @@ output.txt
 # Local configuration
 local_*.py
 .local/
+
+# Generated documentation files
+docs/api.md
+docs/architecture/production-deployment.md  
+docs/architecture/providers.md
+docs/javascripts/
+docs/overrides/
+docs/stylesheets/
+
+# Build outputs
+site/
