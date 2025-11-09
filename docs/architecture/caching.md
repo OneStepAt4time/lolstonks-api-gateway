@@ -39,6 +39,8 @@ graph TB
 
 ## Cache Configuration
 
+Configuration settings are managed through environment variables. For complete configuration documentation, see [Configuration Guide](../getting-started/configuration.md).
+
 ### Environment Variables
 
 ```env

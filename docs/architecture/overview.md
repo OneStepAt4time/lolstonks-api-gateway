@@ -198,7 +198,7 @@ class BaseProvider(ABC):
 
 ### 3. Rate Limiter (`app.riot.rate_limiter`)
 
-Implements sophisticated rate limiting using the token bucket algorithm:
+Implements sophisticated rate limiting using the token bucket algorithm. For detailed rate limiting documentation, see [Rate Limiting Architecture](rate-limiting.md).
 
 ```python
 class RateLimiter:
@@ -219,7 +219,7 @@ class RateLimiter:
 
 ### 4. Redis Cache (`app.cache.redis_cache`)
 
-High-performance caching layer:
+High-performance caching layer. For detailed caching documentation, see [Caching Architecture](caching.md).
 
 ```python
 class RedisCache:
@@ -278,6 +278,8 @@ graph LR
 ```
 
 ### Router Responsibilities
+
+For detailed model documentation, see [Data Models & Validation](models.md).
 
 Each router handles:
 - **Path Parameter Validation**: Pydantic models for route parameters

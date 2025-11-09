@@ -249,17 +249,6 @@ We welcome contributions! Please see our [Contributing Guide](https://onestepat4
 
 ---
 
-## Support This Project
-
-If you find LOLStonks API Gateway useful:
-
-- **Star this repository**
-- **Share** with others
-- **Report issues** or contribute code
-- **[Buy me a coffee](https://buymeacoffee.com/onestepat4time)**
-
----
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
