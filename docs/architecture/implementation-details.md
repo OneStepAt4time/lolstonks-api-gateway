@@ -2,7 +2,7 @@
 
 This document describes the **actual implementation** of the LOLStonks API Gateway, showing the real code structure and libraries used.
 
-> **💡 Important**: This differs from the conceptual architecture documentation which shows best practices and potential implementations. This document reflects what is actually in the codebase.
+> **Important**: This differs from the conceptual architecture documentation which shows best practices and potential implementations. This document reflects what is actually in the codebase.
 
 ---
 
@@ -58,10 +58,10 @@ settings = Settings()
 ```
 
 **Features**:
-- ✅ Automatic `.env` file loading
-- ✅ Type validation
-- ✅ Case-insensitive environment variables
-- ✅ Default values
+- Automatic `.env` file loading
+- Type validation
+- Case-insensitive environment variables
+- Default values
 
 ---
 
@@ -103,10 +103,10 @@ rate_limiter = RiotRateLimiter()
 ```
 
 **Why aiolimiter?**:
-- ✅ Production-tested token bucket implementation
-- ✅ Async/await native
-- ✅ No need for custom refill logic
-- ✅ Thread-safe and efficient
+- Production-tested token bucket implementation
+- Async/await native
+- No need for custom refill logic
+- Thread-safe and efficient
 
 **Dual-Layer Protection**:
 - Layer 1: `limiter_1s` prevents bursts (20 req/s)
@@ -165,10 +165,10 @@ async def get_summoner_by_name(summonerName: str, region: str):
 ```
 
 **Why aiocache?**:
-- ✅ Simple API (get/set/delete)
-- ✅ Built-in JSON serialization
-- ✅ Connection pooling handled automatically
-- ✅ Multiple backend support (Redis, Memcached, Memory)
+- Simple API (get/set/delete)
+- Built-in JSON serialization
+- Connection pooling handled automatically
+- Multiple backend support (Redis, Memcached, Memory)
 
 **Cache Key Pattern**:
 ```
@@ -228,9 +228,9 @@ tracker = MatchTracker()
 ```
 
 **Why separate Redis client?**:
-- ✅ Needs SET operations (not available in aiocache)
-- ✅ Requires NO TTL (permanent storage)
-- ✅ Direct redis-py gives full control
+- Needs SET operations (not available in aiocache)
+- Requires NO TTL (permanent storage)
+- Direct redis-py gives full control
 
 **Storage Pattern**:
 - Key: `processed_matches:{region}`
@@ -294,11 +294,11 @@ riot_client = RiotHttpClient()
 ```
 
 **Why httpx?**:
-- ✅ Async/await native
-- ✅ HTTP/2 support
-- ✅ Connection pooling
-- ✅ Timeout handling
-- ✅ Similar API to requests library
+- Async/await native
+- HTTP/2 support
+- Connection pooling
+- Timeout handling
+- Similar API to requests library
 
 ---
 
@@ -317,27 +317,27 @@ riot_client = RiotHttpClient()
 
 These features are described in conceptual docs but not implemented:
 
-- ❌ **Batch Operations**: `batch_get()`, `batch_set()`
-- ❌ **Cache Warming**: Proactive pre-loading of popular data
-- ❌ **Cache Metrics**: Hit rate tracking, performance stats
-- ❌ **Cache Invalidation**: Smart invalidation beyond TTL
-- ❌ **Distributed Cache**: Multi-instance coordination
-- ❌ **Adaptive Rate Limiting**: Dynamic adjustment based on 429s
-- ❌ **Circuit Breaker**: Fault tolerance pattern
-- ❌ **Prometheus Metrics**: Metrics endpoint
+- **Batch Operations**: `batch_get()`, `batch_set()`
+- **Cache Warming**: Proactive pre-loading of popular data
+- **Cache Metrics**: Hit rate tracking, performance stats
+- **Cache Invalidation**: Smart invalidation beyond TTL
+- **Distributed Cache**: Multi-instance coordination
+- **Adaptive Rate Limiting**: Dynamic adjustment based on 429s
+- **Circuit Breaker**: Fault tolerance pattern
+- **Prometheus Metrics**: Metrics endpoint
 
 These represent **future enhancements** or **best practices** rather than current code.
 
 ### What's Fully Implemented
 
-- ✅ **Configuration System**: Complete with 23 TTL variables
-- ✅ **Dual-Layer Rate Limiting**: Using aiolimiter
-- ✅ **TTL Caching**: Using aiocache
-- ✅ **Match Tracking**: Using Redis SET
-- ✅ **HTTP Client**: Using httpx with retry logic
-- ✅ **All 34 Endpoints**: Fully functional API routes
-- ✅ **Pydantic Models**: Input validation
-- ✅ **OpenAPI Docs**: Auto-generated Swagger UI
+- **Configuration System**: Complete with 23 TTL variables
+- **Dual-Layer Rate Limiting**: Using aiolimiter
+- **TTL Caching**: Using aiocache
+- **Match Tracking**: Using Redis SET
+- **HTTP Client**: Using httpx with retry logic
+- **All 34 Endpoints**: Fully functional API routes
+- **Pydantic Models**: Input validation
+- **OpenAPI Docs**: Auto-generated Swagger UI
 
 ---
 
@@ -421,7 +421,7 @@ async def test_cache():
     cached = await cache.get(key)
     assert cached == value
 
-    print("✅ Cache working!")
+    print("Cache working!")
 
 asyncio.run(test_cache())
 ```
@@ -446,7 +446,7 @@ async def test_tracking():
     # Check processed
     assert await tracker.is_processed(region, match_id)
 
-    print("✅ Tracking working!")
+    print("Tracking working!")
 
 asyncio.run(test_tracking())
 ```
@@ -467,10 +467,10 @@ asyncio.run(test_tracking())
 
 ### Concurrency
 
-- ✅ Async/await throughout entire stack
-- ✅ httpx connection pooling (default 100 connections)
-- ✅ Redis connection pooling (aiocache handles)
-- ✅ Rate limiter thread-safe (aiolimiter)
+- Async/await throughout entire stack
+- httpx connection pooling (default 100 connections)
+- Redis connection pooling (aiocache handles)
+- Rate limiter thread-safe (aiolimiter)
 
 **Expected Throughput**: 15-20 requests/second sustained (limited by Riot API rate limits, not gateway)
 

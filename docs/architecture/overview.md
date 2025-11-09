@@ -55,92 +55,48 @@ ddragon_provider = get_provider(ProviderType.DATA_DRAGON)
 
 The LOLStonks API Gateway v2.0 has evolved into a comprehensive data integration platform supporting three distinct data sources with unified access patterns.
 
-### System Architecture Diagram
+### System Architecture Diagrams
+
+#### Diagram 1: Client and Gateway Layer
 
 ```mermaid
 graph TB
-    subgraph "Client Applications"
-        WebApp[Web Application]
-        MobileApp[Mobile App]
-        CLI[CLI Tool]
-        External[External Service]
-    end
+    Client[Client Applications] --> Gateway[FastAPI Gateway]
+    Gateway --> RateLimiter[Rate Limiter]
+    Gateway --> Cache[Redis Cache]
+    Gateway --> Routes[API Routes]
+    Gateway --> Health[Health Monitor]
 
-    subgraph "LOLStonks API Gateway v2.0"
-        Gateway[FastAPI Gateway]
+    Cache --> Redis[(Redis Server)]
+    Health --> Redis
+```
 
-        subgraph "Core Components"
-            RateLimiter[Rate Limiter]
-            Cache[Redis Cache]
-            HealthCheck[Health Monitor]
-            Security[Security Monitor]
-        end
+#### Diagram 2: Gateway and Provider Layer
 
-        subgraph "Provider Layer"
-            Registry[Provider Registry]
+```mermaid
+graph TB
+    Gateway[FastAPI Gateway] --> Registry[Provider Registry]
 
-            subgraph "Data Sources"
-                Riot[Riot API Provider<br/>40+ endpoints]
-                DDragon[Data Dragon Provider<br/>14 endpoints]
-                CDragon[Community Dragon Provider<br/>22 endpoints]
-            end
-        end
+    Registry --> Riot[Riot API Provider<br/>40+ endpoints]
+    Registry --> DDragon[Data Dragon Provider<br/>14 endpoints]
+    Registry --> CDragon[Community Dragon Provider<br/>22 endpoints]
 
-        subgraph "API Router Layer"
-            RiotRoutes[Riot API Routes]
-            DDRoutes[Data Dragon Routes]
-            CDRoutes[Community Dragon Routes]
-            HealthRoutes[Health Routes]
-            SecurityRoutes[Security Routes]
-        end
-    end
+    Riot --> Validation[Input Validation]
+    DDragon --> Validation
+    CDragon --> Validation
+```
 
-    subgraph "External Data Sources"
-        RiotAPI[Riot Developer API<br/>Live Data]
-        DDragonCDN[Data Dragon CDN<br/>Static Game Data]
-        CDragonAPI[Community Dragon API<br/>Enhanced Assets]
-    end
+#### Diagram 3: Provider and External Data Sources
 
-    subgraph "Infrastructure"
-        RedisServer[(Redis Server)]
-        Monitoring[Monitoring Stack]
-        LoadBalancer[Load Balancer]
-    end
+```mermaid
+graph TB
+    Riot[Riot API Provider] --> RiotAPI[Riot Developer API<br/>Live Game Data]
+    DDragon[Data Dragon Provider] --> DDragonCDN[Data Dragon CDN<br/>Static Game Data]
+    CDragon[Community Dragon Provider] --> CDragonAPI[Community Dragon API<br/>Enhanced Assets]
 
-    %% Client Connections
-    WebApp --> Gateway
-    MobileApp --> Gateway
-    CLI --> Gateway
-    External --> Gateway
-
-    %% Gateway Internal Flow
-    Gateway --> RateLimiter
-    Gateway --> Cache
-    Gateway --> HealthCheck
-    Gateway --> Security
-
-    Gateway --> Registry
-    Registry --> Riot
-    Registry --> DDragon
-    Registry --> CDragon
-
-    Gateway --> RiotRoutes
-    Gateway --> DDRoutes
-    Gateway --> CDRoutes
-    Gateway --> HealthRoutes
-    Gateway --> SecurityRoutes
-
-    %% Provider Connections to External
-    Riot --> RiotAPI
-    DDragon --> DDragonCDN
-    CDragon --> CDragonAPI
-
-    %% Infrastructure Connections
-    Cache --> RedisServer
-    HealthCheck --> RedisServer
-    Security --> RedisServer
-    HealthCheck --> Monitoring
-    Security --> Monitoring
+    RiotAPI --> RateLimit[Rate Limited]
+    DDragonCDN --> Public[Public CDN]
+    CDragonAPI --> Public
 ```
 
 ### Request Flow Patterns
