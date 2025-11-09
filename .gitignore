@@ -134,10 +134,9 @@ local_*.py
 
 # Generated documentation files
 docs/api.md
-docs/architecture/production-deployment.md  
+docs/architecture/production-deployment.md
 docs/architecture/providers.md
 docs/javascripts/
-docs/overrides/
 docs/stylesheets/
 
 # Build outputs
