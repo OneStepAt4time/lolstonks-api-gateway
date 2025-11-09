@@ -33,6 +33,7 @@ Get your API keys from the [Riot Developer Portal](https://developer.riotgames.c
 
 ```env
 # Default Riot API region (default: euw1)
+# For all available regions, see architecture/models.md#regional-routing-models
 RIOT_DEFAULT_REGION=euw1
 
 # Server configuration

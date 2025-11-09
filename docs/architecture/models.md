@@ -16,7 +16,7 @@ All API endpoints use Pydantic V2 models for input validation, providing:
 
 ### Directory Structure
 
-```
+```text
 app/models/
 ├── __init__.py          # Central exports and registry
 ├── common.py            # Base models, enums, and shared utilities
@@ -35,6 +35,8 @@ app/models/
 ## Core Components
 
 ### Regional Routing Models
+
+The LOLStonks API Gateway uses two types of regional routing depending on the API endpoint.
 
 #### Platform Regions
 Used for Account-V1 and Match-V5 APIs that require regional routing:
@@ -149,6 +151,8 @@ class ChallengeLevel(str, Enum):
 ```
 
 ## Usage Patterns
+
+For complete API documentation, see [API Overview](../api/overview.md) and [Router Documentation](../api/routers.md).
 
 ### Router Implementation
 
@@ -295,7 +299,7 @@ queue: Annotated[QueueType, Field(
 - **Account-V1**: All endpoints migrated to PlatformRegionQuery
 - **Match-V5**: All endpoints migrated with enhanced filtering parameters
 
-###  Pending Migrations
+### 🔄 Pending Migrations
 
 The following endpoints are scheduled for migration to Pydantic models:
 

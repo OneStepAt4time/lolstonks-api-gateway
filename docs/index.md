@@ -7,14 +7,14 @@
 [![Build Status](https://github.com/OneStepAt4time/lolstonks-api-gateway/workflows/CI/badge.svg)](https://github.com/OneStepAt4time/lolstonks-api-gateway/actions)
 [![Documentation](https://img.shields.io/badge/Docs-Latest-brightgreen.svg)](https://onestepat4time.github.io/lolstonks-api-gateway/)
 
-**Unified League of Legends API Gateway** engineered for high-performance applications with intelligent caching, automatic rate limiting, and comprehensive observability.
+Unified League of Legends API Gateway engineered for high-performance applications with intelligent caching, automatic rate limiting, and comprehensive observability.
 
-### What's New in v2.0.0
-- **Comprehensive Data Source Architecture**: Support for Riot API, Data Dragon, and Community Dragon
-- **Comprehensive API Coverage**: 76+ endpoints across all three data sources fully implemented
-- **Enhanced Security**: Real-time security monitoring and status endpoints
-- **Comprehensive Health Monitoring**: Detailed health checks for all data sources and components
-- **Complete Input Validation**: Pydantic models for all endpoints and parameters
+## What's New in v2.0.0
+- Comprehensive Data Source Architecture: Support for Riot API, Data Dragon, and Community Dragon
+- Comprehensive API Coverage: 76+ endpoints across all three data sources fully implemented
+- Enhanced Security: Real-time security monitoring and status endpoints
+- Comprehensive Health Monitoring: Detailed health checks for all data sources and components
+- Complete Input Validation: Pydantic models for all endpoints and parameters
 
 ![LOLStonks logo](assets/logo.png)
 

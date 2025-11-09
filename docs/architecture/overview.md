@@ -79,113 +79,48 @@ ddragon_provider = get_provider(ProviderType.DATA_DRAGON)
 
 The LOLStonks API Gateway v2.0 has evolved into a comprehensive data integration platform supporting three distinct data sources with unified access patterns.
 
-### System Architecture Diagram
+### System Architecture Diagrams
+
+#### Diagram 1: Client and Gateway Layer
 
 ```mermaid
-flowchart TD
-    %% Client Layer
-    subgraph ClientLayer["Client Applications"]
-        WebApp["Web Application<br/>React Vue Frontend"]
-        MobileApp["Mobile App<br/>iOS Android"]
-        CLI["CLI Tool<br/>Python Node.js"]
-        External["External Service<br/>Third-party Integration"]
-    end
+graph TB
+    Client[Client Applications] --> Gateway[FastAPI Gateway]
+    Gateway --> RateLimiter[Rate Limiter]
+    Gateway --> Cache[Redis Cache]
+    Gateway --> Routes[API Routes]
+    Gateway --> Health[Health Monitor]
 
-    %% Gateway Core
-    subgraph GatewayCore["LOLStonks API Gateway v2.0"]
-        Gateway["FastAPI Core<br/>Async HTTP Server"]
+    Cache --> Redis[(Redis Server)]
+    Health --> Redis
+```
 
-        %% Middleware Layer
-        subgraph MiddlewareLayer["Middleware Layer"]
-            RateLimiter["Rate Limiter<br/>20 req/s, 100 burst"]
-            Cache["Cache Manager<br/>Redis Integration"]
-            HealthCheck["Health Monitor<br/>Real-time Status"]
-            Security["Security Layer<br/>Auth and Validation"]
-            CORS["CORS Handler<br/>Cross-origin Support"]
-        end
+#### Diagram 2: Gateway and Provider Layer
 
-        %% Provider Abstraction
-        subgraph ProviderAbstraction["Provider Abstraction Layer"]
-            Registry["Provider Registry<br/>Dynamic Provider Management"]
+```mermaid
+graph TB
+    Gateway[FastAPI Gateway] --> Registry[Provider Registry]
 
-            subgraph ProviderImplementations["Data Providers"]
-                RiotProvider["Riot API Provider<br/>40+ endpoints<br/>Live Game Data"]
-                DataDragonProvider["Data Dragon Provider<br/>14 endpoints<br/>Static Assets"]
-                CommunityDragonProvider["Community Dragon Provider<br/>22 endpoints<br/>Enhanced Data"]
-            end
-        end
+    Registry --> Riot[Riot API Provider<br/>40+ endpoints]
+    Registry --> DDragon[Data Dragon Provider<br/>14 endpoints]
+    Registry --> CDragon[Community Dragon Provider<br/>22 endpoints]
 
-        %% API Routing
-        subgraph RoutingLayer["API Routing Layer"]
-            RiotRoutes["Riot API Routes<br/>/riot/v1/*"]
-            DDRoutes["Data Dragon Routes<br/>/ddragon/v1/*"]
-            CDRoutes["Community Dragon Routes<br/>/cdragon/v1/*"]
-            HealthRoutes["Health Routes<br/>/health"]
-            SecurityRoutes["Security Routes<br/>/security/*"]
-        end
-    end
+    Riot --> Validation[Input Validation]
+    DDragon --> Validation
+    CDragon --> Validation
+```
 
-    %% External Data Sources
-    subgraph DataSources["External Data Sources"]
-        RiotAPI["Riot Developer API<br/>Rate Limited: 20/s<br/>Live Game Data"]
-        DataDragonCDN["Data Dragon CDN<br/>Static Content Delivery<br/>Champion Item Assets"]
-        CommunityDragonAPI["Community Dragon API<br/>Community-maintained<br/>Enhanced Media"]
-    end
+#### Diagram 3: Provider and External Data Sources
 
-    %% Infrastructure Services
-    subgraph Infrastructure["Infrastructure and Monitoring"]
-        RedisCluster["Redis Cluster<br/>Primary Cache and Session Store"]
-        Monitoring["Monitoring Stack<br/>Prometheus + Grafana"]
-        LoadBalancer["Load Balancer<br/>Nginx HAProxy"]
-        Logging["Centralized Logging<br/>ELK Stack"]
-    end
+```mermaid
+graph TB
+    Riot[Riot API Provider] --> RiotAPI[Riot Developer API<br/>Live Game Data]
+    DDragon[Data Dragon Provider] --> DDragonCDN[Data Dragon CDN<br/>Static Game Data]
+    CDragon[Community Dragon Provider] --> CDragonAPI[Community Dragon API<br/>Enhanced Assets]
 
-    %% Client Connections
-    WebApp --> |HTTPS REST| Gateway
-    MobileApp --> |HTTPS REST| Gateway
-    CLI --> |HTTPS CLI| Gateway
-    External --> |HTTPS API Key| Gateway
-
-    %% Gateway Internal Flow
-    Gateway --> |Middleware Pipeline| MiddlewareLayer
-    Gateway --> |Request Routing| RoutingLayer
-    Gateway --> |Provider Selection| ProviderAbstraction
-
-    %% Middleware Connections
-    MiddlewareLayer --> |Rate Validation| RateLimiter
-    MiddlewareLayer --> |Cache Strategy| Cache
-    MiddlewareLayer --> |Health Checks| HealthCheck
-    MiddlewareLayer --> |Security Policies| Security
-    MiddlewareLayer --> |CORS Rules| CORS
-
-    %% Provider Registry Flow
-    Registry --> |Runtime Selection| RiotProvider
-    Registry --> |Runtime Selection| DataDragonProvider
-    Registry --> |Runtime Selection| CommunityDragonProvider
-
-    %% Provider to External Services
-    RiotProvider --> |Authenticated API Calls| RiotAPI
-    DataDragonProvider --> |CDN Asset Requests| DataDragonCDN
-    CommunityDragonProvider --> |Enhanced API Calls| CommunityDragonAPI
-
-    %% Infrastructure Dependencies
-    Cache --> |Data Storage and Retrieval| RedisCluster
-    HealthCheck --> |Health Status Store| RedisCluster
-    Security --> |Session Storage| RedisCluster
-    HealthCheck --> |Metrics Export| Monitoring
-    Security --> |Security Events| Logging
-
-    %% Simplified Styling
-    classDef clientStyle fill:#e3f2fd,stroke:#1976d2,stroke-width:3px,color:#0d47a1
-    classDef gatewayStyle fill:#f3e5f5,stroke:#7b1fa2,stroke-width:3px,color:#4a148c
-    classDef providerStyle fill:#e8f5e8,stroke:#388e3c,stroke-width:3px,color:#1b5e20
-    classDef externalStyle fill:#fff3e0,stroke:#f57c00,stroke-width:3px,color:#e65100
-    classDef infraStyle fill:#fce4ec,stroke:#c2185b,stroke-width:3px,color:#880e4f
-
-    class WebApp,MobileApp,CLI,External clientStyle
-    class Gateway,RateLimiter,Cache,HealthCheck,Security,CORS,Registry,RiotProvider,DataDragonProvider,CommunityDragonProvider,RiotRoutes,DDRoutes,CDRRoutes,HealthRoutes,SecurityRoutes gatewayStyle
-    class RiotAPI,DataDragonCDN,CommunityDragonAPI externalStyle
-    class RedisCluster,Monitoring,LoadBalancer,Logging infraStyle
+    RiotAPI --> RateLimit[Rate Limited]
+    DDragonCDN --> Public[Public CDN]
+    CDragonAPI --> Public
 ```
 
 ### Request Flow Patterns
@@ -368,7 +303,7 @@ class BaseProvider(ABC):
 
 ### 3. Rate Limiter (`app.riot.rate_limiter`)
 
-Implements sophisticated rate limiting using the token bucket algorithm:
+Implements sophisticated rate limiting using the token bucket algorithm. For detailed rate limiting documentation, see [Rate Limiting Architecture](rate-limiting.md).
 
 ```python
 class RateLimiter:
@@ -389,7 +324,7 @@ class RateLimiter:
 
 ### 4. Redis Cache (`app.cache.redis_cache`)
 
-High-performance caching layer:
+High-performance caching layer. For detailed caching documentation, see [Caching Architecture](caching.md).
 
 ```python
 class RedisCache:
@@ -526,6 +461,8 @@ flowchart TD
 
 ### Router Responsibilities
 
+For detailed model documentation, see [Data Models & Validation](models.md).
+
 Each router handles:
 - **Path Parameter Validation**: Pydantic models for route parameters
 - **Query Parameter Handling**: Optional parameters and defaults
@@ -636,7 +573,7 @@ sequenceDiagram
 ### Caching Strategy
 
 **Cache Key Pattern:**
-```
+```text
 lolstonks:{endpoint}:{region}:{identifier}
 ```
 
@@ -649,169 +586,27 @@ lolstonks:{endpoint}:{region}:{identifier}
 ### Error Handling Flow
 
 ```mermaid
-flowchart TD
-    %% Request Entry and Validation
-    subgraph ValidationPhase["Validation Phase"]
-        Request["Incoming Request<br/>HTTP GET/POST"]
-        InputValidation["Input Validation<br/>Pydantic Models"]
-        ValidationDecision{"Input Valid?"}
-        ValidationError["Validation Error<br/>400 Bad Request<br/>Invalid Parameters"]
-    end
+graph TD
+    Request[Request] --> Validate{Valid?}
+    Validate -->|No| Error400[400 Bad Request]
+    Validate -->|Yes| RateLimit{Rate OK?}
 
-    %% Rate Limiting Phase
-    subgraph RateLimitingPhase["Rate Limiting Phase"]
-        RateLimitCheck["Rate Limit Check<br/>Token Bucket (20/s)"]
-        RateLimitDecision{"Within Limits?"}
-        RateLimitExceeded["Rate Limit Exceeded<br/>429 Too Many Requests<br/>Retry-After Header"]
-    end
+    RateLimit -->|No| Error429[429 Too Many Requests]
+    RateLimit -->|Yes| Cache{Cached?}
 
-    %% Caching Phase
-    subgraph CachingPhase["Caching Phase"]
-        CacheHealthCheck["Cache Health Check<br/>Redis Connection"]
-        CacheAvailable{"Cache Available?"}
-        CacheLookup["Cache Lookup<br/>`lol:{endpoint}:{region}:{id}`"]
-        CacheHitDecision{"Cache Hit?"}
-        CachedResponse["Cached Response<br/>HTTP 200 (<5ms)"]
-        CacheFailure["Cache Failure<br/>Continue to API"]
-    end
+    Cache -->|Yes| Return[Return Response]
+    Cache -->|No| API[Call API]
 
-    %% API Request Phase
-    subgraph APIPhase["API Request Phase"]
-        ProviderSelection["Provider Selection<br/>Dynamic Routing"]
-        APIRequest["External API Request<br/>Authenticated HTTP Call"]
-        APIResponse["API Response<br/>HTTP Status Code"]
-        APISuccessDecision{"API Success?"}
-    end
-
-    %% Error Classification and Handling
-    subgraph ErrorHandlingPhase["Error Classification"]
-        ErrorClassification{"Error Type?"}
-        RateLimitFromAPI["429 from API<br/>Retry-After: Xs"]
-        ClientError["4xx Client Error<br/>Bad Request/Unauthorized"]
-        NotFoundError["404 Not Found<br/>Resource Missing"]
-        ServerError["5xx Server Error<br/>Service Unavailable"]
-        TimeoutError["Request Timeout<br/>408/504 Gateway"]
-        NetworkError["Network Failure<br/>Connection Lost"]
-    end
-
-    %% Recovery and Retry Logic
-    subgraph RecoveryPhase["Recovery & Retry"]
-        RetryWithBackoff["Retry with Backoff<br/>Exponential: 1s, 2s, 4s, 8s"]
-        MaxRetriesReached["Max Retries Reached<br/>After 4 attempts"]
-        CircuitBreaker["Circuit Breaker<br/>Open for 30s"]
-    end
-
-    %% Success Processing
-    subgraph SuccessPhase["Success Processing"]
-        ProcessResponse["Process Response<br/>Transform and Validate"]
-        StoreInCache["Store in Cache<br/>TTL: Per Endpoint"]
-        SuccessResponse["Success Response<br/>HTTP 200 + Data"]
-        ClientFinalResponse["Client Response<br/>Formatted JSON"]
-    end
-
-    %% Final Error Response
-    subgraph ErrorFinalPhase["Error Response Phase"]
-        FormatErrorResponse["Format Error Response<br/>Standard Error Format"]
-        LogError["Log Error Details<br/>Structured Logging"]
-        SendErrorAlert["Send Error Alert<br/>High Severity Only"]
-        ErrorFinalResponse["Error Response<br/>Appropriate HTTP Code"]
-    end
-
-    %% Primary Flow
-    Request --> InputValidation
-    InputValidation --> ValidationDecision
-
-    %% Validation Paths
-    ValidationDecision --> | Invalid| ValidationError
-    ValidationDecision --> | Valid| RateLimitCheck
-
-    %% Rate Limiting Flow
-    RateLimitCheck --> RateLimitDecision
-    RateLimitDecision --> | Exceeded| RateLimitExceeded
-    RateLimitDecision --> | Within Limits| CacheHealthCheck
-
-    %% Cache Flow
-    CacheHealthCheck --> CacheAvailable
-    CacheAvailable --> | Unavailable| CacheFailure
-    CacheAvailable --> | Available| CacheLookup
-    CacheLookup --> CacheHitDecision
-
-    %% Cache Decision Paths
-    CacheHitDecision --> | Hit| CachedResponse
-    CacheHitDecision --> | Miss| ProviderSelection
-    CacheFailure --> | Bypass| ProviderSelection
-
-    %% API Request Flow
-    ProviderSelection --> APIRequest
-    APIRequest --> APIResponse
-    APIResponse --> APISuccessDecision
-
-    %% API Success/Error Decision
-    APISuccessDecision --> | Success| ProcessResponse
-    APISuccessDecision --> | Error| ErrorClassification
-
-    %% Error Classification
-    ErrorClassification --> |429| RateLimitFromAPI
-    ErrorClassification --> |401-403| ClientError
-    ErrorClassification --> |404| NotFoundError
-    ErrorClassification --> |5xx| ServerError
-    ErrorClassification --> |408/504| TimeoutError
-    ErrorClassification --> |Network| NetworkError
-
-    %% Retry Logic
-    RateLimitFromAPI --> RetryWithBackoff
-    ServerError --> RetryWithBackoff
-    TimeoutError --> RetryWithBackoff
-    NetworkError --> RetryWithBackoff
-    RetryWithBackoff --> || APIRequest
-
-    %% Retry Limits
-    RetryWithBackoff --> | Wait| APIRequest
-    RetryWithBackoff --> | Limit Reached| MaxRetriesReached
-    MaxRetriesReached --> CircuitBreaker
-    CircuitBreaker --> | Open| FormatErrorResponse
-
-    %% Success Processing
-    ProcessResponse --> StoreInCache
-    StoreInCache --> SuccessResponse
-    SuccessResponse --> ClientFinalResponse
-    CachedResponse --> ClientFinalResponse
-
-    %% Error Final Processing
-    ValidationError --> FormatErrorResponse
-    RateLimitExceeded --> FormatErrorResponse
-    ClientError --> FormatErrorResponse
-    NotFoundError --> FormatErrorResponse
-    MaxRetriesReached --> FormatErrorResponse
-
-    FormatErrorResponse --> LogError
-    FormatErrorResponse --> SendErrorAlert
-    LogError --> ErrorFinalResponse
-    SendErrorAlert --> ErrorFinalResponse
-
-    %% Professional Styling
-    classDef validationStyle fill:#e3f2fd,stroke:#1976d2,stroke-width:3px,color:#0d47a1
-    classDef processingStyle fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#1b5e20
-    classDef cacheStyle fill:#fff3e0,stroke:#f57c00,stroke-width:2px,color:#e65100
-    classDef errorStyle fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#b71c1c
-    classDef successStyle fill:#e8f5e8,stroke:#2e7d32,stroke-width:3px,color:#1b5e20
-    classDef decisionStyle fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#4a148c
-    classDef retryStyle fill:#fff8e1,stroke:#ffa000,stroke-width:2px,color:#f57c00
-
-    class Request,InputValidation validationStyle
-    class RateLimitCheck,CacheHealthCheck,ProviderSelection,APIRequest,ProcessResponse,StoreInCache processingStyle
-    class CacheLookup,CachedResponse cacheStyle
-    class ValidationError,RateLimitExceeded,ClientError,NotFoundError,ServerError,TimeoutError,NetworkError,MaxRetriesReached,CircuitBreaker errorStyle
-    class SuccessResponse,ClientFinalResponse successStyle
-    class ValidationDecision,RateLimitDecision,CacheAvailable,CacheHitDecision,APISuccessDecision,ErrorClassification decisionStyle
-    class RetryWithBackoff retryStyle
-
-    %% Performance Annotations
-    CacheHitDecision -.-> | <5ms response | CachedResponse
-    InputValidation -.-> | <1ms validation | ValidationDecision
-    RateLimitCheck -.-> | <1ms check | RateLimitDecision
-    ErrorClassification -.-> | <10ms classification | FormatErrorResponse
+    API -->|Success| Return
+    API -->|Error| Retry[Retry/Error Response]
 ```
+
+**Error Handling Strategy:**
+- **Validation Errors (400)**: Invalid input parameters
+- **Rate Limit Errors (429)**: Client or Riot API rate limits exceeded
+- **API Errors**: Automatic retry with exponential backoff for transient failures
+- **Not Found (404)**: Passed through from Riot API
+- **Timeouts**: Configurable timeout with retry logic
 
 ## Configuration Architecture
 
@@ -892,7 +687,7 @@ async def health_check():
     return {
         "status": "ok",
         "timestamp": datetime.utcnow(),
-        "version": "1.0.0",
+        "version": "2.0.0",
         "dependencies": {
             "redis": await check_redis_health(),
             "riot_api": await check_riot_api_health()
@@ -907,22 +702,97 @@ async def health_check():
 - **Performance Metrics**: Request timing and cache hit rates
 - **Error Tracking**: Comprehensive error logging and alerting
 
-## Future Architecture Considerations
+## Architecture Decisions
 
-### Planned Enhancements
+This section documents key architectural decisions and their rationale.
 
-1. **Metrics Collection**: Prometheus metrics integration
-2. **Distributed Tracing**: OpenTelemetry support
-3. **API Versioning**: Versioned API endpoints
-4. **Webhook Support**: Real-time event notifications
-5. **Admin Interface**: Management dashboard for operations
+### Decision 1: Three-Provider Architecture
 
-### Scalability Roadmap
+**Decision**: Support multiple data sources (Riot API, Data Dragon, Community Dragon) through a unified provider abstraction layer.
 
-- **Multi-Region Deployment**: Geographic distribution
-- **Circuit Breakers**: Fault tolerance for external dependencies
-- **Event Streaming**: Kafka/Redis Streams for real-time data
-- **GraphQL Support**: Alternative API interface
+**Rationale**:
+- Riot API provides live data but has strict rate limits
+- Data Dragon offers static data without rate limits
+- Community Dragon provides enhanced assets not available elsewhere
+- Provider abstraction allows adding new sources without changing core logic
+
+**Trade-offs**:
+- Increased complexity vs. single-provider implementation
+- Multiple external dependencies vs. simplified architecture
+- **Chosen approach**: Complexity justified by comprehensive data access and reduced rate limit pressure
+
+### Decision 2: aiolimiter Library for Rate Limiting
+
+**Decision**: Use aiolimiter library instead of custom rate limiter implementation.
+
+**Rationale**:
+- Production-tested token bucket algorithm
+- Handles edge cases (concurrent requests, token refill timing)
+- Async/await native without threading complexity
+- Reduces maintenance burden
+
+**Alternatives Considered**:
+- Custom token bucket implementation: More control but higher maintenance
+- No rate limiting: Unacceptable - would violate Riot API terms
+- **Chosen approach**: aiolimiter provides optimal balance of simplicity and reliability
+
+### Decision 3: aiocache Library for Caching
+
+**Decision**: Use aiocache with Redis backend instead of direct redis-py or custom cache layer.
+
+**Rationale**:
+- Simple API reduces implementation complexity
+- Built-in JSON serialization
+- Connection pooling handled automatically
+- Namespace support for key isolation
+
+**Alternatives Considered**:
+- Direct redis-py: More control but requires manual connection pooling and serialization
+- Custom cache decorator: Would duplicate aiocache functionality
+- **Chosen approach**: aiocache sufficient for current requirements; extend only if needed
+
+### Decision 4: Pydantic V2 for Input Validation
+
+**Decision**: Use Pydantic models for all endpoint input validation.
+
+**Rationale**:
+- Type safety catches errors at development time
+- Automatic OpenAPI schema generation
+- Consistent validation across all endpoints
+- Self-documenting API through model definitions
+
+**Trade-offs**:
+- Additional model definition overhead vs. manual validation
+- Learning curve for Pydantic syntax
+- **Chosen approach**: Benefits far outweigh overhead; reduces runtime errors significantly
+
+### Decision 5: Stateless Design
+
+**Decision**: No server-side session state; all state in Redis or external APIs.
+
+**Rationale**:
+- Enables horizontal scaling without session affinity
+- Simplifies deployment (no sticky sessions required)
+- Improves fault tolerance (any instance can handle any request)
+
+**Implications**:
+- All caching must be centralized (Redis)
+- No in-memory state between requests
+- Rate limiting coordinated through Redis for multi-instance deployments
+
+### Decision 6: Direct router implementation over decorators
+
+**Decision**: Use explicit cache.get()/cache.set() calls in routers instead of @cached decorators.
+
+**Rationale**:
+- Code clarity: cache logic visible in endpoint
+- Flexibility: different cache strategies per endpoint
+- Debuggability: easier to trace cache behavior
+- Simplicity: avoids decorator complexity
+
+**Trade-offs**:
+- More verbose code vs. decorator magic
+- **Chosen approach**: Explicit over implicit aligns with project philosophy
 
 ## Design Principles
 
