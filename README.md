@@ -26,7 +26,7 @@ LOLStonks API Gateway is a high-performance proxy for League of Legends APIs fea
 
 ---
 
-## What's New in v2.0
+## What's New in v2.0.0
 
 - **Three-Provider Architecture**: Riot API, Data Dragon, and Community Dragon
 - **Enhanced Security**: Real-time monitoring and status endpoints
@@ -257,17 +257,6 @@ If you find LOLStonks API Gateway useful:
 - **Share** with others
 - **Report issues** or contribute code
 - **[Buy me a coffee](https://buymeacoffee.com/onestepat4time)**
-
----
-
-## Roadmap
-
-- **Observability**: Prometheus metrics, OpenTelemetry tracing, Grafana dashboards
-- **Admin API**: Cache management, statistics, monitoring dashboard
-- **Enhanced Features**: WebSocket support, GraphQL API, multi-language SDKs
-- **Infrastructure**: Kubernetes manifests, Terraform modules, benchmarking tools
-
-See [GitHub Projects](https://github.com/OneStepAt4time/lolstonks-api-gateway/projects) for current development.
 
 ---
 

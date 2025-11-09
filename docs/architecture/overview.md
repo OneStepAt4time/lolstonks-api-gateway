@@ -360,40 +360,26 @@ lolstonks:{endpoint}:{region}:{identifier}
 
 ```mermaid
 graph TD
-    Request[Incoming Request] --> Validation[Request Validation]
-    Validation --> ValidationError{Validation Valid?}
+    Request[Request] --> Validate{Valid?}
+    Validate -->|No| Error400[400 Bad Request]
+    Validate -->|Yes| RateLimit{Rate OK?}
 
-    ValidationError -->|No| ValidationResponse[Return 400 Bad Request]
-    ValidationError -->|Yes| RateCheck[Rate Limit Check]
+    RateLimit -->|No| Error429[429 Too Many Requests]
+    RateLimit -->|Yes| Cache{Cached?}
 
-    RateCheck --> RateError{Rate Limited?}
-    RateError -->|Yes| RateResponse[Return 429 Too Many Requests]
-    RateError -->|No| CacheCheck[Cache Check]
+    Cache -->|Yes| Return[Return Response]
+    Cache -->|No| API[Call API]
 
-    CacheCheck --> CacheError{Cache Available?}
-    CacheError -->|No| CacheFail[Continue to API]
-    CacheError -->|Yes| CacheHit{Cache Hit?}
-
-    CacheHit -->|Yes| CachedResponse[Return Cached Data]
-    CacheHit -->|No| APIRequest[Make Riot API Request]
-
-    APIRequest --> APIError{API Success?}
-    APIError -->|Yes| StoreCache[Store in Cache]
-    APIError -->|No| ErrorType{Error Type?}
-
-    ErrorType -->|429| RetryWithBackoff[Retry with Exponential Backoff]
-    ErrorType -->|404| NotFound[Return 404]
-    ErrorType -->|Timeout| TimeoutError[Return 408 Request Timeout]
-    ErrorType -->|Other| ServerError[Return 500]
-
-    RetryWithBackoff --> APIError
-    StoreCache --> SuccessResponse[Return Success Response]
-    ValidationResponse --> ErrorResponse[Return Error Response]
-    RateResponse --> ErrorResponse
-    NotFound --> ErrorResponse
-    TimeoutError --> ErrorResponse
-    ServerError --> ErrorResponse
+    API -->|Success| Return
+    API -->|Error| Retry[Retry/Error Response]
 ```
+
+**Error Handling Strategy:**
+- **Validation Errors (400)**: Invalid input parameters
+- **Rate Limit Errors (429)**: Client or Riot API rate limits exceeded
+- **API Errors**: Automatic retry with exponential backoff for transient failures
+- **Not Found (404)**: Passed through from Riot API
+- **Timeouts**: Configurable timeout with retry logic
 
 ## Configuration Architecture
 
@@ -474,7 +460,7 @@ async def health_check():
     return {
         "status": "ok",
         "timestamp": datetime.utcnow(),
-        "version": "1.0.0",
+        "version": "2.0.0",
         "dependencies": {
             "redis": await check_redis_health(),
             "riot_api": await check_riot_api_health()
@@ -488,23 +474,6 @@ async def health_check():
 - **Request Tracking**: Unique request IDs for tracing
 - **Performance Metrics**: Request timing and cache hit rates
 - **Error Tracking**: Comprehensive error logging and alerting
-
-## Future Architecture Considerations
-
-### Planned Enhancements
-
-1. **Metrics Collection**: Prometheus metrics integration
-2. **Distributed Tracing**: OpenTelemetry support
-3. **API Versioning**: Versioned API endpoints
-4. **Webhook Support**: Real-time event notifications
-5. **Admin Interface**: Management dashboard for operations
-
-### Scalability Roadmap
-
-- **Multi-Region Deployment**: Geographic distribution
-- **Circuit Breakers**: Fault tolerance for external dependencies
-- **Event Streaming**: Kafka/Redis Streams for real-time data
-- **GraphQL Support**: Alternative API interface
 
 ## Design Principles
 
