@@ -10,6 +10,7 @@ Endpoints:
 from __future__ import annotations
 
 from typing import Dict, Any
+from datetime import datetime, timezone
 from fastapi import APIRouter
 from loguru import logger
 
@@ -73,8 +74,8 @@ async def detailed_health_check() -> Dict[str, Any]:
     # Basic health status
     health_data: Dict[str, Any] = {
         "status": "healthy",
-        "timestamp": "2025-01-23T00:00:00Z",  # Would use real timestamp
-        "version": "1.0.0",  # Would get from app settings
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "version": "2.0.0",
         "providers": {},
         "errors": {},
     }
@@ -167,11 +168,6 @@ async def provider_health_details() -> Dict[str, ProviderHealthStatus]:
         try:
             health_status = await provider.health_check()
             response_time = 0.0  # Would be calculated in real implementation
-
-            # Get error metrics for this provider (currently unused but kept for future metrics)
-            if error_monitoring:
-                metrics = error_monitoring.get_error_metrics()
-                _ = metrics.error_rates_by_provider.get(provider.provider_type.value, 0)
 
             # Determine status based on health check
             status = "healthy" if health_status else "unhealthy"
