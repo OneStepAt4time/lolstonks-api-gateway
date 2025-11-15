@@ -82,8 +82,7 @@ async def get_all_champions(
     """
     provider: DataDragonProvider = get_provider(ProviderType.DATA_DRAGON)  # type: ignore
 
-    # The provider now handles version resolution automatically
-    version = query.version
+    version = query.version if query.version != "latest" else provider.version
     locale = query.locale
 
     return await fetch_with_cache(
@@ -140,8 +139,7 @@ async def get_champion(
     """
     provider: DataDragonProvider = get_provider(ProviderType.DATA_DRAGON)  # type: ignore
 
-    # The provider now handles version resolution automatically
-    version = query.version
+    version = query.version if query.version != "latest" else provider.version
     locale = query.locale
 
     return await fetch_with_cache(

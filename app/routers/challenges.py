@@ -106,7 +106,7 @@ async def get_challenge_leaderboard(
         list: A list of leaderboard entries, each containing player PUUIDs and their values.
 
     Example:
-        >>> curl "http://1227.0.0.1:8080/lol/challenges/v1/challenges/1/leaderboards/by-level/CHALLENGER?region=euw1&limit=10"
+        >>> curl "http://127.0.0.1:8080/lol/challenges/v1/challenges/1/leaderboards/by-level/CHALLENGER?region=euw1&limit=10"
     """
     path = f"/lol/challenges/v1/challenges/{challengeId}/leaderboards/by-level/{level}"
     params = {"limit": limit} if limit else None
