@@ -990,9 +990,9 @@
 <p>Get up and running with the LOLStonks API Gateway in minutes.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
 <ul>
-<li>✅ Installation completed (see <a href="../installation/">Installation Guide</a>)</li>
-<li>✅ Redis server running</li>
-<li>✅ Riot API key configured in <code>.env</code></li>
+<li>Installation completed (see <a href="../installation/">Installation Guide</a>)</li>
+<li>Redis server running</li>
+<li>Riot API key configured in <code>.env</code></li>
 </ul>
 <h2 id="start-the-gateway">Start the Gateway<a class="headerlink" href="#start-the-gateway" title="Permanent link">¶</a></h2>
 <h3 id="option-1-development-mode">Option 1: Development Mode<a class="headerlink" href="#option-1-development-mode" title="Permanent link">¶</a></h3>
@@ -1044,8 +1044,8 @@ curl "http://localhost:8080/summoner/by-name/Faker?region=kr"
 }
 </code></pre>
 <h3 id="2-get-current-match">2. Get Current Match<a class="headerlink" href="#2-get-current-match" title="Permanent link">¶</a></h3>
-<pre><code class="language-bash"># Get active game for a summoner
-curl "http://localhost:8080/spectator/active-game/KqOw12p4b3bLp5b6p7?region=kr"
+<pre><code class="language-bash"># Get active game for a summoner (using encrypted PUUID)
+curl "http://localhost:8080/lol/spectator/v5/active-games/by-summoner/KqOw12p4b3bLp5b6p7?region=kr"
 
 # Response contains game information
 {
@@ -1094,9 +1094,9 @@ async def get_summoner_data():
         summoner = response.json()
         print(f"Summoner: {summoner['name']} (Level: {summoner['summonerLevel']})")
 
-        # Get current match
+        # Get current match (using encrypted PUUID)
         response = await client.get(
-            f"http://localhost:8080/spectator/active-game/{summoner['id']}",
+            f"http://localhost:8080/lol/spectator/v5/active-games/by-summoner/{summoner['puuid']}",
             params={"region": "kr"}
         )
 

@@ -4961,7 +4961,7 @@ https://developer.riotgames.com/apis#spectator-v5</p>
 <div class="doc doc-children">
 <div class="doc doc-object doc-function">
 <h3 class="doc doc-heading" id="app.routers.spectator.get_active_game">
-<code class="highlight language-python"><span class="n">get_active_game</span><span class="p">(</span><span class="n">puuid</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">region</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Query</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">riot_default_region</span><span class="p">),</span> <span class="n">description</span><span class="o">=</span><span class="s1">'Region code'</span><span class="p">))</span></code>
+<code class="highlight language-python"><span class="n">get_active_game</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">ActiveGameParams</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(),</span> <span class="n">query</span><span class="p">:</span> <span class="n">ActiveGameQuery</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">())</span></code>
 <span class="doc doc-labels">
 <small class="doc doc-label doc-label-async"><code>async</code></small>
 </span>
@@ -4985,14 +4985,14 @@ game.</p>
 <tbody>
 <tr class="doc-section-item">
 <td>
-<code>puuid</code>
+<code>params.encryptedPUUID</code>
 </td>
 <td>
 <code><span title="str">str</span></code>
 </td>
 <td>
 <div class="doc-md-description">
-<p>The player's unique PUUID.</p>
+<p>The player's encrypted PUUID.</p>
 </div>
 </td>
 <td>
@@ -5001,7 +5001,7 @@ game.</p>
 </tr>
 <tr class="doc-section-item">
 <td>
-<code>region</code>
+<code>query.region</code>
 </td>
 <td>
 <code><span title="str">str</span></code>
@@ -5012,7 +5012,7 @@ game.</p>
 </div>
 </td>
 <td>
-<code><span title="fastapi.Query">Query</span>(<span title="fastapi.Query(default)">default</span>=<span title="app.config.settings.riot_default_region">riot_default_region</span>, <span title="fastapi.Query(description)">description</span>='Region code')</code>
+<em>required</em>
 </td>
 </tr>
 </tbody>
@@ -5043,15 +5043,14 @@ game.</p>
 <blockquote>
 <blockquote>
 <blockquote>
-<p>curl "http://127.0.0.1:8080/lol/spectator/v5/active-games/by-summoner/{puuid}?region=euw1"</p>
+<p>curl "http://127.0.0.1:8080/lol/spectator/v5/active-games/by-summoner/{encryptedPUUID}?region=euw1"</p>
 </blockquote>
 </blockquote>
 </blockquote>
 </details>
 <details class="quote">
 <summary>Source code in <code>app/routers/spectator.py</code></summary>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">16</span>
-<span class="normal">17</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">17</span>
 <span class="normal">18</span>
 <span class="normal">19</span>
 <span class="normal">20</span>
@@ -5082,9 +5081,14 @@ game.</p>
 <span class="normal">45</span>
 <span class="normal">46</span>
 <span class="normal">47</span>
-<span class="normal">48</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/active-games/by-summoner/</span><span class="si">{puuid}</span><span class="s2">"</span><span class="p">)</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/active-games/by-summoner/</span><span class="si">{encryptedPUUID}</span><span class="s2">"</span><span class="p">)</span>
 <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_active_game</span><span class="p">(</span>
-    <span class="n">puuid</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">region</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Query</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">riot_default_region</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Region code"</span><span class="p">)</span>
+    <span class="n">params</span><span class="p">:</span> <span class="n">ActiveGameParams</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(),</span>
+    <span class="n">query</span><span class="p">:</span> <span class="n">ActiveGameQuery</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(),</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Retrieves the active game for a summoner.</span>
@@ -5096,24 +5100,26 @@ game.</p>
 <span class="sd">    API Reference: https://developer.riotgames.com/apis#spectator-v5/GET_getCurrentGameInfoByPuuid</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        puuid (str): The player's unique PUUID.</span>
-<span class="sd">        region (str): The region to fetch the game data from.</span>
+<span class="sd">        params.encryptedPUUID (str): The player's encrypted PUUID.</span>
+<span class="sd">        query.region (str): The region to fetch the game data from.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        dict: A dictionary containing the active game information, including</span>
 <span class="sd">              game mode, start time, participants, and banned champions.</span>
 
 <span class="sd">    Example:</span>
-<span class="sd">        &gt;&gt;&gt; curl "http://127.0.0.1:8080/lol/spectator/v5/active-games/by-summoner/{puuid}?region=euw1"</span>
+<span class="sd">        &gt;&gt;&gt; curl "http://127.0.0.1:8080/lol/spectator/v5/active-games/by-summoner/{encryptedPUUID}?region=euw1"</span>
 <span class="sd">    """</span>
     <span class="k">return</span> <span class="k">await</span> <span class="n">fetch_with_cache</span><span class="p">(</span>
-        <span class="n">cache_key</span><span class="o">=</span><span class="sa">f</span><span class="s2">"spectator:active:</span><span class="si">{</span><span class="n">region</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">puuid</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+        <span class="n">cache_key</span><span class="o">=</span><span class="sa">f</span><span class="s2">"spectator:active:</span><span class="si">{</span><span class="n">query</span><span class="o">.</span><span class="n">region</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">params</span><span class="o">.</span><span class="n">encryptedPUUID</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
         <span class="n">resource_name</span><span class="o">=</span><span class="s2">"Active game"</span><span class="p">,</span>
         <span class="n">fetch_fn</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">riot_client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">"/lol/spectator/v5/active-games/by-summoner/</span><span class="si">{</span><span class="n">puuid</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="kc">False</span>
+            <span class="sa">f</span><span class="s2">"/lol/spectator/v5/active-games/by-summoner/</span><span class="si">{</span><span class="n">params</span><span class="o">.</span><span class="n">encryptedPUUID</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">region</span><span class="p">,</span>
+            <span class="kc">False</span><span class="p">,</span>
         <span class="p">),</span>
         <span class="n">ttl</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">cache_ttl_spectator_active</span><span class="p">,</span>
-        <span class="n">context</span><span class="o">=</span><span class="p">{</span><span class="s2">"puuid"</span><span class="p">:</span> <span class="n">puuid</span><span class="p">[:</span><span class="mi">8</span><span class="p">],</span> <span class="s2">"region"</span><span class="p">:</span> <span class="n">region</span><span class="p">},</span>
+        <span class="n">context</span><span class="o">=</span><span class="p">{</span><span class="s2">"encryptedPUUID"</span><span class="p">:</span> <span class="n">params</span><span class="o">.</span><span class="n">encryptedPUUID</span><span class="p">[:</span><span class="mi">8</span><span class="p">],</span> <span class="s2">"region"</span><span class="p">:</span> <span class="n">query</span><span class="o">.</span><span class="n">region</span><span class="p">},</span>
     <span class="p">)</span>
 </code></pre></div></td></tr></table></div>
 </details>
@@ -5121,7 +5127,7 @@ game.</p>
 </div>
 <div class="doc doc-object doc-function">
 <h3 class="doc doc-heading" id="app.routers.spectator.get_featured_games">
-<code class="highlight language-python"><span class="n">get_featured_games</span><span class="p">(</span><span class="n">region</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Query</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">riot_default_region</span><span class="p">),</span> <span class="n">description</span><span class="o">=</span><span class="s1">'Region code'</span><span class="p">))</span></code>
+<code class="highlight language-python"><span class="n">get_featured_games</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="n">FeaturedGamesQuery</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">())</span></code>
 <span class="doc doc-labels">
 <small class="doc doc-label doc-label-async"><code>async</code></small>
 </span>
@@ -5144,7 +5150,7 @@ featured in the League of Legends client.</p>
 <tbody>
 <tr class="doc-section-item">
 <td>
-<code>region</code>
+<code>query.region</code>
 </td>
 <td>
 <code><span title="str">str</span></code>
@@ -5155,7 +5161,7 @@ featured in the League of Legends client.</p>
 </div>
 </td>
 <td>
-<code><span title="fastapi.Query">Query</span>(<span title="fastapi.Query(default)">default</span>=<span title="app.config.settings.riot_default_region">riot_default_region</span>, <span title="fastapi.Query(description)">description</span>='Region code')</code>
+<em>required</em>
 </td>
 </tr>
 </tbody>
@@ -5193,11 +5199,7 @@ featured in the League of Legends client.</p>
 </details>
 <details class="quote">
 <summary>Source code in <code>app/routers/spectator.py</code></summary>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">55</span>
 <span class="normal">56</span>
 <span class="normal">57</span>
 <span class="normal">58</span>
@@ -5221,9 +5223,13 @@ featured in the League of Legends client.</p>
 <span class="normal">76</span>
 <span class="normal">77</span>
 <span class="normal">78</span>
-<span class="normal">79</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/featured-games"</span><span class="p">)</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/featured-games"</span><span class="p">)</span>
 <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_featured_games</span><span class="p">(</span>
-    <span class="n">region</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Query</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">riot_default_region</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Region code"</span><span class="p">),</span>
+    <span class="n">query</span><span class="p">:</span> <span class="n">FeaturedGamesQuery</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(),</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Retrieves a list of featured games.</span>
@@ -5234,7 +5240,7 @@ featured in the League of Legends client.</p>
 <span class="sd">    API Reference: https://developer.riotgames.com/apis#spectator-v5/GET_getFeaturedGames</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        region (str): The region to fetch the featured games from.</span>
+<span class="sd">        query.region (str): The region to fetch the featured games from.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        dict: A dictionary containing the list of featured games and the</span>
@@ -5244,11 +5250,11 @@ featured in the League of Legends client.</p>
 <span class="sd">        &gt;&gt;&gt; curl "http://127.0.0.1:8080/lol/spectator/v5/featured-games?region=euw1"</span>
 <span class="sd">    """</span>
     <span class="k">return</span> <span class="k">await</span> <span class="n">fetch_with_cache</span><span class="p">(</span>
-        <span class="n">cache_key</span><span class="o">=</span><span class="sa">f</span><span class="s2">"spectator:featured:</span><span class="si">{</span><span class="n">region</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+        <span class="n">cache_key</span><span class="o">=</span><span class="sa">f</span><span class="s2">"spectator:featured:</span><span class="si">{</span><span class="n">query</span><span class="o">.</span><span class="n">region</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
         <span class="n">resource_name</span><span class="o">=</span><span class="s2">"Featured games"</span><span class="p">,</span>
-        <span class="n">fetch_fn</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">riot_client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/lol/spectator/v5/featured-games"</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="n">fetch_fn</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">riot_client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/lol/spectator/v5/featured-games"</span><span class="p">,</span> <span class="n">query</span><span class="o">.</span><span class="n">region</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
         <span class="n">ttl</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">cache_ttl_spectator_featured</span><span class="p">,</span>
-        <span class="n">context</span><span class="o">=</span><span class="p">{</span><span class="s2">"region"</span><span class="p">:</span> <span class="n">region</span><span class="p">},</span>
+        <span class="n">context</span><span class="o">=</span><span class="p">{</span><span class="s2">"region"</span><span class="p">:</span> <span class="n">query</span><span class="o">.</span><span class="n">region</span><span class="p">},</span>
     <span class="p">)</span>
 </code></pre></div></td></tr></table></div>
 </details>

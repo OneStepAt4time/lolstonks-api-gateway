@@ -1499,22 +1499,24 @@
         }
       }
     },
-    "/lol/spectator/v5/active-games/by-summoner/{puuid}": {
+    "/lol/spectator/v5/active-games/by-summoner/{encryptedPUUID}": {
       "get": {
         "tags": [
           "spectator"
         ],
         "summary": "Get Active Game",
-        "description": "Retrieves the active game for a summoner.\n\nThis endpoint fetches the current game information for a player, if they\nare currently in a game. It returns a 404 error if the player is not in a\ngame.\n\nAPI Reference: https://developer.riotgames.com/apis#spectator-v5/GET_getCurrentGameInfoByPuuid\n\nArgs:\n    puuid (str): The player's unique PUUID.\n    region (str): The region to fetch the game data from.\n\nReturns:\n    dict: A dictionary containing the active game information, including\n          game mode, start time, participants, and banned champions.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/spectator/v5/active-games/by-summoner/{puuid}?region=euw1\"",
-        "operationId": "get_active_game_lol_spectator_v5_active_games_by_summoner__puuid__get",
+        "description": "Retrieves the active game for a summoner.\n\nThis endpoint fetches the current game information for a player, if they\nare currently in a game. It returns a 404 error if the player is not in a\ngame.\n\nAPI Reference: https://developer.riotgames.com/apis#spectator-v5/GET_getCurrentGameInfoByPuuid\n\nArgs:\n    params.encryptedPUUID (str): The player's encrypted PUUID.\n    query.region (str): The region to fetch the game data from.\n\nReturns:\n    dict: A dictionary containing the active game information, including\n          game mode, start time, participants, and banned champions.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/spectator/v5/active-games/by-summoner/{encryptedPUUID}?region=euw1\"",
+        "operationId": "get_active_game_lol_spectator_v5_active_games_by_summoner__encryptedPUUID__get",
         "parameters": [
           {
-            "name": "puuid",
+            "name": "encryptedPUUID",
             "in": "path",
             "required": true,
             "schema": {
               "type": "string",
-              "title": "Puuid"
+              "minLength": 1,
+              "maxLength": 100,
+              "title": "Encryptedpuuid"
             }
           },
           {
@@ -1522,12 +1524,9 @@
             "in": "query",
             "required": false,
             "schema": {
-              "type": "string",
-              "description": "Region code",
-              "default": "euw1",
-              "title": "Region"
-            },
-            "description": "Region code"
+              "$ref": "#/components/schemas/GameRegion",
+              "default": "euw1"
+            }
           }
         ],
         "responses": {
@@ -1558,7 +1557,7 @@
           "spectator"
         ],
         "summary": "Get Featured Games",
-        "description": "Retrieves a list of featured games.\n\nThis endpoint fetches a list of high-profile matches that are currently\nfeatured in the League of Legends client.\n\nAPI Reference: https://developer.riotgames.com/apis#spectator-v5/GET_getFeaturedGames\n\nArgs:\n    region (str): The region to fetch the featured games from.\n\nReturns:\n    dict: A dictionary containing the list of featured games and the\n          client refresh interval.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/spectator/v5/featured-games?region=euw1\"",
+        "description": "Retrieves a list of featured games.\n\nThis endpoint fetches a list of high-profile matches that are currently\nfeatured in the League of Legends client.\n\nAPI Reference: https://developer.riotgames.com/apis#spectator-v5/GET_getFeaturedGames\n\nArgs:\n    query.region (str): The region to fetch the featured games from.\n\nReturns:\n    dict: A dictionary containing the list of featured games and the\n          client refresh interval.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/spectator/v5/featured-games?region=euw1\"",
         "operationId": "get_featured_games_lol_spectator_v5_featured_games_get",
         "parameters": [
           {
@@ -1566,12 +1565,9 @@
             "in": "query",
             "required": false,
             "schema": {
-              "type": "string",
-              "description": "Region code",
-              "default": "euw1",
-              "title": "Region"
-            },
-            "description": "Region code"
+              "$ref": "#/components/schemas/GameRegion",
+              "default": "euw1"
+            }
           }
         ],
         "responses": {
