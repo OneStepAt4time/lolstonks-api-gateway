@@ -8,10 +8,17 @@ consistent logging across all endpoints.
 from typing import Any, Awaitable, Callable
 
 import httpx
-from fastapi import HTTPException
 from loguru import logger
 
 from app.cache.redis_cache import cache
+from app.exceptions import (
+    RiotAPIException,
+    UnauthorizedException,
+    ForbiddenException,
+    NotFoundException,
+    RateLimitException,
+    InternalServerException,
+)
 
 
 async def fetch_with_cache(
@@ -72,11 +79,11 @@ async def fetch_with_cache(
         # Handle authentication/authorization errors from Riot client
         error_msg = str(e)
         if "invalid or expired" in error_msg.lower():
-            raise HTTPException(status_code=401, detail=error_msg)
+            raise UnauthorizedException(message=error_msg)
         elif "access" in error_msg.lower():
-            raise HTTPException(status_code=403, detail=error_msg)
+            raise ForbiddenException(message=error_msg)
         else:
-            raise HTTPException(status_code=500, detail=f"Authentication error: {error_msg}")
+            raise InternalServerException(error_type="Authentication error", details=error_msg)
     except httpx.HTTPStatusError as e:
         # Handle HTTP errors from API calls
         error_msg = str(e)
@@ -90,18 +97,18 @@ async def fetch_with_cache(
                     **context,
                 )
                 # Provide more helpful error message for Data Dragon
-                raise HTTPException(
-                    status_code=403,
-                    detail=f"Data Dragon access forbidden. The 'latest' version alias is no longer supported. Please specify an actual version number or contact support. URL: {e.request.url}",
+                raise ForbiddenException(
+                    message=f"Data Dragon access forbidden. The 'latest' version alias is no longer supported. Please specify an actual version number or contact support. URL: {e.request.url}"
                 )
             else:
-                raise HTTPException(status_code=403, detail=f"Access forbidden: {error_msg}")
+                raise ForbiddenException()
 
         # Handle other HTTP status codes
         if e.response.status_code == 404:
-            raise HTTPException(status_code=404, detail=f"Resource not found: {error_msg}")
+            raise NotFoundException(resource_type=resource_name)
         elif e.response.status_code == 429:
-            raise HTTPException(status_code=429, detail=f"Rate limit exceeded: {error_msg}")
+            retry_after = int(e.response.headers.get("Retry-After", 1))
+            raise RateLimitException(retry_after=retry_after)
         elif 500 <= e.response.status_code < 600:
             logger.error(
                 f"Server error fetching {resource_name}: {error_msg}",
@@ -109,15 +116,16 @@ async def fetch_with_cache(
                 url=str(e.request.url),
                 **context,
             )
-            raise HTTPException(status_code=502, detail=f"Upstream server error: {error_msg}")
+            raise InternalServerException(error_type="Upstream server error", details=error_msg)
         else:
-            raise HTTPException(
-                status_code=e.response.status_code, detail=f"HTTP error: {error_msg}"
-            )
+            raise InternalServerException(error_type="HTTP error", details=error_msg)
+    except RiotAPIException:
+        # Re-raise our custom API exceptions without wrapping
+        raise
     except Exception as e:
         # Handle any other unexpected errors
         logger.error(f"Unexpected error fetching {resource_name}: {e}", **context)
-        raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
+        raise InternalServerException(error_type="Unexpected error", details=str(e))
 
     # Store in cache
     await cache.set(cache_key, data, ttl=ttl)

@@ -4,9 +4,9 @@ Get up and running with the LOLStonks API Gateway in minutes.
 
 ## Prerequisites
 
-- ✅ Installation completed (see [Installation Guide](installation.md))
-- ✅ Redis server running
-- ✅ Riot API key configured in `.env`
+- Installation completed (see [Installation Guide](installation.md))
+- Redis server running
+- Riot API key configured in `.env`
 
 ## Start the Gateway
 
@@ -80,8 +80,8 @@ curl "http://localhost:8080/summoner/by-name/Faker?region=kr"
 ### 2. Get Current Match
 
 ```bash
-# Get active game for a summoner
-curl "http://localhost:8080/spectator/active-game/KqOw12p4b3bLp5b6p7?region=kr"
+# Get active game for a summoner (using encrypted PUUID)
+curl "http://localhost:8080/lol/spectator/v5/active-games/by-summoner/KqOw12p4b3bLp5b6p7?region=kr"
 
 # Response contains game information
 {
@@ -143,9 +143,9 @@ async def get_summoner_data():
         summoner = response.json()
         print(f"Summoner: {summoner['name']} (Level: {summoner['summonerLevel']})")
 
-        # Get current match
+        # Get current match (using encrypted PUUID)
         response = await client.get(
-            f"http://localhost:8080/spectator/active-game/{summoner['id']}",
+            f"http://localhost:8080/lol/spectator/v5/active-games/by-summoner/{summoner['puuid']}",
             params={"region": "kr"}
         )
 

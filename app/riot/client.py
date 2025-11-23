@@ -8,13 +8,21 @@ Provides a wrapper around httpx for making requests to Riot API with:
 - Authentication header management
 """
 
-import asyncio
 from typing import TYPE_CHECKING
 
 import httpx
 from loguru import logger
 
 from app.config import settings
+from app.exceptions import (
+    BadRequestException,
+    ForbiddenException,
+    InternalServerException,
+    NotFoundException,
+    RateLimitException,
+    ServiceUnavailableException,
+    UnauthorizedException,
+)
 from app.riot.key_rotator import KeyRotator
 from app.riot.rate_limiter import rate_limiter
 from app.riot.regions import get_base_url
@@ -32,6 +40,31 @@ class RiotClient:
 
     Supports multiple API keys with round-robin rotation for load distribution.
     """
+
+    @staticmethod
+    def _extract_riot_message(response: httpx.Response, fallback: str = "") -> str:
+        """
+        Extract the exact error message from Riot API response.
+
+        Riot API returns errors in format: {"status": {"message": "...", "status_code": ...}}
+        This method extracts the message field exactly as provided by Riot.
+
+        Args:
+            response: The httpx Response object from Riot API
+            fallback: Fallback message if extraction fails
+
+        Returns:
+            The exact error message from Riot, or fallback if not found
+        """
+        try:
+            error_data = response.json()
+            if "status" in error_data and "message" in error_data["status"]:
+                message = error_data["status"]["message"]
+                return str(message) if message else fallback
+            # Try response text as fallback
+            return response.text or fallback
+        except Exception:
+            return fallback
 
     def __init__(self, settings_override: "Settings | None" = None):
         """Initialize HTTP client with key rotation support.
@@ -129,6 +162,31 @@ class RiotClient:
         # Debug: Log status code for troubleshooting
         logger.info(f"Riot API status: {response.status_code} for {url}")
 
+        # Handle error responses with custom exceptions - use EXACT Riot messages
+        # Handle 400 (Bad Request) - Invalid request parameters
+        if response.status_code == 400:
+            error_msg = self._extract_riot_message(response, "Bad Request")
+            logger.warning(f"Bad request (400): {error_msg} [region={region}]")
+            raise BadRequestException(details=error_msg)
+
+        # Handle 401 (Unauthorized) - API key invalid or expired
+        if response.status_code == 401:
+            error_msg = self._extract_riot_message(response, "Unauthorized")
+            logger.error(f"Authentication failed (401): {error_msg} [region={region}]")
+            raise UnauthorizedException(message=error_msg)
+
+        # Handle 403 (Forbidden) - API key doesn't have access or endpoint/region restriction
+        if response.status_code == 403:
+            error_msg = self._extract_riot_message(response, "Forbidden")
+            logger.error(f"Access forbidden (403): {error_msg} [region={region}]")
+            raise ForbiddenException(message=error_msg)
+
+        # Handle 404 (Not Found) - Resource doesn't exist
+        if response.status_code == 404:
+            error_msg = self._extract_riot_message(response, "Data not found")
+            logger.info(f"Resource not found (404): {error_msg} [region={region}]")
+            raise NotFoundException(resource_type=error_msg)
+
         # Handle 429 (rate limited) - try next key or wait if all exhausted
         if response.status_code == 429:
             retry_after = int(response.headers.get("Retry-After", 1))
@@ -144,29 +202,33 @@ class RiotClient:
                     path, region, is_platform_endpoint, params, _attempted_keys=_attempted_keys + 1
                 )
 
-            # All keys exhausted - wait before trying again
+            # All keys exhausted - raise rate limit exception with exact Riot message
+            error_msg = self._extract_riot_message(response, "Rate limit exceeded")
             logger.warning(
-                f"All {total_keys} keys rate limited (429), waiting {retry_after}s before retry"
+                f"All {total_keys} keys rate limited (429): {error_msg} [retry_after={retry_after}s]"
             )
-            await asyncio.sleep(retry_after)
+            raise RateLimitException(retry_after=retry_after, message=error_msg)
 
-            # Reset counter and try again from first key
-            return await self.get(path, region, is_platform_endpoint, params, _attempted_keys=0)
+        # Handle 500 (Internal Server Error) - Riot API server error
+        if response.status_code == 500:
+            error_msg = self._extract_riot_message(response, "Internal server error")
+            logger.error(f"Server error (500): {error_msg} [region={region}]")
+            raise InternalServerException(error_type=error_msg)
 
-        # Handle 401 (Unauthorized) - API key invalid or expired
-        if response.status_code == 401:
-            error_msg = "API key is invalid or expired"
-            logger.error(f"Authentication failed (401): {error_msg} [region={region}]")
-            raise ValueError(error_msg)
+        # Handle 503 (Service Unavailable) - Riot API is down or under maintenance
+        if response.status_code == 503:
+            error_msg = self._extract_riot_message(response, "Service unavailable")
+            logger.error(f"Service unavailable (503): {error_msg} [region={region}]")
+            raise ServiceUnavailableException(message=error_msg)
 
-        # Handle 403 (Forbidden) - API key doesn't have access or endpoint/region restriction
-        if response.status_code == 403:
-            error_msg = "API key doesn't have access to this endpoint or region"
-            logger.error(f"Access forbidden (403): {error_msg} [region={region}]")
-            raise ValueError(error_msg)
-
-        # Raise on other HTTP errors
-        response.raise_for_status()
+        # Handle other HTTP errors
+        if response.status_code >= 400:
+            error_msg = self._extract_riot_message(response, f"HTTP {response.status_code}")
+            logger.error(f"{error_msg} [region={region}]")
+            if response.status_code >= 500:
+                raise InternalServerException(error_type=error_msg)
+            else:
+                raise BadRequestException(details=error_msg)
 
         # Return JSON response
         return response.json()  # type: ignore[no-any-return]

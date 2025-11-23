@@ -18,6 +18,7 @@ from loguru import logger
 from starlette.middleware.base import BaseHTTPMiddleware
 
 from app.models.common import ErrorMetrics, ErrorRecord
+from app.utils.error_formatter import format_error_response
 
 
 # Global instance reference for router access
@@ -203,15 +204,15 @@ class ErrorMonitoringMiddleware(BaseHTTPMiddleware):
             f"duration: {duration:.3f}s)"
         )
 
-        # Return standardized error response
+        # Return standardized error response in OpenAPI Error format
+        error_content = format_error_response(
+            status_code=500,
+            message=f"Internal server error: {type(exc).__name__}",
+        )
+
         return JSONResponse(
             status_code=500,
-            content={
-                "error": "Internal Server Error",
-                "message": "An unexpected error occurred while processing your request.",
-                "error_id": f"{int(error_record.timestamp)}_{hash(endpoint) % 10000:04d}",
-                "timestamp": error_record.timestamp,
-            },
+            content=error_content,
         )
 
     def _record_error(self, error_record: ErrorRecord):

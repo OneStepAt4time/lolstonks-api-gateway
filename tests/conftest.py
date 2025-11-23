@@ -1,7 +1,13 @@
 """Pytest configuration and fixtures for testing."""
 
+import asyncio
 import os
+import sys
 from typing import AsyncGenerator, Generator
+
+# Fix for Windows event loop cleanup issue
+if sys.platform == "win32":
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 import pytest
 from fastapi.testclient import TestClient

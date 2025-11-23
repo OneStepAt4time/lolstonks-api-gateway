@@ -7,7 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- **Spectator endpoint parameter**: Changed from `puuid` to `encryptedPUUID` to match Riot API specification
+- **Clash endpoint clarification**: Confirmed `/lol/clash/v1/players/by-puuid/{puuid}` is correct (Riot deprecated `/by-summoner/` variant during PUUID migration)
+- **Windows async test compatibility**: Added event loop policy fix for Windows platform in conftest.py
+
 ### Added
+- **Comprehensive integration test suite**: 83 tests across 4 modules with 69% code coverage
+  - `tests/integration/test_endpoints.py`: 28 tests for all 12 required API endpoints
+  - `tests/integration/test_caching.py`: 11 tests for cache behavior (hit/miss, TTL, force refresh)
+  - `tests/integration/test_regional_routing.py`: 19 tests for platform and game region routing
+  - `tests/integration/test_pagination.py`: 25 tests for pagination across League, Match, and Mastery APIs
 - Changelog workflow and documentation
 - **Dependency vulnerability scanning**: pip-audit integration in CI workflow for automatic dependency security checks
 - **Dependabot configuration**: Automated dependency updates for Python, GitHub Actions, and Docker

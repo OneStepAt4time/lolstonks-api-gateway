@@ -38,6 +38,20 @@ LOLStonks API Gateway is a high-performance proxy for League of Legends APIs fea
 
 ---
 
+## Recent Updates
+
+### API Fixes & Compliance
+- **Spectator Endpoint Fixed**: Parameter updated from `{puuid}` to `{encryptedPUUID}` to match Riot API specification
+- **Clash Endpoint Verified**: Confirmed `/lol/clash/v1/players/by-puuid/{puuid}` is the correct endpoint (Riot deprecated `/by-summoner/` during PUUID migration)
+
+### Testing & Quality
+- **Integration Test Suite**: 83 comprehensive tests added (69% code coverage)
+- **Cache Behavior Tests**: Validated TTL, force refresh, and anti-reprocess logic
+- **Regional Routing Tests**: Platform (americas/europe/asia) and game regions (na1/euw1/kr) verified
+- **Pagination Tests**: League entries, Match IDs, and Champion Mastery pagination validated
+
+---
+
 ## Features
 
 ### Performance & Reliability
@@ -128,7 +142,7 @@ HOST=127.0.0.1
 PORT=8080
 ```
 
-**⚙️ Full Configuration**: See [Configuration Guide](https://onestepat4time.github.io/lolstonks-api-gateway/getting-started/configuration/)
+**Full Configuration**: See [Configuration Guide](https://onestepat4time.github.io/lolstonks-api-gateway/getting-started/configuration/)
 
 ---
 

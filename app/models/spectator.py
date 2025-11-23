@@ -4,11 +4,11 @@ Riot Developer Portal API Reference:
 https://developer.riotgames.com/apis#spectator-v5
 """
 
-from app.models.common import HasPuuid, RegionQuery
+from app.models.common import HasEncryptedPuuid, RegionQuery
 
 
-class ActiveGameParams(HasPuuid):
-    """Path parameters for GET /lol/spectator/v5/active-games/by-summoner/{puuid}."""
+class ActiveGameParams(HasEncryptedPuuid):
+    """Path parameters for GET /lol/spectator/v5/active-games/by-summoner/{encryptedPUUID}."""
 
     pass
 
