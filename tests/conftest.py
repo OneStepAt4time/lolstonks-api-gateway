@@ -77,6 +77,66 @@ def mock_riot_response():
 
 
 @pytest.fixture(autouse=True)
+def reset_riot_client():
+    """
+    Reset Riot API client for each test.
+
+    This ensures the httpx.AsyncClient is recreated with a fresh state,
+    preventing "RuntimeError: Event loop is closed" errors.
+    """
+    from app.riot.client import riot_client
+    import httpx
+    from app.config import settings
+
+    # Store original client
+    original_client = riot_client.client
+
+    # Close existing client if it exists
+    try:
+        import asyncio
+
+        try:
+            loop = asyncio.get_running_loop()
+            # Event loop is running, can't close synchronously
+        except RuntimeError:
+            # No running loop, create new one for cleanup
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            try:
+                loop.run_until_complete(original_client.aclose())
+            finally:
+                loop.close()
+    except Exception:
+        # Ignore errors during cleanup of old client
+        pass
+
+    # Create new AsyncClient
+    riot_client.client = httpx.AsyncClient(
+        timeout=settings.riot_request_timeout,
+    )
+
+    yield
+
+    # Cleanup after test - recreate for next test
+    try:
+        import asyncio
+
+        try:
+            loop = asyncio.get_running_loop()
+            # Event loop is running, can't close synchronously
+        except RuntimeError:
+            # No running loop, create new one for cleanup
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            try:
+                loop.run_until_complete(riot_client.client.aclose())
+            finally:
+                loop.close()
+    except Exception:
+        pass
+
+
+@pytest.fixture(autouse=True)
 def reset_cache():
     """Reset cache between tests if needed."""
     # This fixture runs automatically before each test

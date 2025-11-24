@@ -59,8 +59,8 @@ async def test_cache_hit_on_second_request(async_client: AsyncClient):
 
     # Act
     with patch("app.riot.client.riot_client.get", new=mock_get):
-        with patch("app.cache.redis_client.redis_client.get", new=mock_cache_get):
-            with patch("app.cache.redis_client.redis_client.set", new=mock_cache_set):
+        with patch("app.cache.redis_cache.cache.get", new=mock_cache_get):
+            with patch("app.cache.redis_cache.cache.set", new=mock_cache_set):
                 # First request - cache miss
                 response1 = await async_client.get(
                     "/lol/summoner/v4/summoners/by-puuid/puuid-123?region=euw1"
@@ -162,7 +162,7 @@ async def test_cache_respects_ttl_config(async_client: AsyncClient):
 
     # Act
     with patch("app.riot.client.riot_client.get", new=AsyncMock(return_value=mock_response)):
-        with patch("app.cache.redis_client.redis_client.set", new=mock_cache_set):
+        with patch("app.cache.redis_cache.cache.set", new=mock_cache_set):
             await async_client.get("/riot/account/v1/accounts/by-riot-id/TTLTest/TST?region=europe")
 
     # Assert - verify cache.set was called with TTL parameter
@@ -187,7 +187,7 @@ async def test_cache_expiration_refetches_data(async_client: AsyncClient):
     with patch("app.riot.client.riot_client.get") as mock_get:
         mock_get.side_effect = [mock_response_1, mock_response_2]
 
-        with patch("app.cache.redis_client.redis_client.get", new=mock_cache_get):
+        with patch("app.cache.redis_cache.cache.get", new=mock_cache_get):
             # First request - cache expired
             response1 = await async_client.get(
                 "/lol/summoner/v4/summoners/by-puuid/test-puuid?region=na1"
@@ -251,7 +251,7 @@ async def test_force_refresh_updates_cache(async_client: AsyncClient):
     with patch("app.riot.client.riot_client.get") as mock_get:
         mock_get.return_value = mock_new_data
 
-        with patch("app.cache.redis_client.redis_client.set", new=mock_cache_set):
+        with patch("app.cache.redis_cache.cache.set", new=mock_cache_set):
             response = await async_client.get(
                 "/lol/summoner/v4/summoners/by-puuid/test-puuid?region=kr&force=true"
             )
@@ -334,7 +334,7 @@ async def test_cache_failure_falls_back_to_api(async_client: AsyncClient):
 
     # Act
     with patch("app.riot.client.riot_client.get", new=AsyncMock(return_value=mock_response)):
-        with patch("app.cache.redis_client.redis_client.get", new=mock_cache_get):
+        with patch("app.cache.redis_cache.cache.get", new=mock_cache_get):
             response = await async_client.get(
                 "/riot/account/v1/accounts/by-riot-id/Fallback/FB?region=americas"
             )
