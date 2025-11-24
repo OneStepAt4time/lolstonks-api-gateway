@@ -6,11 +6,11 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="Unified League of Legends API Gateway with caching, rate limiting, and comprehensive monitoring" name="description"/>
-<link href="../cache/" rel="prev"/>
-<link href="../../architecture/overview/" rel="next"/>
+<link href="../system-overview/" rel="prev"/>
+<link href="../implementation-details/" rel="next"/>
 <link href="../../assets/logo.png" rel="icon"/>
 <meta content="mkdocs-1.6.1, mkdocs-material-9.6.23" name="generator"/>
-<title>Security - LOLStonks API Gateway</title>
+<title>Data Flow - LOLStonks API Gateway</title>
 <link href="../../assets/stylesheets/main.84d31ad4.min.css" rel="stylesheet"/>
 <link href="../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -24,7 +24,7 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#security-api">
+<a class="md-skip" href="#data-flow-architecture">
           Skip to content
         </a>
 </div>
@@ -48,7 +48,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              Security
+              Data Flow
             
           </span>
 </div>
@@ -132,8 +132,8 @@
 
         </a>
 </li>
-<li class="md-tabs__item md-tabs__item--active">
-<a class="md-tabs__link" href="../openapi-spec/">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../api/openapi-spec/">
           
   
   
@@ -143,8 +143,8 @@
 
         </a>
 </li>
-<li class="md-tabs__item">
-<a class="md-tabs__link" href="../../architecture/overview/">
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../overview/">
           
   
   
@@ -262,29 +262,103 @@
 </ul>
 </nav>
 </li>
-<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
-<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
-<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
 <span class="md-ellipsis">
     API Reference
     
   </span>
 <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
 <label class="md-nav__title" for="__nav_3">
 <span class="md-nav__icon md-icon"></span>
             API Reference
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../openapi-spec/">
+<a class="md-nav__link" href="../../api/openapi-spec/">
 <span class="md-ellipsis">
     OpenAPI Specification
     
   </span>
 </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/overview/">
+<span class="md-ellipsis">
+    Overview
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/providers/">
+<span class="md-ellipsis">
+    Providers
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/riot-client/">
+<span class="md-ellipsis">
+    Riot Client
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/models/">
+<span class="md-ellipsis">
+    Models
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/routers/">
+<span class="md-ellipsis">
+    Routers
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/cache/">
+<span class="md-ellipsis">
+    Cache
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/security/">
+<span class="md-ellipsis">
+    Security
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+<span class="md-ellipsis">
+    Architecture
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+            Architecture
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
 <a class="md-nav__link" href="../overview/">
 <span class="md-ellipsis">
@@ -294,41 +368,17 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../providers/">
+<a class="md-nav__link" href="../diagram-guide/">
 <span class="md-ellipsis">
-    Providers
+    Diagram Guide
     
   </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../riot-client/">
+<a class="md-nav__link" href="../system-overview/">
 <span class="md-ellipsis">
-    Riot Client
-    
-  </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../models/">
-<span class="md-ellipsis">
-    Models
-    
-  </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../routers/">
-<span class="md-ellipsis">
-    Routers
-    
-  </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../cache/">
-<span class="md-ellipsis">
-    Cache
+    System Overview
     
   </span>
 </a>
@@ -337,14 +387,14 @@
 <input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
 <label class="md-nav__link md-nav__link--active" for="__toc">
 <span class="md-ellipsis">
-    Security
+    Data Flow
     
   </span>
 <span class="md-nav__icon md-icon"></span>
 </label>
 <a class="md-nav__link md-nav__link--active" href="./">
 <span class="md-ellipsis">
-    Security
+    Data Flow
     
   </span>
 </a>
@@ -355,31 +405,31 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#security-endpoints">
+<a class="md-nav__link" href="#overview">
 <span class="md-ellipsis">
-      Security Endpoints
+      Overview
     </span>
 </a>
-<nav aria-label="Security Endpoints" class="md-nav">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#complete-request-flow">
+<span class="md-ellipsis">
+      Complete Request Flow
+    </span>
+</a>
+<nav aria-label="Complete Request Flow" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#security-status-overview">
+<a class="md-nav__link" href="#end-to-end-request-processing">
 <span class="md-ellipsis">
-      Security Status Overview
+      End-to-End Request Processing
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#security-headers-validation">
+<a class="md-nav__link" href="#performance-breakdown">
 <span class="md-ellipsis">
-      Security Headers Validation
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#security-health-check">
-<span class="md-ellipsis">
-      Security Health Check
+      Performance Breakdown
     </span>
 </a>
 </li>
@@ -387,45 +437,31 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#security-features">
+<a class="md-nav__link" href="#cache-flow-detailed">
 <span class="md-ellipsis">
-      Security Features
+      Cache Flow Detailed
     </span>
 </a>
-<nav aria-label="Security Features" class="md-nav">
+<nav aria-label="Cache Flow Detailed" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#1-host-binding-security">
+<a class="md-nav__link" href="#cache-hit-path-fast-path">
 <span class="md-ellipsis">
-      1. Host Binding Security
+      Cache Hit Path (Fast Path)
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#2-api-key-rotation">
+<a class="md-nav__link" href="#cache-miss-path-slow-path">
 <span class="md-ellipsis">
-      2. API Key Rotation
+      Cache Miss Path (Slow Path)
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#3-input-validation">
+<a class="md-nav__link" href="#force-refresh-path">
 <span class="md-ellipsis">
-      3. Input Validation
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#4-rate-limiting">
-<span class="md-ellipsis">
-      4. Rate Limiting
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#5-error-monitoring">
-<span class="md-ellipsis">
-      5. Error Monitoring
+      Force Refresh Path
     </span>
 </a>
 </li>
@@ -433,38 +469,24 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#security-best-practices">
+<a class="md-nav__link" href="#cache-ttl-strategy">
 <span class="md-ellipsis">
-      Security Best Practices
+      Cache TTL Strategy
     </span>
 </a>
-<nav aria-label="Security Best Practices" class="md-nav">
+<nav aria-label="Cache TTL Strategy" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#api-key-management">
+<a class="md-nav__link" href="#ttl-configuration-by-data-type">
 <span class="md-ellipsis">
-      API Key Management
+      TTL Configuration by Data Type
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#network-security">
+<a class="md-nav__link" href="#dynamic-ttl-adjustment">
 <span class="md-ellipsis">
-      Network Security
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#input-validation">
-<span class="md-ellipsis">
-      Input Validation
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#monitoring-logging">
-<span class="md-ellipsis">
-      Monitoring &amp; Logging
+      Dynamic TTL Adjustment
     </span>
 </a>
 </li>
@@ -472,24 +494,38 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#security-headers">
+<a class="md-nav__link" href="#error-handling-flow">
 <span class="md-ellipsis">
-      Security Headers
+      Error Handling Flow
     </span>
 </a>
-<nav aria-label="Security Headers" class="md-nav">
+<nav aria-label="Error Handling Flow" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#default-headers">
+<a class="md-nav__link" href="#error-propagation-and-recovery">
 <span class="md-ellipsis">
-      Default Headers
+      Error Propagation and Recovery
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#cors-configuration">
+<a class="md-nav__link" href="#error-response-format">
 <span class="md-ellipsis">
-      CORS Configuration
+      Error Response Format
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#http-status-code-mapping">
+<span class="md-ellipsis">
+      HTTP Status Code Mapping
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#retry-strategy">
+<span class="md-ellipsis">
+      Retry Strategy
     </span>
 </a>
 </li>
@@ -497,31 +533,24 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#security-monitoring">
+<a class="md-nav__link" href="#provider-selection-flow">
 <span class="md-ellipsis">
-      Security Monitoring
+      Provider Selection Flow
     </span>
 </a>
-<nav aria-label="Security Monitoring" class="md-nav">
+<nav aria-label="Provider Selection Flow" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#real-time-metrics">
+<a class="md-nav__link" href="#dynamic-provider-routing">
 <span class="md-ellipsis">
-      Real-time Metrics
+      Dynamic Provider Routing
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#alert-conditions">
+<a class="md-nav__link" href="#provider-selection-logic">
 <span class="md-ellipsis">
-      Alert Conditions
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#health-check-integration">
-<span class="md-ellipsis">
-      Health Check Integration
+      Provider Selection Logic
     </span>
 </a>
 </li>
@@ -529,38 +558,24 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#troubleshooting-security-issues">
+<a class="md-nav__link" href="#regional-routing">
 <span class="md-ellipsis">
-      Troubleshooting Security Issues
+      Regional Routing
     </span>
 </a>
-<nav aria-label="Troubleshooting Security Issues" class="md-nav">
+<nav aria-label="Regional Routing" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#host-binding-issues">
+<a class="md-nav__link" href="#region-mapping-and-validation">
 <span class="md-ellipsis">
-      Host Binding Issues
+      Region Mapping and Validation
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#api-key-issues">
+<a class="md-nav__link" href="#region-configuration">
 <span class="md-ellipsis">
-      API Key Issues
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#input-validation-issues">
-<span class="md-ellipsis">
-      Input Validation Issues
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cors-issues">
-<span class="md-ellipsis">
-      CORS Issues
+      Region Configuration
     </span>
 </a>
 </li>
@@ -568,85 +583,74 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#security-configuration-reference">
+<a class="md-nav__link" href="#performance-optimization">
 <span class="md-ellipsis">
-      Security Configuration Reference
+      Performance Optimization
     </span>
 </a>
-<nav aria-label="Security Configuration Reference" class="md-nav">
+<nav aria-label="Performance Optimization" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#environment-variables">
+<a class="md-nav__link" href="#request-coalescing">
 <span class="md-ellipsis">
-      Environment Variables
+      Request Coalescing
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#security-headers_1">
+<a class="md-nav__link" href="#compression">
 <span class="md-ellipsis">
-      Security Headers
+      Compression
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#connection-pooling">
+<span class="md-ellipsis">
+      Connection Pooling
     </span>
 </a>
 </li>
 </ul>
 </nav>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cross-references">
+<span class="md-ellipsis">
+      Cross-References
+    </span>
+</a>
+<nav aria-label="Cross-References" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#related-documentation">
+<span class="md-ellipsis">
+      Related Documentation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#implementation-files">
+<span class="md-ellipsis">
+      Implementation Files
+    </span>
+</a>
+</li>
 </ul>
 </nav>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#monitoring-checklist">
+<span class="md-ellipsis">
+      Monitoring Checklist
+    </span>
+</a>
+</li>
 </ul>
 </nav>
 </li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4" type="checkbox"/>
-<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
-<span class="md-ellipsis">
-    Architecture
-    
-  </span>
-<span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
-<label class="md-nav__title" for="__nav_4">
-<span class="md-nav__icon md-icon"></span>
-            Architecture
-          </label>
-<ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../architecture/overview/">
-<span class="md-ellipsis">
-    Overview
-    
-  </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../architecture/diagram-guide/">
-<span class="md-ellipsis">
-    Diagram Guide
-    
-  </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../architecture/system-overview/">
-<span class="md-ellipsis">
-    System Overview
-    
-  </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../architecture/data-flow/">
-<span class="md-ellipsis">
-    Data Flow
-    
-  </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../architecture/implementation-details/">
+<a class="md-nav__link" href="../implementation-details/">
 <span class="md-ellipsis">
     Implementation Details
     
@@ -654,7 +658,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../architecture/models/">
+<a class="md-nav__link" href="../models/">
 <span class="md-ellipsis">
     Data Models
     
@@ -787,31 +791,31 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#security-endpoints">
+<a class="md-nav__link" href="#overview">
 <span class="md-ellipsis">
-      Security Endpoints
+      Overview
     </span>
 </a>
-<nav aria-label="Security Endpoints" class="md-nav">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#complete-request-flow">
+<span class="md-ellipsis">
+      Complete Request Flow
+    </span>
+</a>
+<nav aria-label="Complete Request Flow" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#security-status-overview">
+<a class="md-nav__link" href="#end-to-end-request-processing">
 <span class="md-ellipsis">
-      Security Status Overview
+      End-to-End Request Processing
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#security-headers-validation">
+<a class="md-nav__link" href="#performance-breakdown">
 <span class="md-ellipsis">
-      Security Headers Validation
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#security-health-check">
-<span class="md-ellipsis">
-      Security Health Check
+      Performance Breakdown
     </span>
 </a>
 </li>
@@ -819,45 +823,31 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#security-features">
+<a class="md-nav__link" href="#cache-flow-detailed">
 <span class="md-ellipsis">
-      Security Features
+      Cache Flow Detailed
     </span>
 </a>
-<nav aria-label="Security Features" class="md-nav">
+<nav aria-label="Cache Flow Detailed" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#1-host-binding-security">
+<a class="md-nav__link" href="#cache-hit-path-fast-path">
 <span class="md-ellipsis">
-      1. Host Binding Security
+      Cache Hit Path (Fast Path)
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#2-api-key-rotation">
+<a class="md-nav__link" href="#cache-miss-path-slow-path">
 <span class="md-ellipsis">
-      2. API Key Rotation
+      Cache Miss Path (Slow Path)
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#3-input-validation">
+<a class="md-nav__link" href="#force-refresh-path">
 <span class="md-ellipsis">
-      3. Input Validation
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#4-rate-limiting">
-<span class="md-ellipsis">
-      4. Rate Limiting
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#5-error-monitoring">
-<span class="md-ellipsis">
-      5. Error Monitoring
+      Force Refresh Path
     </span>
 </a>
 </li>
@@ -865,38 +855,24 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#security-best-practices">
+<a class="md-nav__link" href="#cache-ttl-strategy">
 <span class="md-ellipsis">
-      Security Best Practices
+      Cache TTL Strategy
     </span>
 </a>
-<nav aria-label="Security Best Practices" class="md-nav">
+<nav aria-label="Cache TTL Strategy" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#api-key-management">
+<a class="md-nav__link" href="#ttl-configuration-by-data-type">
 <span class="md-ellipsis">
-      API Key Management
+      TTL Configuration by Data Type
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#network-security">
+<a class="md-nav__link" href="#dynamic-ttl-adjustment">
 <span class="md-ellipsis">
-      Network Security
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#input-validation">
-<span class="md-ellipsis">
-      Input Validation
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#monitoring-logging">
-<span class="md-ellipsis">
-      Monitoring &amp; Logging
+      Dynamic TTL Adjustment
     </span>
 </a>
 </li>
@@ -904,24 +880,38 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#security-headers">
+<a class="md-nav__link" href="#error-handling-flow">
 <span class="md-ellipsis">
-      Security Headers
+      Error Handling Flow
     </span>
 </a>
-<nav aria-label="Security Headers" class="md-nav">
+<nav aria-label="Error Handling Flow" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#default-headers">
+<a class="md-nav__link" href="#error-propagation-and-recovery">
 <span class="md-ellipsis">
-      Default Headers
+      Error Propagation and Recovery
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#cors-configuration">
+<a class="md-nav__link" href="#error-response-format">
 <span class="md-ellipsis">
-      CORS Configuration
+      Error Response Format
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#http-status-code-mapping">
+<span class="md-ellipsis">
+      HTTP Status Code Mapping
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#retry-strategy">
+<span class="md-ellipsis">
+      Retry Strategy
     </span>
 </a>
 </li>
@@ -929,31 +919,24 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#security-monitoring">
+<a class="md-nav__link" href="#provider-selection-flow">
 <span class="md-ellipsis">
-      Security Monitoring
+      Provider Selection Flow
     </span>
 </a>
-<nav aria-label="Security Monitoring" class="md-nav">
+<nav aria-label="Provider Selection Flow" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#real-time-metrics">
+<a class="md-nav__link" href="#dynamic-provider-routing">
 <span class="md-ellipsis">
-      Real-time Metrics
+      Dynamic Provider Routing
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#alert-conditions">
+<a class="md-nav__link" href="#provider-selection-logic">
 <span class="md-ellipsis">
-      Alert Conditions
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#health-check-integration">
-<span class="md-ellipsis">
-      Health Check Integration
+      Provider Selection Logic
     </span>
 </a>
 </li>
@@ -961,38 +944,24 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#troubleshooting-security-issues">
+<a class="md-nav__link" href="#regional-routing">
 <span class="md-ellipsis">
-      Troubleshooting Security Issues
+      Regional Routing
     </span>
 </a>
-<nav aria-label="Troubleshooting Security Issues" class="md-nav">
+<nav aria-label="Regional Routing" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#host-binding-issues">
+<a class="md-nav__link" href="#region-mapping-and-validation">
 <span class="md-ellipsis">
-      Host Binding Issues
+      Region Mapping and Validation
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#api-key-issues">
+<a class="md-nav__link" href="#region-configuration">
 <span class="md-ellipsis">
-      API Key Issues
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#input-validation-issues">
-<span class="md-ellipsis">
-      Input Validation Issues
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cors-issues">
-<span class="md-ellipsis">
-      CORS Issues
+      Region Configuration
     </span>
 </a>
 </li>
@@ -1000,29 +969,68 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#security-configuration-reference">
+<a class="md-nav__link" href="#performance-optimization">
 <span class="md-ellipsis">
-      Security Configuration Reference
+      Performance Optimization
     </span>
 </a>
-<nav aria-label="Security Configuration Reference" class="md-nav">
+<nav aria-label="Performance Optimization" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#environment-variables">
+<a class="md-nav__link" href="#request-coalescing">
 <span class="md-ellipsis">
-      Environment Variables
+      Request Coalescing
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#security-headers_1">
+<a class="md-nav__link" href="#compression">
 <span class="md-ellipsis">
-      Security Headers
+      Compression
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#connection-pooling">
+<span class="md-ellipsis">
+      Connection Pooling
     </span>
 </a>
 </li>
 </ul>
 </nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cross-references">
+<span class="md-ellipsis">
+      Cross-References
+    </span>
+</a>
+<nav aria-label="Cross-References" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#related-documentation">
+<span class="md-ellipsis">
+      Related Documentation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#implementation-files">
+<span class="md-ellipsis">
+      Implementation Files
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#monitoring-checklist">
+<span class="md-ellipsis">
+      Monitoring Checklist
+    </span>
+</a>
 </li>
 </ul>
 </nav>
@@ -1031,350 +1039,892 @@
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<h1 id="security-api">Security API<a class="headerlink" href="#security-api" title="Permanent link">¶</a></h1>
-<p>The LOLStonks API Gateway includes comprehensive security monitoring and endpoint validation to ensure safe and secure operation.</p>
-<h2 id="security-endpoints">Security Endpoints<a class="headerlink" href="#security-endpoints" title="Permanent link">¶</a></h2>
-<h3 id="security-status-overview">Security Status Overview<a class="headerlink" href="#security-status-overview" title="Permanent link">¶</a></h3>
-<p><strong>Endpoint</strong>: <code>GET /security/status</code></p>
-<p>Returns overall security status and configuration validation.</p>
-<p><strong>Response Example</strong>:</p>
+<h1 id="data-flow-architecture">Data Flow Architecture<a class="headerlink" href="#data-flow-architecture" title="Permanent link">¶</a></h1>
+<blockquote>
+<p><strong>Detailed request processing</strong> and data flow through the lolstonks-api-gateway system</p>
+</blockquote>
+<hr/>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">¶</a></h2>
+<p>This document describes how data flows through the gateway, from incoming client requests to cached responses. Understanding these flows is critical for optimizing performance, debugging issues, and maintaining the system.</p>
+<hr/>
+<h2 id="complete-request-flow">Complete Request Flow<a class="headerlink" href="#complete-request-flow" title="Permanent link">¶</a></h2>
+<h3 id="end-to-end-request-processing">End-to-End Request Processing<a class="headerlink" href="#end-to-end-request-processing" title="Permanent link">¶</a></h3>
+<div class="mermaid">flowchart TD
+    start([Client Request&lt;br/&gt;HTTP GET/POST]) --&gt;|1. TCP Connection| server[Uvicorn Server&lt;br/&gt;127.0.0.1:8080]
+    server --&gt;|2. ASGI Protocol| fastapi[FastAPI Application&lt;br/&gt;Request Parsing]
+    fastapi --&gt;|3. Middleware Chain| cors[CORS Middleware&lt;br/&gt;Origin Check]
+    cors --&gt; logging[Logging Middleware&lt;br/&gt;Request ID Generation]
+    logging --&gt; errorhandler[Error Handler&lt;br/&gt;Global Exception Catching]
+    errorhandler --&gt;|4. Route Matching| router{Router&lt;br/&gt;Match&lt;br/&gt;Endpoint?}
+
+    router --&gt;|No Match| notfound[404 Not Found]
+    notfound --&gt; errorresponse([Error Response])
+
+    router --&gt;|Match Found| validate[Pydantic Validation&lt;br/&gt;Path/Query Parameters]
+    validate --&gt;|Invalid| validationerror[422 Validation Error]
+    validationerror --&gt; errorresponse
+
+    validate --&gt;|Valid| ratelimit{Rate Limit&lt;br/&gt;Check}
+    ratelimit --&gt;|Exceeded| toomany[429 Too Many Requests]
+    toomany --&gt; errorresponse
+
+    ratelimit --&gt;|OK| cachecheck{Cache&lt;br/&gt;Check}
+    cachecheck --&gt;|"Hit (&amp;lt;1ms)"| cachehit[Retrieve from Redis]
+    cachehit --&gt;|Deserialize| cachedresponse[Cached Data]
+    cachedresponse --&gt; format[Format Response&lt;br/&gt;Add Headers]
+
+    cachecheck --&gt;|"Miss or ?force=true"| provider[Provider Registry&lt;br/&gt;Select Provider]
+    provider --&gt;|Static Data| dataDragon[Data Dragon Provider]
+    provider --&gt;|Live Data| riotProvider[Riot API Provider]
+    provider --&gt;|Community Data| communityProvider[Community Dragon Provider]
+
+    dataDragon --&gt;|"HTTP GET (20-100ms)"| dragonAPI[Data Dragon CDN]
+    riotProvider --&gt;|"HTTP GET + API Key (50-200ms)"| riotAPI[Riot API]
+    communityProvider --&gt;|"HTTP GET (20-100ms)"| communityAPI[Community Dragon CDN]
+
+    dragonAPI --&gt;|Response| processData[Process Response&lt;br/&gt;Validate &amp; Transform]
+    riotAPI --&gt;|Response| processData
+    communityAPI --&gt;|Response| processData
+
+    processData --&gt;|Success| updatecache[Update Redis Cache&lt;br/&gt;Set TTL]
+    processData --&gt;|API Error| apierror[Handle API Error&lt;br/&gt;Retry or Fallback]
+
+    apierror --&gt;|Retry Success| updatecache
+    apierror --&gt;|Retry Failed| errorresponse
+
+    updatecache -.-&gt;|"Async (&amp;lt;1ms)"| redis[(Redis Cache)]
+    updatecache --&gt; format
+
+    format --&gt;|6. Response Middleware| addheaders[Add Headers&lt;br/&gt;Cache-Control, X-Response-Time]
+    addheaders --&gt;|7. Log Response| logresponse[Log Response Time&lt;br/&gt;&amp; Cache Status]
+    logresponse --&gt;|8. Send| success([HTTP Response&lt;br/&gt;200 OK + JSON])
+
+    classDef gateway fill:#e3f2fd,stroke:#1976d2,stroke-width:2px,color:#000
+    classDef provider fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
+    classDef cache fill:#fff3e0,stroke:#f57c00,stroke-width:2px,color:#000
+    classDef external fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#000
+    classDef decision fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#000
+    classDef error fill:#fce4ec,stroke:#c2185b,stroke-width:2px,color:#000
+
+    class server,fastapi,cors,logging,errorhandler,validate,format,addheaders,logresponse gateway
+    class dataDragon,riotProvider,communityProvider provider
+    class cachehit,cachedresponse,updatecache,redis cache
+    class dragonAPI,riotAPI,communityAPI external
+    class router,ratelimit,cachecheck decision
+    class notfound,validationerror,toomany,apierror error
+</div>
+<h3 id="performance-breakdown">Performance Breakdown<a class="headerlink" href="#performance-breakdown" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Component</th>
+<th>Time (Typical)</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>TCP Connection</td>
+<td><code>&lt;1ms</code></td>
+<td>Local network, very fast</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Request Parsing</td>
+<td><code>&lt;1ms</code></td>
+<td>FastAPI/Pydantic validation</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Middleware Chain</td>
+<td><code>&lt;1ms</code></td>
+<td>CORS, logging, error handler</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Route Matching</td>
+<td><code>&lt;1ms</code></td>
+<td>FastAPI router lookup</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Parameter Validation</td>
+<td><code>&lt;1ms</code></td>
+<td>Pydantic model validation</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Rate Limit Check</td>
+<td><code>&lt;1ms</code></td>
+<td>Redis counter check</td>
+</tr>
+<tr>
+<td><strong>7a</strong></td>
+<td><strong>Cache Hit</strong></td>
+<td><strong>&lt;1ms</strong></td>
+<td><strong>Redis GET operation</strong></td>
+</tr>
+<tr>
+<td><strong>7b</strong></td>
+<td><strong>Cache Miss</strong></td>
+<td><strong>50-200ms</strong></td>
+<td><strong>External API call</strong></td>
+</tr>
+<tr>
+<td>8</td>
+<td>Response Formatting</td>
+<td><code>&lt;1ms</code></td>
+<td>JSON serialization</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Response Headers</td>
+<td><code>&lt;1ms</code></td>
+<td>Header injection</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Response Logging</td>
+<td><code>&lt;1ms</code></td>
+<td>Async log write</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Total Time</strong>:
+- <strong>Cache Hit</strong>: <code>&lt;10ms</code> (typically <code>5-8ms</code>)
+- <strong>Cache Miss</strong>: <code>60-220ms</code> (depends on external API latency)</p>
+<hr/>
+<h2 id="cache-flow-detailed">Cache Flow Detailed<a class="headerlink" href="#cache-flow-detailed" title="Permanent link">¶</a></h2>
+<h3 id="cache-hit-path-fast-path">Cache Hit Path (Fast Path)<a class="headerlink" href="#cache-hit-path-fast-path" title="Permanent link">¶</a></h3>
+<div class="mermaid">sequenceDiagram
+    participant C as Client
+    participant G as Gateway
+    participant R as Redis Cache
+    participant L as Logger
+
+    C-&gt;&gt;G: GET /lol/summoner/v4/by-name/euw1/Player
+    activate G
+
+    Note over G: Generate cache key&lt;br/&gt;riot:summoner:euw1:player_hash
+
+    G-&gt;&gt;R: GET cache key
+    activate R
+    R--&gt;&gt;G: Cached data (JSON)
+    deactivate R
+
+    Note over G: Deserialize JSON&lt;br/&gt;Validate expiry
+
+    G-&gt;&gt;L: Log cache hit (async)
+
+    G--&gt;&gt;C: 200 OK + Cached Data&lt;br/&gt;X-Cache-Status: HIT&lt;br/&gt;X-Response-Time: 7ms
+    deactivate G
+
+    Note over C,G: Total time: ~7ms
+</div>
+<p><strong>Cache Key Format</strong>:</p>
+<pre><code>{provider}:{endpoint}:{region}:{params_hash}
+</code></pre>
+<p><strong>Example Keys</strong>:
+- <code>riot:summoner:euw1:d4f2a1b9</code> (summoner by name)
+- <code>dragon:champion:14.1.1:en_us</code> (champion data)
+- <code>riot:match:europe:euw1_123456</code> (match details)</p>
+<p><strong>Cache Headers in Response</strong>:</p>
+<pre><code class="language-http">X-Cache-Status: HIT
+X-Cache-TTL: 285
+X-Response-Time: 7
+Cache-Control: public, max-age=300
+</code></pre>
+<h3 id="cache-miss-path-slow-path">Cache Miss Path (Slow Path)<a class="headerlink" href="#cache-miss-path-slow-path" title="Permanent link">¶</a></h3>
+<div class="mermaid">sequenceDiagram
+    participant C as Client
+    participant G as Gateway
+    participant RC as Redis Cache
+    participant P as Provider
+    participant E as External API
+    participant L as Logger
+
+    C-&gt;&gt;G: GET /lol/summoner/v4/by-name/euw1/NewPlayer
+    activate G
+
+    Note over G: Generate cache key&lt;br/&gt;riot:summoner:euw1:newplayer_hash
+
+    G-&gt;&gt;RC: GET cache key
+    activate RC
+    RC--&gt;&gt;G: NULL (not found)
+    deactivate RC
+
+    Note over G: Select Provider&lt;br/&gt;(Riot API for summoner)
+
+    G-&gt;&gt;P: Fetch summoner data
+    activate P
+
+    P-&gt;&gt;E: HTTPS GET + X-Riot-Token header
+    activate E
+    Note over E: Process request&lt;br/&gt;Check rate limits&lt;br/&gt;Query database
+    E--&gt;&gt;P: 200 OK + JSON response
+    deactivate E
+
+    Note over P: Validate response&lt;br/&gt;Transform if needed
+
+    P--&gt;&gt;G: Processed data
+    deactivate P
+
+    Note over G: Serialize for cache
+
+    G-&gt;&gt;RC: SET cache key (TTL=300s)
+    activate RC
+    RC--&gt;&gt;G: OK
+    deactivate RC
+
+    G-&gt;&gt;L: Log cache miss + latency (async)
+
+    G--&gt;&gt;C: 200 OK + Fresh Data&lt;br/&gt;X-Cache-Status: MISS&lt;br/&gt;X-Response-Time: 157ms
+    deactivate G
+
+    Note over C,G: Total time: ~157ms
+</div>
+<p><strong>Cache Update Logic</strong>:</p>
+<pre><code class="language-python"># Pseudo-code for cache update
+async def cache_or_fetch(key: str, ttl: int, fetch_fn):
+    # Try cache first
+    cached = await redis.get(key)
+    if cached and not force_refresh:
+        return json.loads(cached)
+
+    # Cache miss - fetch from provider
+    data = await fetch_fn()
+
+    # Update cache (async, don't block response)
+    await redis.set(key, json.dumps(data), ex=ttl)
+
+    return data
+</code></pre>
+<h3 id="force-refresh-path">Force Refresh Path<a class="headerlink" href="#force-refresh-path" title="Permanent link">¶</a></h3>
+<div class="mermaid">flowchart LR
+    request([Request with&lt;br/&gt;?force=true]) --&gt;|Skip cache| provider[Provider Fetch]
+    provider --&gt;|Fetch fresh| external[External API]
+    external --&gt; update[Update Cache]
+    update -.-&gt;|Overwrite| cache[(Redis Cache)]
+    update --&gt; response([Fresh Response])
+
+    style request fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    style provider fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+    style external fill:#ffebee,stroke:#c62828,stroke-width:2px
+    style cache fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+</div>
+<p><strong>Use Cases</strong>:
+- Debugging stale cache data
+- Manual cache invalidation
+- Testing external API changes
+- Ensuring real-time data accuracy</p>
+<p><strong>Example</strong>:</p>
+<pre><code class="language-bash"># Normal request (may return cached data)
+curl "http://127.0.0.1:8080/lol/summoner/v4/by-name/euw1/Player"
+
+# Force refresh (always fetches fresh data)
+curl "http://127.0.0.1:8080/lol/summoner/v4/by-name/euw1/Player?force=true"
+</code></pre>
+<hr/>
+<h2 id="cache-ttl-strategy">Cache TTL Strategy<a class="headerlink" href="#cache-ttl-strategy" title="Permanent link">¶</a></h2>
+<h3 id="ttl-configuration-by-data-type">TTL Configuration by Data Type<a class="headerlink" href="#ttl-configuration-by-data-type" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Data Type</th>
+<th>TTL</th>
+<th>Rationale</th>
+<th>Example Endpoints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Live Game Data</strong></td>
+<td>30 seconds</td>
+<td>Changes frequently during active game</td>
+<td><code>/spectator/active-game</code></td>
+</tr>
+<tr>
+<td><strong>Player Profiles</strong></td>
+<td>5 minutes</td>
+<td>Updates occasionally (rank, level)</td>
+<td><code>/summoner/by-name</code>, <code>/summoner/by-puuid</code></td>
+</tr>
+<tr>
+<td><strong>Match History</strong></td>
+<td>10 minutes</td>
+<td>Recent matches may update, older stable</td>
+<td><code>/match/by-puuid</code> (list)</td>
+</tr>
+<tr>
+<td><strong>Match Details</strong></td>
+<td>30 minutes</td>
+<td>Match details don't change after completion</td>
+<td><code>/match/by-match-id</code> (details)</td>
+</tr>
+<tr>
+<td><strong>Ranked Ladders</strong></td>
+<td>5 minutes</td>
+<td>Ladder updates frequently</td>
+<td><code>/league/challenger</code>, <code>/league/entries</code></td>
+</tr>
+<tr>
+<td><strong>Champion Mastery</strong></td>
+<td>10 minutes</td>
+<td>Updates after games</td>
+<td><code>/champion-mastery/by-puuid</code></td>
+</tr>
+<tr>
+<td><strong>Static Data</strong></td>
+<td>1 hour</td>
+<td>Changes only with patches</td>
+<td><code>/champion/all</code>, <code>/item/all</code></td>
+</tr>
+<tr>
+<td><strong>Version Info</strong></td>
+<td>6 hours</td>
+<td>Updates with new patches (~2 weeks)</td>
+<td><code>/version/latest</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="dynamic-ttl-adjustment">Dynamic TTL Adjustment<a class="headerlink" href="#dynamic-ttl-adjustment" title="Permanent link">¶</a></h3>
+<div class="mermaid">flowchart TD
+    fetch[Fetch Data] --&gt; analyze{Analyze&lt;br/&gt;Data Type}
+
+    analyze --&gt;|Live/Active| short[Short TTL&lt;br/&gt;30s - 5min]
+    analyze --&gt;|Historical| medium[Medium TTL&lt;br/&gt;10min - 30min]
+    analyze --&gt;|Static| long[Long TTL&lt;br/&gt;1h - 6h]
+
+    short --&gt; cache[(Redis Cache)]
+    medium --&gt; cache
+    long --&gt; cache
+
+    cache --&gt;|TTL Expired| evict[Auto-Evict]
+    evict -.-&gt;|Next Request| fetch
+
+    style analyze fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    style cache fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+</div>
+<p><strong>Configuration</strong>:</p>
+<pre><code class="language-python"># app/core/cache_config.py
+CACHE_TTL = {
+    "summoner": 300,          # 5 minutes
+    "match_list": 600,        # 10 minutes
+    "match_details": 1800,    # 30 minutes
+    "league": 300,            # 5 minutes
+    "champion_data": 3600,    # 1 hour
+    "spectator": 30,          # 30 seconds
+}
+</code></pre>
+<hr/>
+<h2 id="error-handling-flow">Error Handling Flow<a class="headerlink" href="#error-handling-flow" title="Permanent link">¶</a></h2>
+<h3 id="error-propagation-and-recovery">Error Propagation and Recovery<a class="headerlink" href="#error-propagation-and-recovery" title="Permanent link">¶</a></h3>
+<div class="mermaid">flowchart TD
+    request([Incoming Request]) --&gt; process[Process Request]
+
+    process --&gt; success{Success?}
+    success --&gt;|Yes| response([200 OK Response])
+
+    success --&gt;|No| classify{Classify&lt;br/&gt;Error Type}
+
+    classify --&gt;|Validation Error| validate_error[422 Unprocessable Entity&lt;br/&gt;Invalid parameters]
+    classify --&gt;|Not Found| not_found[404 Not Found&lt;br/&gt;Endpoint/resource missing]
+    classify --&gt;|Rate Limit| rate_error[429 Too Many Requests&lt;br/&gt;Rate limit exceeded]
+    classify --&gt;|External API Error| api_error{API&lt;br/&gt;Error&lt;br/&gt;Code?}
+    classify --&gt;|Server Error| server_error[500 Internal Server Error&lt;br/&gt;Unexpected error]
+
+    api_error --&gt;|404| resource_missing[404 Not Found&lt;br/&gt;Resource doesn't exist in API]
+    api_error --&gt;|429| external_rate[502 Bad Gateway&lt;br/&gt;External API rate limited]
+    api_error --&gt;|500/502/503| retry{Retry&lt;br/&gt;Count&lt;br/&gt;&amp;lt; 3?}
+    api_error --&gt;|403| forbidden[403 Forbidden&lt;br/&gt;Invalid API key or permissions]
+
+    retry --&gt;|Yes| backoff[Exponential Backoff&lt;br/&gt;Wait 1s, 2s, 4s...]
+    backoff -.-&gt;|Retry| process
+    retry --&gt;|No| give_up[503 Service Unavailable&lt;br/&gt;External API down]
+
+    validate_error --&gt; log[Log Error Details]
+    not_found --&gt; log
+    rate_error --&gt; log
+    resource_missing --&gt; log
+    external_rate --&gt; log
+    forbidden --&gt; log
+    server_error --&gt; log
+    give_up --&gt; log
+
+    log --&gt; error_response([Error Response&lt;br/&gt;JSON + Error Details])
+
+    classDef success fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
+    classDef client_error fill:#fff3e0,stroke:#f57c00,stroke-width:2px,color:#000
+    classDef server_error fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#000
+    classDef decision fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#000
+
+    class response success
+    class validate_error,not_found,rate_error,resource_missing client_error
+    class server_error,external_rate,forbidden,give_up server_error
+    class success,classify,api_error,retry decision
+</div>
+<h3 id="error-response-format">Error Response Format<a class="headerlink" href="#error-response-format" title="Permanent link">¶</a></h3>
+<p>All errors follow a consistent JSON structure:</p>
 <pre><code class="language-json">{
-  "status": "healthy",
-  "timestamp": "2024-01-01T12:00:00Z",
-  "host_binding": "secure",
-  "api_keys_configured": true,
-  "api_key_rotation_enabled": true,
-  "input_validation_enabled": true,
-  "rate_limiting_enabled": true,
-  "security_headers": {
-    "host_header": "configured",
-    "cors_policy": "restrictive",
-    "https_redirect": "not_applicable"
+  "error": {
+    "code": "SUMMONER_NOT_FOUND",
+    "message": "Summoner 'PlayerName' not found in region 'euw1'",
+    "details": {
+      "region": "euw1",
+      "summoner_name": "PlayerName",
+      "provider": "riot_api"
+    },
+    "request_id": "req_abc123xyz",
+    "timestamp": "2025-01-24T12:00:00Z"
   }
 }
 </code></pre>
-<h3 id="security-headers-validation">Security Headers Validation<a class="headerlink" href="#security-headers-validation" title="Permanent link">¶</a></h3>
-<p><strong>Endpoint</strong>: <code>GET /security/headers</code></p>
-<p>Validates security headers and CORS configuration.</p>
-<p><strong>Response Example</strong>:</p>
-<pre><code class="language-json">{
-  "status": "validated",
-  "timestamp": "2024-01-01T12:00:00Z",
-  "headers": {
-    "host": "valid",
-    "origin": "restrictive",
-    "methods": "safe_methods_only",
-    "credentials": "not_allowed"
-  },
-  "cors_policy": {
-    "allowed_origins": [],
-    "allowed_methods": ["GET", "OPTIONS"],
-    "allowed_headers": ["Content-Type", "Authorization"],
-    "max_age": 86400,
-    "supports_credentials": false
-  }
+<h3 id="http-status-code-mapping">HTTP Status Code Mapping<a class="headerlink" href="#http-status-code-mapping" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Status Code</th>
+<th>Error Type</th>
+<th>When It Occurs</th>
+<th>Retry?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>400</strong></td>
+<td>Bad Request</td>
+<td>Malformed request syntax</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>404</strong></td>
+<td>Not Found</td>
+<td>Resource doesn't exist</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>422</strong></td>
+<td>Unprocessable Entity</td>
+<td>Validation error (invalid parameters)</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>429</strong></td>
+<td>Too Many Requests</td>
+<td>Gateway rate limit exceeded</td>
+<td>Yes (with backoff)</td>
+</tr>
+<tr>
+<td><strong>403</strong></td>
+<td>Forbidden</td>
+<td>Invalid API key or permissions</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td>Internal Server Error</td>
+<td>Unexpected gateway error</td>
+<td>Maybe (check logs)</td>
+</tr>
+<tr>
+<td><strong>502</strong></td>
+<td>Bad Gateway</td>
+<td>External API error (4xx/5xx)</td>
+<td>Yes (auto-retry)</td>
+</tr>
+<tr>
+<td><strong>503</strong></td>
+<td>Service Unavailable</td>
+<td>External API down after retries</td>
+<td>Yes (manual retry later)</td>
+</tr>
+<tr>
+<td><strong>504</strong></td>
+<td>Gateway Timeout</td>
+<td>External API timeout</td>
+<td>Yes (with backoff)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="retry-strategy">Retry Strategy<a class="headerlink" href="#retry-strategy" title="Permanent link">¶</a></h3>
+<div class="mermaid">sequenceDiagram
+    participant G as Gateway
+    participant P as Provider
+    participant E as External API
+
+    G-&gt;&gt;P: Request data
+    P-&gt;&gt;E: API Call (Attempt 1)
+    E--&gt;&gt;P: 503 Service Unavailable
+
+    Note over P: Wait 1 second&lt;br/&gt;(2^0 = 1s)
+
+    P-&gt;&gt;E: API Call (Attempt 2)
+    E--&gt;&gt;P: 502 Bad Gateway
+
+    Note over P: Wait 2 seconds&lt;br/&gt;(2^1 = 2s)
+
+    P-&gt;&gt;E: API Call (Attempt 3)
+    E--&gt;&gt;P: 500 Internal Error
+
+    Note over P: Wait 4 seconds&lt;br/&gt;(2^2 = 4s)
+
+    P-&gt;&gt;E: API Call (Attempt 4 - Final)
+    E--&gt;&gt;P: 503 Service Unavailable
+
+    P--&gt;&gt;G: Error: Max retries exceeded
+    G--&gt;&gt;G: Return 503 to client
+</div>
+<p><strong>Retry Configuration</strong>:</p>
+<pre><code class="language-python">MAX_RETRIES = 3
+RETRY_BACKOFF_BASE = 1.0  # seconds
+RETRY_BACKOFF_MAX = 10.0  # seconds
+RETRYABLE_STATUS_CODES = [500, 502, 503, 504]
+</code></pre>
+<hr/>
+<h2 id="provider-selection-flow">Provider Selection Flow<a class="headerlink" href="#provider-selection-flow" title="Permanent link">¶</a></h2>
+<h3 id="dynamic-provider-routing">Dynamic Provider Routing<a class="headerlink" href="#dynamic-provider-routing" title="Permanent link">¶</a></h3>
+<div class="mermaid">flowchart TD
+    request([API Request]) --&gt; parse[Parse Endpoint]
+    parse --&gt; registry[Provider Registry]
+
+    registry --&gt; detect{Data&lt;br/&gt;Type?}
+
+    detect --&gt;|Summoner, Match, League| live[Live Data]
+    detect --&gt;|Champion, Item, Spell| static[Static Data]
+    detect --&gt;|Augments, Missions| community[Community Data]
+
+    live --&gt; region_check{Region&lt;br/&gt;Valid?}
+    region_check --&gt;|Yes| riot[Riot API Provider&lt;br/&gt;Live game data]
+    region_check --&gt;|No| error[400 Bad Request&lt;br/&gt;Invalid region]
+
+    static --&gt; version_check{Version&lt;br/&gt;Specified?}
+    version_check --&gt;|Yes| dragon[Data Dragon Provider&lt;br/&gt;Specific version]
+    version_check --&gt;|No| latest[Data Dragon Provider&lt;br/&gt;Latest version]
+
+    community --&gt; community_provider[Community Dragon Provider&lt;br/&gt;Enhanced static data]
+
+    riot --&gt;|With API Key| riot_api[Riot API&lt;br/&gt;HTTPS + Auth]
+    dragon --&gt; dragon_cdn[Data Dragon CDN&lt;br/&gt;HTTPS]
+    latest --&gt; dragon_cdn
+    community_provider --&gt; community_cdn[Community Dragon CDN&lt;br/&gt;HTTPS]
+
+    riot_api --&gt; response([Provider Response])
+    dragon_cdn --&gt; response
+    community_cdn --&gt; response
+    error --&gt; error_response([Error Response])
+
+    classDef decision fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#000
+    classDef provider fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
+    classDef external fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#000
+
+    class detect,region_check,version_check decision
+    class riot,dragon,latest,community_provider provider
+    class riot_api,dragon_cdn,community_cdn external
+</div>
+<h3 id="provider-selection-logic">Provider Selection Logic<a class="headerlink" href="#provider-selection-logic" title="Permanent link">¶</a></h3>
+<p><strong>Decision Table</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Endpoint Pattern</th>
+<th>Data Type</th>
+<th>Provider</th>
+<th>Authentication</th>
+<th>Cache TTL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/summoner/**</code></td>
+<td>Live</td>
+<td>Riot API</td>
+<td>API Key Required</td>
+<td>5 min</td>
+</tr>
+<tr>
+<td><code>/match/**</code></td>
+<td>Live</td>
+<td>Riot API</td>
+<td>API Key Required</td>
+<td>10-30 min</td>
+</tr>
+<tr>
+<td><code>/league/**</code></td>
+<td>Live</td>
+<td>Riot API</td>
+<td>API Key Required</td>
+<td>5 min</td>
+</tr>
+<tr>
+<td><code>/spectator/**</code></td>
+<td>Live</td>
+<td>Riot API</td>
+<td>API Key Required</td>
+<td>30 sec</td>
+</tr>
+<tr>
+<td><code>/champion-mastery/**</code></td>
+<td>Live</td>
+<td>Riot API</td>
+<td>API Key Required</td>
+<td>10 min</td>
+</tr>
+<tr>
+<td><code>/champion/**</code></td>
+<td>Static</td>
+<td>Data Dragon</td>
+<td>Public</td>
+<td>1 hour</td>
+</tr>
+<tr>
+<td><code>/item/**</code></td>
+<td>Static</td>
+<td>Data Dragon</td>
+<td>Public</td>
+<td>1 hour</td>
+</tr>
+<tr>
+<td><code>/spell/**</code></td>
+<td>Static</td>
+<td>Data Dragon</td>
+<td>Public</td>
+<td>1 hour</td>
+</tr>
+<tr>
+<td><code>/augments/**</code></td>
+<td>Static</td>
+<td>Community Dragon</td>
+<td>Public</td>
+<td>1 hour</td>
+</tr>
+<tr>
+<td><code>/missions/**</code></td>
+<td>Community</td>
+<td>Community Dragon</td>
+<td>Public</td>
+<td>1 hour</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Code Example</strong>:</p>
+<pre><code class="language-python">async def select_provider(endpoint: str, region: str) -&gt; BaseProvider:
+    if endpoint.startswith("/lol/summoner"):
+        return RiotAPIProvider(region=region, api_key=settings.RIOT_API_KEY)
+    elif endpoint.startswith("/lol/static/champion"):
+        return DataDragonProvider(version="latest", locale="en_US")
+    elif endpoint.startswith("/lol/community"):
+        return CommunityDragonProvider(version="latest")
+    else:
+        raise ValueError(f"No provider for endpoint: {endpoint}")
+</code></pre>
+<hr/>
+<h2 id="regional-routing">Regional Routing<a class="headerlink" href="#regional-routing" title="Permanent link">¶</a></h2>
+<h3 id="region-mapping-and-validation">Region Mapping and Validation<a class="headerlink" href="#region-mapping-and-validation" title="Permanent link">¶</a></h3>
+<div class="mermaid">flowchart TD
+    request([Request with Region]) --&gt; validate{Region&lt;br/&gt;Valid?}
+
+    validate --&gt;|Invalid| error[400 Bad Request&lt;br/&gt;Invalid region code]
+    error --&gt; error_response([Error Response])
+
+    validate --&gt;|Valid| map[Map to API Region]
+
+    map --&gt; platform{Platform&lt;br/&gt;Region?}
+
+    platform --&gt;|Americas| americas[americas.api.riotgames.com&lt;br/&gt;na1, br1, la1, la2]
+    platform --&gt;|Europe| europe[europe.api.riotgames.com&lt;br/&gt;euw1, eun1, tr1, ru]
+    platform --&gt;|Asia| asia[asia.api.riotgames.com&lt;br/&gt;kr, jp1, oc1, ph2, sg2, th2, tw2, vn2]
+    platform --&gt;|SEA| sea[sea.api.riotgames.com&lt;br/&gt;ph2, sg2, th2, tw2, vn2]
+
+    americas --&gt; endpoint[Platform-Specific Endpoint]
+    europe --&gt; endpoint
+    asia --&gt; endpoint
+    sea --&gt; endpoint
+
+    endpoint --&gt;|Add Region Header| headers[X-Region: {region}]
+    headers --&gt; call[Make API Call]
+    call --&gt; response([API Response])
+
+    classDef decision fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#000
+    classDef provider fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
+    classDef error fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#000
+
+    class validate,platform decision
+    class americas,europe,asia,sea,endpoint,headers,call provider
+    class error error
+</div>
+<h3 id="region-configuration">Region Configuration<a class="headerlink" href="#region-configuration" title="Permanent link">¶</a></h3>
+<p><strong>Platform Routing Table</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>Regions</th>
+<th>API Domain</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Americas</strong></td>
+<td><code>na1</code>, <code>br1</code>, <code>la1</code>, <code>la2</code></td>
+<td><code>americas.api.riotgames.com</code></td>
+</tr>
+<tr>
+<td><strong>Europe</strong></td>
+<td><code>euw1</code>, <code>eun1</code>, <code>tr1</code>, <code>ru</code></td>
+<td><code>europe.api.riotgames.com</code></td>
+</tr>
+<tr>
+<td><strong>Asia</strong></td>
+<td><code>kr</code>, <code>jp1</code>, <code>oc1</code></td>
+<td><code>asia.api.riotgames.com</code></td>
+</tr>
+<tr>
+<td><strong>SEA</strong></td>
+<td><code>ph2</code>, <code>sg2</code>, <code>th2</code>, <code>tw2</code>, <code>vn2</code></td>
+<td><code>sea.api.riotgames.com</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Regional Aliases</strong>:</p>
+<pre><code class="language-python">REGION_ALIASES = {
+    "euw": "euw1",
+    "eune": "eun1",
+    "na": "na1",
+    "br": "br1",
+    "lan": "la1",
+    "las": "la2",
+    "oce": "oc1",
 }
 </code></pre>
-<h3 id="security-health-check">Security Health Check<a class="headerlink" href="#security-health-check" title="Permanent link">¶</a></h3>
-<p><strong>Endpoint</strong>: <code>GET /health/security</code></p>
-<p>Health check specifically for security monitoring components.</p>
-<p><strong>Response Example</strong>:</p>
-<pre><code class="language-json">{
-  "status": "ok",
-  "security_monitoring": "active",
-  "error_tracking": "enabled",
-  "alert_threshold": 10,
-  "consecutive_errors": 0,
-  "last_security_check": "2024-01-01T12:00:00Z"
-}
-</code></pre>
-<h2 id="security-features">Security Features<a class="headerlink" href="#security-features" title="Permanent link">¶</a></h2>
-<h3 id="1-host-binding-security">1. Host Binding Security<a class="headerlink" href="#1-host-binding-security" title="Permanent link">¶</a></h3>
-<p><strong>Configuration</strong>: Gateway is bound to <code>127.0.0.1</code> by default for security.</p>
-<p><strong>Purpose</strong>: Prevents external access and reduces attack surface.</p>
-<p><strong>Verification</strong>:</p>
-<pre><code class="language-bash"># Check if properly secured
-curl http://127.0.0.1:8080/security/status
+<hr/>
+<h2 id="performance-optimization">Performance Optimization<a class="headerlink" href="#performance-optimization" title="Permanent link">¶</a></h2>
+<h3 id="request-coalescing">Request Coalescing<a class="headerlink" href="#request-coalescing" title="Permanent link">¶</a></h3>
+<p><strong>Problem</strong>: Multiple simultaneous requests for the same data cause redundant API calls.</p>
+<p><strong>Solution</strong>: Request coalescing (deduplication).</p>
+<div class="mermaid">sequenceDiagram
+    participant C1 as Client 1
+    participant C2 as Client 2
+    participant C3 as Client 3
+    participant G as Gateway
+    participant E as External API
 
-# This will fail (intentionally)
-curl http://0.0.0.0:8080/security/status
-# Connection refused
+    Note over C1,C3: All request same summoner&lt;br/&gt;at same time
+
+    C1-&gt;&gt;G: GET /summoner/by-name/euw1/Player
+    C2-&gt;&gt;G: GET /summoner/by-name/euw1/Player
+    C3-&gt;&gt;G: GET /summoner/by-name/euw1/Player
+
+    Note over G: Detect duplicate in-flight request&lt;br/&gt;Coalesce into single API call
+
+    G-&gt;&gt;E: Single API call
+    E--&gt;&gt;G: Response
+
+    Note over G: Fan out response to all waiters
+
+    G--&gt;&gt;C1: Response (from shared call)
+    G--&gt;&gt;C2: Response (from shared call)
+    G--&gt;&gt;C3: Response (from shared call)
+
+    Note over C1,C3: Saved 2 API calls!
+</div>
+<h3 id="compression">Compression<a class="headerlink" href="#compression" title="Permanent link">¶</a></h3>
+<p><strong>Response Compression</strong>: Reduce bandwidth for large responses.</p>
+<pre><code class="language-http"># Request
+GET /lol/champion/all
+Accept-Encoding: gzip, deflate
+
+# Response
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Encoding: gzip
+Content-Length: 15234 (original: 68451)
 </code></pre>
-<p><strong>Override (Development Only)</strong>:</p>
-<pre><code class="language-bash"># WARNING: Only use in trusted environments
-HOST=0.0.0.0 uvicorn app.main:app
-</code></pre>
-<h3 id="2-api-key-rotation">2. API Key Rotation<a class="headerlink" href="#2-api-key-rotation" title="Permanent link">¶</a></h3>
-<p><strong>Feature</strong>: Automatic rotation across multiple API keys.</p>
-<p><strong>Benefits</strong>:
-- Distributes load across multiple keys
-- Prevents single key exhaustion
-- Continues operation during rate limit events</p>
+<p><strong>Compression Savings</strong>:
+- Champion data: <code>~78% reduction</code> (68KB → 15KB)
+- Match details: <code>~65% reduction</code> (120KB → 42KB)
+- Match lists: <code>~70% reduction</code> (50KB → 15KB)</p>
+<h3 id="connection-pooling">Connection Pooling<a class="headerlink" href="#connection-pooling" title="Permanent link">¶</a></h3>
+<div class="mermaid">flowchart LR
+    subgraph Gateway["Gateway Application"]
+        router1[Router 1]
+        router2[Router 2]
+        router3[Router 3]
+    end
+
+    subgraph Pool["HTTP Connection Pool"]
+        conn1[Connection 1]
+        conn2[Connection 2]
+        conn3[Connection 3]
+        conn4[Connection 4]
+    end
+
+    subgraph External["External APIs"]
+        riot[Riot API]
+        dragon[Data Dragon]
+    end
+
+    router1 -.-&gt;|Reuse| Pool
+    router2 -.-&gt;|Reuse| Pool
+    router3 -.-&gt;|Reuse| Pool
+
+    Pool --&gt;|Keep-Alive| External
+
+    style Pool fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+</div>
 <p><strong>Configuration</strong>:</p>
-<pre><code class="language-bash"># Multiple keys for rotation (recommended)
-RIOT_API_KEYS=key1,key2,key3
-
-# Single key (backward compatible)
-RIOT_API_KEY=RGAPI-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-</code></pre>
-<p><strong>Rotation Strategy</strong>:
-- Round-robin distribution
-- Immediate fallback on 429 errors
-- Health tracking per key
-- Automatic key recovery</p>
-<h3 id="3-input-validation">3. Input Validation<a class="headerlink" href="#3-input-validation" title="Permanent link">¶</a></h3>
-<p><strong>Coverage</strong>: Complete Pydantic model validation for all endpoints.</p>
-<p><strong>Features</strong>:
-- Type safety for all parameters
-- Regex validation for IDs and strings
-- Range validation for numeric values
-- Enum validation for constants
-- Sanitization of user input</p>
-<p><strong>Example Validation</strong>:</p>
-<pre><code class="language-python"># Path parameter validation
-@router.get("/summoner/by-name/{summoner_name}")
-async def get_summoner_by_name(
-    summoner_name: str = Path(..., min_length=3, max_length=16, pattern=r"^[0-9\\p{L} _]+$"),
-    region: str = Query(..., enum=SUPPORTED_REGIONS)
-):
-    # summoner_name is validated before execution
-</code></pre>
-<h3 id="4-rate-limiting">4. Rate Limiting<a class="headerlink" href="#4-rate-limiting" title="Permanent link">¶</a></h3>
-<p><strong>Algorithm</strong>: Token bucket with configurable limits.</p>
-<p><strong>Features</strong>:
-- Per-provider rate limiting
-- Smooth request distribution
-- Automatic retry with backoff
-- Smart key rotation</p>
-<p><strong>Configuration</strong>:</p>
-<pre><code class="language-bash"># Riot API rate limits
-RIOT_RATE_LIMIT_PER_SECOND=20
-RIOT_RATE_LIMIT_PER_2MIN=100
-
-# Custom provider limits
-CUSTOM_PROVIDER_RATE_LIMIT=50
-</code></pre>
-<h3 id="5-error-monitoring">5. Error Monitoring<a class="headerlink" href="#5-error-monitoring" title="Permanent link">¶</a></h3>
-<p><strong>Real-time Tracking</strong>:
-- Error counts and rates
-- Consecutive failure tracking
-- Error pattern detection
-- Automatic alerting</p>
-<p><strong>Alerting Thresholds</strong>:</p>
-<pre><code class="language-bash"># Trigger alerts after N errors in window
-ERROR_ALERT_THRESHOLD=10
-ERROR_WINDOW_SIZE=300  # 5 minutes
-</code></pre>
-<p><strong>Error Types Monitored</strong>:
-- HTTP client errors (4xx, 5xx)
-- Connection timeouts
-- Data validation errors
-- Provider-specific errors
-- Security violations</p>
-<h2 id="security-best-practices">Security Best Practices<a class="headerlink" href="#security-best-practices" title="Permanent link">¶</a></h2>
-<h3 id="api-key-management">API Key Management<a class="headerlink" href="#api-key-management" title="Permanent link">¶</a></h3>
-<ol>
-<li><strong>Never commit API keys</strong> to version control</li>
-<li><strong>Use environment variables</strong> for all sensitive data</li>
-<li><strong>Rotate keys regularly</strong> for production systems</li>
-<li><strong>Monitor key usage</strong> and set up alerts</li>
-</ol>
-<h3 id="network-security">Network Security<a class="headerlink" href="#network-security" title="Permanent link">¶</a></h3>
-<ol>
-<li><strong>Keep host binding</strong> to <code>127.0.0.1</code> for local development</li>
-<li><strong>Use reverse proxy</strong> (nginx) for production deployment</li>
-<li><strong>Implement HTTPS</strong> in production environments</li>
-<li><strong>Configure firewalls</strong> to restrict access</li>
-</ol>
-<h3 id="input-validation">Input Validation<a class="headerlink" href="#input-validation" title="Permanent link">¶</a></h3>
-<ol>
-<li><strong>Always validate</strong> user input at API boundaries</li>
-<li><strong>Use parameterized queries</strong> to prevent injection</li>
-<li><strong>Sanitize and escape</strong> output data</li>
-<li><strong>Implement rate limiting</strong> per user/IP</li>
-</ol>
-<h3 id="monitoring-logging">Monitoring &amp; Logging<a class="headerlink" href="#monitoring-logging" title="Permanent link">¶</a></h3>
-<ol>
-<li><strong>Log security events</strong> with timestamps</li>
-<li><strong>Monitor error rates</strong> and set up alerts</li>
-<li><strong>Track API usage</strong> patterns</li>
-<li><strong>Regular security audits</strong> of logs and configurations</li>
-</ol>
-<h2 id="security-headers">Security Headers<a class="headerlink" href="#security-headers" title="Permanent link">¶</a></h2>
-<h3 id="default-headers">Default Headers<a class="headerlink" href="#default-headers" title="Permanent link">¶</a></h3>
-<pre><code class="language-http">Content-Security-Policy: default-src 'self'
-X-Content-Type-Options: nosniff
-X-Frame-Options: DENY
-X-XSS-Protection: 1; mode=block
-Referrer-Policy: strict-origin-when-cross-origin
-</code></pre>
-<h3 id="cors-configuration">CORS Configuration<a class="headerlink" href="#cors-configuration" title="Permanent link">¶</a></h3>
-<pre><code class="language-python">app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[],  # Restrictive by default
-    allow_credentials=False,
-    allow_methods=["GET", "OPTIONS"],  # Safe methods only
-    allow_headers=["Content-Type", "Authorization"],
-    max_age=86400,
+<pre><code class="language-python"># httpx client configuration
+httpx.AsyncClient(
+    limits=httpx.Limits(
+        max_keepalive_connections=20,
+        max_connections=100,
+        keepalive_expiry=30.0
+    )
 )
 </code></pre>
-<h2 id="security-monitoring">Security Monitoring<a class="headerlink" href="#security-monitoring" title="Permanent link">¶</a></h2>
-<h3 id="real-time-metrics">Real-time Metrics<a class="headerlink" href="#real-time-metrics" title="Permanent link">¶</a></h3>
+<p><strong>Benefits</strong>:
+- Eliminates TCP handshake overhead (<code>~50ms</code>)
+- Reuses SSL/TLS sessions
+- Reduces server load</p>
+<hr/>
+<h2 id="cross-references">Cross-References<a class="headerlink" href="#cross-references" title="Permanent link">¶</a></h2>
+<h3 id="related-documentation">Related Documentation<a class="headerlink" href="#related-documentation" title="Permanent link">¶</a></h3>
 <ul>
-<li><strong>Request Rate</strong>: Requests per second by provider</li>
-<li><strong>Error Rate</strong>: Percentage of failed requests</li>
-<li><strong>Response Time</strong>: Average response time tracking</li>
-<li><strong>Concurrent Failures</strong>: Count of consecutive errors</li>
+<li><strong><a href="../system-overview/">System Overview</a></strong> - High-level architecture</li>
+<li><strong><a href="../routing/">Routing Architecture</a></strong> - API endpoint organization</li>
+<li><strong><a href="../diagram-guide/">Diagram Guide</a></strong> - How to read these diagrams</li>
+<li><strong><a href="../caching/">Caching Strategy</a></strong> - Detailed cache configuration</li>
+<li><strong><a href="providers.md">Provider Documentation</a></strong> - Provider implementations</li>
+<li><strong><a href="../rate-limiting/">Rate Limiting</a></strong> - Rate limit configuration</li>
 </ul>
-<h3 id="alert-conditions">Alert Conditions<a class="headerlink" href="#alert-conditions" title="Permanent link">¶</a></h3>
+<h3 id="implementation-files">Implementation Files<a class="headerlink" href="#implementation-files" title="Permanent link">¶</a></h3>
 <ul>
-<li><strong>High Error Rate</strong>: &gt;10% error rate sustained</li>
-<li><strong>Consecutive Failures</strong>: 5+ failures in a row</li>
-<li><strong>Security Violations</strong>: Invalid host headers, CORS violations</li>
-<li><strong>Rate Limit Breaches</strong>: Exceeding configured limits</li>
+<li><code>app/main.py</code> - FastAPI application and middleware</li>
+<li><code>app/routers/</code> - Router implementations</li>
+<li><code>app/providers/</code> - Provider implementations</li>
+<li><code>app/core/cache.py</code> - Cache logic</li>
+<li><code>app/core/rate_limiter.py</code> - Rate limiting</li>
+<li><code>app/middleware/</code> - Custom middleware</li>
 </ul>
-<h3 id="health-check-integration">Health Check Integration<a class="headerlink" href="#health-check-integration" title="Permanent link">¶</a></h3>
-<p>Security status is integrated with overall health monitoring:</p>
-<pre><code class="language-bash"># Basic health includes security
-curl http://localhost:8080/health
-
-# Detailed security status
-curl http://localhost:8080/security/status
-
-# Security-specific health
-curl http://localhost:8080/health/security
-</code></pre>
-<h2 id="troubleshooting-security-issues">Troubleshooting Security Issues<a class="headerlink" href="#troubleshooting-security-issues" title="Permanent link">¶</a></h2>
-<h3 id="host-binding-issues">Host Binding Issues<a class="headerlink" href="#host-binding-issues" title="Permanent link">¶</a></h3>
-<p><strong>Problem</strong>: External access attempts fail</p>
-<p><strong>Solution</strong>: Check host configuration</p>
-<pre><code class="language-bash"># Should be 127.0.0.1 for security
-echo $HOST
-
-# Test local access
-curl http://127.0.0.1:8080/health
-
-# Test external access (should fail)
-curl http://0.0.0.0:8080/health
-</code></pre>
-<h3 id="api-key-issues">API Key Issues<a class="headerlink" href="#api-key-issues" title="Permanent link">¶</a></h3>
-<p><strong>Problem</strong>: 401 Unauthorized or 429 Rate Limited</p>
-<p><strong>Solution</strong>: Verify API key configuration</p>
-<pre><code class="language-bash"># Check key format
-echo $RIOT_API_KEY | head -c 10
-
-# Test API directly
-curl -H "X-Riot-Token: $RIOT_API_KEY" \
-     "https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/test"
-
-# Check key rotation
-curl http://localhost:8080/security/status | jq '.api_key_rotation_enabled'
-</code></pre>
-<h3 id="input-validation-issues">Input Validation Issues<a class="headerlink" href="#input-validation-issues" title="Permanent link">¶</a></h3>
-<p><strong>Problem</strong>: 422 Unprocessable Entity errors</p>
-<p><strong>Solution</strong>: Check request parameters</p>
-<pre><code class="language-bash"># Check validation rules
-curl http://localhost:8080/docs
-
-# Test with valid parameters
-curl "http://localhost:8080/lol/summoner/v4/summoners/by-name/ValidName?region=euw1"
-</code></pre>
-<h3 id="cors-issues">CORS Issues<a class="headerlink" href="#cors-issues" title="Permanent link">¶</a></h3>
-<p><strong>Problem</strong>: Cross-origin requests blocked</p>
-<p><strong>Solution</strong>: Configure CORS properly</p>
-<pre><code class="language-bash"># Check CORS headers
-curl -H "Origin: https://example.com" \
-     -H "Access-Control-Request-Method: GET" \
-     -X OPTIONS \
-     "http://localhost:8080/summoner/by-name/test"
-
-# Should return restrictive CORS headers
-</code></pre>
-<h2 id="security-configuration-reference">Security Configuration Reference<a class="headerlink" href="#security-configuration-reference" title="Permanent link">¶</a></h2>
-<h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">¶</a></h3>
-<table>
-<thead>
-<tr>
-<th>Variable</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>HOST</code></td>
-<td><code>127.0.0.1</code></td>
-<td>Server host binding</td>
-</tr>
-<tr>
-<td><code>RIOT_API_KEY</code></td>
-<td>None</td>
-<td>Single API key (backward compatible)</td>
-</tr>
-<tr>
-<td><code>RIOT_API_KEYS</code></td>
-<td>None</td>
-<td>Multiple API keys for rotation</td>
-</tr>
-<tr>
-<td><code>RIOT_RATE_LIMIT_PER_SECOND</code></td>
-<td><code>20</code></td>
-<td>Rate limit per second</td>
-</tr>
-<tr>
-<td><code>RIOT_RATE_LIMIT_PER_2MIN</code></td>
-<td><code>100</code></td>
-<td>Rate limit per 2 minutes</td>
-</tr>
-<tr>
-<td><code>ERROR_ALERT_THRESHOLD</code></td>
-<td><code>10</code></td>
-<td>Error alerting threshold</td>
-</tr>
-<tr>
-<td><code>ENABLE_CORS</code></td>
-<td><code>false</code></td>
-<td>Enable CORS middleware</td>
-</tr>
-</tbody>
-</table>
-<h3 id="security-headers_1">Security Headers<a class="headerlink" href="#security-headers_1" title="Permanent link">¶</a></h3>
-<table>
-<thead>
-<tr>
-<th>Header</th>
-<th>Value</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>X-Content-Type-Options</code></td>
-<td><code>nosniff</code></td>
-<td>Prevent MIME type sniffing</td>
-</tr>
-<tr>
-<td><code>X-Frame-Options</code></td>
-<td><code>DENY</code></td>
-<td>Prevent clickjacking</td>
-</tr>
-<tr>
-<td><code>X-XSS-Protection</code></td>
-<td><code>1; mode=block</code></td>
-<td>Enable XSS protection</td>
-</tr>
-<tr>
-<td><code>Content-Security-Policy</code></td>
-<td><code>default-src 'self'</code></td>
-<td>Content security policy</td>
-</tr>
-<tr>
-<td><code>Referrer-Policy</code></td>
-<td><code>strict-origin-when-cross-origin</code></td>
-<td>Referrer policy</td>
-</tr>
-</tbody>
-</table>
+<hr/>
+<h2 id="monitoring-checklist">Monitoring Checklist<a class="headerlink" href="#monitoring-checklist" title="Permanent link">¶</a></h2>
+<p>Use this checklist to monitor data flow health:</p>
+<ul>
+<li>[ ] <strong>Cache Hit Rate</strong>: Should be <code>&gt;70%</code> in steady state</li>
+<li>[ ] <strong>Response Time P95</strong>: Should be <code>&lt;50ms</code> for cache hits, <code>&lt;300ms</code> for cache misses</li>
+<li>[ ] <strong>Error Rate</strong>: Should be <code>&lt;1%</code> overall</li>
+<li>[ ] <strong>Rate Limit Errors</strong>: Should be <code>&lt;0.1%</code> (indicates proper cache usage)</li>
+<li>[ ] <strong>External API Latency</strong>: Monitor for degradation</li>
+<li>[ ] <strong>Redis Connection</strong>: Check for connection pool exhaustion</li>
+<li>[ ] <strong>Request Coalescing</strong>: Verify deduplication is working</li>
+</ul>
+<hr/>
+<p><strong>Last Updated</strong>: 2025-01-24</p>
+<p><strong>Next Steps</strong>:
+1. Review <a href="../routing/">Routing Architecture</a> for endpoint organization
+2. Explore <a href="../caching/">Caching Strategy</a> for detailed TTL configuration
+3. Check <a href="providers.md">Provider Documentation</a> for implementation details</p>
 </article>
 </div>
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
@@ -1835,5 +2385,6 @@ curl -H "Origin: https://example.com" \
 
         })();
     </script>
-</body>
+<script type="module">import mermaid from "https://unpkg.com/mermaid@10.9.0/dist/mermaid.esm.min.mjs";
+mermaid.initialize({});</script></body>
 </html>

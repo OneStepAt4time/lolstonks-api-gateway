@@ -6,11 +6,11 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="Unified League of Legends API Gateway with caching, rate limiting, and comprehensive monitoring" name="description"/>
-<link href="../data-flow/" rel="prev"/>
-<link href="../models/" rel="next"/>
+<link href="../diagram-guide/" rel="prev"/>
+<link href="../data-flow/" rel="next"/>
 <link href="../../assets/logo.png" rel="icon"/>
 <meta content="mkdocs-1.6.1, mkdocs-material-9.6.23" name="generator"/>
-<title>Implementation Details - LOLStonks API Gateway</title>
+<title>System Overview - LOLStonks API Gateway</title>
 <link href="../../assets/stylesheets/main.84d31ad4.min.css" rel="stylesheet"/>
 <link href="../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -24,7 +24,7 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#implementation-details">
+<a class="md-skip" href="#system-overview">
           Skip to content
         </a>
 </div>
@@ -48,7 +48,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              Implementation Details
+              System Overview
             
           </span>
 </div>
@@ -375,34 +375,18 @@
   </span>
 </a>
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../system-overview/">
-<span class="md-ellipsis">
-    System Overview
-    
-  </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../data-flow/">
-<span class="md-ellipsis">
-    Data Flow
-    
-  </span>
-</a>
-</li>
 <li class="md-nav__item md-nav__item--active">
 <input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
 <label class="md-nav__link md-nav__link--active" for="__toc">
 <span class="md-ellipsis">
-    Implementation Details
+    System Overview
     
   </span>
 <span class="md-nav__icon md-icon"></span>
 </label>
 <a class="md-nav__link md-nav__link--active" href="./">
 <span class="md-ellipsis">
-    Implementation Details
+    System Overview
     
   </span>
 </a>
@@ -413,42 +397,53 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#table-of-contents">
+<a class="md-nav__link" href="#introduction">
 <span class="md-ellipsis">
-      Table of Contents
+      Introduction
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#configuration-system">
+<a class="md-nav__link" href="#system-architecture-diagram">
 <span class="md-ellipsis">
-      Configuration System
+      System Architecture Diagram
     </span>
 </a>
-<nav aria-label="Configuration System" class="md-nav">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#component-overview">
+<span class="md-ellipsis">
+      Component Overview
+    </span>
+</a>
+<nav aria-label="Component Overview" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#implementation-pydantic-settings">
+<a class="md-nav__link" href="#client-layer">
 <span class="md-ellipsis">
-      Implementation: Pydantic Settings
+      Client Layer
     </span>
 </a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#rate-limiting">
-<span class="md-ellipsis">
-      Rate Limiting
-    </span>
-</a>
-<nav aria-label="Rate Limiting" class="md-nav">
+<nav aria-label="Client Layer" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#implementation-aiolimiter-library">
+<a class="md-nav__link" href="#cli-application-lolstonks-api-cli">
 <span class="md-ellipsis">
-      Implementation: aiolimiter Library
+      CLI Application (lolstonks-api-cli)
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#web-applications">
+<span class="md-ellipsis">
+      Web Applications
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#api-consumers">
+<span class="md-ellipsis">
+      API Consumers
     </span>
 </a>
 </li>
@@ -456,17 +451,38 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#caching-system">
+<a class="md-nav__link" href="#gateway-layer">
 <span class="md-ellipsis">
-      Caching System
+      Gateway Layer
     </span>
 </a>
-<nav aria-label="Caching System" class="md-nav">
+<nav aria-label="Gateway Layer" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#implementation-aiocache-library">
+<a class="md-nav__link" href="#fastapi-application">
 <span class="md-ellipsis">
-      Implementation: aiocache Library
+      FastAPI Application
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#provider-registry">
+<span class="md-ellipsis">
+      Provider Registry
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#router-system">
+<span class="md-ellipsis">
+      Router System
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#middleware-stack">
+<span class="md-ellipsis">
+      Middleware Stack
     </span>
 </a>
 </li>
@@ -474,17 +490,38 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#match-tracking">
+<a class="md-nav__link" href="#infrastructure-layer">
 <span class="md-ellipsis">
-      Match Tracking
+      Infrastructure Layer
     </span>
 </a>
-<nav aria-label="Match Tracking" class="md-nav">
+<nav aria-label="Infrastructure Layer" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#implementation-redis-set-with-redis-py">
+<a class="md-nav__link" href="#redis-cache">
 <span class="md-ellipsis">
-      Implementation: Redis SET with redis-py
+      Redis Cache
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rate-limiter">
+<span class="md-ellipsis">
+      Rate Limiter
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#health-monitor">
+<span class="md-ellipsis">
+      Health Monitor
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#metrics-collector">
+<span class="md-ellipsis">
+      Metrics Collector
     </span>
 </a>
 </li>
@@ -492,17 +529,31 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#http-client">
+<a class="md-nav__link" href="#provider-layer">
 <span class="md-ellipsis">
-      HTTP Client
+      Provider Layer
     </span>
 </a>
-<nav aria-label="HTTP Client" class="md-nav">
+<nav aria-label="Provider Layer" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#implementation-httpx-asyncclient">
+<a class="md-nav__link" href="#riot-api-provider">
 <span class="md-ellipsis">
-      Implementation: httpx AsyncClient
+      Riot API Provider
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-dragon-provider">
+<span class="md-ellipsis">
+      Data Dragon Provider
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#community-dragon-provider">
+<span class="md-ellipsis">
+      Community Dragon Provider
     </span>
 </a>
 </li>
@@ -510,56 +561,52 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#key-differences-from-conceptual-docs">
+<a class="md-nav__link" href="#external-apis">
 <span class="md-ellipsis">
-      Key Differences from Conceptual Docs
+      External APIs
     </span>
 </a>
-<nav aria-label="Key Differences from Conceptual Docs" class="md-nav">
+<nav aria-label="External APIs" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#whats-simplified">
+<a class="md-nav__link" href="#riot-games-api">
 <span class="md-ellipsis">
-      What's Simplified
+      Riot Games API
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#whats-not-implemented-yet">
+<a class="md-nav__link" href="#data-dragon-cdn">
 <span class="md-ellipsis">
-      What's NOT Implemented (Yet)
+      Data Dragon CDN
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#whats-fully-implemented">
+<a class="md-nav__link" href="#community-dragon-cdn">
 <span class="md-ellipsis">
-      What's Fully Implemented
+      Community Dragon CDN
     </span>
 </a>
 </li>
 </ul>
 </nav>
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#design-philosophy">
-<span class="md-ellipsis">
-      Design Philosophy
-    </span>
-</a>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#quick-code-reference">
+<a class="md-nav__link" href="#request-flow-overview">
 <span class="md-ellipsis">
-      Quick Code Reference
+      Request Flow Overview
     </span>
 </a>
-<nav aria-label="Quick Code Reference" class="md-nav">
+<nav aria-label="Request Flow Overview" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#where-to-find-key-components">
+<a class="md-nav__link" href="#typical-request-path">
 <span class="md-ellipsis">
-      Where to Find Key Components
+      Typical Request Path
     </span>
 </a>
 </li>
@@ -567,31 +614,24 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#testing-the-implementation">
+<a class="md-nav__link" href="#deployment-architecture">
 <span class="md-ellipsis">
-      Testing the Implementation
+      Deployment Architecture
     </span>
 </a>
-<nav aria-label="Testing the Implementation" class="md-nav">
+<nav aria-label="Deployment Architecture" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#verify-rate-limiting">
+<a class="md-nav__link" href="#development-environment">
 <span class="md-ellipsis">
-      Verify Rate Limiting
+      Development Environment
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#verify-caching">
+<a class="md-nav__link" href="#production-deployment-future">
 <span class="md-ellipsis">
-      Verify Caching
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#verify-match-tracking">
-<span class="md-ellipsis">
-      Verify Match Tracking
+      Production Deployment (Future)
     </span>
 </a>
 </li>
@@ -599,24 +639,31 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#performance-characteristics">
+<a class="md-nav__link" href="#security-considerations">
 <span class="md-ellipsis">
-      Performance Characteristics
+      Security Considerations
     </span>
 </a>
-<nav aria-label="Performance Characteristics" class="md-nav">
+<nav aria-label="Security Considerations" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#measured-performance">
+<a class="md-nav__link" href="#api-key-management">
 <span class="md-ellipsis">
-      Measured Performance
+      API Key Management
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#concurrency">
+<a class="md-nav__link" href="#network-security">
 <span class="md-ellipsis">
-      Concurrency
+      Network Security
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-privacy">
+<span class="md-ellipsis">
+      Data Privacy
     </span>
 </a>
 </li>
@@ -624,14 +671,162 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#conclusion">
+<a class="md-nav__link" href="#scalability-considerations">
 <span class="md-ellipsis">
-      Conclusion
+      Scalability Considerations
+    </span>
+</a>
+<nav aria-label="Scalability Considerations" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#current-limits">
+<span class="md-ellipsis">
+      Current Limits
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#scaling-strategies">
+<span class="md-ellipsis">
+      Scaling Strategies
+    </span>
+</a>
+<nav aria-label="Scaling Strategies" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#horizontal-scaling">
+<span class="md-ellipsis">
+      Horizontal Scaling
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#vertical-scaling">
+<span class="md-ellipsis">
+      Vertical Scaling
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cache-optimization">
+<span class="md-ellipsis">
+      Cache Optimization
     </span>
 </a>
 </li>
 </ul>
 </nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#monitoring-and-observability">
+<span class="md-ellipsis">
+      Monitoring and Observability
+    </span>
+</a>
+<nav aria-label="Monitoring and Observability" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#health-checks">
+<span class="md-ellipsis">
+      Health Checks
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#metrics">
+<span class="md-ellipsis">
+      Metrics
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#logging">
+<span class="md-ellipsis">
+      Logging
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#technology-stack-summary">
+<span class="md-ellipsis">
+      Technology Stack Summary
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cross-references">
+<span class="md-ellipsis">
+      Cross-References
+    </span>
+</a>
+<nav aria-label="Cross-References" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#related-documentation">
+<span class="md-ellipsis">
+      Related Documentation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#implementation-guides">
+<span class="md-ellipsis">
+      Implementation Guides
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#quick-start">
+<span class="md-ellipsis">
+      Quick Start
+    </span>
+</a>
+<nav aria-label="Quick Start" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#running-the-gateway">
+<span class="md-ellipsis">
+      Running the Gateway
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#making-requests">
+<span class="md-ellipsis">
+      Making Requests
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../data-flow/">
+<span class="md-ellipsis">
+    Data Flow
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../implementation-details/">
+<span class="md-ellipsis">
+    Implementation Details
+    
+  </span>
+</a>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../models/">
@@ -767,24 +962,53 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#table-of-contents">
+<a class="md-nav__link" href="#introduction">
 <span class="md-ellipsis">
-      Table of Contents
+      Introduction
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#configuration-system">
+<a class="md-nav__link" href="#system-architecture-diagram">
 <span class="md-ellipsis">
-      Configuration System
+      System Architecture Diagram
     </span>
 </a>
-<nav aria-label="Configuration System" class="md-nav">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#component-overview">
+<span class="md-ellipsis">
+      Component Overview
+    </span>
+</a>
+<nav aria-label="Component Overview" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#implementation-pydantic-settings">
+<a class="md-nav__link" href="#client-layer">
 <span class="md-ellipsis">
-      Implementation: Pydantic Settings
+      Client Layer
+    </span>
+</a>
+<nav aria-label="Client Layer" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cli-application-lolstonks-api-cli">
+<span class="md-ellipsis">
+      CLI Application (lolstonks-api-cli)
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#web-applications">
+<span class="md-ellipsis">
+      Web Applications
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#api-consumers">
+<span class="md-ellipsis">
+      API Consumers
     </span>
 </a>
 </li>
@@ -792,17 +1016,38 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#rate-limiting">
+<a class="md-nav__link" href="#gateway-layer">
 <span class="md-ellipsis">
-      Rate Limiting
+      Gateway Layer
     </span>
 </a>
-<nav aria-label="Rate Limiting" class="md-nav">
+<nav aria-label="Gateway Layer" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#implementation-aiolimiter-library">
+<a class="md-nav__link" href="#fastapi-application">
 <span class="md-ellipsis">
-      Implementation: aiolimiter Library
+      FastAPI Application
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#provider-registry">
+<span class="md-ellipsis">
+      Provider Registry
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#router-system">
+<span class="md-ellipsis">
+      Router System
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#middleware-stack">
+<span class="md-ellipsis">
+      Middleware Stack
     </span>
 </a>
 </li>
@@ -810,17 +1055,38 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#caching-system">
+<a class="md-nav__link" href="#infrastructure-layer">
 <span class="md-ellipsis">
-      Caching System
+      Infrastructure Layer
     </span>
 </a>
-<nav aria-label="Caching System" class="md-nav">
+<nav aria-label="Infrastructure Layer" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#implementation-aiocache-library">
+<a class="md-nav__link" href="#redis-cache">
 <span class="md-ellipsis">
-      Implementation: aiocache Library
+      Redis Cache
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rate-limiter">
+<span class="md-ellipsis">
+      Rate Limiter
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#health-monitor">
+<span class="md-ellipsis">
+      Health Monitor
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#metrics-collector">
+<span class="md-ellipsis">
+      Metrics Collector
     </span>
 </a>
 </li>
@@ -828,17 +1094,31 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#match-tracking">
+<a class="md-nav__link" href="#provider-layer">
 <span class="md-ellipsis">
-      Match Tracking
+      Provider Layer
     </span>
 </a>
-<nav aria-label="Match Tracking" class="md-nav">
+<nav aria-label="Provider Layer" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#implementation-redis-set-with-redis-py">
+<a class="md-nav__link" href="#riot-api-provider">
 <span class="md-ellipsis">
-      Implementation: Redis SET with redis-py
+      Riot API Provider
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-dragon-provider">
+<span class="md-ellipsis">
+      Data Dragon Provider
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#community-dragon-provider">
+<span class="md-ellipsis">
+      Community Dragon Provider
     </span>
 </a>
 </li>
@@ -846,17 +1126,52 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#http-client">
+<a class="md-nav__link" href="#external-apis">
 <span class="md-ellipsis">
-      HTTP Client
+      External APIs
     </span>
 </a>
-<nav aria-label="HTTP Client" class="md-nav">
+<nav aria-label="External APIs" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#implementation-httpx-asyncclient">
+<a class="md-nav__link" href="#riot-games-api">
 <span class="md-ellipsis">
-      Implementation: httpx AsyncClient
+      Riot Games API
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-dragon-cdn">
+<span class="md-ellipsis">
+      Data Dragon CDN
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#community-dragon-cdn">
+<span class="md-ellipsis">
+      Community Dragon CDN
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#request-flow-overview">
+<span class="md-ellipsis">
+      Request Flow Overview
+    </span>
+</a>
+<nav aria-label="Request Flow Overview" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#typical-request-path">
+<span class="md-ellipsis">
+      Typical Request Path
     </span>
 </a>
 </li>
@@ -864,31 +1179,24 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#key-differences-from-conceptual-docs">
+<a class="md-nav__link" href="#deployment-architecture">
 <span class="md-ellipsis">
-      Key Differences from Conceptual Docs
+      Deployment Architecture
     </span>
 </a>
-<nav aria-label="Key Differences from Conceptual Docs" class="md-nav">
+<nav aria-label="Deployment Architecture" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#whats-simplified">
+<a class="md-nav__link" href="#development-environment">
 <span class="md-ellipsis">
-      What's Simplified
+      Development Environment
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#whats-not-implemented-yet">
+<a class="md-nav__link" href="#production-deployment-future">
 <span class="md-ellipsis">
-      What's NOT Implemented (Yet)
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#whats-fully-implemented">
-<span class="md-ellipsis">
-      What's Fully Implemented
+      Production Deployment (Future)
     </span>
 </a>
 </li>
@@ -896,24 +1204,31 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#design-philosophy">
+<a class="md-nav__link" href="#security-considerations">
 <span class="md-ellipsis">
-      Design Philosophy
+      Security Considerations
+    </span>
+</a>
+<nav aria-label="Security Considerations" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#api-key-management">
+<span class="md-ellipsis">
+      API Key Management
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#quick-code-reference">
+<a class="md-nav__link" href="#network-security">
 <span class="md-ellipsis">
-      Quick Code Reference
+      Network Security
     </span>
 </a>
-<nav aria-label="Quick Code Reference" class="md-nav">
-<ul class="md-nav__list">
+</li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#where-to-find-key-components">
+<a class="md-nav__link" href="#data-privacy">
 <span class="md-ellipsis">
-      Where to Find Key Components
+      Data Privacy
     </span>
 </a>
 </li>
@@ -921,31 +1236,81 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#testing-the-implementation">
+<a class="md-nav__link" href="#scalability-considerations">
 <span class="md-ellipsis">
-      Testing the Implementation
+      Scalability Considerations
     </span>
 </a>
-<nav aria-label="Testing the Implementation" class="md-nav">
+<nav aria-label="Scalability Considerations" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#verify-rate-limiting">
+<a class="md-nav__link" href="#current-limits">
 <span class="md-ellipsis">
-      Verify Rate Limiting
+      Current Limits
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#verify-caching">
+<a class="md-nav__link" href="#scaling-strategies">
 <span class="md-ellipsis">
-      Verify Caching
+      Scaling Strategies
+    </span>
+</a>
+<nav aria-label="Scaling Strategies" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#horizontal-scaling">
+<span class="md-ellipsis">
+      Horizontal Scaling
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#verify-match-tracking">
+<a class="md-nav__link" href="#vertical-scaling">
 <span class="md-ellipsis">
-      Verify Match Tracking
+      Vertical Scaling
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cache-optimization">
+<span class="md-ellipsis">
+      Cache Optimization
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#monitoring-and-observability">
+<span class="md-ellipsis">
+      Monitoring and Observability
+    </span>
+</a>
+<nav aria-label="Monitoring and Observability" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#health-checks">
+<span class="md-ellipsis">
+      Health Checks
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#metrics">
+<span class="md-ellipsis">
+      Metrics
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#logging">
+<span class="md-ellipsis">
+      Logging
     </span>
 </a>
 </li>
@@ -953,24 +1318,31 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#performance-characteristics">
+<a class="md-nav__link" href="#technology-stack-summary">
 <span class="md-ellipsis">
-      Performance Characteristics
-    </span>
-</a>
-<nav aria-label="Performance Characteristics" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#measured-performance">
-<span class="md-ellipsis">
-      Measured Performance
+      Technology Stack Summary
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#concurrency">
+<a class="md-nav__link" href="#cross-references">
 <span class="md-ellipsis">
-      Concurrency
+      Cross-References
+    </span>
+</a>
+<nav aria-label="Cross-References" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#related-documentation">
+<span class="md-ellipsis">
+      Related Documentation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#implementation-guides">
+<span class="md-ellipsis">
+      Implementation Guides
     </span>
 </a>
 </li>
@@ -978,11 +1350,29 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#conclusion">
+<a class="md-nav__link" href="#quick-start">
 <span class="md-ellipsis">
-      Conclusion
+      Quick Start
     </span>
 </a>
+<nav aria-label="Quick Start" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#running-the-gateway">
+<span class="md-ellipsis">
+      Running the Gateway
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#making-requests">
+<span class="md-ellipsis">
+      Making Requests
+    </span>
+</a>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -991,475 +1381,609 @@
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<h1 id="implementation-details">Implementation Details<a class="headerlink" href="#implementation-details" title="Permanent link">¶</a></h1>
-<p>This document describes the <strong>actual implementation</strong> of the LOLStonks API Gateway, showing the real code structure and libraries used.</p>
+<h1 id="system-overview">System Overview<a class="headerlink" href="#system-overview" title="Permanent link">¶</a></h1>
 <blockquote>
-<p><strong>Important</strong>: This differs from the conceptual architecture documentation which shows best practices and potential implementations. This document reflects what is actually in the codebase.</p>
+<p><strong>High-level architecture</strong> of the lolstonks-api-gateway system</p>
 </blockquote>
 <hr/>
-<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">¶</a></h2>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">¶</a></h2>
+<p>The lolstonks-api-gateway is a FastAPI-based reverse proxy that provides a unified, cached interface to Riot Games League of Legends APIs. This document provides a comprehensive overview of the system architecture, major components, and their interactions.</p>
+<hr/>
+<h2 id="system-architecture-diagram">System Architecture Diagram<a class="headerlink" href="#system-architecture-diagram" title="Permanent link">¶</a></h2>
+<div class="mermaid">flowchart TD
+    subgraph Clients["Client Layer"]
+        direction LR
+        cli[CLI Application&lt;br/&gt;lolstonks-api-cli]
+        web[Web Applications]
+        api[API Consumers]
+    end
+
+    subgraph Gateway["Gateway Layer (FastAPI)"]
+        direction TB
+        app[FastAPI Application&lt;br/&gt;127.0.0.1:8080]
+        registry[Provider Registry&lt;br/&gt;Dynamic Provider Selection]
+        router[Router System&lt;br/&gt;15+ Endpoint Groups]
+        middleware[Middleware Stack&lt;br/&gt;CORS, Logging, Error Handling]
+    end
+
+    subgraph Infrastructure["Infrastructure Layer"]
+        direction TB
+        cache[(Redis Cache&lt;br/&gt;7.x)]
+        limiter[Rate Limiter&lt;br/&gt;Token Bucket Algorithm]
+        health[Health Monitor&lt;br/&gt;Component Status]
+        metrics[Metrics Collector&lt;br/&gt;Performance Tracking]
+    end
+
+    subgraph Providers["Provider Layer"]
+        direction TB
+        riot[Riot API Provider&lt;br/&gt;Live Game Data]
+        dragon[Data Dragon Provider&lt;br/&gt;Static Game Data]
+        community[Community Dragon Provider&lt;br/&gt;Enhanced Static Data]
+    end
+
+    subgraph External["External APIs"]
+        direction LR
+        riotapi[Riot Games API&lt;br/&gt;api.riotgames.com]
+        dragoncdn[Data Dragon CDN&lt;br/&gt;ddragon.leagueoflegends.com]
+        communitycdn[Community Dragon CDN&lt;br/&gt;raw.communitydragon.org]
+    end
+
+    %% Client connections
+    Clients --&gt;|HTTP Requests&lt;br/&gt;JSON Responses| app
+
+    %% Gateway internal flow
+    app --&gt; middleware
+    middleware --&gt; router
+    router --&gt; registry
+
+    %% Infrastructure connections
+    app -.-&gt;|Metrics| metrics
+    router --&gt;|Cache Check&lt;br/&gt;&amp;lt;1ms| cache
+    router --&gt;|Rate Check&lt;br/&gt;&amp;lt;1ms| limiter
+    app --&gt;|Health Check| health
+
+    %% Provider selection
+    registry --&gt;|Select Provider| Providers
+
+    %% External API connections
+    riot --&gt;|HTTPS + API Key&lt;br/&gt;50-200ms| riotapi
+    dragon --&gt;|HTTPS&lt;br/&gt;20-100ms| dragoncdn
+    community --&gt;|HTTPS&lt;br/&gt;20-100ms| communitycdn
+
+    %% Cache updates
+    Providers -.-&gt;|Update Cache&lt;br/&gt;Async| cache
+
+    %% Health monitoring
+    health -.-&gt;|Monitor| Infrastructure
+    health -.-&gt;|Monitor| Providers
+
+    classDef gateway fill:#e3f2fd,stroke:#1976d2,stroke-width:3px,color:#000
+    classDef provider fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
+    classDef cache fill:#fff3e0,stroke:#f57c00,stroke-width:2px,color:#000
+    classDef external fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#000
+    classDef client fill:#f5f5f5,stroke:#616161,stroke-width:2px,color:#000
+
+    class app,registry,router,middleware gateway
+    class riot,dragon,community provider
+    class cache,limiter,health,metrics cache
+    class riotapi,dragoncdn,communitycdn external
+    class cli,web,api client
+</div>
+<hr/>
+<h2 id="component-overview">Component Overview<a class="headerlink" href="#component-overview" title="Permanent link">¶</a></h2>
+<h3 id="client-layer">Client Layer<a class="headerlink" href="#client-layer" title="Permanent link">¶</a></h3>
+<p>The gateway serves multiple client types:</p>
+<h4 id="cli-application-lolstonks-api-cli">CLI Application (lolstonks-api-cli)<a class="headerlink" href="#cli-application-lolstonks-api-cli" title="Permanent link">¶</a></h4>
 <ul>
-<li><a href="#configuration-system">Configuration System</a></li>
-<li><a href="#rate-limiting">Rate Limiting</a></li>
-<li><a href="#caching-system">Caching System</a></li>
-<li><a href="#match-tracking">Match Tracking</a></li>
-<li><a href="#http-client">HTTP Client</a></li>
-<li><a href="#key-differences-from-conceptual-docs">Key Differences from Conceptual Docs</a></li>
+<li><strong>Purpose</strong>: Command-line interface for League of Legends data queries</li>
+<li><strong>Connection</strong>: HTTP client using httpx</li>
+<li><strong>Features</strong>: Rich terminal output, JSON export, offline mode</li>
+<li><strong>Location</strong>: <code>D:\LoLProjects\lolstonks-api-cli</code></li>
+</ul>
+<h4 id="web-applications">Web Applications<a class="headerlink" href="#web-applications" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Purpose</strong>: Browser-based dashboards and analytics tools</li>
+<li><strong>Connection</strong>: Standard HTTP/REST</li>
+<li><strong>Authentication</strong>: API key-based (future feature)</li>
+</ul>
+<h4 id="api-consumers">API Consumers<a class="headerlink" href="#api-consumers" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Purpose</strong>: Third-party integrations and custom tools</li>
+<li><strong>Connection</strong>: REST API with OpenAPI/Swagger documentation</li>
+<li><strong>Documentation</strong>: Available at <code>http://127.0.0.1:8080/docs</code></li>
 </ul>
 <hr/>
-<h2 id="configuration-system">Configuration System<a class="headerlink" href="#configuration-system" title="Permanent link">¶</a></h2>
-<h3 id="implementation-pydantic-settings">Implementation: Pydantic Settings<a class="headerlink" href="#implementation-pydantic-settings" title="Permanent link">¶</a></h3>
-<p><strong>File</strong>: <code>app/config.py</code></p>
-<p><strong>Library</strong>: <code>pydantic-settings</code></p>
-<pre><code class="language-python">from pydantic_settings import BaseSettings
-
-class Settings(BaseSettings):
-    # Riot API Configuration
-    riot_api_key: str
-    riot_default_region: str = "euw1"
-    riot_request_timeout: int = 10
-
-    # Rate Limits
-    riot_rate_limit_per_second: int = 20
-    riot_rate_limit_per_2min: int = 100
-
-    # Redis Configuration
-    redis_host: str = "redis"
-    redis_port: int = 6379
-    redis_db: int = 0
-    redis_password: str = ""
-
-    # All 23 Cache TTL variables...
-    # See app/config.py for complete list
-
-    model_config = ConfigDict(
-        env_file=".env",
-        case_sensitive=False,
-        extra="ignore",
-    )
-
-# Global instance
-settings = Settings()
-</code></pre>
-<p><strong>Features</strong>:
-- Automatic <code>.env</code> file loading
-- Type validation
-- Case-insensitive environment variables
-- Default values</p>
+<h3 id="gateway-layer">Gateway Layer<a class="headerlink" href="#gateway-layer" title="Permanent link">¶</a></h3>
+<p>The core application layer built on FastAPI 0.115+.</p>
+<h4 id="fastapi-application">FastAPI Application<a class="headerlink" href="#fastapi-application" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Binding</strong>: <code>127.0.0.1:8080</code> (localhost only for security)</li>
+<li><strong>Runtime</strong>: Uvicorn ASGI server</li>
+<li><strong>Configuration</strong>: Environment-based via <code>.env</code></li>
+<li><strong>Startup</strong>: Initializes providers, cache, health checks</li>
+<li><strong>Documentation</strong>: Auto-generated OpenAPI schema at <code>/openapi.json</code></li>
+</ul>
+<p><strong>Key Features</strong>:
+- Automatic API documentation (Swagger UI, ReDoc)
+- Request validation via Pydantic 2.5+
+- Dependency injection for shared resources
+- Lifespan events for startup/shutdown</p>
+<h4 id="provider-registry">Provider Registry<a class="headerlink" href="#provider-registry" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Purpose</strong>: Dynamic provider selection based on data type and region</li>
+<li><strong>Implementation</strong>: Factory pattern with provider routing</li>
+<li><strong>Providers</strong>: Riot API (live data), Data Dragon (static), Community Dragon (enhanced)</li>
+<li><strong>Selection Logic</strong>:</li>
+<li>Static data (champions, items) → Data Dragon or Community Dragon</li>
+<li>Live data (matches, rankings) → Riot API</li>
+<li>Fallback handling for provider unavailability</li>
+</ul>
+<p><strong>Code Location</strong>: <code>app/core/providers.py</code></p>
+<h4 id="router-system">Router System<a class="headerlink" href="#router-system" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Organization</strong>: 15+ router modules grouped by functionality</li>
+<li><strong>Categories</strong>:</li>
+<li><strong>Game Routes</strong>: Summoner, Match, League, Mastery, Spectator, Tournament</li>
+<li><strong>Account Routes</strong>: Account, Clash</li>
+<li><strong>Data Routes</strong>: Champion, Challenges, Item, Rune, Spell</li>
+<li><strong>System Routes</strong>: Health, Metrics, Platform, Status</li>
+<li><strong>Pattern</strong>: Each router is a separate module with versioned endpoints</li>
+<li><strong>Registration</strong>: Routers registered to FastAPI app on startup</li>
+</ul>
+<p><strong>Code Location</strong>: <code>app/routers/</code></p>
+<h4 id="middleware-stack">Middleware Stack<a class="headerlink" href="#middleware-stack" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>CORS</strong>: Cross-Origin Resource Sharing for browser clients</li>
+<li><strong>Logging</strong>: Request/response logging via loguru</li>
+<li><strong>Error Handling</strong>: Global exception handlers for consistent error responses</li>
+<li><strong>Request ID</strong>: Unique tracking ID for each request</li>
+<li><strong>Timing</strong>: Response time measurement and headers</li>
+</ul>
+<p><strong>Configuration</strong>: See <code>app/middleware/</code> and <code>app/main.py</code></p>
 <hr/>
-<h2 id="rate-limiting">Rate Limiting<a class="headerlink" href="#rate-limiting" title="Permanent link">¶</a></h2>
-<h3 id="implementation-aiolimiter-library">Implementation: aiolimiter Library<a class="headerlink" href="#implementation-aiolimiter-library" title="Permanent link">¶</a></h3>
-<p><strong>File</strong>: <code>app/riot/rate_limiter.py</code></p>
-<p><strong>Library</strong>: <a href="https://github.com/mjpieters/aiolimiter">aiolimiter</a> v1.1+</p>
-<pre><code class="language-python">from aiolimiter import AsyncLimiter
-from app.config import settings
-
-class RiotRateLimiter:
-    """Token bucket rate limiter using aiolimiter."""
-
-    def __init__(self):
-        # Short-term limit: 20 requests/second
-        self.limiter_1s = AsyncLimiter(
-            max_rate=settings.riot_rate_limit_per_second,
-            time_period=1,
-        )
-        # Long-term limit: 100 requests/2 minutes
-        self.limiter_2min = AsyncLimiter(
-            max_rate=settings.riot_rate_limit_per_2min,
-            time_period=120,
-        )
-
-    async def acquire(self):
-        """Acquire tokens from both limiters."""
-        async with self.limiter_1s:
-            async with self.limiter_2min:
-                pass  # Both limits satisfied
-
-# Global instance
-rate_limiter = RiotRateLimiter()
+<h3 id="infrastructure-layer">Infrastructure Layer<a class="headerlink" href="#infrastructure-layer" title="Permanent link">¶</a></h3>
+<p>Supporting components for caching, rate limiting, and monitoring.</p>
+<h4 id="redis-cache">Redis Cache<a class="headerlink" href="#redis-cache" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Version</strong>: Redis 7.x</li>
+<li><strong>Purpose</strong>: High-performance caching layer</li>
+<li><strong>Connection</strong>: Docker container or standalone instance</li>
+<li><strong>TTL Strategy</strong>:</li>
+<li>Live data: 5 minutes (configurable)</li>
+<li>Static data: 1 hour (configurable)</li>
+<li>Player data: 10 minutes</li>
+<li>Match data: 30 minutes (matches don't change)</li>
+<li><strong>Invalidation</strong>: TTL-based expiration, manual force refresh via <code>?force=true</code></li>
+<li><strong>Keys Pattern</strong>: <code>{provider}:{endpoint}:{region}:{params_hash}</code></li>
+</ul>
+<p><strong>Performance</strong>:
+- Cache hit: <code>&lt;10ms</code> response time
+- Cache miss: <code>50-200ms</code> (depends on external API)
+- Hit rate: Typically <code>&gt;70%</code> in production</p>
+<p><strong>Configuration</strong>: <code>REDIS_URL</code> in <code>.env</code></p>
+<h4 id="rate-limiter">Rate Limiter<a class="headerlink" href="#rate-limiter" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Algorithm</strong>: Token bucket with sliding window</li>
+<li><strong>Purpose</strong>: Protect external APIs from rate limit violations</li>
+<li><strong>Limits</strong>:</li>
+<li>Riot API: 20 requests/second, 100 requests/2 minutes (configurable per key tier)</li>
+<li>Data Dragon: No strict limit (CDN)</li>
+<li>Community Dragon: No strict limit (CDN)</li>
+<li><strong>Implementation</strong>: Redis-backed counter with TTL</li>
+<li><strong>Behavior</strong>: Returns <code>429 Too Many Requests</code> when limit exceeded</li>
+</ul>
+<p><strong>Code Location</strong>: <code>app/core/rate_limiter.py</code></p>
+<h4 id="health-monitor">Health Monitor<a class="headerlink" href="#health-monitor" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Purpose</strong>: Component health checking and status reporting</li>
+<li><strong>Checks</strong>:</li>
+<li>Redis connectivity</li>
+<li>Provider availability</li>
+<li>External API reachability</li>
+<li>Disk space and memory</li>
+<li><strong>Endpoints</strong>:</li>
+<li><code>/health</code> - Simple up/down status</li>
+<li><code>/health/detailed</code> - Component-level health</li>
+<li><strong>Frequency</strong>: Checked on-demand and via periodic background task</li>
+</ul>
+<p><strong>Response Format</strong>:</p>
+<pre><code class="language-json">{
+  "status": "healthy",
+  "components": {
+    "redis": "healthy",
+    "riot_api": "healthy",
+    "data_dragon": "healthy"
+  },
+  "timestamp": "2025-01-24T12:00:00Z"
+}
 </code></pre>
-<p><strong>Why aiolimiter?</strong>:
-- Production-tested token bucket implementation
-- Async/await native
-- No need for custom refill logic
-- Thread-safe and efficient</p>
-<p><strong>Dual-Layer Protection</strong>:
-- Layer 1: <code>limiter_1s</code> prevents bursts (20 req/s)
-- Layer 2: <code>limiter_2min</code> enforces long-term limit (100 req/2min)
-- Request proceeds only when BOTH limiters allow</p>
+<h4 id="metrics-collector">Metrics Collector<a class="headerlink" href="#metrics-collector" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Purpose</strong>: Performance monitoring and analytics</li>
+<li><strong>Metrics</strong>:</li>
+<li>Request count by endpoint</li>
+<li>Response times (p50, p95, p99)</li>
+<li>Cache hit/miss ratio</li>
+<li>Error rates by type</li>
+<li>External API latency</li>
+<li><strong>Storage</strong>: In-memory counters, exportable to Prometheus (future)</li>
+<li><strong>Endpoint</strong>: <code>/metrics</code> (basic stats), <code>/metrics/prometheus</code> (future)</li>
+</ul>
+<p><strong>Code Location</strong>: <code>app/monitoring/</code></p>
 <hr/>
-<h2 id="caching-system">Caching System<a class="headerlink" href="#caching-system" title="Permanent link">¶</a></h2>
-<h3 id="implementation-aiocache-library">Implementation: aiocache Library<a class="headerlink" href="#implementation-aiocache-library" title="Permanent link">¶</a></h3>
-<p><strong>File</strong>: <code>app/cache/redis_cache.py</code></p>
-<p><strong>Library</strong>: <a href="https://github.com/aio-libs/aiocache">aiocache</a> v0.12+</p>
-<pre><code class="language-python">from aiocache import Cache
-from aiocache.serializers import JsonSerializer
-from app.config import settings
-
-# Simple global cache instance
-cache = Cache(
-    Cache.REDIS,
-    endpoint=settings.redis_host,
-    port=settings.redis_port,
-    db=settings.redis_db,
-    password=settings.redis_password if settings.redis_password else None,
-    serializer=JsonSerializer(),
-    namespace="lol",  # Prefix for all keys
-)
-</code></pre>
-<p><strong>Usage in Routers</strong>:</p>
-<pre><code class="language-python"># app/routers/summoner.py
-from app.cache.redis_cache import cache
-
-@router.get("/summoners/by-name/{summonerName}")
-async def get_summoner_by_name(summonerName: str, region: str):
-    cache_key = f"summoner:{region}:{summonerName.lower()}"
-
-    # Try cache first
-    cached = await cache.get(cache_key)
-    if cached:
-        return cached
-
-    # Cache miss - call Riot API
-    data = await riot_client.get(f"/lol/summoner/v4/summoners/by-name/{summonerName}", region)
-
-    # Store with TTL from config
-    await cache.set(cache_key, data, ttl=settings.cache_ttl_summoner)
-
-    return data
-</code></pre>
-<p><strong>Why aiocache?</strong>:
-- Simple API (get/set/delete)
-- Built-in JSON serialization
-- Connection pooling handled automatically
-- Multiple backend support (Redis, Memcached, Memory)</p>
-<p><strong>Cache Key Pattern</strong>:</p>
-<pre><code class="language-text">lol:{resource}:{region}:{identifier}
-</code></pre>
-<p>Examples:
-- <code>lol:summoner:euw1:faker</code>
-- <code>lol:match:euw1:EUW1_123456789</code>
-- <code>lol:league:kr:challenger:RANKED_SOLO_5x5</code></p>
+<h3 id="provider-layer">Provider Layer<a class="headerlink" href="#provider-layer" title="Permanent link">¶</a></h3>
+<p>Data source abstraction layer implementing the provider pattern.</p>
+<h4 id="riot-api-provider">Riot API Provider<a class="headerlink" href="#riot-api-provider" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Purpose</strong>: Access to live League of Legends game data</li>
+<li><strong>Authentication</strong>: API key required (<code>RIOT_API_KEY</code>)</li>
+<li><strong>Base URL</strong>: <code>https://{region}.api.riotgames.com</code></li>
+<li><strong>Data Types</strong>:</li>
+<li>Summoner profiles and stats</li>
+<li>Match history and details</li>
+<li>Live game spectator data</li>
+<li>Ranked ladder (League)</li>
+<li>Champion mastery</li>
+<li>Tournament data</li>
+<li><strong>Rate Limits</strong>: Strict (20/sec, 100/2min default)</li>
+<li><strong>Caching</strong>: Aggressive caching with 5-10 minute TTL</li>
+<li><strong>Error Handling</strong>: Retries with exponential backoff</li>
+</ul>
+<p><strong>Regional Routing</strong>:
+- Americas: <code>na1</code>, <code>br1</code>, <code>la1</code>, <code>la2</code>
+- Europe: <code>euw1</code>, <code>eun1</code>, <code>tr1</code>, <code>ru</code>
+- Asia: <code>kr</code>, <code>jp1</code>, <code>oc1</code>, <code>ph2</code>, <code>sg2</code>, <code>th2</code>, <code>tw2</code>, <code>vn2</code></p>
+<p><strong>Code Location</strong>: <code>app/providers/riot_provider.py</code></p>
+<h4 id="data-dragon-provider">Data Dragon Provider<a class="headerlink" href="#data-dragon-provider" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Purpose</strong>: Static game data (champions, items, runes, spells)</li>
+<li><strong>Authentication</strong>: None (public CDN)</li>
+<li><strong>Base URL</strong>: <code>https://ddragon.leagueoflegends.com</code></li>
+<li><strong>Data Types</strong>:</li>
+<li>Champion data (stats, abilities, skins)</li>
+<li>Item data (stats, recipes, costs)</li>
+<li>Summoner spell data</li>
+<li>Rune data</li>
+<li>Profile icons</li>
+<li>Localization files</li>
+<li><strong>Versioning</strong>: Version-specific URLs (e.g., <code>14.1.1</code>)</li>
+<li><strong>Caching</strong>: Long TTL (1 hour+) due to static nature</li>
+<li><strong>Updates</strong>: Version changes with patches (every ~2 weeks)</li>
+</ul>
+<p><strong>URL Pattern</strong>: <code>https://ddragon.leagueoflegends.com/cdn/{version}/data/{lang}/{resource}.json</code></p>
+<p><strong>Code Location</strong>: <code>app/providers/data_dragon_provider.py</code></p>
+<h4 id="community-dragon-provider">Community Dragon Provider<a class="headerlink" href="#community-dragon-provider" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Purpose</strong>: Enhanced static data with additional details</li>
+<li><strong>Authentication</strong>: None (public CDN)</li>
+<li><strong>Base URL</strong>: <code>https://raw.communitydragon.org</code></li>
+<li><strong>Data Types</strong>:</li>
+<li>Detailed champion data (passive descriptions, recommended builds)</li>
+<li>High-resolution assets</li>
+<li>Augment data</li>
+<li>Mission/quest data</li>
+<li>Loot and crafting data</li>
+<li><strong>Advantages</strong>: More detailed than official Data Dragon</li>
+<li><strong>Caching</strong>: Long TTL (1 hour+)</li>
+<li><strong>Reliability</strong>: Community-maintained, may lag official patches</li>
+</ul>
+<p><strong>URL Pattern</strong>: <code>https://raw.communitydragon.org/{version}/plugins/rcp-be-lol-game-data/global/default/{resource}</code></p>
+<p><strong>Code Location</strong>: <code>app/providers/community_dragon_provider.py</code></p>
 <hr/>
-<h2 id="match-tracking">Match Tracking<a class="headerlink" href="#match-tracking" title="Permanent link">¶</a></h2>
-<h3 id="implementation-redis-set-with-redis-py">Implementation: Redis SET with redis-py<a class="headerlink" href="#implementation-redis-set-with-redis-py" title="Permanent link">¶</a></h3>
-<p><strong>File</strong>: <code>app/cache/tracking.py</code></p>
-<p><strong>Library</strong>: <code>redis.asyncio</code> (redis-py)</p>
-<pre><code class="language-python">import redis.asyncio as redis
-from app.config import settings
-
-class MatchTracker:
-    """Track processed matches using Redis SET."""
-
-    def __init__(self):
-        self.redis: redis.Redis | None = None
-
-    async def connect(self):
-        """Establish Redis connection."""
-        redis_url = f"redis://{settings.redis_host}:{settings.redis_port}/{settings.redis_db}"
-        if settings.redis_password:
-            redis_url = f"redis://:{settings.redis_password}@{settings.redis_host}:{settings.redis_port}/{settings.redis_db}"
-
-        self.redis = await redis.from_url(redis_url, decode_responses=True)
-
-    async def is_processed(self, region: str, match_id: str) -&gt; bool:
-        """Check if match was processed."""
-        key = f"processed_matches:{region}"
-        return bool(await self.redis.sismember(key, match_id))
-
-    async def mark_processed(self, region: str, match_id: str):
-        """Mark match as processed."""
-        key = f"processed_matches:{region}"
-        await self.redis.sadd(key, match_id)
-
-    async def get_processed_count(self, region: str) -&gt; int:
-        """Get count of processed matches."""
-        key = f"processed_matches:{region}"
-        return await self.redis.scard(key)
-
-# Global instance
-tracker = MatchTracker()
+<h3 id="external-apis">External APIs<a class="headerlink" href="#external-apis" title="Permanent link">¶</a></h3>
+<p>Third-party services accessed by providers.</p>
+<h4 id="riot-games-api">Riot Games API<a class="headerlink" href="#riot-games-api" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Domain</strong>: <code>api.riotgames.com</code></li>
+<li><strong>Protocol</strong>: HTTPS with API key header (<code>X-Riot-Token</code>)</li>
+<li><strong>Rate Limits</strong>: Enforced per API key</li>
+<li><strong>Regions</strong>: Regional endpoints (e.g., <code>na1.api.riotgames.com</code>)</li>
+<li><strong>Documentation</strong>: https://developer.riotgames.com/</li>
+<li><strong>Availability</strong>: <code>99.9%+</code> uptime SLA</li>
+<li><strong>Latency</strong>: Typically <code>50-200ms</code> depending on region</li>
+</ul>
+<p><strong>Authentication Header</strong>:</p>
+<pre><code>X-Riot-Token: RGAPI-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 </code></pre>
-<p><strong>Why separate Redis client?</strong>:
-- Needs SET operations (not available in aiocache)
-- Requires NO TTL (permanent storage)
-- Direct redis-py gives full control</p>
-<p><strong>Storage Pattern</strong>:
-- Key: <code>processed_matches:{region}</code>
-- Type: Redis SET
-- Members: Match IDs (e.g., <code>EUW1_6720797037</code>)
-- TTL: None (permanent)</p>
+<h4 id="data-dragon-cdn">Data Dragon CDN<a class="headerlink" href="#data-dragon-cdn" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Domain</strong>: <code>ddragon.leagueoflegends.com</code></li>
+<li><strong>Protocol</strong>: HTTPS (no authentication)</li>
+<li><strong>Content</strong>: JSON data files and image assets</li>
+<li><strong>Caching</strong>: CDN-cached, very fast</li>
+<li><strong>Versions</strong>: Multiple versions available simultaneously</li>
+<li><strong>Update Frequency</strong>: Patch releases (~every 2 weeks)</li>
+<li><strong>Latency</strong>: Typically <code>20-100ms</code> (CDN performance)</li>
+</ul>
+<h4 id="community-dragon-cdn">Community Dragon CDN<a class="headerlink" href="#community-dragon-cdn" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Domain</strong>: <code>raw.communitydragon.org</code></li>
+<li><strong>Protocol</strong>: HTTPS (no authentication)</li>
+<li><strong>Content</strong>: Enhanced JSON data and high-res assets</li>
+<li><strong>Maintenance</strong>: Community-driven, GitHub-based</li>
+<li><strong>Latency</strong>: Typically <code>20-100ms</code></li>
+<li><strong>Reliability</strong>: Generally stable, may lag official patches by hours/days</li>
+</ul>
 <hr/>
-<h2 id="http-client">HTTP Client<a class="headerlink" href="#http-client" title="Permanent link">¶</a></h2>
-<h3 id="implementation-httpx-asyncclient">Implementation: httpx AsyncClient<a class="headerlink" href="#implementation-httpx-asyncclient" title="Permanent link">¶</a></h3>
-<p><strong>File</strong>: <code>app/riot/client.py</code></p>
-<p><strong>Library</strong>: <a href="https://www.python-httpx.org/">httpx</a> v0.27+</p>
-<pre><code class="language-python">import httpx
-from app.config import settings
-from app.riot.rate_limiter import rate_limiter
+<h2 id="request-flow-overview">Request Flow Overview<a class="headerlink" href="#request-flow-overview" title="Permanent link">¶</a></h2>
+<h3 id="typical-request-path">Typical Request Path<a class="headerlink" href="#typical-request-path" title="Permanent link">¶</a></h3>
+<div class="mermaid">flowchart LR
+    start([Client Request]) --&gt;|1. HTTP POST/GET| app[FastAPI App]
+    app --&gt;|2. Middleware| validate[Validation]
+    validate --&gt;|3. Router| endpoint[Endpoint Handler]
+    endpoint --&gt;|4. Cache Check| cache{Cache&lt;br/&gt;Hit?}
+    cache --&gt;|Yes - &amp;lt;10ms| response([Cached Response])
+    cache --&gt;|No| provider[Provider Selection]
+    provider --&gt;|5. External API&lt;br/&gt;50-200ms| external[External API]
+    external --&gt;|6. Process| format[Format Response]
+    format -.-&gt;|7. Update Cache| cacheupdate[(Redis)]
+    format --&gt;|8. Return| response
 
-class RiotHttpClient:
-    """HTTP client for Riot API with rate limiting."""
+    style app fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style cache fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    style provider fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+    style external fill:#ffebee,stroke:#c62828,stroke-width:2px
+    style cacheupdate fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+</div>
+<p><strong>Performance Breakdown</strong>:
+1. Request parsing: <code>&lt;1ms</code>
+2. Middleware processing: <code>&lt;1ms</code>
+3. Cache check: <code>&lt;1ms</code>
+4. <strong>Cache hit path</strong>: <code>&lt;10ms</code> total
+5. <strong>Cache miss path</strong>: <code>50-200ms</code> (external API latency)
+6. Response formatting: <code>&lt;1ms</code>
+7. Cache update: <code>&lt;1ms</code> (async)</p>
+<p><strong>Optimization</strong>: Cache hit rate <code>&gt;70%</code> means most requests complete in <code>&lt;10ms</code>.</p>
+<hr/>
+<h2 id="deployment-architecture">Deployment Architecture<a class="headerlink" href="#deployment-architecture" title="Permanent link">¶</a></h2>
+<h3 id="development-environment">Development Environment<a class="headerlink" href="#development-environment" title="Permanent link">¶</a></h3>
+<div class="mermaid">flowchart TD
+    subgraph DevMachine["Developer Machine (Windows)"]
+        direction TB
+        vscode[VS Code]
+        terminal[Terminal/CLI]
+        browser[Browser&lt;br/&gt;localhost:8080/docs]
+    end
 
-    def __init__(self):
-        self.api_key = settings.riot_api_key
-        self.timeout = settings.riot_request_timeout
-        self.client = httpx.AsyncClient(
-            timeout=self.timeout,
-            headers={"X-Riot-Token": self.api_key}
-        )
+    subgraph LocalServices["Local Services"]
+        direction LR
+        gateway[FastAPI Gateway&lt;br/&gt;127.0.0.1:8080]
+        redis[Redis Docker&lt;br/&gt;127.0.0.1:6379]
+    end
 
-    async def get(self, path: str, region: str, is_platform: bool = False):
-        """Make GET request with rate limiting."""
-        # Wait for rate limit tokens
-        await rate_limiter.acquire()
+    DevMachine --&gt;|Development| LocalServices
+    gateway &lt;--&gt;|Cache| redis
 
-        # Build URL
-        base_url = self._get_base_url(region, is_platform)
-        url = f"{base_url}{path}"
-
-        # Make request
-        response = await self.client.get(url)
-
-        # Handle 429 (rate limited by Riot)
-        if response.status_code == 429:
-            retry_after = int(response.headers.get("Retry-After", 1))
-            await asyncio.sleep(retry_after)
-            return await self.get(path, region, is_platform)  # Retry
-
-        response.raise_for_status()
-        return response.json()
-
-    async def close(self):
-        """Close HTTP client."""
-        await self.client.aclose()
-
-# Global instance
-riot_client = RiotHttpClient()
+    style gateway fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style redis fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+</div>
+<p><strong>Setup</strong>:</p>
+<pre><code class="language-bash">cd lolstonks-api-gateway
+make docker-run  # Starts Redis + Gateway
 </code></pre>
-<p><strong>Why httpx?</strong>:
-- Async/await native
-- HTTP/2 support
-- Connection pooling
-- Timeout handling
-- Similar API to requests library</p>
+<p><strong>Access</strong>:
+- API: <code>http://127.0.0.1:8080</code>
+- Docs: <code>http://127.0.0.1:8080/docs</code>
+- Health: <code>http://127.0.0.1:8080/health</code></p>
+<h3 id="production-deployment-future">Production Deployment (Future)<a class="headerlink" href="#production-deployment-future" title="Permanent link">¶</a></h3>
+<p><strong>Planned Architecture</strong>:
+- <strong>Container</strong>: Docker image with multi-stage build
+- <strong>Orchestration</strong>: Kubernetes or Docker Swarm
+- <strong>Cache</strong>: Redis Cluster for high availability
+- <strong>Load Balancing</strong>: NGINX or cloud load balancer
+- <strong>Monitoring</strong>: Prometheus + Grafana
+- <strong>Logging</strong>: ELK stack or cloud logging</p>
 <hr/>
-<h2 id="key-differences-from-conceptual-docs">Key Differences from Conceptual Docs<a class="headerlink" href="#key-differences-from-conceptual-docs" title="Permanent link">¶</a></h2>
-<h3 id="whats-simplified">What's Simplified<a class="headerlink" href="#whats-simplified" title="Permanent link">¶</a></h3>
+<h2 id="security-considerations">Security Considerations<a class="headerlink" href="#security-considerations" title="Permanent link">¶</a></h2>
+<h3 id="api-key-management">API Key Management<a class="headerlink" href="#api-key-management" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Storage</strong>: Never in repository (use <code>.env</code> or environment variables)</li>
+<li><strong>Location</strong>: <code>D:\LoLProjects\docs</code> for development secrets</li>
+<li><strong>Rotation</strong>: Periodic key rotation recommended</li>
+<li><strong>Scoping</strong>: Use development keys for local, production keys for deployed</li>
+</ul>
+<h3 id="network-security">Network Security<a class="headerlink" href="#network-security" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Binding</strong>: <code>127.0.0.1</code> only (not <code>0.0.0.0</code>)</li>
+<li><strong>HTTPS</strong>: Required for production (TLS termination at load balancer)</li>
+<li><strong>CORS</strong>: Configured for specific origins only</li>
+<li><strong>Rate Limiting</strong>: Protects against abuse</li>
+</ul>
+<h3 id="data-privacy">Data Privacy<a class="headerlink" href="#data-privacy" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>PII</strong>: Minimal personal data stored (summoner names, Riot IDs)</li>
+<li><strong>Caching</strong>: Cached data expires via TTL</li>
+<li><strong>Logging</strong>: No sensitive data in logs</li>
+<li><strong>Compliance</strong>: GDPR considerations for EU players</li>
+</ul>
+<hr/>
+<h2 id="scalability-considerations">Scalability Considerations<a class="headerlink" href="#scalability-considerations" title="Permanent link">¶</a></h2>
+<h3 id="current-limits">Current Limits<a class="headerlink" href="#current-limits" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Throughput</strong>: <code>~100 requests/second</code> (limited by Riot API rate limits)</li>
+<li><strong>Cache Size</strong>: Redis memory limit (default 512MB)</li>
+<li><strong>Concurrent Connections</strong>: FastAPI async handles <code>1000+</code> concurrent connections</li>
+</ul>
+<h3 id="scaling-strategies">Scaling Strategies<a class="headerlink" href="#scaling-strategies" title="Permanent link">¶</a></h3>
+<h4 id="horizontal-scaling">Horizontal Scaling<a class="headerlink" href="#horizontal-scaling" title="Permanent link">¶</a></h4>
+<ul>
+<li>Multiple gateway instances behind load balancer</li>
+<li>Shared Redis cluster for cache coherency</li>
+<li>Distributed rate limiting</li>
+</ul>
+<h4 id="vertical-scaling">Vertical Scaling<a class="headerlink" href="#vertical-scaling" title="Permanent link">¶</a></h4>
+<ul>
+<li>Increase Redis memory for larger cache</li>
+<li>More CPU cores for FastAPI workers</li>
+<li>SSD storage for faster cache persistence</li>
+</ul>
+<h4 id="cache-optimization">Cache Optimization<a class="headerlink" href="#cache-optimization" title="Permanent link">¶</a></h4>
+<ul>
+<li>Increase TTLs for static data</li>
+<li>Implement cache warming for popular queries</li>
+<li>Use cache compression for large responses</li>
+</ul>
+<hr/>
+<h2 id="monitoring-and-observability">Monitoring and Observability<a class="headerlink" href="#monitoring-and-observability" title="Permanent link">¶</a></h2>
+<h3 id="health-checks">Health Checks<a class="headerlink" href="#health-checks" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Liveness</strong>: <code>/health</code> - Is the service running?</li>
+<li><strong>Readiness</strong>: <code>/health/detailed</code> - Can the service handle requests?</li>
+<li><strong>Component Status</strong>: Individual checks for Redis, providers, external APIs</li>
+</ul>
+<h3 id="metrics">Metrics<a class="headerlink" href="#metrics" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Request Metrics</strong>: Count, latency, error rate by endpoint</li>
+<li><strong>Cache Metrics</strong>: Hit rate, eviction rate, memory usage</li>
+<li><strong>Provider Metrics</strong>: API call count, latency, error rate by provider</li>
+<li><strong>System Metrics</strong>: CPU, memory, disk I/O</li>
+</ul>
+<h3 id="logging">Logging<a class="headerlink" href="#logging" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Structured Logging</strong>: JSON format via loguru</li>
+<li><strong>Log Levels</strong>: DEBUG, INFO, WARNING, ERROR, CRITICAL</li>
+<li><strong>Request Tracking</strong>: Unique request ID in all logs</li>
+<li><strong>Retention</strong>: Configurable (default 7 days)</li>
+</ul>
+<p><strong>Log Example</strong>:</p>
+<pre><code class="language-json">{
+  "timestamp": "2025-01-24T12:00:00.000Z",
+  "level": "INFO",
+  "request_id": "abc-123",
+  "endpoint": "/lol/summoner/v4/by-name",
+  "region": "euw1",
+  "cache_hit": true,
+  "duration_ms": 8.5
+}
+</code></pre>
+<hr/>
+<h2 id="technology-stack-summary">Technology Stack Summary<a class="headerlink" href="#technology-stack-summary" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
-<th>Feature</th>
-<th>Conceptual Docs</th>
-<th>Actual Implementation</th>
-<th>Why</th>
+<th>Layer</th>
+<th>Technology</th>
+<th>Version</th>
+<th>Purpose</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Rate Limiter</strong></td>
-<td>Custom token bucket with manual refill</td>
-<td><code>aiolimiter.AsyncLimiter</code></td>
-<td>Library handles complexity</td>
+<td><strong>Application</strong></td>
+<td>FastAPI</td>
+<td>0.115+</td>
+<td>Web framework</td>
 </tr>
 <tr>
-<td><strong>Redis Cache</strong></td>
-<td>Custom class with batch operations</td>
-<td><code>aiocache.Cache</code> instance</td>
-<td>Simple API sufficient</td>
+<td><strong>Runtime</strong></td>
+<td>Python</td>
+<td>3.11+</td>
+<td>Programming language</td>
 </tr>
 <tr>
-<td><strong>Cache Decorator</strong></td>
-<td>Custom decorator with metrics</td>
-<td>Direct get/set in routers</td>
-<td>Clear, explicit code</td>
+<td><strong>Server</strong></td>
+<td>Uvicorn</td>
+<td>Latest</td>
+<td>ASGI server</td>
 </tr>
 <tr>
-<td><strong>Connection Pool</strong></td>
-<td>Custom pool management</td>
-<td>Handled by libraries</td>
-<td>Libraries optimize this</td>
+<td><strong>Cache</strong></td>
+<td>Redis</td>
+<td>7.x</td>
+<td>High-performance cache</td>
+</tr>
+<tr>
+<td><strong>HTTP Client</strong></td>
+<td>httpx</td>
+<td>Latest</td>
+<td>Async HTTP requests</td>
+</tr>
+<tr>
+<td><strong>Validation</strong></td>
+<td>Pydantic</td>
+<td>2.5+</td>
+<td>Data modeling and validation</td>
+</tr>
+<tr>
+<td><strong>Logging</strong></td>
+<td>loguru</td>
+<td>Latest</td>
+<td>Structured logging</td>
+</tr>
+<tr>
+<td><strong>Package Manager</strong></td>
+<td>uv</td>
+<td>Latest</td>
+<td>Dependency management</td>
+</tr>
+<tr>
+<td><strong>Code Quality</strong></td>
+<td>ruff</td>
+<td>Latest</td>
+<td>Linting and formatting</td>
+</tr>
+<tr>
+<td><strong>Testing</strong></td>
+<td>pytest</td>
+<td>8.3+</td>
+<td>Test framework</td>
+</tr>
+<tr>
+<td><strong>Container</strong></td>
+<td>Docker</td>
+<td>Latest</td>
+<td>Containerization</td>
 </tr>
 </tbody>
 </table>
-<h3 id="whats-not-implemented-yet">What's NOT Implemented (Yet)<a class="headerlink" href="#whats-not-implemented-yet" title="Permanent link">¶</a></h3>
-<p>These features are described in conceptual docs but not implemented:</p>
+<hr/>
+<h2 id="cross-references">Cross-References<a class="headerlink" href="#cross-references" title="Permanent link">¶</a></h2>
+<h3 id="related-documentation">Related Documentation<a class="headerlink" href="#related-documentation" title="Permanent link">¶</a></h3>
 <ul>
-<li><strong>Batch Operations</strong>: <code>batch_get()</code>, <code>batch_set()</code></li>
-<li><strong>Cache Warming</strong>: Proactive pre-loading of popular data</li>
-<li><strong>Cache Metrics</strong>: Hit rate tracking, performance stats</li>
-<li><strong>Cache Invalidation</strong>: Smart invalidation beyond TTL</li>
-<li><strong>Distributed Cache</strong>: Multi-instance coordination</li>
-<li><strong>Adaptive Rate Limiting</strong>: Dynamic adjustment based on 429s</li>
-<li><strong>Circuit Breaker</strong>: Fault tolerance pattern</li>
-<li><strong>Prometheus Metrics</strong>: Metrics endpoint</li>
+<li><strong><a href="../diagram-guide/">Diagram Guide</a></strong> - How to read architecture diagrams</li>
+<li><strong><a href="../data-flow/">Data Flow Architecture</a></strong> - Request processing details</li>
+<li><strong><a href="../routing/">Routing Architecture</a></strong> - Router organization and endpoints</li>
+<li><strong><a href="providers.md">Provider Documentation</a></strong> - Provider implementation details</li>
+<li><strong><a href="../caching/">Caching Strategy</a></strong> - Cache configuration and best practices</li>
+<li><strong><a href="../../api/overview/">API Reference</a></strong> - Endpoint specifications</li>
 </ul>
-<p>These represent <strong>future enhancements</strong> or <strong>best practices</strong> rather than current code.</p>
-<h3 id="whats-fully-implemented">What's Fully Implemented<a class="headerlink" href="#whats-fully-implemented" title="Permanent link">¶</a></h3>
+<h3 id="implementation-guides">Implementation Guides<a class="headerlink" href="#implementation-guides" title="Permanent link">¶</a></h3>
 <ul>
-<li><strong>Configuration System</strong>: Complete with 23 TTL variables</li>
-<li><strong>Dual-Layer Rate Limiting</strong>: Using aiolimiter</li>
-<li><strong>TTL Caching</strong>: Using aiocache</li>
-<li><strong>Match Tracking</strong>: Using Redis SET</li>
-<li><strong>HTTP Client</strong>: Using httpx with retry logic</li>
-<li><strong>76+ Endpoints</strong>: Fully functional API routes across all providers</li>
-<li><strong>Pydantic Models</strong>: Input validation</li>
-<li><strong>OpenAPI Docs</strong>: Auto-generated Swagger UI</li>
+<li><strong><a href="../../README.md">Development Setup</a></strong> - Getting started guide</li>
+<li><strong><a href="../../DEVELOPMENT.md">Development Workflows</a></strong> - Standard development patterns</li>
+<li><strong><a href="../configuration/">Configuration Guide</a></strong> - Environment and settings</li>
 </ul>
 <hr/>
-<h2 id="design-philosophy">Design Philosophy<a class="headerlink" href="#design-philosophy" title="Permanent link">¶</a></h2>
-<p>The implementation follows these principles:</p>
-<ol>
-<li><strong>Use Libraries</strong>: Prefer battle-tested libraries over custom code</li>
-<li><strong>Simple &gt; Complex</strong>: Start simple, add complexity when needed</li>
-<li><strong>Explicit &gt; Implicit</strong>: Clear code over clever abstractions</li>
-<li><strong>Async/Await</strong>: Full async stack for concurrency</li>
-<li><strong>Type Safety</strong>: Pydantic for validation, type hints throughout</li>
-</ol>
-<hr/>
-<h2 id="quick-code-reference">Quick Code Reference<a class="headerlink" href="#quick-code-reference" title="Permanent link">¶</a></h2>
-<h3 id="where-to-find-key-components">Where to Find Key Components<a class="headerlink" href="#where-to-find-key-components" title="Permanent link">¶</a></h3>
-<pre><code class="language-text">app/
-├── config.py              # Settings (23 TTL variables)
-├── main.py                # FastAPI app (34 endpoints)
-├── cache/
-│   ├── redis_cache.py     # aiocache instance
-│   └── tracking.py        # Match tracker (Redis SET)
-├── riot/
-│   ├── client.py          # httpx HTTP client
-│   ├── rate_limiter.py    # aiolimiter rate limiter
-│   └── regions.py         # Region mapping
-├── routers/               # 11 API routers
-│   ├── account.py
-│   ├── summoner.py
-│   ├── match.py
-│   └── ...
-└── models/                # 13 Pydantic model files
-    ├── common.py          # Enums (7 total)
-    ├── account.py
-    └── ...
+<h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">¶</a></h2>
+<h3 id="running-the-gateway">Running the Gateway<a class="headerlink" href="#running-the-gateway" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash"># Navigate to project
+cd D:\LoLProjects\lolstonks-api-gateway
+
+# Start Redis and Gateway
+make docker-run
+
+# Verify health
+curl http://127.0.0.1:8080/health
+
+# Access API docs
+# Open browser to http://127.0.0.1:8080/docs
+</code></pre>
+<h3 id="making-requests">Making Requests<a class="headerlink" href="#making-requests" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash"># Get summoner by name
+curl "http://127.0.0.1:8080/lol/summoner/v4/by-name/euw1/PlayerName"
+
+# Get match details
+curl "http://127.0.0.1:8080/lol/match/v5/by-match-id/europe/EUW1_123456789"
+
+# Force cache refresh
+curl "http://127.0.0.1:8080/lol/summoner/v4/by-name/euw1/PlayerName?force=true"
 </code></pre>
 <hr/>
-<h2 id="testing-the-implementation">Testing the Implementation<a class="headerlink" href="#testing-the-implementation" title="Permanent link">¶</a></h2>
-<h3 id="verify-rate-limiting">Verify Rate Limiting<a class="headerlink" href="#verify-rate-limiting" title="Permanent link">¶</a></h3>
-<pre><code class="language-python">import asyncio
-from app.riot.rate_limiter import rate_limiter
-
-async def test_rate_limiter():
-    start = asyncio.get_event_loop().time()
-
-    # Try to make 25 requests (limit is 20/s)
-    for i in range(25):
-        await rate_limiter.acquire()
-        print(f"Request {i+1}")
-
-    elapsed = asyncio.get_event_loop().time() - start
-    print(f"Elapsed: {elapsed:.2f}s")
-    # Expected: ~1.25s (5 requests blocked for 1s)
-
-asyncio.run(test_rate_limiter())
-</code></pre>
-<h3 id="verify-caching">Verify Caching<a class="headerlink" href="#verify-caching" title="Permanent link">¶</a></h3>
-<pre><code class="language-python">from app.cache.redis_cache import cache
-from app.config import settings
-
-async def test_cache():
-    key = "test:key"
-    value = {"data": "test"}
-
-    # Set
-    await cache.set(key, value, ttl=60)
-
-    # Get
-    cached = await cache.get(key)
-    assert cached == value
-
-    print("Cache working!")
-
-asyncio.run(test_cache())
-</code></pre>
-<h3 id="verify-match-tracking">Verify Match Tracking<a class="headerlink" href="#verify-match-tracking" title="Permanent link">¶</a></h3>
-<pre><code class="language-python">from app.cache.tracking import tracker
-
-async def test_tracking():
-    await tracker.connect()
-
-    match_id = "EUW1_TEST_123"
-    region = "euw1"
-
-    # Check not processed
-    assert not await tracker.is_processed(region, match_id)
-
-    # Mark processed
-    await tracker.mark_processed(region, match_id)
-
-    # Check processed
-    assert await tracker.is_processed(region, match_id)
-
-    print("Tracking working!")
-
-asyncio.run(test_tracking())
-</code></pre>
-<hr/>
-<h2 id="performance-characteristics">Performance Characteristics<a class="headerlink" href="#performance-characteristics" title="Permanent link">¶</a></h2>
-<h3 id="measured-performance">Measured Performance<a class="headerlink" href="#measured-performance" title="Permanent link">¶</a></h3>
-<table>
-<thead>
-<tr>
-<th>Operation</th>
-<th>Latency</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Cache hit</td>
-<td>&lt;5ms</td>
-<td>aiocache + Redis</td>
-</tr>
-<tr>
-<td>Cache miss + API</td>
-<td>50-200ms</td>
-<td>Depends on Riot API</td>
-</tr>
-<tr>
-<td>Rate limiter check</td>
-<td>&lt;1ms</td>
-<td>aiolimiter (in-memory)</td>
-</tr>
-<tr>
-<td>Match tracking check</td>
-<td>&lt;5ms</td>
-<td>Redis SISMEMBER</td>
-</tr>
-<tr>
-<td>Full request (cached)</td>
-<td>&lt;10ms</td>
-<td>Gateway overhead minimal</td>
-</tr>
-</tbody>
-</table>
-<h3 id="concurrency">Concurrency<a class="headerlink" href="#concurrency" title="Permanent link">¶</a></h3>
-<ul>
-<li>Async/await throughout entire stack</li>
-<li>httpx connection pooling (default 100 connections)</li>
-<li>Redis connection pooling (aiocache handles)</li>
-<li>Rate limiter thread-safe (aiolimiter)</li>
-</ul>
-<p><strong>Expected Throughput</strong>: 15-20 requests/second sustained (limited by Riot API rate limits, not gateway)</p>
-<hr/>
-<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">¶</a></h2>
-<p>The actual implementation is <strong>simpler and more maintainable</strong> than the conceptual architecture:</p>
-<ul>
-<li><strong>Fewer lines of code</strong>: ~2000 lines vs theoretical 5000+</li>
-<li><strong>Fewer bugs</strong>: Battle-tested libraries vs custom code</li>
-<li><strong>Easier onboarding</strong>: Standard libraries = better docs</li>
-<li><strong>Production ready</strong>: Libraries handle edge cases</li>
-</ul>
-<p>The conceptual documentation shows what's <strong>possible</strong> and <strong>best practices</strong>. The implementation shows what's <strong>sufficient</strong> and <strong>practical</strong> for the current requirements.</p>
-<p><strong>When to enhance</strong>: Add complexity (batch operations, metrics, etc.) when metrics show it's needed, not preemptively.</p>
-<hr/>
-<p><em>Last Updated: 2025-10-29</em></p>
+<p><strong>Last Updated</strong>: 2025-01-24</p>
+<p><strong>Next Steps</strong>:
+1. Read <a href="../data-flow/">Data Flow Architecture</a> to understand request processing
+2. Review <a href="../routing/">Routing Architecture</a> for endpoint organization
+3. Explore <a href="providers.md">Provider Documentation</a> for implementation details</p>
 </article>
 </div>
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
@@ -1920,5 +2444,6 @@ asyncio.run(test_tracking())
 
         })();
     </script>
-</body>
+<script type="module">import mermaid from "https://unpkg.com/mermaid@10.9.0/dist/mermaid.esm.min.mjs";
+mermaid.initialize({});</script></body>
 </html>
