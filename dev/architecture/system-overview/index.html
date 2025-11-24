@@ -1430,8 +1430,8 @@
 
     %% Infrastructure connections
     app -.-&gt;|Metrics| metrics
-    router --&gt;|Cache Check&lt;br/&gt;&amp;lt;1ms| cache
-    router --&gt;|Rate Check&lt;br/&gt;&amp;lt;1ms| limiter
+    router --&gt;|Cache Check&lt;br/&gt;&lt;1ms| cache
+    router --&gt;|Rate Check&lt;br/&gt;&lt;1ms| limiter
     app --&gt;|Health Check| health
 
     %% Provider selection
@@ -1704,7 +1704,7 @@
     app --&gt;|2. Middleware| validate[Validation]
     validate --&gt;|3. Router| endpoint[Endpoint Handler]
     endpoint --&gt;|4. Cache Check| cache{Cache&lt;br/&gt;Hit?}
-    cache --&gt;|Yes - &amp;lt;10ms| response([Cached Response])
+    cache --&gt;|Yes - &lt;10ms| response([Cached Response])
     cache --&gt;|No| provider[Provider Selection]
     provider --&gt;|5. External API&lt;br/&gt;50-200ms| external[External API]
     external --&gt;|6. Process| format[Format Response]

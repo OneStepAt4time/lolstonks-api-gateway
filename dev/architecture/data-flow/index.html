@@ -1061,7 +1061,7 @@
     toomany --&gt; errorresponse
 
     ratelimit --&gt;|OK| cachecheck{Cache&lt;br/&gt;Check}
-    cachecheck --&gt;|"Hit (&amp;lt;1ms)"| cachehit[Retrieve from Redis]
+    cachecheck --&gt;|"Hit (&lt;1ms)"| cachehit[Retrieve from Redis]
     cachehit --&gt;|Deserialize| cachedresponse[Cached Data]
     cachedresponse --&gt; format[Format Response&lt;br/&gt;Add Headers]
 
@@ -1084,7 +1084,7 @@
     apierror --&gt;|Retry Success| updatecache
     apierror --&gt;|Retry Failed| errorresponse
 
-    updatecache -.-&gt;|"Async (&amp;lt;1ms)"| redis[(Redis Cache)]
+    updatecache -.-&gt;|"Async (&lt;1ms)"| redis[(Redis Cache)]
     updatecache --&gt; format
 
     format --&gt;|6. Response Middleware| addheaders[Add Headers&lt;br/&gt;Cache-Control, X-Response-Time]
@@ -1429,7 +1429,7 @@ CACHE_TTL = {
 
     api_error --&gt;|404| resource_missing[404 Not Found&lt;br/&gt;Resource doesn't exist in API]
     api_error --&gt;|429| external_rate[502 Bad Gateway&lt;br/&gt;External API rate limited]
-    api_error --&gt;|500/502/503| retry{Retry&lt;br/&gt;Count&lt;br/&gt;&amp;lt; 3?}
+    api_error --&gt;|500/502/503| retry{Retry&lt;br/&gt;Count&lt;br/&gt;&lt; 3?}
     api_error --&gt;|403| forbidden[403 Forbidden&lt;br/&gt;Invalid API key or permissions]
 
     retry --&gt;|Yes| backoff[Exponential Backoff&lt;br/&gt;Wait 1s, 2s, 4s...]

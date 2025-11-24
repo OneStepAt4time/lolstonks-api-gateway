@@ -1871,7 +1871,7 @@
     rate_error --&gt; error_response
 
     ratelimit --&gt;|OK| cache[6. Cache Layer&lt;br/&gt;Check Redis]
-    cache --&gt;|Hit| cached[Return Cached Data&lt;br/&gt;&amp;lt;10ms]
+    cache --&gt;|Hit| cached[Return Cached Data&lt;br/&gt;&lt;10ms]
     cached --&gt; response_format
 
     cache --&gt;|Miss| provider[7. Provider Selection&lt;br/&gt;Route to data source]
