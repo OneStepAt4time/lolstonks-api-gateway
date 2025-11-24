@@ -11,18 +11,18 @@ This overview has been restructured into **focused, interactive diagrams** for b
 1. **[System Overview](system-overview.md)** - High-level system architecture with all major components
 2. **[Data Flow Architecture](data-flow.md)** - Detailed request processing and caching flow
 3. **[Provider Architecture](providers.md)** - Multi-provider abstraction layer
-4. **[Security & Error Handling](security.md)** - Security layers and error recovery
+4. **[Security & Error Handling](../operations/security.md)** - Security layers and error recovery
 5. **[Router Architecture](routing.md)** - API routing and regional management
 6. **[Production Deployment](production-deployment.md)** - Production-ready deployment architecture
 
 ###  Interactive Features
 
 All diagrams now include:
-- **� Zoom and pan controls** - Navigate large diagrams easily
-- **�️ Click interactions** - Click nodes for detailed information
-- **� Responsive design** - Works on mobile and desktop
-- ** Fullscreen mode** - Immersive diagram exploration
-- ** Performance annotations** - Real-world timing and scaling data
+- **🔍 Zoom and pan controls** - Navigate large diagrams easily
+- **🖱️ Click interactions** - Click nodes for detailed information
+- **📱 Responsive design** - Works on mobile and desktop
+- **⛶ Fullscreen mode** - Immersive diagram exploration
+- **⚡ Performance annotations** - Real-world timing and scaling data
 
 ---
 

@@ -1,3 +1,10 @@
+# LOLStonks API Gateway
+
+![LOLStonks Logo](assets/logo.png)
+
+**Enterprise-grade League of Legends API Gateway** with intelligent caching, rate limiting, and comprehensive monitoring for production workloads.
+
+---
 
 ## Enterprise Features
 
