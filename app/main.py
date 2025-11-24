@@ -3,15 +3,20 @@
 import sys
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request, status
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import JSONResponse
 from loguru import logger
 
 from app.cache.tracking import tracker
 from app.config import settings
+from app.exceptions import RiotAPIException
 from app.providers.registry import get_registry, initialize_providers
 from app.riot.client import riot_client
+from app.utils.error_formatter import format_error_response, format_validation_error
 from app.routers import (
     health,
+    monitoring,
     summoner,
     match,
     league,
@@ -116,8 +121,78 @@ app = FastAPI(
 # Add error monitoring middleware
 app.add_middleware(ErrorMonitoringMiddleware, max_error_history=1000, alert_threshold=10)
 
+
+# Exception Handlers
+@app.exception_handler(RiotAPIException)
+async def riot_api_exception_handler(request: Request, exc: RiotAPIException) -> JSONResponse:
+    """
+    Handle custom Riot API exceptions.
+
+    Formats RiotAPIException instances into standardized error responses
+    conforming to the OpenAPI error specification.
+    """
+    logger.warning(
+        f"RiotAPIException: {exc.status_code} - {exc.message} (path: {request.url.path})"
+    )
+
+    error_content = format_error_response(
+        status_code=exc.status_code,
+        message=exc.message,
+    )
+
+    return JSONResponse(
+        status_code=exc.status_code,
+        content=error_content,
+        headers=exc.headers,
+    )
+
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(
+    request: Request, exc: RequestValidationError
+) -> JSONResponse:
+    """
+    Handle request validation errors (422 -> 400).
+
+    Converts FastAPI validation errors into 400 Bad Request responses
+    with standardized error format.
+    """
+    logger.warning(f"Validation error on {request.method} {request.url.path}: {exc.errors()}")
+
+    error_content = format_validation_error(exc.errors())
+
+    return JSONResponse(
+        status_code=status.HTTP_400_BAD_REQUEST,
+        content=error_content,
+    )
+
+
+@app.exception_handler(Exception)
+async def generic_exception_handler(request: Request, exc: Exception) -> JSONResponse:
+    """
+    Handle unexpected exceptions as 500 Internal Server Error.
+
+    Catches any unhandled exceptions and returns them in standardized format.
+    The error monitoring middleware will also track these errors.
+    """
+    logger.error(
+        f"Unhandled exception on {request.method} {request.url.path}: {type(exc).__name__}: {exc}"
+    )
+
+    error_content = format_error_response(
+        status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        message=f"Internal server error: {type(exc).__name__}",
+    )
+
+    return JSONResponse(
+        status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        content=error_content,
+    )
+
+
 # Include routers - Health & Monitoring
 app.include_router(health.router)  # Health monitoring (basic + detailed)
+app.include_router(monitoring.router)  # Error monitoring endpoints
 
 # Include routers - Riot API
 app.include_router(account.router)  # Account API (Riot ID lookups)

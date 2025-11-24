@@ -89,7 +89,7 @@ async def get_all_champions(
     return await fetch_with_cache(
         cache_key=f"ddragon:champions:{version}:{locale}",
         resource_name="Champions",
-        fetch_fn=lambda: provider.get_champions(version=version, locale=locale),
+        fetch_fn=lambda: provider.get_champions_full(version=version, locale=locale),
         ttl=settings.cache_ttl_ddragon,
         context={"version": version, "locale": locale},
         force_refresh=query.force,

@@ -91,7 +91,7 @@ When the server is running, you can access:
 
 | Method | Path | Summary | Parameters | Response |
 |--------|------|---------|------------|----------|
-| 🟢 GET | `/lol/spectator/v5/active-games/by-summoner/{puuid}` | Get Active Game | Path: puuid<br>Query: region | Unknown |
+| 🟢 GET | `/lol/spectator/v5/active-games/by-summoner/{encryptedPUUID}` | Get Active Game | Path: encryptedPUUID<br>Query: region | Unknown |
 | 🟢 GET | `/lol/spectator/v5/featured-games` | Get Featured Games | Query: region | Unknown |
 
 ### platform

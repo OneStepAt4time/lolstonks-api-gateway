@@ -42,7 +42,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        uv sync --extra docs
+        uv sync --extra dev --extra docs
 
     - name: Export OpenAPI schema
       env:
@@ -165,7 +165,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        uv sync --extra docs
+        uv sync --extra dev --extra docs
 
     - name: Lint Markdown files
       run: |

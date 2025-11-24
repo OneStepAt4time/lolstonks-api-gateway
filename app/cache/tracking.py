@@ -59,8 +59,8 @@ class MatchTracker:
             return False
 
         key = f"processed_matches:{region}"
-        is_member: int = await self.redis.sismember(key, match_id)
-        return bool(is_member)
+        result = await self.redis.sismember(key, match_id)  # type: ignore
+        return bool(result)
 
     async def mark_processed(self, region: str, match_id: str):
         """
@@ -75,7 +75,7 @@ class MatchTracker:
             return
 
         key = f"processed_matches:{region}"
-        await self.redis.sadd(key, match_id)
+        _ = await self.redis.sadd(key, match_id)  # type: ignore
         logger.debug("Marked match as processed: {}/{}", region, match_id)
 
     async def get_processed_count(self, region: str) -> int:
@@ -92,8 +92,8 @@ class MatchTracker:
             return 0
 
         key = f"processed_matches:{region}"
-        count: int = await self.redis.scard(key)
-        return count
+        result = await self.redis.scard(key)  # type: ignore
+        return int(result)
 
 
 # Global tracker instance

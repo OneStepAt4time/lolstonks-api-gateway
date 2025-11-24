@@ -17,16 +17,16 @@
 
 LOLStonks API Gateway is a high-performance proxy for League of Legends APIs featuring:
 
-- **🚀 Fast**: Sub-100ms cached responses with Redis backend
-- **🔄 Multi-Provider**: Riot API + Data Dragon + Community Dragon
-- **🛡️ Production-Ready**: Rate limiting, retries, health checks, security monitoring
-- **📊 76+ Endpoints**: Complete coverage across all data sources
-- **🔑 Smart Key Rotation**: Round-robin distribution across multiple API keys
-- **🐳 Docker Ready**: One-command deployment with Docker Compose
+- **Fast**: Sub-100ms cached responses with Redis backend
+- **Multi-Provider**: Riot API + Data Dragon + Community Dragon
+- **Production-Ready**: Rate limiting, retries, health checks, security monitoring
+- **76+ Endpoints**: Complete coverage across all data sources
+- **Smart Key Rotation**: Round-robin distribution across multiple API keys
+- **Docker Ready**: One-command deployment with Docker Compose
 
 ---
 
-## What's New in v2.0
+## What's New in v2.0.0
 
 - **Three-Provider Architecture**: Riot API, Data Dragon, and Community Dragon
 - **Enhanced Security**: Real-time monitoring and status endpoints
@@ -38,20 +38,34 @@ LOLStonks API Gateway is a high-performance proxy for League of Legends APIs fea
 
 ---
 
+## Recent Updates
+
+### API Fixes & Compliance
+- **Spectator Endpoint Fixed**: Parameter updated from `{puuid}` to `{encryptedPUUID}` to match Riot API specification
+- **Clash Endpoint Verified**: Confirmed `/lol/clash/v1/players/by-puuid/{puuid}` is the correct endpoint (Riot deprecated `/by-summoner/` during PUUID migration)
+
+### Testing & Quality
+- **Integration Test Suite**: 83 comprehensive tests added (69% code coverage)
+- **Cache Behavior Tests**: Validated TTL, force refresh, and anti-reprocess logic
+- **Regional Routing Tests**: Platform (americas/europe/asia) and game regions (na1/euw1/kr) verified
+- **Pagination Tests**: League entries, Match IDs, and Champion Mastery pagination validated
+
+---
+
 ## Features
 
-### 🚀 Performance & Reliability
+### Performance & Reliability
 - **Async Architecture**: Built on FastAPI with full async/await support
 - **Intelligent Caching**: Redis-backed with strategic TTL per endpoint type
 - **Automatic Retries**: Exponential backoff for 429 rate limit responses
 - **Horizontal Scaling**: Stateless design for multi-instance deployment
 
-### 🔄 Multi-Provider Support
+### Multi-Provider Support
 - **Riot Games API**: Live game data, match history, summoner info, rankings
 - **Data Dragon**: Official static data (champions, items, runes)
 - **Community Dragon**: Enhanced assets, TFT data, high-quality images
 
-### 🛡️ Production Features
+### Production Features
 - **Rate Limiting**: Token bucket algorithm with Riot API compliance
 - **API Key Rotation**: Round-robin across multiple keys
 - **Security Monitoring**: Real-time security status and alerts
@@ -128,7 +142,7 @@ HOST=127.0.0.1
 PORT=8080
 ```
 
-**⚙️ Full Configuration**: See [Configuration Guide](https://onestepat4time.github.io/lolstonks-api-gateway/getting-started/configuration/)
+**Full Configuration**: See [Configuration Guide](https://onestepat4time.github.io/lolstonks-api-gateway/getting-started/configuration/)
 
 ---
 
@@ -207,7 +221,7 @@ Comprehensive documentation available at: **[onestepat4time.github.io/lolstonks-
 
 ## Architecture
 
-```
+```text
 ┌─────────────┐
 │   Client    │
 └──────┬──────┘
@@ -249,28 +263,6 @@ We welcome contributions! Please see our [Contributing Guide](https://onestepat4
 
 ---
 
-## Support This Project
-
-If you find LOLStonks API Gateway useful:
-
-- ⭐ **Star this repository**
-- 💬 **Share** with others
-- 🐛 **Report issues** or contribute code
-- ☕ **[Buy me a coffee](https://buymeacoffee.com/onestepat4time)**
-
----
-
-## Roadmap
-
-- **Observability**: Prometheus metrics, OpenTelemetry tracing, Grafana dashboards
-- **Admin API**: Cache management, statistics, monitoring dashboard
-- **Enhanced Features**: WebSocket support, GraphQL API, multi-language SDKs
-- **Infrastructure**: Kubernetes manifests, Terraform modules, benchmarking tools
-
-See [GitHub Projects](https://github.com/OneStepAt4time/lolstonks-api-gateway/projects) for current development.
-
----
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
@@ -286,4 +278,4 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE) fi
 
 ---
 
-**Built for the League of Legends developer community** 🎮
+**Built for the League of Legends developer community**

@@ -1,7 +1,63 @@
-"""Summoner API endpoints - Priority 1.
+"""Summoner-V4 API router for summoner profile information.
 
-Riot Developer Portal API Reference:
-https://developer.riotgames.com/apis#summoner-v4
+This module provides FastAPI endpoints for retrieving League of Legends summoner
+data, including lookups by summoner name, PUUID, and summoner ID. Summoner data
+includes account level, profile icon, and encrypted identifiers needed for other
+API endpoints.
+
+The Summoner-V4 API is foundational for:
+- Player profile applications showing level and icons
+- Account verification and identity resolution
+- Obtaining encrypted IDs for league and mastery queries
+- Legacy summoner name lookups (before Riot ID migration)
+
+Summoner Identifiers:
+    Three types of summoner identifiers exist:
+
+    1. Summoner Name (Legacy):
+        - Display name visible in game
+        - Region-specific and not unique across regions
+        - Deprecated in favor of Riot IDs for new accounts
+        - Still supported but being phased out
+
+    2. PUUID (Player Universally Unique Identifier):
+        - Global unique identifier across all Riot games
+        - 78 characters, encrypted format
+        - Persistent even when summoner name changes
+        - Primary identifier for Match-V5 and Account-V1 APIs
+        - Preferred for long-term player tracking
+
+    3. Encrypted Summoner ID:
+        - Region-specific encrypted identifier
+        - Required for League-V4 (rank) and Champion-Mastery-V4 APIs
+        - Changes if account transfers regions
+        - Legacy identifier being replaced by PUUID
+
+Regional Behavior:
+    - Summoner data is region-specific (na1, euw1, kr, etc.)
+    - Each region maintains its own summoner database
+    - Account transfers create new summoner IDs in target region
+    - PUUID remains constant across all regions
+
+Caching Strategy:
+    - Long TTL (1 hour default) for summoner data
+    - Data rarely changes except for level and icon updates
+    - Cache key includes region and lookup method
+    - Force refresh available for updated data
+
+Migration Note:
+    Riot is transitioning from summoner names to Riot IDs (Account-V1 API).
+    For new integrations, prefer using Account-V1 API for lookups, then use
+    PUUID with Summoner-V4 to get encrypted summoner ID.
+
+API Reference:
+    https://developer.riotgames.com/apis#summoner-v4
+
+See Also:
+    app.routers.account: Modern Riot ID lookup endpoints
+    app.models.summoner: Request/response models for summoner endpoints
+    app.riot.client: HTTP client for Riot API communication
+    app.cache.helpers: Caching utilities and decorators
 """
 
 from typing import Annotated

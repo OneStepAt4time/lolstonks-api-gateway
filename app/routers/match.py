@@ -1,7 +1,58 @@
-"""Match API endpoints - Priority 2 & 3.
+"""Match-V5 API router for match history and detailed match data.
 
-Riot Developer Portal API Reference:
-https://developer.riotgames.com/apis#match-v5
+This module provides FastAPI endpoints for retrieving League of Legends match
+data, including match history lookups by PUUID, detailed match information, and
+match timelines with frame-by-frame event data.
+
+The Match-V5 API is essential for:
+- Match history and profile applications
+- Post-game analytics and statistics
+- Player performance tracking systems
+- Data analysis and machine learning applications
+- Competitive match review tools
+
+Match Data Architecture:
+    Match IDs:
+        - Format: {platform}_{gameId} (e.g., "NA1_4567890123")
+        - Globally unique across all regions and games
+        - Permanent and immutable once game completes
+        - Required for fetching detailed match data
+
+    Regional Routing:
+        - Americas: NA, BR, LAN, LAS, OCE
+        - Europe: EUW, EUNE, TR, RU
+        - Asia: KR, JP
+        - SEA: PH, SG, TH, TW, VN
+
+    Match History:
+        - Paginated by start/count parameters (max 100 per request)
+        - Filterable by time range, queue type, and champion
+        - Ordered newest to oldest by default
+        - Can include matches from multiple game modes
+
+Caching Strategy:
+    - Match IDs: Not cached (lightweight, varies per query)
+    - Match details: Long TTL + permanent tracking (matches never change)
+    - Timelines: Long TTL (timeline data is immutable)
+    - Dual-layer cache: Response cache + processed tracking
+    - Force refresh available but rarely needed
+
+Performance Optimization:
+    This module implements a sophisticated caching strategy:
+    1. Response cache: Standard Redis cache with TTL
+    2. Processed tracking: Permanent Redis set tracking fetched matches
+    3. First fetch: Bypasses cache, marks as processed
+    4. Subsequent fetches: Served from cache
+    5. Force refresh: Bypasses both cache layers
+
+API Reference:
+    https://developer.riotgames.com/apis#match-v5
+
+See Also:
+    app.models.match: Request/response models for match endpoints
+    app.cache.tracking: Processed match tracking system
+    app.riot.client: HTTP client for Riot API communication
+    app.cache.helpers: Caching utilities and decorators
 """
 
 from typing import Annotated

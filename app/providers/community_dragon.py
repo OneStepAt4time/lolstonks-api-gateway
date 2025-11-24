@@ -52,10 +52,35 @@ class CommunityDragonProvider(BaseProvider):
 
     @property
     def provider_type(self) -> ProviderType:
+        """Get the provider type.
+
+        Returns:
+            ProviderType.COMMUNITY_DRAGON indicating this is the Community Dragon provider.
+
+        Example:
+            ```python
+            if provider.provider_type == ProviderType.COMMUNITY_DRAGON:
+                # Access enhanced community data
+                skin_data = await provider.get_skins()
+            ```
+        """
         return ProviderType.COMMUNITY_DRAGON
 
     @property
     def requires_auth(self) -> bool:
+        """Check if authentication is required.
+
+        Community Dragon is a community-maintained repository and does not require authentication.
+
+        Returns:
+            Always returns False as Community Dragon is publicly accessible.
+
+        Example:
+            ```python
+            # No API key needed for community data
+            tft_data = await provider.get_tft_champions()
+            ```
+        """
         return False
 
     def get_capabilities(self) -> list[ProviderCapability]:

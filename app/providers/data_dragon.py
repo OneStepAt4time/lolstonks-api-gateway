@@ -55,10 +55,35 @@ class DataDragonProvider(BaseProvider):
 
     @property
     def provider_type(self) -> ProviderType:
+        """Get the provider type.
+
+        Returns:
+            ProviderType.DATA_DRAGON indicating this is the Data Dragon CDN provider.
+
+        Example:
+            ```python
+            if provider.provider_type == ProviderType.DATA_DRAGON:
+                # No rate limiting needed for CDN
+                data = await provider.get(path)
+            ```
+        """
         return ProviderType.DATA_DRAGON
 
     @property
     def requires_auth(self) -> bool:
+        """Check if authentication is required.
+
+        Data Dragon is a public CDN and does not require authentication.
+
+        Returns:
+            Always returns False as Data Dragon is publicly accessible.
+
+        Example:
+            ```python
+            # No API key needed
+            champion_data = await provider.get("/cdn/13.24.1/data/en_US/champion.json")
+            ```
+        """
         return False
 
     def get_capabilities(self) -> list[ProviderCapability]:
@@ -128,17 +153,13 @@ class DataDragonProvider(BaseProvider):
             The latest version string (e.g., "15.22.1")
 
         Raises:
-            httpx.HTTPStatusError: If unable to fetch versions
+            RuntimeError: If no versions are available from Data Dragon API
         """
         if self._latest_version_cache is None:
             logger.info("Fetching latest Data Dragon version from API")
             versions = await self.get_versions()
             if not versions:
-                raise httpx.HTTPStatusError(
-                    "No versions available from Data Dragon API",
-                    request=None,
-                    response=None,
-                )
+                raise RuntimeError("No versions available from Data Dragon API")
             # Get the first version which is the latest
             self._latest_version_cache = versions[0]
             logger.info(f"Cached latest Data Dragon version: {self._latest_version_cache}")
