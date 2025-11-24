@@ -395,7 +395,7 @@ flowchart TD
     rate_error --> error_response
 
     ratelimit -->|OK| cache[6. Cache Layer<br/>Check Redis]
-    cache -->|Hit| cached[Return Cached Data<br/>&lt;10ms]
+    cache -->|Hit| cached[Return Cached Data<br/><10ms]
     cached --> response_format
 
     cache -->|Miss| provider[7. Provider Selection<br/>Route to data source]

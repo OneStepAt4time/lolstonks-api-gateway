@@ -35,7 +35,7 @@ flowchart TD
     toomany --> errorresponse
 
     ratelimit -->|OK| cachecheck{Cache<br/>Check}
-    cachecheck -->|"Hit (&lt;1ms)"| cachehit[Retrieve from Redis]
+    cachecheck -->|"Hit (<1ms)"| cachehit[Retrieve from Redis]
     cachehit -->|Deserialize| cachedresponse[Cached Data]
     cachedresponse --> format[Format Response<br/>Add Headers]
 
@@ -58,7 +58,7 @@ flowchart TD
     apierror -->|Retry Success| updatecache
     apierror -->|Retry Failed| errorresponse
 
-    updatecache -.->|"Async (&lt;1ms)"| redis[(Redis Cache)]
+    updatecache -.->|"Async (<1ms)"| redis[(Redis Cache)]
     updatecache --> format
 
     format -->|6. Response Middleware| addheaders[Add Headers<br/>Cache-Control, X-Response-Time]
@@ -326,7 +326,7 @@ flowchart TD
 
     api_error -->|404| resource_missing[404 Not Found<br/>Resource doesn't exist in API]
     api_error -->|429| external_rate[502 Bad Gateway<br/>External API rate limited]
-    api_error -->|500/502/503| retry{Retry<br/>Count<br/>&lt; 3?}
+    api_error -->|500/502/503| retry{Retry<br/>Count<br/>< 3?}
     api_error -->|403| forbidden[403 Forbidden<br/>Invalid API key or permissions]
 
     retry -->|Yes| backoff[Exponential Backoff<br/>Wait 1s, 2s, 4s...]

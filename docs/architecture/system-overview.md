@@ -61,8 +61,8 @@ flowchart TD
 
     %% Infrastructure connections
     app -.->|Metrics| metrics
-    router -->|Cache Check<br/>&lt;1ms| cache
-    router -->|Rate Check<br/>&lt;1ms| limiter
+    router -->|Cache Check<br/><1ms| cache
+    router -->|Rate Check<br/><1ms| limiter
     app -->|Health Check| health
 
     %% Provider selection
@@ -357,7 +357,7 @@ flowchart LR
     app -->|2. Middleware| validate[Validation]
     validate -->|3. Router| endpoint[Endpoint Handler]
     endpoint -->|4. Cache Check| cache{Cache<br/>Hit?}
-    cache -->|Yes - &lt;10ms| response([Cached Response])
+    cache -->|Yes - <10ms| response([Cached Response])
     cache -->|No| provider[Provider Selection]
     provider -->|5. External API<br/>50-200ms| external[External API]
     external -->|6. Process| format[Format Response]
