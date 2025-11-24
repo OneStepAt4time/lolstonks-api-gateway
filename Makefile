@@ -74,6 +74,7 @@ format:
 # Documentation
 docs:
 	@echo "🚀 Building documentation with interactive diagrams..."
+	uv run python scripts/export_openapi.py
 	uv run python scripts/generate_api_docs.py
 	uv run mkdocs build --strict
 	@echo "✅ Documentation built with interactive flowcharts!"
@@ -81,6 +82,7 @@ docs:
 
 docs-serve:
 	@echo "🌐 Starting documentation server with interactive features..."
+	uv run python scripts/export_openapi.py
 	uv run python scripts/generate_api_docs.py
 	@echo "📋 Interactive diagrams available at http://127.0.0.1:8000"
 	@echo "🎮 Try the System Overview: http://127.0.0.1:8000/architecture/system-overview/"
@@ -89,6 +91,7 @@ docs-serve:
 
 docs-build:
 	@echo "🏗️ Building production documentation (optimized for deployment)..."
+	uv run python scripts/export_openapi.py
 	uv run python scripts/generate_api_docs.py
 	uv run mkdocs build --quiet
 	@echo "✅ Production build complete!"

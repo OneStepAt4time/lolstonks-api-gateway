@@ -1,8 +1,98 @@
-"""
-Cache helper utilities to reduce code duplication.
+"""High-level cache helper utilities for automatic data fetching and caching.
 
-Provides a unified interface for cache-aware data fetching with
-consistent logging across all endpoints.
+This module provides convenience functions that abstract away the complexity of
+cache-aware data fetching. It eliminates code duplication across router endpoints
+by providing a unified pattern for:
+- Checking cache before API calls
+- Fetching from Riot API on cache miss
+- Storing results in cache with TTL
+- Consistent structured logging
+- Standardized error handling and exception mapping
+
+The primary function, fetch_with_cache, is used by virtually all router endpoints
+to implement the gateway's caching layer. It handles both cache hits and misses
+transparently, making endpoints simple and maintainable.
+
+Caching Pattern:
+    The standard caching workflow implemented by this module:
+
+    1. Check Cache (unless force_refresh=True):
+        - Lookup data in Redis using cache_key
+        - If found: Log cache hit and return immediately
+        - If not found or expired: Continue to step 2
+
+    2. Fetch from API:
+        - Call provided fetch_fn to get data from Riot API
+        - Handle any errors with appropriate exception mapping
+        - Log the API call with context
+
+    3. Store in Cache:
+        - Save response in Redis with specified TTL
+        - Log successful cache storage
+        - Return data to caller
+
+    Example flow for a cache miss:
+        Request → Check Redis → Miss → Fetch from Riot API → Store in Redis → Return
+
+    Example flow for a cache hit:
+        Request → Check Redis → Hit → Return (no API call!)
+
+Error Handling:
+    All Riot API and HTTP errors are caught and mapped to custom exceptions:
+    - HTTP 401 → UnauthorizedException
+    - HTTP 403 → ForbiddenException
+    - HTTP 404 → NotFoundException
+    - HTTP 429 → RateLimitException
+    - HTTP 5xx → InternalServerException
+    - Other errors → InternalServerException
+
+    Special handling for Data Dragon 403 errors provides helpful messages
+    about the deprecated "latest" version alias.
+
+Logging:
+    All operations are logged with structured context:
+    - Cache hits: source="cache"
+    - API fetches: source="riot_api"
+    - Errors: Full context with status codes and URLs
+    - Success: Confirmation with cache key and TTL
+
+    Log messages include user-provided context dict for request-specific details.
+
+Force Refresh:
+    The force_refresh parameter allows bypassing cache:
+    - Used by endpoints that support ?force=true query parameter
+    - Skips cache lookup entirely
+    - Still stores fresh data in cache after fetch
+    - Useful for debugging or getting real-time data
+
+Usage:
+    This module is used throughout routers for cache-aware fetching:
+
+    ```python
+    from app.cache.helpers import fetch_with_cache
+
+    @router.get("/some-endpoint")
+    async def my_endpoint(region: str):
+        return await fetch_with_cache(
+            cache_key=f"mydata:{region}",
+            resource_name="My Data",
+            fetch_fn=lambda: riot_client.get("/path", region, False),
+            ttl=3600,
+            context={"region": region}
+        )
+    ```
+
+Performance Benefits:
+    - Eliminates redundant API calls (cache hit ratio often >90%)
+    - Reduces response latency (Redis read << Riot API call)
+    - Prevents rate limit exhaustion
+    - Scales horizontally with Redis
+    - Reduces load on Riot's servers
+
+See Also:
+    app.cache.redis_cache: Low-level Redis cache interface
+    app.routers.*: Router endpoints using these helpers
+    app.exceptions: Custom exception classes for error handling
 """
 
 from typing import Any, Awaitable, Callable

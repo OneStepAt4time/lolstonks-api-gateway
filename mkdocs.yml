@@ -79,10 +79,6 @@ nav:
     - Diagram Guide: architecture/diagram-guide.md
     - System Overview: architecture/system-overview.md
     - Data Flow: architecture/data-flow.md
-    # - Provider Architecture: architecture/providers.md
-    # - Router Architecture: architecture/routing.md
-    # - Security & Error Handling: architecture/security.md
-    # - Production Deployment: architecture/production-deployment.md
     - Implementation Details: architecture/implementation-details.md
     - Data Models: architecture/models.md
     # - Rate Limiting: architecture/rate-limiting.md

@@ -46,10 +46,35 @@ class RiotAPIProvider(BaseProvider):
 
     @property
     def provider_type(self) -> ProviderType:
+        """Get the provider type.
+
+        Returns:
+            ProviderType.RIOT_API indicating this is the official Riot API provider.
+
+        Example:
+            ```python
+            if provider.provider_type == ProviderType.RIOT_API:
+                # Apply Riot-specific rate limiting
+                await rate_limiter.check_riot_limits()
+            ```
+        """
         return ProviderType.RIOT_API
 
     @property
     def requires_auth(self) -> bool:
+        """Check if authentication is required.
+
+        Riot API always requires authentication via X-Riot-Token header.
+
+        Returns:
+            Always returns True as Riot API requires an API key for all requests.
+
+        Example:
+            ```python
+            if provider.requires_auth:
+                headers["X-Riot-Token"] = settings.riot_api_key
+            ```
+        """
         return True
 
     def get_capabilities(self) -> list[ProviderCapability]:

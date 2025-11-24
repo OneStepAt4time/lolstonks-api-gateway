@@ -1,11 +1,113 @@
-"""
-Riot API HTTP client with rate limiting and automatic retries.
+"""Riot API HTTP client with intelligent rate limiting and multi-key rotation.
 
-Provides a wrapper around httpx for making requests to Riot API with:
-- Automatic rate limiting (via aiolimiter)
-- Automatic retry on 429 (rate limited) responses
-- Region-aware URL routing
-- Authentication header management
+This module provides a production-ready HTTP client for interacting with the Riot
+Games API. It implements sophisticated request management including:
+
+Core Features:
+    - Automatic rate limiting using token bucket algorithm (aiolimiter)
+    - Multi-key rotation with intelligent fallback on rate limits
+    - Regional routing (platform vs regional endpoints)
+    - Comprehensive error handling with custom exceptions
+    - Structured logging with contextual information
+    - Request timeout management
+
+Rate Limiting Strategy:
+    The client uses a two-layer approach to handle Riot's rate limits:
+
+    1. Proactive Rate Limiting:
+        - Token bucket algorithm prevents requests before hitting limits
+        - Configurable requests-per-second limit
+        - Blocks async tasks until tokens available
+        - Prevents 429 errors in most cases
+
+    2. Reactive Key Rotation:
+        - If one key gets 429, immediately tries next key
+        - Cycles through all available keys before waiting
+        - Only waits for Retry-After when all keys exhausted
+        - Dramatically reduces wait times for multi-key setups
+
+Multi-Key Rotation:
+    When multiple API keys are configured:
+    - Keys are rotated round-robin for load distribution
+    - Each key has independent rate limit tracking
+    - On 429 response, next key is tried immediately
+    - No waiting unless all keys are rate limited
+
+    Example with 3 keys:
+        Request 1 → Key A → 429
+        Request 1 (retry) → Key B → 200 ✓ (instant, no wait!)
+        Request 2 → Key C → 200 ✓
+        Request 3 → Key A → 200 ✓
+
+Regional Routing:
+    Riot API has two types of endpoints:
+
+    1. Platform Endpoints (is_platform_endpoint=False):
+        - Specific game servers: na1, euw1, kr, etc.
+        - Used for: Summoner, Champion, League, Spectator APIs
+        - Format: https://{platform}.api.riotgames.com
+
+    2. Regional Endpoints (is_platform_endpoint=True):
+        - Routing regions: americas, europe, asia, esports
+        - Used for: Account, Match APIs
+        - Format: https://{region}.api.riotgames.com
+
+Error Handling:
+    All Riot API errors are mapped to custom exceptions:
+    - 400: BadRequestException (invalid parameters)
+    - 401: UnauthorizedException (invalid/expired API key)
+    - 403: ForbiddenException (access denied/restriction)
+    - 404: NotFoundException (resource doesn't exist)
+    - 429: RateLimitException (rate limit exceeded)
+    - 500: InternalServerException (Riot server error)
+    - 503: ServiceUnavailableException (API down/maintenance)
+
+    Each exception includes the exact error message from Riot API.
+
+Authentication:
+    - API keys are passed via X-Riot-Token header
+    - Keys are rotated per-request
+    - Keys are never logged or exposed
+    - Invalid keys are detected immediately (401 response)
+
+Usage:
+    The module exports a global `riot_client` instance that should be used
+    throughout the application. The client is async and must be used with await:
+
+    ```python
+    # Fetch summoner data
+    data = await riot_client.get(
+        path="/lol/summoner/v4/summoners/by-name/Faker",
+        region="kr",
+        is_platform_endpoint=False
+    )
+
+    # Fetch match data with query parameters
+    data = await riot_client.get(
+        path="/lol/match/v5/matches/EUW1_123456789",
+        region="europe",
+        is_platform_endpoint=True
+    )
+    ```
+
+Configuration:
+    All configuration is via app.config.Settings:
+    - RIOT_API_KEY: Primary API key (required)
+    - RIOT_API_KEY_2, RIOT_API_KEY_3: Additional keys (optional)
+    - RIOT_REQUEST_TIMEOUT: Request timeout in seconds
+    - Rate limits configured in app.riot.rate_limiter
+
+Performance Considerations:
+    - HTTP client uses connection pooling (httpx.AsyncClient)
+    - Rate limiter is shared across all requests
+    - Key rotation is lock-free (no contention)
+    - Regional routing is cached (no repeated lookups)
+
+See Also:
+    app.riot.rate_limiter: Token bucket rate limiting implementation
+    app.riot.key_rotator: Round-robin API key rotation
+    app.riot.regions: Regional routing and URL construction
+    app.exceptions: Custom exception classes for error handling
 """
 
 from typing import TYPE_CHECKING
@@ -32,13 +134,70 @@ if TYPE_CHECKING:
 
 
 class RiotClient:
-    """
-    HTTP client for Riot API with rate limiting and retry logic.
+    """Asynchronous HTTP client for Riot Games API with intelligent request management.
 
-    Automatically applies rate limiting before each request and retries
-    on 429 responses according to Retry-After header.
+    This class provides the main interface for making HTTP requests to Riot's API
+    endpoints. It handles rate limiting, API key rotation, regional routing, and
+    comprehensive error handling automatically.
 
-    Supports multiple API keys with round-robin rotation for load distribution.
+    The client is designed to be used as a singleton (via the global riot_client
+    instance) and maintains a persistent HTTP connection pool for optimal performance.
+
+    Key Features:
+        - Automatic rate limiting to prevent 429 errors
+        - Multi-key rotation with instant fallback
+        - Regional and platform endpoint routing
+        - Comprehensive error mapping to custom exceptions
+        - Structured logging for debugging and monitoring
+        - Connection pooling for efficient HTTP operations
+
+    Architecture:
+        The client delegates specific concerns to specialized components:
+        - KeyRotator: Round-robin API key selection
+        - RateLimiter: Token bucket rate limiting
+        - RegionRouter: URL construction based on endpoint type
+        - Custom Exceptions: Typed error handling
+
+    Thread Safety:
+        This class is designed for async/await usage and should be used within
+        the same event loop. The rate limiter uses asyncio locks for thread-safe
+        token acquisition.
+
+    Lifecycle:
+        1. Initialization: Creates HTTP client and key rotator
+        2. Operation: Handles requests with automatic rate limiting
+        3. Cleanup: close() method should be called on shutdown
+
+    Attributes:
+        key_rotator (KeyRotator): Manages round-robin API key rotation
+        client (httpx.AsyncClient): Underlying async HTTP client with connection pooling
+
+    Example:
+        ```python
+        # Use global instance
+        from app.riot.client import riot_client
+
+        # Make a request
+        summoner_data = await riot_client.get(
+            path="/lol/summoner/v4/summoners/by-name/Faker",
+            region="kr",
+            is_platform_endpoint=False
+        )
+
+        # Cleanup on application shutdown
+        await riot_client.close()
+        ```
+
+    Note:
+        - Always use the global riot_client instance, not create new instances
+        - The client is initialized at module import time
+        - Call close() during application shutdown for graceful cleanup
+        - All methods are async and must be awaited
+
+    See Also:
+        riot_client: Global instance of this class
+        app.riot.key_rotator.KeyRotator: API key rotation logic
+        app.riot.rate_limiter: Rate limiting implementation
     """
 
     @staticmethod

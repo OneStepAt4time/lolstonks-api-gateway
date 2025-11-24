@@ -1,16 +1,16 @@
 # OpenAPI Specification
 
-This page provides an interactive API documentation using Swagger UI.
+The API documentation is rendered using **Redoc**, providing a clean and professional interface for exploring the API endpoints, parameters, and responses.
 
-## Interactive API Documentation
+## Interactive Documentation
 
-<swagger-ui src="../data/openapi.json"/>
+<redoc src="../data/openapi.json"/>
 
 ## Download Specification
 
-You can download the OpenAPI specification in JSON format:
+You can download the raw OpenAPI specification in JSON format:
 
-- [Download OpenAPI JSON](../data/openapi.json)
+- [Download OpenAPI JSON](../data/openapi.json){ .md-button }
 
 ## API Overview
 

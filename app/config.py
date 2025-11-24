@@ -1,7 +1,59 @@
-"""
-Configuration management using Pydantic Settings.
+"""Application configuration management using Pydantic Settings.
 
-Loads configuration from environment variables and .env file.
+This module provides type-safe configuration management for the gateway application.
+It uses Pydantic's BaseSettings to automatically load and validate configuration
+from environment variables and .env files, with sensible defaults for development.
+
+Configuration Sources (in priority order):
+    1. Environment variables (highest priority)
+    2. .env file in project root
+    3. Default values defined in Settings class
+
+All configuration is centralized in the Settings class, which provides:
+- Type validation and coercion
+- Automatic environment variable loading
+- IDE autocomplete support
+- Clear documentation of all config options
+- Runtime validation on application startup
+
+Configuration Categories:
+    - Riot API: API keys, timeouts, rate limits, default region
+    - Redis Cache: Connection settings, DB selection, authentication
+    - Cache TTLs: Per-endpoint TTL values for optimal caching
+    - Data Providers: External data sources (Data Dragon, Community Dragon)
+    - Server: Host, port, logging configuration
+
+Environment Variables:
+    All settings can be configured via environment variables using uppercase
+    names. For example:
+    - RIOT_API_KEY -> riot_api_key
+    - REDIS_HOST -> redis_host
+    - CACHE_TTL_MATCH -> cache_ttl_match
+
+    For lists, use comma-separated values:
+    - ENABLED_PROVIDERS="riot_api,data_dragon"
+
+Security:
+    - API keys should NEVER be committed to version control
+    - Use .env file for local development (add to .gitignore)
+    - Use environment variables in production
+    - Redis password is optional but recommended for production
+
+Usage:
+    ```python
+    from app.config import settings
+
+    # Access configuration
+    api_key = settings.riot_api_key
+    redis_host = settings.redis_host
+
+    # Get API keys with fallback logic
+    keys = settings.get_api_keys()
+    ```
+
+See Also:
+    pydantic_settings.BaseSettings: Base class providing auto-loading
+    app.main: Application initialization using these settings
 """
 
 from pydantic_settings import BaseSettings, SettingsConfigDict

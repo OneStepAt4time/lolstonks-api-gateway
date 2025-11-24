@@ -141,3 +141,17 @@ docs/stylesheets/
 
 # Build outputs
 site/
+
+# User requested ignores
+.serena/
+
+# Ignore all root MD files except standard GitHub ones
+/*.md
+!/README.md
+!/CONTRIBUTING.md
+!/CODE_OF_CONDUCT.md
+!/SECURITY.md
+!/SUPPORT.md
+!/LICENSE.md
+!/PULL_REQUEST_TEMPLATE.md
+!/ISSUE_TEMPLATE.md

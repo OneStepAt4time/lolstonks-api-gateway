@@ -55,10 +55,35 @@ class DataDragonProvider(BaseProvider):
 
     @property
     def provider_type(self) -> ProviderType:
+        """Get the provider type.
+
+        Returns:
+            ProviderType.DATA_DRAGON indicating this is the Data Dragon CDN provider.
+
+        Example:
+            ```python
+            if provider.provider_type == ProviderType.DATA_DRAGON:
+                # No rate limiting needed for CDN
+                data = await provider.get(path)
+            ```
+        """
         return ProviderType.DATA_DRAGON
 
     @property
     def requires_auth(self) -> bool:
+        """Check if authentication is required.
+
+        Data Dragon is a public CDN and does not require authentication.
+
+        Returns:
+            Always returns False as Data Dragon is publicly accessible.
+
+        Example:
+            ```python
+            # No API key needed
+            champion_data = await provider.get("/cdn/13.24.1/data/en_US/champion.json")
+            ```
+        """
         return False
 
     def get_capabilities(self) -> list[ProviderCapability]:
