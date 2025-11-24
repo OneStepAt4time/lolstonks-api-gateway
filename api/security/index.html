@@ -6,24 +6,25 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="Unified League of Legends API Gateway with caching, rate limiting, and comprehensive monitoring" name="description"/>
-<link href="getting-started/installation/" rel="next"/>
-<link href="assets/logo.png" rel="icon"/>
+<link href="../cache/" rel="prev"/>
+<link href="../../architecture/overview/" rel="next"/>
+<link href="../../assets/logo.png" rel="icon"/>
 <meta content="mkdocs-1.6.1, mkdocs-material-9.6.23" name="generator"/>
-<title>LOLStonks API Gateway</title>
-<link href="assets/stylesheets/main.84d31ad4.min.css" rel="stylesheet"/>
-<link href="assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
+<title>Security - LOLStonks API Gateway</title>
+<link href="../../assets/stylesheets/main.84d31ad4.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
 <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
-<link href="assets/_mkdocstrings.css" rel="stylesheet"/>
-<script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<link href="../../assets/_mkdocstrings.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
 </head>
 <body data-md-color-accent="blue" data-md-color-primary="blue" data-md-color-scheme="default" dir="ltr">
 <input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#enterprise-features">
+<a class="md-skip" href="#security-api">
           Skip to content
         </a>
 </div>
@@ -31,8 +32,8 @@
 </div>
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
 <nav aria-label="Header" class="md-header__inner md-grid">
-<a aria-label="LOLStonks API Gateway" class="md-header__button md-logo" data-md-component="logo" href="." title="LOLStonks API Gateway">
-<img alt="logo" src="assets/logo.png"/>
+<a aria-label="LOLStonks API Gateway" class="md-header__button md-logo" data-md-component="logo" href="../.." title="LOLStonks API Gateway">
+<img alt="logo" src="../../assets/logo.png"/>
 </a>
 <label class="md-header__button md-icon" for="__drawer">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
@@ -47,7 +48,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              Home
+              Security
             
           </span>
 </div>
@@ -109,8 +110,8 @@
 <nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
 <div class="md-grid">
 <ul class="md-tabs__list">
-<li class="md-tabs__item md-tabs__item--active">
-<a class="md-tabs__link" href=".">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
         
   
   
@@ -121,7 +122,7 @@
       </a>
 </li>
 <li class="md-tabs__item">
-<a class="md-tabs__link" href="../CHANGELOG.md">
+<a class="md-tabs__link" href="../../../CHANGELOG.md">
         
   
   
@@ -132,7 +133,7 @@
       </a>
 </li>
 <li class="md-tabs__item">
-<a class="md-tabs__link" href="getting-started/installation/">
+<a class="md-tabs__link" href="../../getting-started/installation/">
           
   
   
@@ -142,8 +143,8 @@
 
         </a>
 </li>
-<li class="md-tabs__item">
-<a class="md-tabs__link" href="api/openapi-spec/">
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../openapi-spec/">
           
   
   
@@ -154,7 +155,7 @@
         </a>
 </li>
 <li class="md-tabs__item">
-<a class="md-tabs__link" href="architecture/overview/">
+<a class="md-tabs__link" href="../../architecture/overview/">
           
   
   
@@ -165,7 +166,7 @@
         </a>
 </li>
 <li class="md-tabs__item">
-<a class="md-tabs__link" href="operations/monitoring/">
+<a class="md-tabs__link" href="../../operations/monitoring/">
           
   
   
@@ -176,7 +177,7 @@
         </a>
 </li>
 <li class="md-tabs__item">
-<a class="md-tabs__link" href="development/contributing/">
+<a class="md-tabs__link" href="../../development/contributing/">
           
   
   
@@ -198,8 +199,8 @@
 <div class="md-sidebar__inner">
 <nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
 <label class="md-nav__title" for="__drawer">
-<a aria-label="LOLStonks API Gateway" class="md-nav__button md-logo" data-md-component="logo" href="." title="LOLStonks API Gateway">
-<img alt="logo" src="assets/logo.png"/>
+<a aria-label="LOLStonks API Gateway" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="LOLStonks API Gateway">
+<img alt="logo" src="../../assets/logo.png"/>
 </a>
     LOLStonks API Gateway
   </label>
@@ -214,237 +215,16 @@
 </a>
 </div>
 <ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item md-nav__item--active">
-<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
-<label class="md-nav__link md-nav__link--active" for="__toc">
-<span class="md-ellipsis">
-    Home
-    
-  </span>
-<span class="md-nav__icon md-icon"></span>
-</label>
-<a class="md-nav__link md-nav__link--active" href=".">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
 <span class="md-ellipsis">
     Home
     
   </span>
 </a>
-<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="__toc">
-<span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#enterprise-features">
-<span class="md-ellipsis">
-      Enterprise Features
-    </span>
-</a>
-<nav aria-label="Enterprise Features" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#performance-scalability">
-<span class="md-ellipsis">
-      Performance &amp; Scalability
-    </span>
-</a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#reliability-resilience">
-<span class="md-ellipsis">
-      Reliability &amp; Resilience
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#intelligent-caching">
-<span class="md-ellipsis">
-      Intelligent Caching
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#observability-monitoring">
-<span class="md-ellipsis">
-      Observability &amp; Monitoring
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#developer-experience">
-<span class="md-ellipsis">
-      Developer Experience
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#production-ready">
-<span class="md-ellipsis">
-      Production Ready
-    </span>
-</a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#quick-start">
-<span class="md-ellipsis">
-      Quick Start
-    </span>
-</a>
-<nav aria-label="Quick Start" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#system-requirements">
-<span class="md-ellipsis">
-      System Requirements
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#installation-with-uv-recommended">
-<span class="md-ellipsis">
-      Installation with UV (Recommended)
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#configuration">
-<span class="md-ellipsis">
-      Configuration
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#launch-the-gateway">
-<span class="md-ellipsis">
-      Launch the Gateway
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#verify-installation">
-<span class="md-ellipsis">
-      Verify Installation
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#production-deployment">
-<span class="md-ellipsis">
-      Production Deployment
-    </span>
-</a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#documentation">
-<span class="md-ellipsis">
-      Documentation
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#quick-links">
-<span class="md-ellipsis">
-      Quick Links
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#example-usage">
-<span class="md-ellipsis">
-      Example Usage
-    </span>
-</a>
-<nav aria-label="Example Usage" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#get-summoner-by-name">
-<span class="md-ellipsis">
-      Get Summoner by Name
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#get-current-match">
-<span class="md-ellipsis">
-      Get Current Match
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#get-match-history">
-<span class="md-ellipsis">
-      Get Match History
-    </span>
-</a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#architecture-overview">
-<span class="md-ellipsis">
-      Architecture Overview
-    </span>
-</a>
-<nav aria-label="Architecture Overview" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#core-components">
-<span class="md-ellipsis">
-      Core Components
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#supported-providers">
-<span class="md-ellipsis">
-      Supported Providers
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#key-features">
-<span class="md-ellipsis">
-      Key Features
-    </span>
-</a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#contributing">
-<span class="md-ellipsis">
-      Contributing
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#license">
-<span class="md-ellipsis">
-      License
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#development-status">
-<span class="md-ellipsis">
-      Development Status
-    </span>
-</a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../CHANGELOG.md">
+<a class="md-nav__link" href="../../../CHANGELOG.md">
 <span class="md-ellipsis">
     Changelog
     
@@ -467,7 +247,7 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="getting-started/installation/">
+<a class="md-nav__link" href="../../getting-started/installation/">
 <span class="md-ellipsis">
     Installation
     
@@ -475,7 +255,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="getting-started/quick-start/">
+<a class="md-nav__link" href="../../getting-started/quick-start/">
 <span class="md-ellipsis">
     Quick Start
     
@@ -483,7 +263,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="getting-started/configuration/">
+<a class="md-nav__link" href="../../getting-started/configuration/">
 <span class="md-ellipsis">
     Configuration
     
@@ -491,7 +271,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="getting-started/deployment/">
+<a class="md-nav__link" href="../../getting-started/deployment/">
 <span class="md-ellipsis">
     Production Deployment
     
@@ -501,23 +281,23 @@
 </ul>
 </nav>
 </li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4" type="checkbox"/>
-<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
 <span class="md-ellipsis">
     API Reference
     
   </span>
 <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<nav aria-expanded="true" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
 <label class="md-nav__title" for="__nav_4">
 <span class="md-nav__icon md-icon"></span>
             API Reference
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="api/openapi-spec/">
+<a class="md-nav__link" href="../openapi-spec/">
 <span class="md-ellipsis">
     OpenAPI Specification
     
@@ -525,7 +305,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="api/overview/">
+<a class="md-nav__link" href="../overview/">
 <span class="md-ellipsis">
     Overview
     
@@ -533,7 +313,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="api/providers/">
+<a class="md-nav__link" href="../providers/">
 <span class="md-ellipsis">
     Providers
     
@@ -541,7 +321,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="api/riot-client/">
+<a class="md-nav__link" href="../riot-client/">
 <span class="md-ellipsis">
     Riot Client
     
@@ -549,7 +329,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="api/models/">
+<a class="md-nav__link" href="../models/">
 <span class="md-ellipsis">
     Models
     
@@ -557,7 +337,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="api/routers/">
+<a class="md-nav__link" href="../routers/">
 <span class="md-ellipsis">
     Routers
     
@@ -565,20 +345,274 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="api/cache/">
+<a class="md-nav__link" href="../cache/">
 <span class="md-ellipsis">
     Cache
     
   </span>
 </a>
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="api/security/">
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    Security
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
 <span class="md-ellipsis">
     Security
     
   </span>
 </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#security-endpoints">
+<span class="md-ellipsis">
+      Security Endpoints
+    </span>
+</a>
+<nav aria-label="Security Endpoints" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#security-status-overview">
+<span class="md-ellipsis">
+      Security Status Overview
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#security-headers-validation">
+<span class="md-ellipsis">
+      Security Headers Validation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#security-health-check">
+<span class="md-ellipsis">
+      Security Health Check
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#security-features">
+<span class="md-ellipsis">
+      Security Features
+    </span>
+</a>
+<nav aria-label="Security Features" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-host-binding-security">
+<span class="md-ellipsis">
+      1. Host Binding Security
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-api-key-rotation">
+<span class="md-ellipsis">
+      2. API Key Rotation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-input-validation">
+<span class="md-ellipsis">
+      3. Input Validation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-rate-limiting">
+<span class="md-ellipsis">
+      4. Rate Limiting
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-error-monitoring">
+<span class="md-ellipsis">
+      5. Error Monitoring
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#security-best-practices">
+<span class="md-ellipsis">
+      Security Best Practices
+    </span>
+</a>
+<nav aria-label="Security Best Practices" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#api-key-management">
+<span class="md-ellipsis">
+      API Key Management
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#network-security">
+<span class="md-ellipsis">
+      Network Security
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#input-validation">
+<span class="md-ellipsis">
+      Input Validation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#monitoring-logging">
+<span class="md-ellipsis">
+      Monitoring &amp; Logging
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#security-headers">
+<span class="md-ellipsis">
+      Security Headers
+    </span>
+</a>
+<nav aria-label="Security Headers" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#default-headers">
+<span class="md-ellipsis">
+      Default Headers
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cors-configuration">
+<span class="md-ellipsis">
+      CORS Configuration
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#security-monitoring">
+<span class="md-ellipsis">
+      Security Monitoring
+    </span>
+</a>
+<nav aria-label="Security Monitoring" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#real-time-metrics">
+<span class="md-ellipsis">
+      Real-time Metrics
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#alert-conditions">
+<span class="md-ellipsis">
+      Alert Conditions
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#health-check-integration">
+<span class="md-ellipsis">
+      Health Check Integration
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#troubleshooting-security-issues">
+<span class="md-ellipsis">
+      Troubleshooting Security Issues
+    </span>
+</a>
+<nav aria-label="Troubleshooting Security Issues" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#host-binding-issues">
+<span class="md-ellipsis">
+      Host Binding Issues
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#api-key-issues">
+<span class="md-ellipsis">
+      API Key Issues
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#input-validation-issues">
+<span class="md-ellipsis">
+      Input Validation Issues
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cors-issues">
+<span class="md-ellipsis">
+      CORS Issues
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#security-configuration-reference">
+<span class="md-ellipsis">
+      Security Configuration Reference
+    </span>
+</a>
+<nav aria-label="Security Configuration Reference" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#environment-variables">
+<span class="md-ellipsis">
+      Environment Variables
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#security-headers_1">
+<span class="md-ellipsis">
+      Security Headers
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -599,7 +633,7 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="architecture/overview/">
+<a class="md-nav__link" href="../../architecture/overview/">
 <span class="md-ellipsis">
     Overview
     
@@ -607,7 +641,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="architecture/diagram-guide.md">
+<a class="md-nav__link" href="../../architecture/diagram-guide.md">
 <span class="md-ellipsis">
     Diagram Guide
     
@@ -615,7 +649,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="architecture/system-overview.md">
+<a class="md-nav__link" href="../../architecture/system-overview.md">
 <span class="md-ellipsis">
     System Overview
     
@@ -623,7 +657,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="architecture/data-flow.md">
+<a class="md-nav__link" href="../../architecture/data-flow.md">
 <span class="md-ellipsis">
     Data Flow
     
@@ -631,7 +665,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="architecture/implementation-details/">
+<a class="md-nav__link" href="../../architecture/implementation-details/">
 <span class="md-ellipsis">
     Implementation Details
     
@@ -639,7 +673,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="architecture/models/">
+<a class="md-nav__link" href="../../architecture/models/">
 <span class="md-ellipsis">
     Data Models
     
@@ -665,7 +699,7 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="operations/monitoring/">
+<a class="md-nav__link" href="../../operations/monitoring/">
 <span class="md-ellipsis">
     Monitoring
     
@@ -673,7 +707,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="operations/troubleshooting/">
+<a class="md-nav__link" href="../../operations/troubleshooting/">
 <span class="md-ellipsis">
     Troubleshooting
     
@@ -681,7 +715,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="operations/security/">
+<a class="md-nav__link" href="../../operations/security/">
 <span class="md-ellipsis">
     Security
     
@@ -707,7 +741,7 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="development/contributing/">
+<a class="md-nav__link" href="../../development/contributing/">
 <span class="md-ellipsis">
     Contributing
     
@@ -715,7 +749,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="development/changelog-guide/">
+<a class="md-nav__link" href="../../development/changelog-guide/">
 <span class="md-ellipsis">
     Changelog Guide
     
@@ -723,7 +757,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="development/versioning/">
+<a class="md-nav__link" href="../../development/versioning/">
 <span class="md-ellipsis">
     Versioning
     
@@ -731,7 +765,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="development/releases/">
+<a class="md-nav__link" href="../../development/releases/">
 <span class="md-ellipsis">
     Releases
     
@@ -739,7 +773,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="development/testing/">
+<a class="md-nav__link" href="../../development/testing/">
 <span class="md-ellipsis">
     Testing
     
@@ -747,7 +781,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="development/documentation/">
+<a class="md-nav__link" href="../../development/documentation/">
 <span class="md-ellipsis">
     Documentation
     
@@ -772,52 +806,31 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#enterprise-features">
+<a class="md-nav__link" href="#security-endpoints">
 <span class="md-ellipsis">
-      Enterprise Features
+      Security Endpoints
     </span>
 </a>
-<nav aria-label="Enterprise Features" class="md-nav">
+<nav aria-label="Security Endpoints" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#performance-scalability">
+<a class="md-nav__link" href="#security-status-overview">
 <span class="md-ellipsis">
-      Performance &amp; Scalability
+      Security Status Overview
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#reliability-resilience">
+<a class="md-nav__link" href="#security-headers-validation">
 <span class="md-ellipsis">
-      Reliability &amp; Resilience
+      Security Headers Validation
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#intelligent-caching">
+<a class="md-nav__link" href="#security-health-check">
 <span class="md-ellipsis">
-      Intelligent Caching
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#observability-monitoring">
-<span class="md-ellipsis">
-      Observability &amp; Monitoring
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#developer-experience">
-<span class="md-ellipsis">
-      Developer Experience
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#production-ready">
-<span class="md-ellipsis">
-      Production Ready
+      Security Health Check
     </span>
 </a>
 </li>
@@ -825,52 +838,45 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#quick-start">
+<a class="md-nav__link" href="#security-features">
 <span class="md-ellipsis">
-      Quick Start
+      Security Features
     </span>
 </a>
-<nav aria-label="Quick Start" class="md-nav">
+<nav aria-label="Security Features" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#system-requirements">
+<a class="md-nav__link" href="#1-host-binding-security">
 <span class="md-ellipsis">
-      System Requirements
+      1. Host Binding Security
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#installation-with-uv-recommended">
+<a class="md-nav__link" href="#2-api-key-rotation">
 <span class="md-ellipsis">
-      Installation with UV (Recommended)
+      2. API Key Rotation
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#configuration">
+<a class="md-nav__link" href="#3-input-validation">
 <span class="md-ellipsis">
-      Configuration
+      3. Input Validation
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#launch-the-gateway">
+<a class="md-nav__link" href="#4-rate-limiting">
 <span class="md-ellipsis">
-      Launch the Gateway
+      4. Rate Limiting
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#verify-installation">
+<a class="md-nav__link" href="#5-error-monitoring">
 <span class="md-ellipsis">
-      Verify Installation
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#production-deployment">
-<span class="md-ellipsis">
-      Production Deployment
+      5. Error Monitoring
     </span>
 </a>
 </li>
@@ -878,45 +884,38 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#documentation">
+<a class="md-nav__link" href="#security-best-practices">
 <span class="md-ellipsis">
-      Documentation
+      Security Best Practices
     </span>
 </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#quick-links">
-<span class="md-ellipsis">
-      Quick Links
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#example-usage">
-<span class="md-ellipsis">
-      Example Usage
-    </span>
-</a>
-<nav aria-label="Example Usage" class="md-nav">
+<nav aria-label="Security Best Practices" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#get-summoner-by-name">
+<a class="md-nav__link" href="#api-key-management">
 <span class="md-ellipsis">
-      Get Summoner by Name
+      API Key Management
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#get-current-match">
+<a class="md-nav__link" href="#network-security">
 <span class="md-ellipsis">
-      Get Current Match
+      Network Security
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#get-match-history">
+<a class="md-nav__link" href="#input-validation">
 <span class="md-ellipsis">
-      Get Match History
+      Input Validation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#monitoring-logging">
+<span class="md-ellipsis">
+      Monitoring &amp; Logging
     </span>
 </a>
 </li>
@@ -924,31 +923,24 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#architecture-overview">
+<a class="md-nav__link" href="#security-headers">
 <span class="md-ellipsis">
-      Architecture Overview
+      Security Headers
     </span>
 </a>
-<nav aria-label="Architecture Overview" class="md-nav">
+<nav aria-label="Security Headers" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#core-components">
+<a class="md-nav__link" href="#default-headers">
 <span class="md-ellipsis">
-      Core Components
+      Default Headers
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#supported-providers">
+<a class="md-nav__link" href="#cors-configuration">
 <span class="md-ellipsis">
-      Supported Providers
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#key-features">
-<span class="md-ellipsis">
-      Key Features
+      CORS Configuration
     </span>
 </a>
 </li>
@@ -956,25 +948,100 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#contributing">
+<a class="md-nav__link" href="#security-monitoring">
 <span class="md-ellipsis">
-      Contributing
+      Security Monitoring
+    </span>
+</a>
+<nav aria-label="Security Monitoring" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#real-time-metrics">
+<span class="md-ellipsis">
+      Real-time Metrics
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#license">
+<a class="md-nav__link" href="#alert-conditions">
 <span class="md-ellipsis">
-      License
+      Alert Conditions
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#development-status">
+<a class="md-nav__link" href="#health-check-integration">
 <span class="md-ellipsis">
-      Development Status
+      Health Check Integration
     </span>
 </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#troubleshooting-security-issues">
+<span class="md-ellipsis">
+      Troubleshooting Security Issues
+    </span>
+</a>
+<nav aria-label="Troubleshooting Security Issues" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#host-binding-issues">
+<span class="md-ellipsis">
+      Host Binding Issues
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#api-key-issues">
+<span class="md-ellipsis">
+      API Key Issues
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#input-validation-issues">
+<span class="md-ellipsis">
+      Input Validation Issues
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cors-issues">
+<span class="md-ellipsis">
+      CORS Issues
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#security-configuration-reference">
+<span class="md-ellipsis">
+      Security Configuration Reference
+    </span>
+</a>
+<nav aria-label="Security Configuration Reference" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#environment-variables">
+<span class="md-ellipsis">
+      Environment Variables
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#security-headers_1">
+<span class="md-ellipsis">
+      Security Headers
+    </span>
+</a>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -983,188 +1050,350 @@
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<h1>Home</h1>
-<h2 id="enterprise-features">Enterprise Features<a class="headerlink" href="#enterprise-features" title="Permanent link">¶</a></h2>
-<h3 id="performance-scalability">Performance &amp; Scalability<a class="headerlink" href="#performance-scalability" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Sub-100ms Response Times</strong>: Optimized for high-throughput applications</li>
-<li><strong>Async Architecture</strong>: Built on FastAPI with full async/await support</li>
-<li><strong>Horizontal Scaling</strong>: Stateless design enables multi-instance deployment</li>
-<li><strong>Connection Pooling</strong>: Efficient resource management for high concurrency</li>
-</ul>
-<h3 id="reliability-resilience">Reliability &amp; Resilience<a class="headerlink" href="#reliability-resilience" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Intelligent Rate Limiting</strong>: Token bucket algorithm ensures Riot API compliance</li>
-<li><strong>Automatic Retries</strong>: Exponential backoff for 429 responses with configurable limits</li>
-<li><strong>Circuit Breaker Pattern</strong>: Fault tolerance for external API dependencies</li>
-<li><strong>Graceful Degradation</strong>: Continue operation during partial outages</li>
-</ul>
-<h3 id="intelligent-caching">Intelligent Caching<a class="headerlink" href="#intelligent-caching" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Multi-Layer Caching</strong>: Redis-based with strategic TTL configuration</li>
-<li><strong>High Cache Hit Rates</strong>: Optimized caching strategy for frequently accessed data</li>
-<li><strong>Smart Invalidation</strong>: Automatic cache updates based on data freshness</li>
-<li><strong>Memory Optimization</strong>: Efficient cache key management and eviction policies</li>
-</ul>
-<h3 id="observability-monitoring">Observability &amp; Monitoring<a class="headerlink" href="#observability-monitoring" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Comprehensive Metrics</strong>: Prometheus-compatible metrics for full stack monitoring</li>
-<li><strong>Structured Logging</strong>: JSON-formatted logs with request tracing</li>
-<li><strong>Health Checks</strong>: Multi-level health monitoring for all dependencies</li>
-<li><strong>Performance Analytics</strong>: Real-time performance insights and alerting</li>
-</ul>
-<h3 id="developer-experience">Developer Experience<a class="headerlink" href="#developer-experience" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Type-Safe API</strong>: Full Pydantic model validation with comprehensive error handling</li>
-<li><strong>Interactive Documentation</strong>: Auto-generated OpenAPI specs with Swagger UI and ReDoc</li>
-<li><strong>Multi-Region Support</strong>: Complete coverage of all Riot API regions</li>
-<li><strong>UV Integration</strong>: Modern Python package management with fast dependency resolution</li>
-<li><strong>Provider Abstraction</strong>: Clean architecture for adding new data providers</li>
-<li><strong>Security Monitoring</strong>: Built-in security status and monitoring endpoints</li>
-</ul>
-<h3 id="production-ready">Production Ready<a class="headerlink" href="#production-ready" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Container-Native</strong>: Docker support with optimized images</li>
-<li><strong>Security Hardened</strong>: Input validation, CORS protection, and secure defaults</li>
-<li><strong>Configuration Management</strong>: Environment-based configuration with validation</li>
-<li><strong>CI/CD Integration</strong>: Automated testing, documentation generation, and deployment</li>
-</ul>
-<h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">¶</a></h2>
-<h3 id="system-requirements">System Requirements<a class="headerlink" href="#system-requirements" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Python 3.12+</strong> with UV package manager</li>
-<li><strong>Redis 6.0+</strong> for caching and session management</li>
-<li><strong>Riot Developer API key</strong> from <a href="https://developer.riotgames.com/">developer.riotgames.com</a></li>
-</ul>
-<h3 id="installation-with-uv-recommended">Installation with UV (Recommended)<a class="headerlink" href="#installation-with-uv-recommended" title="Permanent link">¶</a></h3>
-<pre><code class="language-bash"># Clone the repository
-git clone https://github.com/OneStepAt4time/lolstonks-api-gateway.git
-cd lolstonks-api-gateway
-
-# Install dependencies with UV
-uv pip install -e ".[docs]"
-
-# Create environment configuration
-cp .env.example .env
+<h1 id="security-api">Security API<a class="headerlink" href="#security-api" title="Permanent link">¶</a></h1>
+<p>The LOLStonks API Gateway includes comprehensive security monitoring and endpoint validation to ensure safe and secure operation.</p>
+<h2 id="security-endpoints">Security Endpoints<a class="headerlink" href="#security-endpoints" title="Permanent link">¶</a></h2>
+<h3 id="security-status-overview">Security Status Overview<a class="headerlink" href="#security-status-overview" title="Permanent link">¶</a></h3>
+<p><strong>Endpoint</strong>: <code>GET /security/status</code></p>
+<p>Returns overall security status and configuration validation.</p>
+<p><strong>Response Example</strong>:</p>
+<pre><code class="language-json">{
+  "status": "healthy",
+  "timestamp": "2024-01-01T12:00:00Z",
+  "host_binding": "secure",
+  "api_keys_configured": true,
+  "api_key_rotation_enabled": true,
+  "input_validation_enabled": true,
+  "rate_limiting_enabled": true,
+  "security_headers": {
+    "host_header": "configured",
+    "cors_policy": "restrictive",
+    "https_redirect": "not_applicable"
+  }
+}
 </code></pre>
-<h3 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">¶</a></h3>
-<p>Edit your <code>.env</code> file with your settings:</p>
-<pre><code class="language-env"># Required: Riot API Configuration
-RIOT_API_KEY=RGAPI-your-production-api-key
-RIOT_DEFAULT_REGION=euw1
+<h3 id="security-headers-validation">Security Headers Validation<a class="headerlink" href="#security-headers-validation" title="Permanent link">¶</a></h3>
+<p><strong>Endpoint</strong>: <code>GET /security/headers</code></p>
+<p>Validates security headers and CORS configuration.</p>
+<p><strong>Response Example</strong>:</p>
+<pre><code class="language-json">{
+  "status": "validated",
+  "timestamp": "2024-01-01T12:00:00Z",
+  "headers": {
+    "host": "valid",
+    "origin": "restrictive",
+    "methods": "safe_methods_only",
+    "credentials": "not_allowed"
+  },
+  "cors_policy": {
+    "allowed_origins": [],
+    "allowed_methods": ["GET", "OPTIONS"],
+    "allowed_headers": ["Content-Type", "Authorization"],
+    "max_age": 86400,
+    "supports_credentials": false
+  }
+}
+</code></pre>
+<h3 id="security-health-check">Security Health Check<a class="headerlink" href="#security-health-check" title="Permanent link">¶</a></h3>
+<p><strong>Endpoint</strong>: <code>GET /health/security</code></p>
+<p>Health check specifically for security monitoring components.</p>
+<p><strong>Response Example</strong>:</p>
+<pre><code class="language-json">{
+  "status": "ok",
+  "security_monitoring": "active",
+  "error_tracking": "enabled",
+  "alert_threshold": 10,
+  "consecutive_errors": 0,
+  "last_security_check": "2024-01-01T12:00:00Z"
+}
+</code></pre>
+<h2 id="security-features">Security Features<a class="headerlink" href="#security-features" title="Permanent link">¶</a></h2>
+<h3 id="1-host-binding-security">1. Host Binding Security<a class="headerlink" href="#1-host-binding-security" title="Permanent link">¶</a></h3>
+<p><strong>Configuration</strong>: Gateway is bound to <code>127.0.0.1</code> by default for security.</p>
+<p><strong>Purpose</strong>: Prevents external access and reduces attack surface.</p>
+<p><strong>Verification</strong>:</p>
+<pre><code class="language-bash"># Check if properly secured
+curl http://127.0.0.1:8080/security/status
 
-# Optional: Server Configuration
-HOST=0.0.0.0
-PORT=8080
-LOG_LEVEL=INFO
+# This will fail (intentionally)
+curl http://0.0.0.0:8080/security/status
+# Connection refused
+</code></pre>
+<p><strong>Override (Development Only)</strong>:</p>
+<pre><code class="language-bash"># WARNING: Only use in trusted environments
+HOST=0.0.0.0 uvicorn app.main:app
+</code></pre>
+<h3 id="2-api-key-rotation">2. API Key Rotation<a class="headerlink" href="#2-api-key-rotation" title="Permanent link">¶</a></h3>
+<p><strong>Feature</strong>: Automatic rotation across multiple API keys.</p>
+<p><strong>Benefits</strong>:
+- Distributes load across multiple keys
+- Prevents single key exhaustion
+- Continues operation during rate limit events</p>
+<p><strong>Configuration</strong>:</p>
+<pre><code class="language-bash"># Multiple keys for rotation (recommended)
+RIOT_API_KEYS=key1,key2,key3
 
-# Optional: Redis Configuration
-REDIS_HOST=localhost
-REDIS_PORT=6379
-REDIS_PASSWORD=
-
-# Optional: Performance Tuning
+# Single key (backward compatible)
+RIOT_API_KEY=RGAPI-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+</code></pre>
+<p><strong>Rotation Strategy</strong>:
+- Round-robin distribution
+- Immediate fallback on 429 errors
+- Health tracking per key
+- Automatic key recovery</p>
+<h3 id="3-input-validation">3. Input Validation<a class="headerlink" href="#3-input-validation" title="Permanent link">¶</a></h3>
+<p><strong>Coverage</strong>: Complete Pydantic model validation for all endpoints.</p>
+<p><strong>Features</strong>:
+- Type safety for all parameters
+- Regex validation for IDs and strings
+- Range validation for numeric values
+- Enum validation for constants
+- Sanitization of user input</p>
+<p><strong>Example Validation</strong>:</p>
+<pre><code class="language-python"># Path parameter validation
+@router.get("/summoner/by-name/{summoner_name}")
+async def get_summoner_by_name(
+    summoner_name: str = Path(..., min_length=3, max_length=16, pattern=r"^[0-9\\p{L} _]+$"),
+    region: str = Query(..., enum=SUPPORTED_REGIONS)
+):
+    # summoner_name is validated before execution
+</code></pre>
+<h3 id="4-rate-limiting">4. Rate Limiting<a class="headerlink" href="#4-rate-limiting" title="Permanent link">¶</a></h3>
+<p><strong>Algorithm</strong>: Token bucket with configurable limits.</p>
+<p><strong>Features</strong>:
+- Per-provider rate limiting
+- Smooth request distribution
+- Automatic retry with backoff
+- Smart key rotation</p>
+<p><strong>Configuration</strong>:</p>
+<pre><code class="language-bash"># Riot API rate limits
 RIOT_RATE_LIMIT_PER_SECOND=20
 RIOT_RATE_LIMIT_PER_2MIN=100
-</code></pre>
-<h3 id="launch-the-gateway">Launch the Gateway<a class="headerlink" href="#launch-the-gateway" title="Permanent link">¶</a></h3>
-<pre><code class="language-bash"># Start with uvicorn (development)
-uv run uvicorn app.main:app --reload
 
-# Or with the provided script
-uv run python -m app.main
+# Custom provider limits
+CUSTOM_PROVIDER_RATE_LIMIT=50
 </code></pre>
-<h3 id="verify-installation">Verify Installation<a class="headerlink" href="#verify-installation" title="Permanent link">¶</a></h3>
-<pre><code class="language-bash"># Health check endpoint
+<h3 id="5-error-monitoring">5. Error Monitoring<a class="headerlink" href="#5-error-monitoring" title="Permanent link">¶</a></h3>
+<p><strong>Real-time Tracking</strong>:
+- Error counts and rates
+- Consecutive failure tracking
+- Error pattern detection
+- Automatic alerting</p>
+<p><strong>Alerting Thresholds</strong>:</p>
+<pre><code class="language-bash"># Trigger alerts after N errors in window
+ERROR_ALERT_THRESHOLD=10
+ERROR_WINDOW_SIZE=300  # 5 minutes
+</code></pre>
+<p><strong>Error Types Monitored</strong>:
+- HTTP client errors (4xx, 5xx)
+- Connection timeouts
+- Data validation errors
+- Provider-specific errors
+- Security violations</p>
+<h2 id="security-best-practices">Security Best Practices<a class="headerlink" href="#security-best-practices" title="Permanent link">¶</a></h2>
+<h3 id="api-key-management">API Key Management<a class="headerlink" href="#api-key-management" title="Permanent link">¶</a></h3>
+<ol>
+<li><strong>Never commit API keys</strong> to version control</li>
+<li><strong>Use environment variables</strong> for all sensitive data</li>
+<li><strong>Rotate keys regularly</strong> for production systems</li>
+<li><strong>Monitor key usage</strong> and set up alerts</li>
+</ol>
+<h3 id="network-security">Network Security<a class="headerlink" href="#network-security" title="Permanent link">¶</a></h3>
+<ol>
+<li><strong>Keep host binding</strong> to <code>127.0.0.1</code> for local development</li>
+<li><strong>Use reverse proxy</strong> (nginx) for production deployment</li>
+<li><strong>Implement HTTPS</strong> in production environments</li>
+<li><strong>Configure firewalls</strong> to restrict access</li>
+</ol>
+<h3 id="input-validation">Input Validation<a class="headerlink" href="#input-validation" title="Permanent link">¶</a></h3>
+<ol>
+<li><strong>Always validate</strong> user input at API boundaries</li>
+<li><strong>Use parameterized queries</strong> to prevent injection</li>
+<li><strong>Sanitize and escape</strong> output data</li>
+<li><strong>Implement rate limiting</strong> per user/IP</li>
+</ol>
+<h3 id="monitoring-logging">Monitoring &amp; Logging<a class="headerlink" href="#monitoring-logging" title="Permanent link">¶</a></h3>
+<ol>
+<li><strong>Log security events</strong> with timestamps</li>
+<li><strong>Monitor error rates</strong> and set up alerts</li>
+<li><strong>Track API usage</strong> patterns</li>
+<li><strong>Regular security audits</strong> of logs and configurations</li>
+</ol>
+<h2 id="security-headers">Security Headers<a class="headerlink" href="#security-headers" title="Permanent link">¶</a></h2>
+<h3 id="default-headers">Default Headers<a class="headerlink" href="#default-headers" title="Permanent link">¶</a></h3>
+<pre><code class="language-http">Content-Security-Policy: default-src 'self'
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+X-XSS-Protection: 1; mode=block
+Referrer-Policy: strict-origin-when-cross-origin
+</code></pre>
+<h3 id="cors-configuration">CORS Configuration<a class="headerlink" href="#cors-configuration" title="Permanent link">¶</a></h3>
+<pre><code class="language-python">app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[],  # Restrictive by default
+    allow_credentials=False,
+    allow_methods=["GET", "OPTIONS"],  # Safe methods only
+    allow_headers=["Content-Type", "Authorization"],
+    max_age=86400,
+)
+</code></pre>
+<h2 id="security-monitoring">Security Monitoring<a class="headerlink" href="#security-monitoring" title="Permanent link">¶</a></h2>
+<h3 id="real-time-metrics">Real-time Metrics<a class="headerlink" href="#real-time-metrics" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Request Rate</strong>: Requests per second by provider</li>
+<li><strong>Error Rate</strong>: Percentage of failed requests</li>
+<li><strong>Response Time</strong>: Average response time tracking</li>
+<li><strong>Concurrent Failures</strong>: Count of consecutive errors</li>
+</ul>
+<h3 id="alert-conditions">Alert Conditions<a class="headerlink" href="#alert-conditions" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>High Error Rate</strong>: &gt;10% error rate sustained</li>
+<li><strong>Consecutive Failures</strong>: 5+ failures in a row</li>
+<li><strong>Security Violations</strong>: Invalid host headers, CORS violations</li>
+<li><strong>Rate Limit Breaches</strong>: Exceeding configured limits</li>
+</ul>
+<h3 id="health-check-integration">Health Check Integration<a class="headerlink" href="#health-check-integration" title="Permanent link">¶</a></h3>
+<p>Security status is integrated with overall health monitoring:</p>
+<pre><code class="language-bash"># Basic health includes security
+curl http://localhost:8080/health
+
+# Detailed security status
+curl http://localhost:8080/security/status
+
+# Security-specific health
+curl http://localhost:8080/health/security
+</code></pre>
+<h2 id="troubleshooting-security-issues">Troubleshooting Security Issues<a class="headerlink" href="#troubleshooting-security-issues" title="Permanent link">¶</a></h2>
+<h3 id="host-binding-issues">Host Binding Issues<a class="headerlink" href="#host-binding-issues" title="Permanent link">¶</a></h3>
+<p><strong>Problem</strong>: External access attempts fail</p>
+<p><strong>Solution</strong>: Check host configuration</p>
+<pre><code class="language-bash"># Should be 127.0.0.1 for security
+echo $HOST
+
+# Test local access
 curl http://127.0.0.1:8080/health
 
-# Expected response
-{
-  "status": "ok",
-  "timestamp": "2024-01-01T12:00:00.000Z",
-  "version": "2.0.0"
-}
+# Test external access (should fail)
+curl http://0.0.0.0:8080/health
+</code></pre>
+<h3 id="api-key-issues">API Key Issues<a class="headerlink" href="#api-key-issues" title="Permanent link">¶</a></h3>
+<p><strong>Problem</strong>: 401 Unauthorized or 429 Rate Limited</p>
+<p><strong>Solution</strong>: Verify API key configuration</p>
+<pre><code class="language-bash"># Check key format
+echo $RIOT_API_KEY | head -c 10
 
-# Interactive documentation
-# Open http://localhost:8080/docs in your browser
-</code></pre>
-<h3 id="production-deployment">Production Deployment<a class="headerlink" href="#production-deployment" title="Permanent link">¶</a></h3>
-<p>For production deployment, see our comprehensive <a href="getting-started/deployment/">Deployment Guide</a> which covers:
-- Docker containerization
-- Process management with systemd
-- Nginx reverse proxy configuration
-- SSL/TLS setup with Let's Encrypt
-- Monitoring and alerting setup</p>
-<h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">¶</a></h2>
-<ul>
-<li><a href="getting-started/installation/">Installation Guide</a> - Detailed setup instructions</li>
-<li><a href="getting-started/quick-start/">Quick Start</a> - Basic usage examples</li>
-<li><a href="getting-started/configuration/">Configuration</a> - Environment variables and settings</li>
-<li><a href="api/overview/">API Reference</a> - Complete API documentation</li>
-<li><a href="architecture/overview/">Architecture</a> - System design and components</li>
-</ul>
-<h2 id="quick-links">Quick Links<a class="headerlink" href="#quick-links" title="Permanent link">¶</a></h2>
-<ul>
-<li><strong>Interactive API Docs</strong>: <a href="http://localhost:8080/docs">Swagger UI</a> | <a href="http://localhost:8080/redoc">ReDoc</a></li>
-<li><strong>Riot Developer Portal</strong>: <a href="https://developer.riotgames.com/">developer.riotgames.com</a></li>
-<li><strong>GitHub Repository</strong>: <a href="https://github.com/OneStepAt4time/lolstonks-api-gateway">github.com/OneStepAt4time/lolstonks-api-gateway</a></li>
-</ul>
-<h2 id="example-usage">Example Usage<a class="headerlink" href="#example-usage" title="Permanent link">¶</a></h2>
-<h3 id="get-summoner-by-name">Get Summoner by Name<a class="headerlink" href="#get-summoner-by-name" title="Permanent link">¶</a></h3>
-<pre><code class="language-python">import httpx
+# Test API directly
+curl -H "X-Riot-Token: $RIOT_API_KEY" \
+     "https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/test"
 
-response = httpx.get("http://localhost:8080/summoner/by-name/Faker?region=kr")
-summoner = response.json()
-print(f"Summoner: {summoner['name']} (Level: {summoner['summonerLevel']})")
+# Check key rotation
+curl http://localhost:8080/security/status | jq '.api_key_rotation_enabled'
 </code></pre>
-<h3 id="get-current-match">Get Current Match<a class="headerlink" href="#get-current-match" title="Permanent link">¶</a></h3>
-<pre><code class="language-python">summoner_id = "summoner-id-here"
-response = httpx.get(f"http://localhost:8080/spectator/active-game/{summoner_id}?region=kr")
-game = response.json()
-print(f"Game mode: {game['gameMode']}, Game time: {game['gameLength']}s")
+<h3 id="input-validation-issues">Input Validation Issues<a class="headerlink" href="#input-validation-issues" title="Permanent link">¶</a></h3>
+<p><strong>Problem</strong>: 422 Unprocessable Entity errors</p>
+<p><strong>Solution</strong>: Check request parameters</p>
+<pre><code class="language-bash"># Check validation rules
+curl http://localhost:8080/docs
+
+# Test with valid parameters
+curl "http://localhost:8080/lol/summoner/v4/summoners/by-name/ValidName?region=euw1"
 </code></pre>
-<h3 id="get-match-history">Get Match History<a class="headerlink" href="#get-match-history" title="Permanent link">¶</a></h3>
-<pre><code class="language-python">puuid = "player-puuid-here"
-response = httpx.get(f"http://localhost:8080/match/ids/by-puuid/{puuid}?region=euw1&amp;count=5")
-match_ids = response.json()
-print(f"Recent matches: {match_ids}")
+<h3 id="cors-issues">CORS Issues<a class="headerlink" href="#cors-issues" title="Permanent link">¶</a></h3>
+<p><strong>Problem</strong>: Cross-origin requests blocked</p>
+<p><strong>Solution</strong>: Configure CORS properly</p>
+<pre><code class="language-bash"># Check CORS headers
+curl -H "Origin: https://example.com" \
+     -H "Access-Control-Request-Method: GET" \
+     -X OPTIONS \
+     "http://localhost:8080/summoner/by-name/test"
+
+# Should return restrictive CORS headers
 </code></pre>
-<h2 id="architecture-overview">Architecture Overview<a class="headerlink" href="#architecture-overview" title="Permanent link">¶</a></h2>
-<p>The League of Legends API Gateway uses a <strong>comprehensive data source architecture</strong> to support multiple data sources:</p>
-<h3 id="core-components">Core Components<a class="headerlink" href="#core-components" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>FastAPI Application</strong>: Modern async web framework with automatic documentation</li>
-<li><strong>Provider Registry</strong>: Dynamic provider management and initialization</li>
-<li><strong>Redis Cache</strong>: High-performance caching layer for API responses</li>
-<li><strong>Match Tracking</strong>: Service to prevent duplicate match processing</li>
-<li><strong>Error Monitoring</strong>: Real-time error tracking with alerting</li>
-<li><strong>Security Middleware</strong>: Security monitoring and status reporting</li>
-</ul>
-<h3 id="supported-providers">Supported Providers<a class="headerlink" href="#supported-providers" title="Permanent link">¶</a></h3>
-<ol>
-<li><strong>Riot Games Developer API</strong> - Live game data, match history, summoner info</li>
-<li><strong>Data Dragon CDN</strong> - Static game data (champions, items, runes)</li>
-<li><strong>Community Dragon</strong> - Enhanced static data with additional assets</li>
-</ol>
-<h3 id="key-features">Key Features<a class="headerlink" href="#key-features" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Provider Abstraction</strong>: Clean interface for adding new data providers</li>
-<li><strong>Multi-Region Support</strong>: Automatic routing based on region configuration</li>
-<li><strong>Intelligent Failover</strong>: Graceful degradation when providers are unavailable</li>
-<li><strong>Comprehensive Monitoring</strong>: Health checks and metrics for all components</li>
-</ul>
-<h2 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">¶</a></h2>
-<p>We welcome contributions! Please see our <a href="development/contributing/">Contributing Guide</a> for details on how to get started.</p>
-<h2 id="license">License<a class="headerlink" href="#license" title="Permanent link">¶</a></h2>
-<p>This project is licensed under the MIT License - see the <a href="../LICENSE">LICENSE</a> file for details.</p>
-<h2 id="development-status">Development Status<a class="headerlink" href="#development-status" title="Permanent link">¶</a></h2>
-<ul>
-<li><strong>Stable</strong>: Core API Gateway functionality</li>
-<li><strong>Active Development</strong>: Documentation system, monitoring, and additional features</li>
-<li><strong>Production Ready</strong>: Suitable for production deployments with proper monitoring</li>
-</ul>
-<hr/>
-<p><strong>Built for the League of Legends developer community</strong></p>
+<h2 id="security-configuration-reference">Security Configuration Reference<a class="headerlink" href="#security-configuration-reference" title="Permanent link">¶</a></h2>
+<h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HOST</code></td>
+<td><code>127.0.0.1</code></td>
+<td>Server host binding</td>
+</tr>
+<tr>
+<td><code>RIOT_API_KEY</code></td>
+<td>None</td>
+<td>Single API key (backward compatible)</td>
+</tr>
+<tr>
+<td><code>RIOT_API_KEYS</code></td>
+<td>None</td>
+<td>Multiple API keys for rotation</td>
+</tr>
+<tr>
+<td><code>RIOT_RATE_LIMIT_PER_SECOND</code></td>
+<td><code>20</code></td>
+<td>Rate limit per second</td>
+</tr>
+<tr>
+<td><code>RIOT_RATE_LIMIT_PER_2MIN</code></td>
+<td><code>100</code></td>
+<td>Rate limit per 2 minutes</td>
+</tr>
+<tr>
+<td><code>ERROR_ALERT_THRESHOLD</code></td>
+<td><code>10</code></td>
+<td>Error alerting threshold</td>
+</tr>
+<tr>
+<td><code>ENABLE_CORS</code></td>
+<td><code>false</code></td>
+<td>Enable CORS middleware</td>
+</tr>
+</tbody>
+</table>
+<h3 id="security-headers_1">Security Headers<a class="headerlink" href="#security-headers_1" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Header</th>
+<th>Value</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>X-Content-Type-Options</code></td>
+<td><code>nosniff</code></td>
+<td>Prevent MIME type sniffing</td>
+</tr>
+<tr>
+<td><code>X-Frame-Options</code></td>
+<td><code>DENY</code></td>
+<td>Prevent clickjacking</td>
+</tr>
+<tr>
+<td><code>X-XSS-Protection</code></td>
+<td><code>1; mode=block</code></td>
+<td>Enable XSS protection</td>
+</tr>
+<tr>
+<td><code>Content-Security-Policy</code></td>
+<td><code>default-src 'self'</code></td>
+<td>Content security policy</td>
+</tr>
+<tr>
+<td><code>Referrer-Policy</code></td>
+<td><code>strict-origin-when-cross-origin</code></td>
+<td>Referrer policy</td>
+</tr>
+</tbody>
+</table>
 </article>
 </div>
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
@@ -1188,8 +1417,8 @@ print(f"Recent matches: {match_ids}")
 <div class="md-dialog" data-md-component="dialog">
 <div class="md-dialog__inner md-typeset"></div>
 </div>
-<script id="__config" type="application/json">{"base": ".", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
-<script src="assets/javascripts/bundle.f55a23d4.min.js"></script>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
 <script>
         // Enhanced Mermaid Interactivity for LOLStonks Documentation
         (function() {

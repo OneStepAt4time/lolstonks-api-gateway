@@ -6,24 +6,25 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="Unified League of Legends API Gateway with caching, rate limiting, and comprehensive monitoring" name="description"/>
-<link href="getting-started/installation/" rel="next"/>
-<link href="assets/logo.png" rel="icon"/>
+<link href="../quick-start/" rel="prev"/>
+<link href="../deployment/" rel="next"/>
+<link href="../../assets/logo.png" rel="icon"/>
 <meta content="mkdocs-1.6.1, mkdocs-material-9.6.23" name="generator"/>
-<title>LOLStonks API Gateway</title>
-<link href="assets/stylesheets/main.84d31ad4.min.css" rel="stylesheet"/>
-<link href="assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
+<title>Configuration - LOLStonks API Gateway</title>
+<link href="../../assets/stylesheets/main.84d31ad4.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
 <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
-<link href="assets/_mkdocstrings.css" rel="stylesheet"/>
-<script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<link href="../../assets/_mkdocstrings.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
 </head>
 <body data-md-color-accent="blue" data-md-color-primary="blue" data-md-color-scheme="default" dir="ltr">
 <input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#enterprise-features">
+<a class="md-skip" href="#configuration">
           Skip to content
         </a>
 </div>
@@ -31,8 +32,8 @@
 </div>
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
 <nav aria-label="Header" class="md-header__inner md-grid">
-<a aria-label="LOLStonks API Gateway" class="md-header__button md-logo" data-md-component="logo" href="." title="LOLStonks API Gateway">
-<img alt="logo" src="assets/logo.png"/>
+<a aria-label="LOLStonks API Gateway" class="md-header__button md-logo" data-md-component="logo" href="../.." title="LOLStonks API Gateway">
+<img alt="logo" src="../../assets/logo.png"/>
 </a>
 <label class="md-header__button md-icon" for="__drawer">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
@@ -47,7 +48,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              Home
+              Configuration
             
           </span>
 </div>
@@ -109,8 +110,8 @@
 <nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
 <div class="md-grid">
 <ul class="md-tabs__list">
-<li class="md-tabs__item md-tabs__item--active">
-<a class="md-tabs__link" href=".">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
         
   
   
@@ -121,7 +122,7 @@
       </a>
 </li>
 <li class="md-tabs__item">
-<a class="md-tabs__link" href="../CHANGELOG.md">
+<a class="md-tabs__link" href="../../../CHANGELOG.md">
         
   
   
@@ -131,8 +132,8 @@
 
       </a>
 </li>
-<li class="md-tabs__item">
-<a class="md-tabs__link" href="getting-started/installation/">
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../installation/">
           
   
   
@@ -143,7 +144,7 @@
         </a>
 </li>
 <li class="md-tabs__item">
-<a class="md-tabs__link" href="api/openapi-spec/">
+<a class="md-tabs__link" href="../../api/openapi-spec/">
           
   
   
@@ -154,7 +155,7 @@
         </a>
 </li>
 <li class="md-tabs__item">
-<a class="md-tabs__link" href="architecture/overview/">
+<a class="md-tabs__link" href="../../architecture/overview/">
           
   
   
@@ -165,7 +166,7 @@
         </a>
 </li>
 <li class="md-tabs__item">
-<a class="md-tabs__link" href="operations/monitoring/">
+<a class="md-tabs__link" href="../../operations/monitoring/">
           
   
   
@@ -176,7 +177,7 @@
         </a>
 </li>
 <li class="md-tabs__item">
-<a class="md-tabs__link" href="development/contributing/">
+<a class="md-tabs__link" href="../../development/contributing/">
           
   
   
@@ -198,8 +199,8 @@
 <div class="md-sidebar__inner">
 <nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
 <label class="md-nav__title" for="__drawer">
-<a aria-label="LOLStonks API Gateway" class="md-nav__button md-logo" data-md-component="logo" href="." title="LOLStonks API Gateway">
-<img alt="logo" src="assets/logo.png"/>
+<a aria-label="LOLStonks API Gateway" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="LOLStonks API Gateway">
+<img alt="logo" src="../../assets/logo.png"/>
 </a>
     LOLStonks API Gateway
   </label>
@@ -214,18 +215,65 @@
 </a>
 </div>
 <ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item md-nav__item--active">
-<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
-<label class="md-nav__link md-nav__link--active" for="__toc">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
 <span class="md-ellipsis">
     Home
     
   </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CHANGELOG.md">
+<span class="md-ellipsis">
+    Changelog
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-ellipsis">
+    Getting Started
+    
+  </span>
 <span class="md-nav__icon md-icon"></span>
 </label>
-<a class="md-nav__link md-nav__link--active" href=".">
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../installation/">
 <span class="md-ellipsis">
-    Home
+    Installation
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../quick-start/">
+<span class="md-ellipsis">
+    Quick Start
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    Configuration
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    Configuration
     
   </span>
 </a>
@@ -236,151 +284,88 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#enterprise-features">
+<a class="md-nav__link" href="#environment-variables">
 <span class="md-ellipsis">
-      Enterprise Features
+      Environment Variables
     </span>
 </a>
-<nav aria-label="Enterprise Features" class="md-nav">
+<nav aria-label="Environment Variables" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#performance-scalability">
+<a class="md-nav__link" href="#required-variables">
 <span class="md-ellipsis">
-      Performance &amp; Scalability
+      Required Variables
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#reliability-resilience">
+<a class="md-nav__link" href="#optional-variables">
 <span class="md-ellipsis">
-      Reliability &amp; Resilience
+      Optional Variables
     </span>
 </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#intelligent-caching">
-<span class="md-ellipsis">
-      Intelligent Caching
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#observability-monitoring">
-<span class="md-ellipsis">
-      Observability &amp; Monitoring
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#developer-experience">
-<span class="md-ellipsis">
-      Developer Experience
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#production-ready">
-<span class="md-ellipsis">
-      Production Ready
-    </span>
-</a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#quick-start">
-<span class="md-ellipsis">
-      Quick Start
-    </span>
-</a>
-<nav aria-label="Quick Start" class="md-nav">
+<nav aria-label="Optional Variables" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#system-requirements">
+<a class="md-nav__link" href="#core-configuration">
 <span class="md-ellipsis">
-      System Requirements
+      Core Configuration
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#installation-with-uv-recommended">
+<a class="md-nav__link" href="#redis-configuration">
 <span class="md-ellipsis">
-      Installation with UV (Recommended)
+      Redis Configuration
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#configuration">
+<a class="md-nav__link" href="#rate-limiting-configuration">
 <span class="md-ellipsis">
-      Configuration
+      Rate Limiting Configuration
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#launch-the-gateway">
+<a class="md-nav__link" href="#caching-configuration">
 <span class="md-ellipsis">
-      Launch the Gateway
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#verify-installation">
-<span class="md-ellipsis">
-      Verify Installation
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#production-deployment">
-<span class="md-ellipsis">
-      Production Deployment
+      Caching Configuration
     </span>
 </a>
 </li>
 </ul>
 </nav>
 </li>
+</ul>
+</nav>
+</li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#documentation">
+<a class="md-nav__link" href="#complete-env-example">
 <span class="md-ellipsis">
-      Documentation
+      Complete .env Example
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#quick-links">
+<a class="md-nav__link" href="#configuration-files">
 <span class="md-ellipsis">
-      Quick Links
+      Configuration Files
     </span>
 </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#example-usage">
-<span class="md-ellipsis">
-      Example Usage
-    </span>
-</a>
-<nav aria-label="Example Usage" class="md-nav">
+<nav aria-label="Configuration Files" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#get-summoner-by-name">
+<a class="md-nav__link" href="#env-file">
 <span class="md-ellipsis">
-      Get Summoner by Name
+      .env File
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#get-current-match">
+<a class="md-nav__link" href="#docker-compose-configuration">
 <span class="md-ellipsis">
-      Get Current Match
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#get-match-history">
-<span class="md-ellipsis">
-      Get Match History
+      Docker Compose Configuration
     </span>
 </a>
 </li>
@@ -388,31 +373,24 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#architecture-overview">
+<a class="md-nav__link" href="#advanced-configuration">
 <span class="md-ellipsis">
-      Architecture Overview
+      Advanced Configuration
     </span>
 </a>
-<nav aria-label="Architecture Overview" class="md-nav">
+<nav aria-label="Advanced Configuration" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#core-components">
+<a class="md-nav__link" href="#custom-rate-limiting">
 <span class="md-ellipsis">
-      Core Components
+      Custom Rate Limiting
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#supported-providers">
+<a class="md-nav__link" href="#redis-configuration-notes">
 <span class="md-ellipsis">
-      Supported Providers
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#key-features">
-<span class="md-ellipsis">
-      Key Features
+      Redis Configuration Notes
     </span>
 </a>
 </li>
@@ -420,23 +398,31 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#contributing">
+<a class="md-nav__link" href="#environment-specific-configuration">
 <span class="md-ellipsis">
-      Contributing
+      Environment-Specific Configuration
+    </span>
+</a>
+<nav aria-label="Environment-Specific Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#development">
+<span class="md-ellipsis">
+      Development
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#license">
+<a class="md-nav__link" href="#production">
 <span class="md-ellipsis">
-      License
+      Production
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#development-status">
+<a class="md-nav__link" href="#testing">
 <span class="md-ellipsis">
-      Development Status
+      Testing
     </span>
 </a>
 </li>
@@ -444,54 +430,163 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../CHANGELOG.md">
+<a class="md-nav__link" href="#configuration-validation">
 <span class="md-ellipsis">
-    Changelog
-    
-  </span>
+      Configuration Validation
+    </span>
 </a>
-</li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_3" type="checkbox"/>
-<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
-<span class="md-ellipsis">
-    Getting Started
-    
-  </span>
-<span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
-<label class="md-nav__title" for="__nav_3">
-<span class="md-nav__icon md-icon"></span>
-            Getting Started
-          </label>
-<ul class="md-nav__list" data-md-scrollfix="">
+<nav aria-label="Configuration Validation" class="md-nav">
+<ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="getting-started/installation/">
+<a class="md-nav__link" href="#api-key-validation">
 <span class="md-ellipsis">
-    Installation
-    
-  </span>
+      API Key Validation
+    </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="getting-started/quick-start/">
+<a class="md-nav__link" href="#redis-connection-test">
 <span class="md-ellipsis">
-    Quick Start
-    
-  </span>
+      Redis Connection Test
+    </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="getting-started/configuration/">
+<a class="md-nav__link" href="#region-validation">
 <span class="md-ellipsis">
-    Configuration
-    
-  </span>
+      Region Validation
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#performance-tuning">
+<span class="md-ellipsis">
+      Performance Tuning
+    </span>
+</a>
+<nav aria-label="Performance Tuning" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rate-limiting-optimization">
+<span class="md-ellipsis">
+      Rate Limiting Optimization
+    </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="getting-started/deployment/">
+<a class="md-nav__link" href="#cache-optimization">
+<span class="md-ellipsis">
+      Cache Optimization
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#security-configuration">
+<span class="md-ellipsis">
+      Security Configuration
+    </span>
+</a>
+<nav aria-label="Security Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#api-key-protection">
+<span class="md-ellipsis">
+      API Key Protection
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#network-security">
+<span class="md-ellipsis">
+      Network Security
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#logging-security">
+<span class="md-ellipsis">
+      Logging Security
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#monitoring-configuration">
+<span class="md-ellipsis">
+      Monitoring Configuration
+    </span>
+</a>
+<nav aria-label="Monitoring Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#health-checks">
+<span class="md-ellipsis">
+      Health Checks
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#metrics">
+<span class="md-ellipsis">
+      Metrics
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#troubleshooting-configuration">
+<span class="md-ellipsis">
+      Troubleshooting Configuration
+    </span>
+</a>
+<nav aria-label="Troubleshooting Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#common-issues">
+<span class="md-ellipsis">
+      Common Issues
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuration-debugging">
+<span class="md-ellipsis">
+      Configuration Debugging
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#next-steps">
+<span class="md-ellipsis">
+      Next Steps
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#getting-help">
+<span class="md-ellipsis">
+      Getting Help
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../deployment/">
 <span class="md-ellipsis">
     Production Deployment
     
@@ -517,7 +612,7 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="api/openapi-spec/">
+<a class="md-nav__link" href="../../api/openapi-spec/">
 <span class="md-ellipsis">
     OpenAPI Specification
     
@@ -525,7 +620,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="api/overview/">
+<a class="md-nav__link" href="../../api/overview/">
 <span class="md-ellipsis">
     Overview
     
@@ -533,7 +628,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="api/providers/">
+<a class="md-nav__link" href="../../api/providers/">
 <span class="md-ellipsis">
     Providers
     
@@ -541,7 +636,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="api/riot-client/">
+<a class="md-nav__link" href="../../api/riot-client/">
 <span class="md-ellipsis">
     Riot Client
     
@@ -549,7 +644,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="api/models/">
+<a class="md-nav__link" href="../../api/models/">
 <span class="md-ellipsis">
     Models
     
@@ -557,7 +652,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="api/routers/">
+<a class="md-nav__link" href="../../api/routers/">
 <span class="md-ellipsis">
     Routers
     
@@ -565,7 +660,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="api/cache/">
+<a class="md-nav__link" href="../../api/cache/">
 <span class="md-ellipsis">
     Cache
     
@@ -573,7 +668,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="api/security/">
+<a class="md-nav__link" href="../../api/security/">
 <span class="md-ellipsis">
     Security
     
@@ -599,7 +694,7 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="architecture/overview/">
+<a class="md-nav__link" href="../../architecture/overview/">
 <span class="md-ellipsis">
     Overview
     
@@ -607,7 +702,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="architecture/diagram-guide.md">
+<a class="md-nav__link" href="../../architecture/diagram-guide.md">
 <span class="md-ellipsis">
     Diagram Guide
     
@@ -615,7 +710,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="architecture/system-overview.md">
+<a class="md-nav__link" href="../../architecture/system-overview.md">
 <span class="md-ellipsis">
     System Overview
     
@@ -623,7 +718,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="architecture/data-flow.md">
+<a class="md-nav__link" href="../../architecture/data-flow.md">
 <span class="md-ellipsis">
     Data Flow
     
@@ -631,7 +726,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="architecture/implementation-details/">
+<a class="md-nav__link" href="../../architecture/implementation-details/">
 <span class="md-ellipsis">
     Implementation Details
     
@@ -639,7 +734,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="architecture/models/">
+<a class="md-nav__link" href="../../architecture/models/">
 <span class="md-ellipsis">
     Data Models
     
@@ -665,7 +760,7 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="operations/monitoring/">
+<a class="md-nav__link" href="../../operations/monitoring/">
 <span class="md-ellipsis">
     Monitoring
     
@@ -673,7 +768,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="operations/troubleshooting/">
+<a class="md-nav__link" href="../../operations/troubleshooting/">
 <span class="md-ellipsis">
     Troubleshooting
     
@@ -681,7 +776,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="operations/security/">
+<a class="md-nav__link" href="../../operations/security/">
 <span class="md-ellipsis">
     Security
     
@@ -707,7 +802,7 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="development/contributing/">
+<a class="md-nav__link" href="../../development/contributing/">
 <span class="md-ellipsis">
     Contributing
     
@@ -715,7 +810,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="development/changelog-guide/">
+<a class="md-nav__link" href="../../development/changelog-guide/">
 <span class="md-ellipsis">
     Changelog Guide
     
@@ -723,7 +818,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="development/versioning/">
+<a class="md-nav__link" href="../../development/versioning/">
 <span class="md-ellipsis">
     Versioning
     
@@ -731,7 +826,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="development/releases/">
+<a class="md-nav__link" href="../../development/releases/">
 <span class="md-ellipsis">
     Releases
     
@@ -739,7 +834,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="development/testing/">
+<a class="md-nav__link" href="../../development/testing/">
 <span class="md-ellipsis">
     Testing
     
@@ -747,7 +842,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="development/documentation/">
+<a class="md-nav__link" href="../../development/documentation/">
 <span class="md-ellipsis">
     Documentation
     
@@ -772,52 +867,88 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#enterprise-features">
+<a class="md-nav__link" href="#environment-variables">
 <span class="md-ellipsis">
-      Enterprise Features
+      Environment Variables
     </span>
 </a>
-<nav aria-label="Enterprise Features" class="md-nav">
+<nav aria-label="Environment Variables" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#performance-scalability">
+<a class="md-nav__link" href="#required-variables">
 <span class="md-ellipsis">
-      Performance &amp; Scalability
+      Required Variables
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#reliability-resilience">
+<a class="md-nav__link" href="#optional-variables">
 <span class="md-ellipsis">
-      Reliability &amp; Resilience
+      Optional Variables
+    </span>
+</a>
+<nav aria-label="Optional Variables" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#core-configuration">
+<span class="md-ellipsis">
+      Core Configuration
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#intelligent-caching">
+<a class="md-nav__link" href="#redis-configuration">
 <span class="md-ellipsis">
-      Intelligent Caching
+      Redis Configuration
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#observability-monitoring">
+<a class="md-nav__link" href="#rate-limiting-configuration">
 <span class="md-ellipsis">
-      Observability &amp; Monitoring
+      Rate Limiting Configuration
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#developer-experience">
+<a class="md-nav__link" href="#caching-configuration">
 <span class="md-ellipsis">
-      Developer Experience
+      Caching Configuration
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#complete-env-example">
+<span class="md-ellipsis">
+      Complete .env Example
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#production-ready">
+<a class="md-nav__link" href="#configuration-files">
 <span class="md-ellipsis">
-      Production Ready
+      Configuration Files
+    </span>
+</a>
+<nav aria-label="Configuration Files" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#env-file">
+<span class="md-ellipsis">
+      .env File
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#docker-compose-configuration">
+<span class="md-ellipsis">
+      Docker Compose Configuration
     </span>
 </a>
 </li>
@@ -825,52 +956,24 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#quick-start">
+<a class="md-nav__link" href="#advanced-configuration">
 <span class="md-ellipsis">
-      Quick Start
+      Advanced Configuration
     </span>
 </a>
-<nav aria-label="Quick Start" class="md-nav">
+<nav aria-label="Advanced Configuration" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#system-requirements">
+<a class="md-nav__link" href="#custom-rate-limiting">
 <span class="md-ellipsis">
-      System Requirements
+      Custom Rate Limiting
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#installation-with-uv-recommended">
+<a class="md-nav__link" href="#redis-configuration-notes">
 <span class="md-ellipsis">
-      Installation with UV (Recommended)
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#configuration">
-<span class="md-ellipsis">
-      Configuration
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#launch-the-gateway">
-<span class="md-ellipsis">
-      Launch the Gateway
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#verify-installation">
-<span class="md-ellipsis">
-      Verify Installation
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#production-deployment">
-<span class="md-ellipsis">
-      Production Deployment
+      Redis Configuration Notes
     </span>
 </a>
 </li>
@@ -878,45 +981,31 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#documentation">
+<a class="md-nav__link" href="#environment-specific-configuration">
 <span class="md-ellipsis">
-      Documentation
+      Environment-Specific Configuration
     </span>
 </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#quick-links">
-<span class="md-ellipsis">
-      Quick Links
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#example-usage">
-<span class="md-ellipsis">
-      Example Usage
-    </span>
-</a>
-<nav aria-label="Example Usage" class="md-nav">
+<nav aria-label="Environment-Specific Configuration" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#get-summoner-by-name">
+<a class="md-nav__link" href="#development">
 <span class="md-ellipsis">
-      Get Summoner by Name
+      Development
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#get-current-match">
+<a class="md-nav__link" href="#production">
 <span class="md-ellipsis">
-      Get Current Match
+      Production
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#get-match-history">
+<a class="md-nav__link" href="#testing">
 <span class="md-ellipsis">
-      Get Match History
+      Testing
     </span>
 </a>
 </li>
@@ -924,31 +1013,31 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#architecture-overview">
+<a class="md-nav__link" href="#configuration-validation">
 <span class="md-ellipsis">
-      Architecture Overview
+      Configuration Validation
     </span>
 </a>
-<nav aria-label="Architecture Overview" class="md-nav">
+<nav aria-label="Configuration Validation" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#core-components">
+<a class="md-nav__link" href="#api-key-validation">
 <span class="md-ellipsis">
-      Core Components
+      API Key Validation
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#supported-providers">
+<a class="md-nav__link" href="#redis-connection-test">
 <span class="md-ellipsis">
-      Supported Providers
+      Redis Connection Test
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#key-features">
+<a class="md-nav__link" href="#region-validation">
 <span class="md-ellipsis">
-      Key Features
+      Region Validation
     </span>
 </a>
 </li>
@@ -956,23 +1045,123 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#contributing">
+<a class="md-nav__link" href="#performance-tuning">
 <span class="md-ellipsis">
-      Contributing
+      Performance Tuning
+    </span>
+</a>
+<nav aria-label="Performance Tuning" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rate-limiting-optimization">
+<span class="md-ellipsis">
+      Rate Limiting Optimization
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#license">
+<a class="md-nav__link" href="#cache-optimization">
 <span class="md-ellipsis">
-      License
+      Cache Optimization
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#security-configuration">
+<span class="md-ellipsis">
+      Security Configuration
+    </span>
+</a>
+<nav aria-label="Security Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#api-key-protection">
+<span class="md-ellipsis">
+      API Key Protection
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#development-status">
+<a class="md-nav__link" href="#network-security">
 <span class="md-ellipsis">
-      Development Status
+      Network Security
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#logging-security">
+<span class="md-ellipsis">
+      Logging Security
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#monitoring-configuration">
+<span class="md-ellipsis">
+      Monitoring Configuration
+    </span>
+</a>
+<nav aria-label="Monitoring Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#health-checks">
+<span class="md-ellipsis">
+      Health Checks
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#metrics">
+<span class="md-ellipsis">
+      Metrics
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#troubleshooting-configuration">
+<span class="md-ellipsis">
+      Troubleshooting Configuration
+    </span>
+</a>
+<nav aria-label="Troubleshooting Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#common-issues">
+<span class="md-ellipsis">
+      Common Issues
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuration-debugging">
+<span class="md-ellipsis">
+      Configuration Debugging
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#next-steps">
+<span class="md-ellipsis">
+      Next Steps
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#getting-help">
+<span class="md-ellipsis">
+      Getting Help
     </span>
 </a>
 </li>
@@ -983,188 +1172,402 @@
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<h1>Home</h1>
-<h2 id="enterprise-features">Enterprise Features<a class="headerlink" href="#enterprise-features" title="Permanent link">¶</a></h2>
-<h3 id="performance-scalability">Performance &amp; Scalability<a class="headerlink" href="#performance-scalability" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Sub-100ms Response Times</strong>: Optimized for high-throughput applications</li>
-<li><strong>Async Architecture</strong>: Built on FastAPI with full async/await support</li>
-<li><strong>Horizontal Scaling</strong>: Stateless design enables multi-instance deployment</li>
-<li><strong>Connection Pooling</strong>: Efficient resource management for high concurrency</li>
-</ul>
-<h3 id="reliability-resilience">Reliability &amp; Resilience<a class="headerlink" href="#reliability-resilience" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Intelligent Rate Limiting</strong>: Token bucket algorithm ensures Riot API compliance</li>
-<li><strong>Automatic Retries</strong>: Exponential backoff for 429 responses with configurable limits</li>
-<li><strong>Circuit Breaker Pattern</strong>: Fault tolerance for external API dependencies</li>
-<li><strong>Graceful Degradation</strong>: Continue operation during partial outages</li>
-</ul>
-<h3 id="intelligent-caching">Intelligent Caching<a class="headerlink" href="#intelligent-caching" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Multi-Layer Caching</strong>: Redis-based with strategic TTL configuration</li>
-<li><strong>High Cache Hit Rates</strong>: Optimized caching strategy for frequently accessed data</li>
-<li><strong>Smart Invalidation</strong>: Automatic cache updates based on data freshness</li>
-<li><strong>Memory Optimization</strong>: Efficient cache key management and eviction policies</li>
-</ul>
-<h3 id="observability-monitoring">Observability &amp; Monitoring<a class="headerlink" href="#observability-monitoring" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Comprehensive Metrics</strong>: Prometheus-compatible metrics for full stack monitoring</li>
-<li><strong>Structured Logging</strong>: JSON-formatted logs with request tracing</li>
-<li><strong>Health Checks</strong>: Multi-level health monitoring for all dependencies</li>
-<li><strong>Performance Analytics</strong>: Real-time performance insights and alerting</li>
-</ul>
-<h3 id="developer-experience">Developer Experience<a class="headerlink" href="#developer-experience" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Type-Safe API</strong>: Full Pydantic model validation with comprehensive error handling</li>
-<li><strong>Interactive Documentation</strong>: Auto-generated OpenAPI specs with Swagger UI and ReDoc</li>
-<li><strong>Multi-Region Support</strong>: Complete coverage of all Riot API regions</li>
-<li><strong>UV Integration</strong>: Modern Python package management with fast dependency resolution</li>
-<li><strong>Provider Abstraction</strong>: Clean architecture for adding new data providers</li>
-<li><strong>Security Monitoring</strong>: Built-in security status and monitoring endpoints</li>
-</ul>
-<h3 id="production-ready">Production Ready<a class="headerlink" href="#production-ready" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Container-Native</strong>: Docker support with optimized images</li>
-<li><strong>Security Hardened</strong>: Input validation, CORS protection, and secure defaults</li>
-<li><strong>Configuration Management</strong>: Environment-based configuration with validation</li>
-<li><strong>CI/CD Integration</strong>: Automated testing, documentation generation, and deployment</li>
-</ul>
-<h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">¶</a></h2>
-<h3 id="system-requirements">System Requirements<a class="headerlink" href="#system-requirements" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Python 3.12+</strong> with UV package manager</li>
-<li><strong>Redis 6.0+</strong> for caching and session management</li>
-<li><strong>Riot Developer API key</strong> from <a href="https://developer.riotgames.com/">developer.riotgames.com</a></li>
-</ul>
-<h3 id="installation-with-uv-recommended">Installation with UV (Recommended)<a class="headerlink" href="#installation-with-uv-recommended" title="Permanent link">¶</a></h3>
-<pre><code class="language-bash"># Clone the repository
-git clone https://github.com/OneStepAt4time/lolstonks-api-gateway.git
-cd lolstonks-api-gateway
+<h1 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">¶</a></h1>
+<p>This guide covers all configuration options available for the LOLStonks API Gateway.</p>
+<h2 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">¶</a></h2>
+<p>The gateway uses environment variables for configuration. You can set these in a <code>.env</code> file or as system environment variables.</p>
+<h3 id="required-variables">Required Variables<a class="headerlink" href="#required-variables" title="Permanent link">¶</a></h3>
+<pre><code class="language-env"># Option 1: Single API key (backward compatible)
+RIOT_API_KEY=RGAPI-your-api-key-here
 
-# Install dependencies with UV
-uv pip install -e ".[docs]"
-
-# Create environment configuration
-cp .env.example .env
+# Option 2: Multiple API keys for rotation (recommended for production)
+# Comma-separated list. Gateway will rotate through keys using round-robin.
+# This helps distribute load and avoid hitting rate limits on a single key.
+# If RIOT_API_KEYS is set, it takes priority over RIOT_API_KEY.
+RIOT_API_KEYS=RGAPI-key1,RGAPI-key2,RGAPI-key3
 </code></pre>
-<h3 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">¶</a></h3>
-<p>Edit your <code>.env</code> file with your settings:</p>
-<pre><code class="language-env"># Required: Riot API Configuration
-RIOT_API_KEY=RGAPI-your-production-api-key
+<p>Get your API keys from the <a href="https://developer.riotgames.com/">Riot Developer Portal</a>.</p>
+<p><strong>Note</strong>: Using multiple API keys (<code>RIOT_API_KEYS</code>) is recommended for production deployments as it:
+- Distributes load across multiple keys using round-robin rotation
+- Reduces risk of hitting rate limits on a single key
+- Provides redundancy if one key becomes rate-limited
+- Enables higher request throughput</p>
+<h3 id="optional-variables">Optional Variables<a class="headerlink" href="#optional-variables" title="Permanent link">¶</a></h3>
+<h4 id="core-configuration">Core Configuration<a class="headerlink" href="#core-configuration" title="Permanent link">¶</a></h4>
+<pre><code class="language-env"># Default Riot API region (default: euw1)
+# For all available regions, see architecture/models.md#regional-routing-models
 RIOT_DEFAULT_REGION=euw1
 
-# Optional: Server Configuration
+# Server configuration
+HOST=0.0.0.0
+PORT=8080
+
+# Logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+LOG_LEVEL=INFO
+</code></pre>
+<h4 id="redis-configuration">Redis Configuration<a class="headerlink" href="#redis-configuration" title="Permanent link">¶</a></h4>
+<pre><code class="language-env"># Redis connection settings
+REDIS_HOST=redis
+REDIS_PORT=6379
+REDIS_DB=0
+REDIS_PASSWORD=
+</code></pre>
+<blockquote>
+<p><strong>Note</strong>: Connection pooling is handled automatically by aiocache library.</p>
+</blockquote>
+<h4 id="rate-limiting-configuration">Rate Limiting Configuration<a class="headerlink" href="#rate-limiting-configuration" title="Permanent link">¶</a></h4>
+<pre><code class="language-env"># Rate limiting settings (Riot API compliance)
+RIOT_RATE_LIMIT_PER_SECOND=20    # Requests per second (short-term limit)
+RIOT_RATE_LIMIT_PER_2MIN=100     # Requests per 2 minutes (long-term limit)
+RIOT_REQUEST_TIMEOUT=10          # HTTP request timeout in seconds
+</code></pre>
+<blockquote>
+<p><strong>Note</strong>: These limits use a dual-layer token bucket algorithm. Both limits must be satisfied for a request to proceed.</p>
+</blockquote>
+<h4 id="caching-configuration">Caching Configuration<a class="headerlink" href="#caching-configuration" title="Permanent link">¶</a></h4>
+<pre><code class="language-env"># Cache TTL settings (in seconds) - Organized by API service
+
+# ACCOUNT-V1: Account and active shard endpoints
+CACHE_TTL_ACCOUNT=3600              # 1 hour - Account data (by puuid/riotId)
+CACHE_TTL_ACCOUNT_SHARD=600         # 10 minutes - Active shard (can change)
+
+# SUMMONER-V4: Summoner profile data
+CACHE_TTL_SUMMONER=3600             # 1 hour
+
+# MATCH-V5: Match history and details
+CACHE_TTL_MATCH=86400               # 24 hours - Match data (immutable)
+CACHE_TTL_TIMELINE=86400            # 24 hours - Match timeline (immutable)
+
+# LEAGUE-V4: Ranked league data
+CACHE_TTL_LEAGUE=3600               # 1 hour
+
+# CHAMPION-MASTERY-V4: Champion mastery points
+CACHE_TTL_MASTERY=3600              # 1 hour
+
+# CHALLENGES-V1: Player challenges and leaderboards
+CACHE_TTL_CHALLENGES_CONFIG=86400   # 24 hours - Challenge configs (static)
+CACHE_TTL_CHALLENGES_LEADERBOARD=600    # 10 minutes - Leaderboards (dynamic)
+CACHE_TTL_CHALLENGES_PERCENTILES=3600   # 1 hour - Percentile data
+CACHE_TTL_CHALLENGES_PLAYER=3600    # 1 hour - Player challenges
+
+# CLASH-V1: Clash tournament data
+CACHE_TTL_CLASH_PLAYER=300          # 5 minutes - Player info (changes during tournaments)
+CACHE_TTL_CLASH_TEAM=300            # 5 minutes - Team info (changes during tournaments)
+CACHE_TTL_CLASH_TOURNAMENT=600      # 10 minutes - Tournament schedule
+
+# CHAMPION-V3: Champion rotation
+CACHE_TTL_CHAMPION_ROTATION=86400   # 24 hours - Rotation changes weekly
+
+# LOL-STATUS-V4: Platform status
+CACHE_TTL_PLATFORM_STATUS=300       # 5 minutes - Status can change frequently
+
+# SPECTATOR-V5: Live game data
+CACHE_TTL_SPECTATOR_ACTIVE=30       # 30 seconds - Active game (very dynamic)
+CACHE_TTL_SPECTATOR_FEATURED=120    # 2 minutes - Featured games
+
+# DATA-DRAGON: Static game data (champions, items, etc.)
+CACHE_TTL_DDRAGON=604800            # 7 days - Static data updated per patch
+
+# Default TTL for any uncategorized cache
+CACHE_TTL_DEFAULT=3600              # 1 hour
+</code></pre>
+<blockquote>
+<p><strong>Note</strong>: Match tracking uses Redis SET with NO TTL for permanent storage. These are separate from TTL cache entries.</p>
+</blockquote>
+<h2 id="complete-env-example">Complete .env Example<a class="headerlink" href="#complete-env-example" title="Permanent link">¶</a></h2>
+<pre><code class="language-env"># =============================================================================
+# Riot API Configuration
+# =============================================================================
+# Option 1: Single key (development)
+RIOT_API_KEY=RGAPI-your-actual-api-key-here
+
+# Option 2: Multiple keys (production - recommended)
+# RIOT_API_KEYS=RGAPI-key1,RGAPI-key2,RGAPI-key3
+
+RIOT_DEFAULT_REGION=euw1
+RIOT_REQUEST_TIMEOUT=10
+
+# =============================================================================
+# Server Configuration
+# =============================================================================
 HOST=0.0.0.0
 PORT=8080
 LOG_LEVEL=INFO
 
-# Optional: Redis Configuration
+# =============================================================================
+# Redis Configuration
+# =============================================================================
 REDIS_HOST=localhost
 REDIS_PORT=6379
+REDIS_DB=0
 REDIS_PASSWORD=
 
-# Optional: Performance Tuning
+# =============================================================================
+# Rate Limiting Configuration
+# =============================================================================
+RIOT_RATE_LIMIT_PER_SECOND=20
+RIOT_RATE_LIMIT_PER_2MIN=100
+
+# =============================================================================
+# Caching Configuration (All TTL values in seconds)
+# =============================================================================
+
+# ACCOUNT-V1
+CACHE_TTL_ACCOUNT=3600
+CACHE_TTL_ACCOUNT_SHARD=600
+
+# SUMMONER-V4
+CACHE_TTL_SUMMONER=3600
+
+# MATCH-V5
+CACHE_TTL_MATCH=86400
+CACHE_TTL_TIMELINE=86400
+
+# LEAGUE-V4
+CACHE_TTL_LEAGUE=3600
+
+# CHAMPION-MASTERY-V4
+CACHE_TTL_MASTERY=3600
+
+# CHALLENGES-V1
+CACHE_TTL_CHALLENGES_CONFIG=86400
+CACHE_TTL_CHALLENGES_LEADERBOARD=600
+CACHE_TTL_CHALLENGES_PERCENTILES=3600
+CACHE_TTL_CHALLENGES_PLAYER=3600
+
+# CLASH-V1
+CACHE_TTL_CLASH_PLAYER=300
+CACHE_TTL_CLASH_TEAM=300
+CACHE_TTL_CLASH_TOURNAMENT=600
+
+# CHAMPION-V3
+CACHE_TTL_CHAMPION_ROTATION=86400
+
+# LOL-STATUS-V4
+CACHE_TTL_PLATFORM_STATUS=300
+
+# SPECTATOR-V5
+CACHE_TTL_SPECTATOR_ACTIVE=30
+CACHE_TTL_SPECTATOR_FEATURED=120
+
+# DATA-DRAGON
+CACHE_TTL_DDRAGON=604800
+
+# Default
+CACHE_TTL_DEFAULT=3600
+</code></pre>
+<h2 id="configuration-files">Configuration Files<a class="headerlink" href="#configuration-files" title="Permanent link">¶</a></h2>
+<h3 id="env-file">.env File<a class="headerlink" href="#env-file" title="Permanent link">¶</a></h3>
+<p>Create a <code>.env</code> file in the project root:</p>
+<pre><code class="language-bash"># Copy the example file
+cp .env.example .env
+
+# Edit with your configuration
+nano .env  # or use your preferred editor
+</code></pre>
+<h3 id="docker-compose-configuration">Docker Compose Configuration<a class="headerlink" href="#docker-compose-configuration" title="Permanent link">¶</a></h3>
+<p>When using Docker Compose, you can override environment variables:</p>
+<pre><code class="language-yaml"># docker-compose.yml
+version: '3.8'
+
+services:
+  api-gateway:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - RIOT_API_KEY=${RIOT_API_KEY}
+      - REDIS_HOST=redis
+      - LOG_LEVEL=DEBUG
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+</code></pre>
+<h2 id="advanced-configuration">Advanced Configuration<a class="headerlink" href="#advanced-configuration" title="Permanent link">¶</a></h2>
+<h3 id="custom-rate-limiting">Custom Rate Limiting<a class="headerlink" href="#custom-rate-limiting" title="Permanent link">¶</a></h3>
+<p>You can customize rate limiting by modifying the environment variables:</p>
+<pre><code class="language-env"># For high-traffic production API key
+RIOT_RATE_LIMIT_PER_SECOND=50
+RIOT_RATE_LIMIT_PER_2MIN=500
+
+# For development/testing with personal API key
 RIOT_RATE_LIMIT_PER_SECOND=20
 RIOT_RATE_LIMIT_PER_2MIN=100
 </code></pre>
-<h3 id="launch-the-gateway">Launch the Gateway<a class="headerlink" href="#launch-the-gateway" title="Permanent link">¶</a></h3>
-<pre><code class="language-bash"># Start with uvicorn (development)
-uv run uvicorn app.main:app --reload
+<blockquote>
+<p><strong>Note</strong>: Ensure your custom limits comply with your Riot API key tier restrictions.</p>
+</blockquote>
+<h3 id="redis-configuration-notes">Redis Configuration Notes<a class="headerlink" href="#redis-configuration-notes" title="Permanent link">¶</a></h3>
+<p>For production deployments with Redis:</p>
+<pre><code class="language-env"># Standard Redis configuration (current implementation uses aiocache)
+REDIS_HOST=redis.example.com
+REDIS_PORT=6379
+REDIS_DB=0
+REDIS_PASSWORD=your-secure-password
+</code></pre>
+<blockquote>
+<p><strong>Note</strong>: The current implementation uses aiocache library which handles connection pooling automatically. Redis Cluster support would require custom implementation.</p>
+</blockquote>
+<h2 id="environment-specific-configuration">Environment-Specific Configuration<a class="headerlink" href="#environment-specific-configuration" title="Permanent link">¶</a></h2>
+<h3 id="development">Development<a class="headerlink" href="#development" title="Permanent link">¶</a></h3>
+<pre><code class="language-env"># .env.development
+LOG_LEVEL=DEBUG
+REDIS_HOST=localhost
+CACHE_TTL_SUMMONER=300                 # 5 minutes for development
+CACHE_TTL_MATCH=3600                   # 1 hour (faster refresh)
+RIOT_RATE_LIMIT_PER_SECOND=100         # Higher limits for testing
+RIOT_RATE_LIMIT_PER_2MIN=500
+</code></pre>
+<h3 id="production">Production<a class="headerlink" href="#production" title="Permanent link">¶</a></h3>
+<pre><code class="language-env"># .env.production
+LOG_LEVEL=WARNING
+REDIS_HOST=redis.example.com
+REDIS_PASSWORD=strong-redis-password
+CACHE_TTL_SUMMONER=3600                # 1 hour
+CACHE_TTL_MATCH=86400                  # 24 hours
+RIOT_RATE_LIMIT_PER_SECOND=20          # Conservative limits
+RIOT_RATE_LIMIT_PER_2MIN=100
+</code></pre>
+<h3 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">¶</a></h3>
+<pre><code class="language-env"># .env.testing
+LOG_LEVEL=ERROR
+REDIS_HOST=localhost
+CACHE_TTL_SUMMONER=1                   # Very short cache for tests
+CACHE_TTL_MATCH=1
+RIOT_RATE_LIMIT_PER_SECOND=1000        # Very high limits for tests
+RIOT_RATE_LIMIT_PER_2MIN=5000
+</code></pre>
+<h2 id="configuration-validation">Configuration Validation<a class="headerlink" href="#configuration-validation" title="Permanent link">¶</a></h2>
+<p>The gateway validates configuration on startup. Here are common validation checks:</p>
+<h3 id="api-key-validation">API Key Validation<a class="headerlink" href="#api-key-validation" title="Permanent link">¶</a></h3>
+<pre><code class="language-python"># The gateway will check if your API key is valid
+# Invalid or expired keys will cause startup to fail
+</code></pre>
+<h3 id="redis-connection-test">Redis Connection Test<a class="headerlink" href="#redis-connection-test" title="Permanent link">¶</a></h3>
+<pre><code class="language-python"># The gateway tests Redis connectivity during startup
+# Connection failures will be logged but won't prevent startup
+</code></pre>
+<h3 id="region-validation">Region Validation<a class="headerlink" href="#region-validation" title="Permanent link">¶</a></h3>
+<pre><code class="language-python"># Supported regions are validated
+# Invalid regions will fall back to the default region
+</code></pre>
+<h2 id="performance-tuning">Performance Tuning<a class="headerlink" href="#performance-tuning" title="Permanent link">¶</a></h2>
+<h3 id="rate-limiting-optimization">Rate Limiting Optimization<a class="headerlink" href="#rate-limiting-optimization" title="Permanent link">¶</a></h3>
+<pre><code class="language-env"># For high-traffic applications (production API key)
+RIOT_RATE_LIMIT_PER_SECOND=50
+RIOT_RATE_LIMIT_PER_2MIN=500
 
-# Or with the provided script
-uv run python -m app.main
+# For low-traffic applications (development API key)
+RIOT_RATE_LIMIT_PER_SECOND=20
+RIOT_RATE_LIMIT_PER_2MIN=100
 </code></pre>
-<h3 id="verify-installation">Verify Installation<a class="headerlink" href="#verify-installation" title="Permanent link">¶</a></h3>
-<pre><code class="language-bash"># Health check endpoint
-curl http://127.0.0.1:8080/health
+<h3 id="cache-optimization">Cache Optimization<a class="headerlink" href="#cache-optimization" title="Permanent link">¶</a></h3>
+<pre><code class="language-env"># Aggressive caching for better performance (fewer API calls)
+CACHE_TTL_SUMMONER=7200                    # 2 hours
+CACHE_TTL_MATCH=172800                     # 2 days
+CACHE_TTL_LEAGUE=7200                      # 2 hours
+CACHE_TTL_SPECTATOR_ACTIVE=60              # 1 minute
+CACHE_TTL_CHALLENGES_LEADERBOARD=1800      # 30 minutes
 
-# Expected response
-{
-  "status": "ok",
-  "timestamp": "2024-01-01T12:00:00.000Z",
-  "version": "2.0.0"
-}
-
-# Interactive documentation
-# Open http://localhost:8080/docs in your browser
+# Minimal caching for fresh data (more accurate, more API calls)
+CACHE_TTL_SUMMONER=300                     # 5 minutes
+CACHE_TTL_MATCH=3600                       # 1 hour
+CACHE_TTL_LEAGUE=600                       # 10 minutes
+CACHE_TTL_SPECTATOR_ACTIVE=10              # 10 seconds
+CACHE_TTL_CHALLENGES_LEADERBOARD=60        # 1 minute
 </code></pre>
-<h3 id="production-deployment">Production Deployment<a class="headerlink" href="#production-deployment" title="Permanent link">¶</a></h3>
-<p>For production deployment, see our comprehensive <a href="getting-started/deployment/">Deployment Guide</a> which covers:
-- Docker containerization
-- Process management with systemd
-- Nginx reverse proxy configuration
-- SSL/TLS setup with Let's Encrypt
-- Monitoring and alerting setup</p>
-<h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">¶</a></h2>
-<ul>
-<li><a href="getting-started/installation/">Installation Guide</a> - Detailed setup instructions</li>
-<li><a href="getting-started/quick-start/">Quick Start</a> - Basic usage examples</li>
-<li><a href="getting-started/configuration/">Configuration</a> - Environment variables and settings</li>
-<li><a href="api/overview/">API Reference</a> - Complete API documentation</li>
-<li><a href="architecture/overview/">Architecture</a> - System design and components</li>
-</ul>
-<h2 id="quick-links">Quick Links<a class="headerlink" href="#quick-links" title="Permanent link">¶</a></h2>
-<ul>
-<li><strong>Interactive API Docs</strong>: <a href="http://localhost:8080/docs">Swagger UI</a> | <a href="http://localhost:8080/redoc">ReDoc</a></li>
-<li><strong>Riot Developer Portal</strong>: <a href="https://developer.riotgames.com/">developer.riotgames.com</a></li>
-<li><strong>GitHub Repository</strong>: <a href="https://github.com/OneStepAt4time/lolstonks-api-gateway">github.com/OneStepAt4time/lolstonks-api-gateway</a></li>
-</ul>
-<h2 id="example-usage">Example Usage<a class="headerlink" href="#example-usage" title="Permanent link">¶</a></h2>
-<h3 id="get-summoner-by-name">Get Summoner by Name<a class="headerlink" href="#get-summoner-by-name" title="Permanent link">¶</a></h3>
-<pre><code class="language-python">import httpx
-
-response = httpx.get("http://localhost:8080/summoner/by-name/Faker?region=kr")
-summoner = response.json()
-print(f"Summoner: {summoner['name']} (Level: {summoner['summonerLevel']})")
+<blockquote>
+<p><strong>Note</strong>: Longer cache TTL improves performance but may show slightly outdated data. Balance based on your application's needs.</p>
+</blockquote>
+<h2 id="security-configuration">Security Configuration<a class="headerlink" href="#security-configuration" title="Permanent link">¶</a></h2>
+<h3 id="api-key-protection">API Key Protection<a class="headerlink" href="#api-key-protection" title="Permanent link">¶</a></h3>
+<pre><code class="language-env"># Never commit API keys to version control
+# Use environment variables or secret management systems
+RIOT_API_KEY=${RIOT_API_KEY_SECRET}
 </code></pre>
-<h3 id="get-current-match">Get Current Match<a class="headerlink" href="#get-current-match" title="Permanent link">¶</a></h3>
-<pre><code class="language-python">summoner_id = "summoner-id-here"
-response = httpx.get(f"http://localhost:8080/spectator/active-game/{summoner_id}?region=kr")
-game = response.json()
-print(f"Game mode: {game['gameMode']}, Game time: {game['gameLength']}s")
+<h3 id="network-security">Network Security<a class="headerlink" href="#network-security" title="Permanent link">¶</a></h3>
+<pre><code class="language-env"># Bind to specific interface in production
+HOST=127.0.0.1              # Local access only
+# or
+HOST=10.0.0.1               # Specific network interface
 </code></pre>
-<h3 id="get-match-history">Get Match History<a class="headerlink" href="#get-match-history" title="Permanent link">¶</a></h3>
-<pre><code class="language-python">puuid = "player-puuid-here"
-response = httpx.get(f"http://localhost:8080/match/ids/by-puuid/{puuid}?region=euw1&amp;count=5")
-match_ids = response.json()
-print(f"Recent matches: {match_ids}")
+<h3 id="logging-security">Logging Security<a class="headerlink" href="#logging-security" title="Permanent link">¶</a></h3>
+<pre><code class="language-env"># Sanitize logs to avoid logging sensitive data
+LOG_SANITIZE_SECRETS=true
+LOG_LEVEL=WARNING           # Reduce log verbosity in production
 </code></pre>
-<h2 id="architecture-overview">Architecture Overview<a class="headerlink" href="#architecture-overview" title="Permanent link">¶</a></h2>
-<p>The League of Legends API Gateway uses a <strong>comprehensive data source architecture</strong> to support multiple data sources:</p>
-<h3 id="core-components">Core Components<a class="headerlink" href="#core-components" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>FastAPI Application</strong>: Modern async web framework with automatic documentation</li>
-<li><strong>Provider Registry</strong>: Dynamic provider management and initialization</li>
-<li><strong>Redis Cache</strong>: High-performance caching layer for API responses</li>
-<li><strong>Match Tracking</strong>: Service to prevent duplicate match processing</li>
-<li><strong>Error Monitoring</strong>: Real-time error tracking with alerting</li>
-<li><strong>Security Middleware</strong>: Security monitoring and status reporting</li>
-</ul>
-<h3 id="supported-providers">Supported Providers<a class="headerlink" href="#supported-providers" title="Permanent link">¶</a></h3>
+<h2 id="monitoring-configuration">Monitoring Configuration<a class="headerlink" href="#monitoring-configuration" title="Permanent link">¶</a></h2>
+<h3 id="health-checks">Health Checks<a class="headerlink" href="#health-checks" title="Permanent link">¶</a></h3>
+<pre><code class="language-env"># Enable detailed health checks
+HEALTH_CHECK_DETAILED=true
+HEALTH_CHECK_REDIS=true
+HEALTH_CHECK_RIOT_API=true
+</code></pre>
+<h3 id="metrics">Metrics<a class="headerlink" href="#metrics" title="Permanent link">¶</a></h3>
+<pre><code class="language-env"># Enable metrics collection
+METRICS_ENABLED=true
+METRICS_PORT=9090
+METRICS_PATH=/metrics
+</code></pre>
+<h2 id="troubleshooting-configuration">Troubleshooting Configuration<a class="headerlink" href="#troubleshooting-configuration" title="Permanent link">¶</a></h2>
+<h3 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">¶</a></h3>
 <ol>
-<li><strong>Riot Games Developer API</strong> - Live game data, match history, summoner info</li>
-<li><strong>Data Dragon CDN</strong> - Static game data (champions, items, runes)</li>
-<li><strong>Community Dragon</strong> - Enhanced static data with additional assets</li>
+<li>
+<p><strong>API Key Not Working</strong>
+<code>env
+   # Check that your API key is valid and not expired
+   # Verify it doesn't have IP restrictions
+   RIOT_API_KEY=RGAPI-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code></p>
+</li>
+<li>
+<p><strong>Redis Connection Failed</strong>
+<code>env
+   # Check Redis is running and accessible
+   REDIS_HOST=localhost
+   REDIS_PORT=6379
+   # Verify network connectivity and firewall rules</code></p>
+</li>
+<li>
+<p><strong>Rate Limiting Too Aggressive</strong>
+<code>env
+   # Adjust rate limits based on your Riot API key tier
+   RIOT_RATE_LIMIT_PER_SECOND=20
+   RIOT_RATE_LIMIT_PER_2MIN=100</code></p>
+</li>
+<li>
+<p><strong>Cache Not Working</strong>
+<code>env
+   # Check Redis connection and cache TTL settings
+   REDIS_HOST=localhost
+   CACHE_TTL_SUMMONER=3600</code></p>
+</li>
 </ol>
-<h3 id="key-features">Key Features<a class="headerlink" href="#key-features" title="Permanent link">¶</a></h3>
+<h3 id="configuration-debugging">Configuration Debugging<a class="headerlink" href="#configuration-debugging" title="Permanent link">¶</a></h3>
+<p>Enable debug logging to troubleshoot configuration issues:</p>
+<pre><code class="language-env">LOG_LEVEL=DEBUG
+</code></pre>
+<p>This will show:
+- Environment variable loading
+- Redis connection attempts
+- Rate limiting configuration
+- Cache configuration details</p>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">¶</a></h2>
 <ul>
-<li><strong>Provider Abstraction</strong>: Clean interface for adding new data providers</li>
-<li><strong>Multi-Region Support</strong>: Automatic routing based on region configuration</li>
-<li><strong>Intelligent Failover</strong>: Graceful degradation when providers are unavailable</li>
-<li><strong>Comprehensive Monitoring</strong>: Health checks and metrics for all components</li>
+<li>Configure your <a href="../../development/testing/">development environment</a></li>
+<li>Set up <a href="../../architecture/rate-limiting/">monitoring and logging</a></li>
+<li>Review the <a href="../../api/overview/">API Reference</a> for endpoint details</li>
 </ul>
-<h2 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">¶</a></h2>
-<p>We welcome contributions! Please see our <a href="development/contributing/">Contributing Guide</a> for details on how to get started.</p>
-<h2 id="license">License<a class="headerlink" href="#license" title="Permanent link">¶</a></h2>
-<p>This project is licensed under the MIT License - see the <a href="../LICENSE">LICENSE</a> file for details.</p>
-<h2 id="development-status">Development Status<a class="headerlink" href="#development-status" title="Permanent link">¶</a></h2>
-<ul>
-<li><strong>Stable</strong>: Core API Gateway functionality</li>
-<li><strong>Active Development</strong>: Documentation system, monitoring, and additional features</li>
-<li><strong>Production Ready</strong>: Suitable for production deployments with proper monitoring</li>
-</ul>
-<hr/>
-<p><strong>Built for the League of Legends developer community</strong></p>
+<h2 id="getting-help">Getting Help<a class="headerlink" href="#getting-help" title="Permanent link">¶</a></h2>
+<p>If you need help with configuration:</p>
+<ol>
+<li>Check the <a href="https://github.com/OneStepAt4time/lolstonks-api-gateway/issues">GitHub Issues</a></li>
+<li>Review the <a href="../../development/testing/#troubleshooting">troubleshooting guide</a></li>
+<li>Create a new issue with your configuration details (without sensitive data)</li>
+</ol>
 </article>
 </div>
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
@@ -1188,8 +1591,8 @@ print(f"Recent matches: {match_ids}")
 <div class="md-dialog" data-md-component="dialog">
 <div class="md-dialog__inner md-typeset"></div>
 </div>
-<script id="__config" type="application/json">{"base": ".", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
-<script src="assets/javascripts/bundle.f55a23d4.min.js"></script>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
 <script>
         // Enhanced Mermaid Interactivity for LOLStonks Documentation
         (function() {
