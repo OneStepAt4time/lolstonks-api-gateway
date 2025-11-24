@@ -782,23 +782,164 @@
 <code>app.cache.redis_cache</code>
 <a class="headerlink" href="#app.cache.redis_cache" title="Permanent link">¶</a></h2>
 <div class="doc doc-contents first">
-<p>Redis cache configuration using aiocache.</p>
-<p>Provides temporary TTL-based caching for API responses.
-Cache keys follow pattern: {resource}:{region}:{identifier}</p>
+<p>Redis cache configuration and management using aiocache library.</p>
+<p>This module provides the Redis caching infrastructure for the gateway application.
+It implements TTL-based (Time-To-Live) caching for Riot API responses to minimize
+external API calls, reduce latency, and improve overall application performance.</p>
+<details class="caching-strategy" open="">
+<summary>Caching Strategy</summary>
+<p>The gateway uses Redis as a distributed cache layer between the application
+and the Riot API. Benefits include:
+- Reduced API calls to Riot (avoiding rate limits)
+- Faster response times for cached data
+- Consistent cache across multiple gateway instances
+- Configurable TTLs per endpoint type
+- Automatic expiration and memory management</p>
+</details>
+<details class="cache-key-structure" open="">
+<summary>Cache Key Structure</summary>
+<p>All cache keys follow a hierarchical pattern for organization:
+Format: "lol:{resource}:{region}:{identifier}..."</p>
+<p>Examples:
+    - "lol:summoner:name:euw1:Faker"
+    - "lol:match:na1:NA1_4567890123"
+    - "lol:league:challenger:kr:RANKED_SOLO_5x5"</p>
+<p>The "lol" prefix (namespace) prevents key collisions with other applications
+sharing the same Redis instance.</p>
+</details>
+<details class="ttl-configuration" open="">
+<summary>TTL Configuration</summary>
+<p>Different data types have different staleness tolerances:
+- Static data (champion rotation): 24 hours
+- Semi-static data (summoner profiles): 1 hour
+- Dynamic data (league entries): 5-10 minutes
+- Live data (active games): 30 seconds</p>
+<p>TTLs are configured per-endpoint in app.config.Settings and passed to
+caching helper functions.</p>
+</details>
+<details class="redis-configuration" open="">
+<summary>Redis Configuration</summary>
+<p>Connection settings from environment variables:
+- REDIS_HOST: Redis server hostname (default: localhost)
+- REDIS_PORT: Redis server port (default: 6379)
+- REDIS_DB: Database number (default: 0)
+- REDIS_PASSWORD: Optional authentication password</p>
+<p>The module creates a global cache instance at import time.</p>
+</details>
+<details class="serialization" open="">
+<summary>Serialization</summary>
+<ul>
+<li>Uses JsonSerializer from aiocache for automatic JSON encoding/decoding</li>
+<li>Handles Python dicts, lists, and primitives automatically</li>
+<li>Response data from Riot API is already in JSON-compatible format</li>
+</ul>
+</details>
+<details class="error-handling" open="">
+<summary>Error Handling</summary>
+<p>Redis failures are logged but don't crash the application:
+- Connection failures: Logged and bypass cache
+- Serialization errors: Logged and bypass cache
+- Timeout errors: Logged and bypass cache</p>
+<p>The gateway can operate without Redis (degraded performance mode).</p>
+</details>
+<details class="health-monitoring" open="">
+<summary>Health Monitoring</summary>
+<p>The RedisCache class provides a ping() method for health checks:
+- Used by /health endpoint
+- Tests actual Redis connectivity
+- Returns boolean status</p>
+</details>
+<details class="performance-considerations" open="">
+<summary>Performance Considerations</summary>
+<ul>
+<li>Connection pooling handled by aiocache/aioredis</li>
+<li>Async operations prevent blocking</li>
+<li>Namespace prefix adds minimal overhead</li>
+<li>JSON serialization is efficient for API responses</li>
+</ul>
+</details>
+<details class="usage" open="">
+<summary>Usage</summary>
+<p>This module exports a global <code>cache</code> instance that should be used
+throughout the application:</p>
+<pre><code class="language-python">from app.cache.redis_cache import cache
+
+# Set value with TTL
+await cache.set("summoner:euw1:Faker", data, ttl=3600)
+
+# Get value (returns None if not found or expired)
+data = await cache.get("summoner:euw1:Faker")
+
+# Delete value
+await cache.delete("summoner:euw1:Faker")
+</code></pre>
+<p>For higher-level caching with automatic key generation and TTL management,
+use app.cache.helpers.fetch_with_cache instead.</p>
+</details>
+<details class="see-also" open="">
+<summary>See Also</summary>
+<p>app.cache.helpers: High-level caching utilities with automatic key generation
+app.cache.tracking: Permanent tracking for processed matches
+app.config: Redis configuration settings</p>
+</details>
 <div class="doc doc-children">
 <div class="doc doc-object doc-class">
 <h3 class="doc doc-heading" id="app.cache.redis_cache.RedisCache">
 <code class="highlight language-python"><span class="n">RedisCache</span><span class="p">()</span></code>
 <a class="headerlink" href="#app.cache.redis_cache.RedisCache" title="Permanent link">¶</a></h3>
 <div class="doc doc-contents">
-<p>Redis wrapper with health check capabilities.</p>
-<p>Initialize Redis cache wrapper.</p>
+<p>Redis cache wrapper providing health monitoring and connectivity testing.</p>
+<p>This class wraps the global cache instance and adds health check functionality
+for monitoring and diagnostics. It's primarily used by the health endpoint
+to verify Redis availability.</p>
+<p>The wrapper is intentionally minimal, delegating most operations to the
+underlying aiocache instance while providing specific health monitoring
+capabilities.</p>
+<p><span class="doc-section-title">Attributes:</span></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="doc-section-item">
+<td><code><span title="app.cache.redis_cache.RedisCache.cache">cache</span></code></td>
+<td>
+<code><span title="aiocache.Cache">Cache</span></code>
+</td>
+<td>
+<div class="doc-md-description">
+<p>The underlying aiocache instance configured for Redis</p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<details class="example" open="">
+<summary>Example</summary>
+<pre><code class="language-python">redis = RedisCache()
+
+# Test connectivity
+is_healthy = await redis.ping()
+if not is_healthy:
+    logger.error("Redis is unavailable")
+</code></pre>
+</details>
+<details class="see-also" open="">
+<summary>See Also</summary>
+<p>cache: Global cache instance for direct caching operations
+app.routers.health: Health check endpoint using this class</p>
+</details>
+<p>Initialize Redis cache wrapper with global cache instance.</p>
 <details class="quote">
 <summary>Source code in <code>app/cache/redis_cache.py</code></summary>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Initialize Redis cache wrapper."""</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Initialize Redis cache wrapper with global cache instance."""</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">cache</span> <span class="o">=</span> <span class="n">cache</span>
 </code></pre></div></td></tr></table></div>
 </details>
@@ -811,51 +952,125 @@ Cache keys follow pattern: {resource}:{region}:{identifier}</p>
 </span>
 <a class="headerlink" href="#app.cache.redis_cache.RedisCache.ping" title="Permanent link">¶</a></h4>
 <div class="doc doc-contents">
-<p>Test Redis connectivity.</p>
+<p>Tests Redis connectivity and basic operations.</p>
+<p>This method verifies that Redis is:
+- Reachable from the application
+- Accepting connections
+- Able to perform basic read/write operations</p>
+<p>The test performs a complete write-read-delete cycle to ensure
+full functionality rather than just TCP connectivity.</p>
 <p><span class="doc-section-title">Returns:</span></p>
 <table>
 <thead>
 <tr>
-<th>Type</th>
+<th>Name</th> <th>Type</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="doc-section-item">
-<td>
+<td><code>bool</code></td> <td>
 <code><span title="bool">bool</span></code>
 </td>
 <td>
 <div class="doc-md-description">
-<p>True if Redis is responsive, False otherwise</p>
+<p>True if Redis is healthy and responsive, False if any
+error occurs during the test operations.</p>
 </div>
 </td>
 </tr>
 </tbody>
 </table>
+<details class="note" open="">
+<summary>Note</summary>
+<ul>
+<li>This method never raises exceptions; failures return False</li>
+<li>All errors are logged for debugging</li>
+<li>Test uses a temporary key that is immediately deleted</li>
+<li>10-second TTL ensures cleanup even if delete fails</li>
+</ul>
+</details>
+<details class="example" open="">
+<summary>Example</summary>
+<pre><code class="language-python">redis = RedisCache()
+
+if await redis.ping():
+    print("Redis is healthy")
+else:
+    print("Redis is unavailable or experiencing issues")
+</code></pre>
+</details>
 <details class="quote">
 <summary>Source code in <code>app/cache/redis_cache.py</code></summary>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">ping</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">"""</span>
-<span class="sd">    Test Redis connectivity.</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">ping</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Tests Redis connectivity and basic operations.</span>
+
+<span class="sd">    This method verifies that Redis is:</span>
+<span class="sd">    - Reachable from the application</span>
+<span class="sd">    - Accepting connections</span>
+<span class="sd">    - Able to perform basic read/write operations</span>
+
+<span class="sd">    The test performs a complete write-read-delete cycle to ensure</span>
+<span class="sd">    full functionality rather than just TCP connectivity.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        True if Redis is responsive, False otherwise</span>
+<span class="sd">        bool: True if Redis is healthy and responsive, False if any</span>
+<span class="sd">            error occurs during the test operations.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        - This method never raises exceptions; failures return False</span>
+<span class="sd">        - All errors are logged for debugging</span>
+<span class="sd">        - Test uses a temporary key that is immediately deleted</span>
+<span class="sd">        - 10-second TTL ensures cleanup even if delete fails</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        ```python</span>
+<span class="sd">        redis = RedisCache()</span>
+
+<span class="sd">        if await redis.ping():</span>
+<span class="sd">            print("Redis is healthy")</span>
+<span class="sd">        else:</span>
+<span class="sd">            print("Redis is unavailable or experiencing issues")</span>
+<span class="sd">        ```</span>
 <span class="sd">    """</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="c1"># Use a simple GET operation as ping equivalent</span>
