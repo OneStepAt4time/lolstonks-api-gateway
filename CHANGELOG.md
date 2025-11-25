@@ -8,10 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Fixed
-- **Documentation Mermaid diagrams**: Fixed HTML entities (`&lt;`, `&gt;`, `&amp;`) in architecture documentation diagrams that were causing rendering errors
-  - `docs/architecture/data-flow.md`: Fixed 3 HTML entities in timing annotations
-  - `docs/architecture/routing.md`: Fixed 1 HTML entity in cache timing
-  - `docs/architecture/system-overview.md`: Fixed 3 HTML entities in flow annotations
+- **Documentation Mermaid diagrams**: Fixed syntax errors in architecture documentation diagrams
+  - **HTML entities**: Fixed HTML entities (`&lt;`, `&gt;`, `&amp;`) that were causing rendering errors
+    - `docs/architecture/data-flow.md`: Fixed 3 HTML entities in timing annotations
+    - `docs/architecture/system-overview.md`: Fixed 3 HTML entities in flow annotations
+  - **Special characters**: Added quotes around Mermaid labels containing `<` or `>` characters to prevent syntax errors
+    - `docs/architecture/routing.md`: Fixed label with `<10ms` timing annotation by wrapping in quotes
 - **Spectator endpoint parameter**: Changed from `puuid` to `encryptedPUUID` to match Riot API specification
 - **Clash endpoint clarification**: Confirmed `/lol/clash/v1/players/by-puuid/{puuid}` is correct (Riot deprecated `/by-summoner/` variant during PUUID migration)
 - **Windows async test compatibility**: Added event loop policy fix for Windows platform in conftest.py
