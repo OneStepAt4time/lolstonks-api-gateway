@@ -374,54 +374,53 @@ Health, monitoring, and system information endpoints.
 
 ```mermaid
 flowchart TD
-    request([HTTP Request]) -->|1. Parse URL| urlparse[URL Parser<br/>Extract path/query]
-    urlparse -->|2. Match Route| router{Router<br/>Lookup}
+    request([HTTP Request]) -->|Parse URL| urlparse[URL Parser]
+    urlparse -->|Match Route| router{Router Lookup}
 
-    router -->|No Match| notfound[404 Not Found<br/>Unknown endpoint]
+    router -->|No Match| notfound[404 Not Found]
     notfound --> error_response([Error Response])
 
-    router -->|Match| extract[Extract Parameters<br/>Path/Query/Headers]
+    router -->|Match| extract[Extract Parameters]
+    extract -->|Validate| validate{Pydantic Validation}
 
-    extract -->|3. Validate| validate{Pydantic<br/>Validation}
-    validate -->|Invalid| validation_error[422 Unprocessable Entity<br/>Parameter errors]
+    validate -->|Invalid| validation_error[422 Unprocessable]
     validation_error --> error_response
 
-    validate -->|Valid| auth[4. Authentication<br/>Check API Key (future)]
+    validate -->|Valid| auth[Authentication Check]
     auth -->|Unauthorized| auth_error[401 Unauthorized]
     auth_error --> error_response
 
-    auth -->|OK| ratelimit[5. Rate Limiting<br/>Check request quota]
+    auth -->|OK| ratelimit[Rate Limiting]
     ratelimit -->|Exceeded| rate_error[429 Too Many Requests]
     rate_error --> error_response
 
-    ratelimit -->|OK| cache[6. Cache Layer<br/>Check Redis]
-    cache -->|Hit| cached[Return Cached Data<br/>~10ms fast]
-    cached --> response_format
+    ratelimit -->|OK| cache[Cache Layer Check]
+    cache -->|Hit| cached[Return Cached Data]
+    cached --> response_format[Format Response]
 
-    cache -->|Miss| provider[7. Provider Selection<br/>Route to data source]
+    cache -->|Miss| provider[Provider Selection]
 
     provider -->|Live Data| riot[Riot API Provider]
     provider -->|Static Data| dragon[Data Dragon Provider]
     provider -->|Community Data| community[Community Dragon Provider]
 
-    riot -->|8. External API| riot_api[Riot API Call<br/>50-200ms]
-    dragon --> dragon_api[Data Dragon Call<br/>20-100ms]
-    community --> community_api[Community Dragon Call<br/>20-100ms]
+    riot -->|External API| riot_api[Riot API Call]
+    dragon --> dragon_api[Data Dragon Call]
+    community --> community_api[Community Dragon Call]
 
-    riot_api -->|9. Process| process[Process Response<br/>Validate/Transform]
+    riot_api -->|Process| process[Process Response]
     dragon_api --> process
     community_api --> process
 
-    process -->|Error| api_error[502 Bad Gateway<br/>External API error]
+    process -->|Error| api_error[502 Bad Gateway]
     api_error --> error_response
 
-    process -->|Success| cache_update[10. Update Cache<br/>Store with TTL]
+    process -->|Success| cache_update[Update Cache]
     cache_update -.->|Async| redis[(Redis Cache)]
 
-    cache_update --> response_format[11. Format Response<br/>Add headers]
-
-    response_format --> log[12. Log Request<br/>Metrics + Logging]
-    log --> success([HTTP Response<br/>200 OK + JSON])
+    cache_update --> response_format
+    response_format --> log[Log Request]
+    log --> success([HTTP Response 200 OK])
 
     classDef gateway fill:#e3f2fd,stroke:#1976d2,stroke-width:2px,color:#000
     classDef provider fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
@@ -544,26 +543,24 @@ class SummonerByNameParams(BaseModel):
 
 ```mermaid
 flowchart TD
-    startup([Application Startup]) --> scan[Scan routers/ directory]
+    startup([Application Startup]) --> scan[Scan routers directory]
     scan --> discover[Discover router modules]
 
-    discover --> load{For each<br/>router}
-
+    discover --> load{For each router}
     load --> import[Import router module]
-    import --> validate[Validate router<br/>Has .router attribute]
+    import --> validate[Validate router attribute]
 
-    validate -->|Invalid| skip[Skip router<br/>Log warning]
-    validate -->|Valid| register[Register with FastAPI app]
+    validate -->|Invalid| skip[Skip router and log warning]
+    validate -->|Valid| register[Register with FastAPI]
 
-    register --> prefix[Apply prefix<br/>e.g., /lol/summoner/v4]
-    prefix --> tags[Apply tags<br/>e.g., ["Summoner"]]
-    tags --> done{More<br/>routers?}
+    register --> prefix[Apply URL prefix]
+    prefix --> tags[Apply OpenAPI tags]
+    tags --> done{More routers?}
 
     done -->|Yes| load
-    done -->|No| complete[Registration complete<br/>Routes ready]
+    done -->|No| complete[Registration complete]
 
     skip --> done
-
     complete --> generate[Generate OpenAPI schema]
     generate --> ready([Application Ready])
 
