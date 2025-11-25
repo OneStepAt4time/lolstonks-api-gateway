@@ -1850,54 +1850,53 @@
 <h2 id="request-pipeline">Request Pipeline<a class="headerlink" href="#request-pipeline" title="Permanent link">¶</a></h2>
 <h3 id="complete-request-processing-pipeline">Complete Request Processing Pipeline<a class="headerlink" href="#complete-request-processing-pipeline" title="Permanent link">¶</a></h3>
 <div class="mermaid">flowchart TD
-    request([HTTP Request]) --&gt;|1. Parse URL| urlparse[URL Parser&lt;br/&gt;Extract path/query]
-    urlparse --&gt;|2. Match Route| router{Router&lt;br/&gt;Lookup}
+    request([HTTP Request]) --&gt;|Parse URL| urlparse[URL Parser]
+    urlparse --&gt;|Match Route| router{Router Lookup}
 
-    router --&gt;|No Match| notfound[404 Not Found&lt;br/&gt;Unknown endpoint]
+    router --&gt;|No Match| notfound[404 Not Found]
     notfound --&gt; error_response([Error Response])
 
-    router --&gt;|Match| extract[Extract Parameters&lt;br/&gt;Path/Query/Headers]
+    router --&gt;|Match| extract[Extract Parameters]
+    extract --&gt;|Validate| validate{Pydantic Validation}
 
-    extract --&gt;|3. Validate| validate{Pydantic&lt;br/&gt;Validation}
-    validate --&gt;|Invalid| validation_error[422 Unprocessable Entity&lt;br/&gt;Parameter errors]
+    validate --&gt;|Invalid| validation_error[422 Unprocessable]
     validation_error --&gt; error_response
 
-    validate --&gt;|Valid| auth[4. Authentication&lt;br/&gt;Check API Key (future)]
+    validate --&gt;|Valid| auth[Authentication Check]
     auth --&gt;|Unauthorized| auth_error[401 Unauthorized]
     auth_error --&gt; error_response
 
-    auth --&gt;|OK| ratelimit[5. Rate Limiting&lt;br/&gt;Check request quota]
+    auth --&gt;|OK| ratelimit[Rate Limiting]
     ratelimit --&gt;|Exceeded| rate_error[429 Too Many Requests]
     rate_error --&gt; error_response
 
-    ratelimit --&gt;|OK| cache[6. Cache Layer&lt;br/&gt;Check Redis]
-    cache --&gt;|Hit| cached[Return Cached Data&lt;br/&gt;~10ms fast]
-    cached --&gt; response_format
+    ratelimit --&gt;|OK| cache[Cache Layer Check]
+    cache --&gt;|Hit| cached[Return Cached Data]
+    cached --&gt; response_format[Format Response]
 
-    cache --&gt;|Miss| provider[7. Provider Selection&lt;br/&gt;Route to data source]
+    cache --&gt;|Miss| provider[Provider Selection]
 
     provider --&gt;|Live Data| riot[Riot API Provider]
     provider --&gt;|Static Data| dragon[Data Dragon Provider]
     provider --&gt;|Community Data| community[Community Dragon Provider]
 
-    riot --&gt;|8. External API| riot_api[Riot API Call&lt;br/&gt;50-200ms]
-    dragon --&gt; dragon_api[Data Dragon Call&lt;br/&gt;20-100ms]
-    community --&gt; community_api[Community Dragon Call&lt;br/&gt;20-100ms]
+    riot --&gt;|External API| riot_api[Riot API Call]
+    dragon --&gt; dragon_api[Data Dragon Call]
+    community --&gt; community_api[Community Dragon Call]
 
-    riot_api --&gt;|9. Process| process[Process Response&lt;br/&gt;Validate/Transform]
+    riot_api --&gt;|Process| process[Process Response]
     dragon_api --&gt; process
     community_api --&gt; process
 
-    process --&gt;|Error| api_error[502 Bad Gateway&lt;br/&gt;External API error]
+    process --&gt;|Error| api_error[502 Bad Gateway]
     api_error --&gt; error_response
 
-    process --&gt;|Success| cache_update[10. Update Cache&lt;br/&gt;Store with TTL]
+    process --&gt;|Success| cache_update[Update Cache]
     cache_update -.-&gt;|Async| redis[(Redis Cache)]
 
-    cache_update --&gt; response_format[11. Format Response&lt;br/&gt;Add headers]
-
-    response_format --&gt; log[12. Log Request&lt;br/&gt;Metrics + Logging]
-    log --&gt; success([HTTP Response&lt;br/&gt;200 OK + JSON])
+    cache_update --&gt; response_format
+    response_format --&gt; log[Log Request]
+    log --&gt; success([HTTP Response 200 OK])
 
     classDef gateway fill:#e3f2fd,stroke:#1976d2,stroke-width:2px,color:#000
     classDef provider fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
@@ -2012,26 +2011,24 @@
 <h2 id="router-registration">Router Registration<a class="headerlink" href="#router-registration" title="Permanent link">¶</a></h2>
 <h3 id="dynamic-router-loading">Dynamic Router Loading<a class="headerlink" href="#dynamic-router-loading" title="Permanent link">¶</a></h3>
 <div class="mermaid">flowchart TD
-    startup([Application Startup]) --&gt; scan[Scan routers/ directory]
+    startup([Application Startup]) --&gt; scan[Scan routers directory]
     scan --&gt; discover[Discover router modules]
 
-    discover --&gt; load{For each&lt;br/&gt;router}
-
+    discover --&gt; load{For each router}
     load --&gt; import[Import router module]
-    import --&gt; validate[Validate router&lt;br/&gt;Has .router attribute]
+    import --&gt; validate[Validate router attribute]
 
-    validate --&gt;|Invalid| skip[Skip router&lt;br/&gt;Log warning]
-    validate --&gt;|Valid| register[Register with FastAPI app]
+    validate --&gt;|Invalid| skip[Skip router and log warning]
+    validate --&gt;|Valid| register[Register with FastAPI]
 
-    register --&gt; prefix[Apply prefix&lt;br/&gt;e.g., /lol/summoner/v4]
-    prefix --&gt; tags[Apply tags&lt;br/&gt;e.g., ["Summoner"]]
-    tags --&gt; done{More&lt;br/&gt;routers?}
+    register --&gt; prefix[Apply URL prefix]
+    prefix --&gt; tags[Apply OpenAPI tags]
+    tags --&gt; done{More routers?}
 
     done --&gt;|Yes| load
-    done --&gt;|No| complete[Registration complete&lt;br/&gt;Routes ready]
+    done --&gt;|No| complete[Registration complete]
 
     skip --&gt; done
-
     complete --&gt; generate[Generate OpenAPI schema]
     generate --&gt; ready([Application Ready])
 
