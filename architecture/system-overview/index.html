@@ -1,0 +1,2440 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Unified League of Legends API Gateway with caching, rate limiting, and comprehensive monitoring" name="description"/>
+<link href="../overview/" rel="prev"/>
+<link href="../data-flow/" rel="next"/>
+<link href="../../assets/logo.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.23" name="generator"/>
+<title>System Overview - LOLStonks API Gateway</title>
+<link href="../../assets/stylesheets/main.84d31ad4.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../assets/_mkdocstrings.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="blue" data-md-color-primary="blue" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#system-overview">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="LOLStonks API Gateway" class="md-header__button md-logo" data-md-component="logo" href="../.." title="LOLStonks API Gateway">
+<img alt="logo" src="../../assets/logo.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            LOLStonks API Gateway
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              System Overview
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="blue" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="blue" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/OneStepAt4time/lolstonks-api-gateway" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../getting-started/installation/">
+          
+  
+  
+    
+  
+  Getting Started
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../api/openapi-spec/">
+          
+  
+  
+    
+  
+  API Reference
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../overview/">
+          
+  
+  
+    
+  
+  Architecture
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../operations/monitoring/">
+          
+  
+  
+    
+  
+  Operations
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../development/contributing/">
+          
+  
+  
+    
+  
+  Development
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="LOLStonks API Gateway" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="LOLStonks API Gateway">
+<img alt="logo" src="../../assets/logo.png"/>
+</a>
+    LOLStonks API Gateway
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/OneStepAt4time/lolstonks-api-gateway" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+<span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/installation/">
+<span class="md-ellipsis">
+    Installation
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/quick-start/">
+<span class="md-ellipsis">
+    Quick Start
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/configuration/">
+<span class="md-ellipsis">
+    Configuration
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/deployment/">
+<span class="md-ellipsis">
+    Production Deployment
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+<span class="md-ellipsis">
+    API Reference
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/openapi-spec/">
+<span class="md-ellipsis">
+    OpenAPI Specification
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/overview/">
+<span class="md-ellipsis">
+    Overview
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/providers/">
+<span class="md-ellipsis">
+    Providers
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/riot-client/">
+<span class="md-ellipsis">
+    Riot Client
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/models/">
+<span class="md-ellipsis">
+    Models
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/routers/">
+<span class="md-ellipsis">
+    Routers
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/cache/">
+<span class="md-ellipsis">
+    Cache
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/security/">
+<span class="md-ellipsis">
+    Security
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+<span class="md-ellipsis">
+    Architecture
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+            Architecture
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../overview/">
+<span class="md-ellipsis">
+    Overview
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    System Overview
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    System Overview
+    
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#introduction">
+<span class="md-ellipsis">
+      Introduction
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#system-architecture-diagram">
+<span class="md-ellipsis">
+      System Architecture Diagram
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#component-overview">
+<span class="md-ellipsis">
+      Component Overview
+    </span>
+</a>
+<nav aria-label="Component Overview" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#client-layer">
+<span class="md-ellipsis">
+      Client Layer
+    </span>
+</a>
+<nav aria-label="Client Layer" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cli-application-lolstonks-api-cli">
+<span class="md-ellipsis">
+      CLI Application (lolstonks-api-cli)
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#web-applications">
+<span class="md-ellipsis">
+      Web Applications
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#api-consumers">
+<span class="md-ellipsis">
+      API Consumers
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#gateway-layer">
+<span class="md-ellipsis">
+      Gateway Layer
+    </span>
+</a>
+<nav aria-label="Gateway Layer" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#fastapi-application">
+<span class="md-ellipsis">
+      FastAPI Application
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#provider-registry">
+<span class="md-ellipsis">
+      Provider Registry
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#router-system">
+<span class="md-ellipsis">
+      Router System
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#middleware-stack">
+<span class="md-ellipsis">
+      Middleware Stack
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#infrastructure-layer">
+<span class="md-ellipsis">
+      Infrastructure Layer
+    </span>
+</a>
+<nav aria-label="Infrastructure Layer" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#redis-cache">
+<span class="md-ellipsis">
+      Redis Cache
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rate-limiter">
+<span class="md-ellipsis">
+      Rate Limiter
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#health-monitor">
+<span class="md-ellipsis">
+      Health Monitor
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#metrics-collector">
+<span class="md-ellipsis">
+      Metrics Collector
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#provider-layer">
+<span class="md-ellipsis">
+      Provider Layer
+    </span>
+</a>
+<nav aria-label="Provider Layer" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#riot-api-provider">
+<span class="md-ellipsis">
+      Riot API Provider
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-dragon-provider">
+<span class="md-ellipsis">
+      Data Dragon Provider
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#community-dragon-provider">
+<span class="md-ellipsis">
+      Community Dragon Provider
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#external-apis">
+<span class="md-ellipsis">
+      External APIs
+    </span>
+</a>
+<nav aria-label="External APIs" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#riot-games-api">
+<span class="md-ellipsis">
+      Riot Games API
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-dragon-cdn">
+<span class="md-ellipsis">
+      Data Dragon CDN
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#community-dragon-cdn">
+<span class="md-ellipsis">
+      Community Dragon CDN
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#request-flow-overview">
+<span class="md-ellipsis">
+      Request Flow Overview
+    </span>
+</a>
+<nav aria-label="Request Flow Overview" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#typical-request-path">
+<span class="md-ellipsis">
+      Typical Request Path
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#deployment-architecture">
+<span class="md-ellipsis">
+      Deployment Architecture
+    </span>
+</a>
+<nav aria-label="Deployment Architecture" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#development-environment">
+<span class="md-ellipsis">
+      Development Environment
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#production-deployment-future">
+<span class="md-ellipsis">
+      Production Deployment (Future)
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#security-considerations">
+<span class="md-ellipsis">
+      Security Considerations
+    </span>
+</a>
+<nav aria-label="Security Considerations" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#api-key-management">
+<span class="md-ellipsis">
+      API Key Management
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#network-security">
+<span class="md-ellipsis">
+      Network Security
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-privacy">
+<span class="md-ellipsis">
+      Data Privacy
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#scalability-considerations">
+<span class="md-ellipsis">
+      Scalability Considerations
+    </span>
+</a>
+<nav aria-label="Scalability Considerations" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#current-limits">
+<span class="md-ellipsis">
+      Current Limits
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#scaling-strategies">
+<span class="md-ellipsis">
+      Scaling Strategies
+    </span>
+</a>
+<nav aria-label="Scaling Strategies" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#horizontal-scaling">
+<span class="md-ellipsis">
+      Horizontal Scaling
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#vertical-scaling">
+<span class="md-ellipsis">
+      Vertical Scaling
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cache-optimization">
+<span class="md-ellipsis">
+      Cache Optimization
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#monitoring-and-observability">
+<span class="md-ellipsis">
+      Monitoring and Observability
+    </span>
+</a>
+<nav aria-label="Monitoring and Observability" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#health-checks">
+<span class="md-ellipsis">
+      Health Checks
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#metrics">
+<span class="md-ellipsis">
+      Metrics
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#logging">
+<span class="md-ellipsis">
+      Logging
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#technology-stack-summary">
+<span class="md-ellipsis">
+      Technology Stack Summary
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cross-references">
+<span class="md-ellipsis">
+      Cross-References
+    </span>
+</a>
+<nav aria-label="Cross-References" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#related-documentation">
+<span class="md-ellipsis">
+      Related Documentation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#implementation-guides">
+<span class="md-ellipsis">
+      Implementation Guides
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#quick-start">
+<span class="md-ellipsis">
+      Quick Start
+    </span>
+</a>
+<nav aria-label="Quick Start" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#running-the-gateway">
+<span class="md-ellipsis">
+      Running the Gateway
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#making-requests">
+<span class="md-ellipsis">
+      Making Requests
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../data-flow/">
+<span class="md-ellipsis">
+    Data Flow
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../implementation-details/">
+<span class="md-ellipsis">
+    Implementation Details
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../models/">
+<span class="md-ellipsis">
+    Data Models
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    Operations
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            Operations
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operations/monitoring/">
+<span class="md-ellipsis">
+    Monitoring
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operations/troubleshooting/">
+<span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operations/security/">
+<span class="md-ellipsis">
+    Security
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Development
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            Development
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../development/contributing/">
+<span class="md-ellipsis">
+    Contributing
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../development/changelog-guide/">
+<span class="md-ellipsis">
+    Changelog Guide
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../development/versioning/">
+<span class="md-ellipsis">
+    Versioning
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../development/releases/">
+<span class="md-ellipsis">
+    Releases
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../development/testing/">
+<span class="md-ellipsis">
+    Testing
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../development/documentation/">
+<span class="md-ellipsis">
+    Documentation
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#introduction">
+<span class="md-ellipsis">
+      Introduction
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#system-architecture-diagram">
+<span class="md-ellipsis">
+      System Architecture Diagram
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#component-overview">
+<span class="md-ellipsis">
+      Component Overview
+    </span>
+</a>
+<nav aria-label="Component Overview" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#client-layer">
+<span class="md-ellipsis">
+      Client Layer
+    </span>
+</a>
+<nav aria-label="Client Layer" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cli-application-lolstonks-api-cli">
+<span class="md-ellipsis">
+      CLI Application (lolstonks-api-cli)
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#web-applications">
+<span class="md-ellipsis">
+      Web Applications
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#api-consumers">
+<span class="md-ellipsis">
+      API Consumers
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#gateway-layer">
+<span class="md-ellipsis">
+      Gateway Layer
+    </span>
+</a>
+<nav aria-label="Gateway Layer" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#fastapi-application">
+<span class="md-ellipsis">
+      FastAPI Application
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#provider-registry">
+<span class="md-ellipsis">
+      Provider Registry
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#router-system">
+<span class="md-ellipsis">
+      Router System
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#middleware-stack">
+<span class="md-ellipsis">
+      Middleware Stack
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#infrastructure-layer">
+<span class="md-ellipsis">
+      Infrastructure Layer
+    </span>
+</a>
+<nav aria-label="Infrastructure Layer" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#redis-cache">
+<span class="md-ellipsis">
+      Redis Cache
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rate-limiter">
+<span class="md-ellipsis">
+      Rate Limiter
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#health-monitor">
+<span class="md-ellipsis">
+      Health Monitor
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#metrics-collector">
+<span class="md-ellipsis">
+      Metrics Collector
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#provider-layer">
+<span class="md-ellipsis">
+      Provider Layer
+    </span>
+</a>
+<nav aria-label="Provider Layer" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#riot-api-provider">
+<span class="md-ellipsis">
+      Riot API Provider
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-dragon-provider">
+<span class="md-ellipsis">
+      Data Dragon Provider
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#community-dragon-provider">
+<span class="md-ellipsis">
+      Community Dragon Provider
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#external-apis">
+<span class="md-ellipsis">
+      External APIs
+    </span>
+</a>
+<nav aria-label="External APIs" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#riot-games-api">
+<span class="md-ellipsis">
+      Riot Games API
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-dragon-cdn">
+<span class="md-ellipsis">
+      Data Dragon CDN
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#community-dragon-cdn">
+<span class="md-ellipsis">
+      Community Dragon CDN
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#request-flow-overview">
+<span class="md-ellipsis">
+      Request Flow Overview
+    </span>
+</a>
+<nav aria-label="Request Flow Overview" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#typical-request-path">
+<span class="md-ellipsis">
+      Typical Request Path
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#deployment-architecture">
+<span class="md-ellipsis">
+      Deployment Architecture
+    </span>
+</a>
+<nav aria-label="Deployment Architecture" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#development-environment">
+<span class="md-ellipsis">
+      Development Environment
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#production-deployment-future">
+<span class="md-ellipsis">
+      Production Deployment (Future)
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#security-considerations">
+<span class="md-ellipsis">
+      Security Considerations
+    </span>
+</a>
+<nav aria-label="Security Considerations" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#api-key-management">
+<span class="md-ellipsis">
+      API Key Management
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#network-security">
+<span class="md-ellipsis">
+      Network Security
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-privacy">
+<span class="md-ellipsis">
+      Data Privacy
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#scalability-considerations">
+<span class="md-ellipsis">
+      Scalability Considerations
+    </span>
+</a>
+<nav aria-label="Scalability Considerations" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#current-limits">
+<span class="md-ellipsis">
+      Current Limits
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#scaling-strategies">
+<span class="md-ellipsis">
+      Scaling Strategies
+    </span>
+</a>
+<nav aria-label="Scaling Strategies" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#horizontal-scaling">
+<span class="md-ellipsis">
+      Horizontal Scaling
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#vertical-scaling">
+<span class="md-ellipsis">
+      Vertical Scaling
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cache-optimization">
+<span class="md-ellipsis">
+      Cache Optimization
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#monitoring-and-observability">
+<span class="md-ellipsis">
+      Monitoring and Observability
+    </span>
+</a>
+<nav aria-label="Monitoring and Observability" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#health-checks">
+<span class="md-ellipsis">
+      Health Checks
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#metrics">
+<span class="md-ellipsis">
+      Metrics
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#logging">
+<span class="md-ellipsis">
+      Logging
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#technology-stack-summary">
+<span class="md-ellipsis">
+      Technology Stack Summary
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cross-references">
+<span class="md-ellipsis">
+      Cross-References
+    </span>
+</a>
+<nav aria-label="Cross-References" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#related-documentation">
+<span class="md-ellipsis">
+      Related Documentation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#implementation-guides">
+<span class="md-ellipsis">
+      Implementation Guides
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#quick-start">
+<span class="md-ellipsis">
+      Quick Start
+    </span>
+</a>
+<nav aria-label="Quick Start" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#running-the-gateway">
+<span class="md-ellipsis">
+      Running the Gateway
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#making-requests">
+<span class="md-ellipsis">
+      Making Requests
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="system-overview">System Overview<a class="headerlink" href="#system-overview" title="Permanent link">¶</a></h1>
+<blockquote>
+<p><strong>High-level architecture</strong> of the lolstonks-api-gateway system</p>
+</blockquote>
+<hr/>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">¶</a></h2>
+<p>The lolstonks-api-gateway is a FastAPI-based reverse proxy that provides a unified, cached interface to Riot Games League of Legends APIs. This document provides a comprehensive overview of the system architecture, major components, and their interactions.</p>
+<hr/>
+<h2 id="system-architecture-diagram">System Architecture Diagram<a class="headerlink" href="#system-architecture-diagram" title="Permanent link">¶</a></h2>
+<div class="mermaid">flowchart TD
+    subgraph Clients["Client Layer"]
+        direction LR
+        cli[CLI Application&lt;br/&gt;lolstonks-api-cli]
+        web[Web Applications]
+        api[API Consumers]
+    end
+
+    subgraph Gateway["Gateway Layer (FastAPI)"]
+        direction TB
+        app[FastAPI Application&lt;br/&gt;127.0.0.1:8080]
+        registry[Provider Registry&lt;br/&gt;Dynamic Provider Selection]
+        router[Router System&lt;br/&gt;15+ Endpoint Groups]
+        middleware[Middleware Stack&lt;br/&gt;CORS, Logging, Error Handling]
+    end
+
+    subgraph Infrastructure["Infrastructure Layer"]
+        direction TB
+        cache[(Redis Cache&lt;br/&gt;7.x)]
+        limiter[Rate Limiter&lt;br/&gt;Token Bucket Algorithm]
+        health[Health Monitor&lt;br/&gt;Component Status]
+        metrics[Metrics Collector&lt;br/&gt;Performance Tracking]
+    end
+
+    subgraph Providers["Provider Layer"]
+        direction TB
+        riot[Riot API Provider&lt;br/&gt;Live Game Data]
+        dragon[Data Dragon Provider&lt;br/&gt;Static Game Data]
+        community[Community Dragon Provider&lt;br/&gt;Enhanced Static Data]
+    end
+
+    subgraph External["External APIs"]
+        direction LR
+        riotapi[Riot Games API&lt;br/&gt;api.riotgames.com]
+        dragoncdn[Data Dragon CDN&lt;br/&gt;ddragon.leagueoflegends.com]
+        communitycdn[Community Dragon CDN&lt;br/&gt;raw.communitydragon.org]
+    end
+
+    %% Client connections
+    Clients --&gt;|HTTP Requests&lt;br/&gt;JSON Responses| app
+
+    %% Gateway internal flow
+    app --&gt; middleware
+    middleware --&gt; router
+    router --&gt; registry
+
+    %% Infrastructure connections
+    app -.-&gt;|Metrics| metrics
+    router --&gt;|Cache Check&lt;br/&gt;&lt;1ms| cache
+    router --&gt;|Rate Check&lt;br/&gt;&lt;1ms| limiter
+    app --&gt;|Health Check| health
+
+    %% Provider selection
+    registry --&gt;|Select Provider| Providers
+
+    %% External API connections
+    riot --&gt;|HTTPS + API Key&lt;br/&gt;50-200ms| riotapi
+    dragon --&gt;|HTTPS&lt;br/&gt;20-100ms| dragoncdn
+    community --&gt;|HTTPS&lt;br/&gt;20-100ms| communitycdn
+
+    %% Cache updates
+    Providers -.-&gt;|Update Cache&lt;br/&gt;Async| cache
+
+    %% Health monitoring
+    health -.-&gt;|Monitor| Infrastructure
+    health -.-&gt;|Monitor| Providers
+
+    classDef gateway fill:#e3f2fd,stroke:#1976d2,stroke-width:3px,color:#000
+    classDef provider fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
+    classDef cache fill:#fff3e0,stroke:#f57c00,stroke-width:2px,color:#000
+    classDef external fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#000
+    classDef client fill:#f5f5f5,stroke:#616161,stroke-width:2px,color:#000
+
+    class app,registry,router,middleware gateway
+    class riot,dragon,community provider
+    class cache,limiter,health,metrics cache
+    class riotapi,dragoncdn,communitycdn external
+    class cli,web,api client
+</div>
+<hr/>
+<h2 id="component-overview">Component Overview<a class="headerlink" href="#component-overview" title="Permanent link">¶</a></h2>
+<h3 id="client-layer">Client Layer<a class="headerlink" href="#client-layer" title="Permanent link">¶</a></h3>
+<p>The gateway serves multiple client types:</p>
+<h4 id="cli-application-lolstonks-api-cli">CLI Application (lolstonks-api-cli)<a class="headerlink" href="#cli-application-lolstonks-api-cli" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Purpose</strong>: Command-line interface for League of Legends data queries</li>
+<li><strong>Connection</strong>: HTTP client using httpx</li>
+<li><strong>Features</strong>: Rich terminal output, JSON export, offline mode</li>
+<li><strong>Location</strong>: <code>D:\LoLProjects\lolstonks-api-cli</code></li>
+</ul>
+<h4 id="web-applications">Web Applications<a class="headerlink" href="#web-applications" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Purpose</strong>: Browser-based dashboards and analytics tools</li>
+<li><strong>Connection</strong>: Standard HTTP/REST</li>
+<li><strong>Authentication</strong>: API key-based (future feature)</li>
+</ul>
+<h4 id="api-consumers">API Consumers<a class="headerlink" href="#api-consumers" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Purpose</strong>: Third-party integrations and custom tools</li>
+<li><strong>Connection</strong>: REST API with OpenAPI/Swagger documentation</li>
+<li><strong>Documentation</strong>: Available at <code>http://127.0.0.1:8080/docs</code></li>
+</ul>
+<hr/>
+<h3 id="gateway-layer">Gateway Layer<a class="headerlink" href="#gateway-layer" title="Permanent link">¶</a></h3>
+<p>The core application layer built on FastAPI 0.115+.</p>
+<h4 id="fastapi-application">FastAPI Application<a class="headerlink" href="#fastapi-application" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Binding</strong>: <code>127.0.0.1:8080</code> (localhost only for security)</li>
+<li><strong>Runtime</strong>: Uvicorn ASGI server</li>
+<li><strong>Configuration</strong>: Environment-based via <code>.env</code></li>
+<li><strong>Startup</strong>: Initializes providers, cache, health checks</li>
+<li><strong>Documentation</strong>: Auto-generated OpenAPI schema at <code>/openapi.json</code></li>
+</ul>
+<p><strong>Key Features</strong>:
+- Automatic API documentation (Swagger UI, ReDoc)
+- Request validation via Pydantic 2.5+
+- Dependency injection for shared resources
+- Lifespan events for startup/shutdown</p>
+<h4 id="provider-registry">Provider Registry<a class="headerlink" href="#provider-registry" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Purpose</strong>: Dynamic provider selection based on data type and region</li>
+<li><strong>Implementation</strong>: Factory pattern with provider routing</li>
+<li><strong>Providers</strong>: Riot API (live data), Data Dragon (static), Community Dragon (enhanced)</li>
+<li><strong>Selection Logic</strong>:</li>
+<li>Static data (champions, items) → Data Dragon or Community Dragon</li>
+<li>Live data (matches, rankings) → Riot API</li>
+<li>Fallback handling for provider unavailability</li>
+</ul>
+<p><strong>Code Location</strong>: <code>app/core/providers.py</code></p>
+<h4 id="router-system">Router System<a class="headerlink" href="#router-system" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Organization</strong>: 15+ router modules grouped by functionality</li>
+<li><strong>Categories</strong>:</li>
+<li><strong>Game Routes</strong>: Summoner, Match, League, Mastery, Spectator, Tournament</li>
+<li><strong>Account Routes</strong>: Account, Clash</li>
+<li><strong>Data Routes</strong>: Champion, Challenges, Item, Rune, Spell</li>
+<li><strong>System Routes</strong>: Health, Metrics, Platform, Status</li>
+<li><strong>Pattern</strong>: Each router is a separate module with versioned endpoints</li>
+<li><strong>Registration</strong>: Routers registered to FastAPI app on startup</li>
+</ul>
+<p><strong>Code Location</strong>: <code>app/routers/</code></p>
+<h4 id="middleware-stack">Middleware Stack<a class="headerlink" href="#middleware-stack" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>CORS</strong>: Cross-Origin Resource Sharing for browser clients</li>
+<li><strong>Logging</strong>: Request/response logging via loguru</li>
+<li><strong>Error Handling</strong>: Global exception handlers for consistent error responses</li>
+<li><strong>Request ID</strong>: Unique tracking ID for each request</li>
+<li><strong>Timing</strong>: Response time measurement and headers</li>
+</ul>
+<p><strong>Configuration</strong>: See <code>app/middleware/</code> and <code>app/main.py</code></p>
+<hr/>
+<h3 id="infrastructure-layer">Infrastructure Layer<a class="headerlink" href="#infrastructure-layer" title="Permanent link">¶</a></h3>
+<p>Supporting components for caching, rate limiting, and monitoring.</p>
+<h4 id="redis-cache">Redis Cache<a class="headerlink" href="#redis-cache" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Version</strong>: Redis 7.x</li>
+<li><strong>Purpose</strong>: High-performance caching layer</li>
+<li><strong>Connection</strong>: Docker container or standalone instance</li>
+<li><strong>TTL Strategy</strong>:</li>
+<li>Live data: 5 minutes (configurable)</li>
+<li>Static data: 1 hour (configurable)</li>
+<li>Player data: 10 minutes</li>
+<li>Match data: 30 minutes (matches don't change)</li>
+<li><strong>Invalidation</strong>: TTL-based expiration, manual force refresh via <code>?force=true</code></li>
+<li><strong>Keys Pattern</strong>: <code>{provider}:{endpoint}:{region}:{params_hash}</code></li>
+</ul>
+<p><strong>Performance</strong>:
+- Cache hit: <code>&lt;10ms</code> response time
+- Cache miss: <code>50-200ms</code> (depends on external API)
+- Hit rate: Typically <code>&gt;70%</code> in production</p>
+<p><strong>Configuration</strong>: <code>REDIS_URL</code> in <code>.env</code></p>
+<h4 id="rate-limiter">Rate Limiter<a class="headerlink" href="#rate-limiter" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Algorithm</strong>: Token bucket with sliding window</li>
+<li><strong>Purpose</strong>: Protect external APIs from rate limit violations</li>
+<li><strong>Limits</strong>:</li>
+<li>Riot API: 20 requests/second, 100 requests/2 minutes (configurable per key tier)</li>
+<li>Data Dragon: No strict limit (CDN)</li>
+<li>Community Dragon: No strict limit (CDN)</li>
+<li><strong>Implementation</strong>: Redis-backed counter with TTL</li>
+<li><strong>Behavior</strong>: Returns <code>429 Too Many Requests</code> when limit exceeded</li>
+</ul>
+<p><strong>Code Location</strong>: <code>app/core/rate_limiter.py</code></p>
+<h4 id="health-monitor">Health Monitor<a class="headerlink" href="#health-monitor" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Purpose</strong>: Component health checking and status reporting</li>
+<li><strong>Checks</strong>:</li>
+<li>Redis connectivity</li>
+<li>Provider availability</li>
+<li>External API reachability</li>
+<li>Disk space and memory</li>
+<li><strong>Endpoints</strong>:</li>
+<li><code>/health</code> - Simple up/down status</li>
+<li><code>/health/detailed</code> - Component-level health</li>
+<li><strong>Frequency</strong>: Checked on-demand and via periodic background task</li>
+</ul>
+<p><strong>Response Format</strong>:</p>
+<pre><code class="language-json">{
+  "status": "healthy",
+  "components": {
+    "redis": "healthy",
+    "riot_api": "healthy",
+    "data_dragon": "healthy"
+  },
+  "timestamp": "2025-01-24T12:00:00Z"
+}
+</code></pre>
+<h4 id="metrics-collector">Metrics Collector<a class="headerlink" href="#metrics-collector" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Purpose</strong>: Performance monitoring and analytics</li>
+<li><strong>Metrics</strong>:</li>
+<li>Request count by endpoint</li>
+<li>Response times (p50, p95, p99)</li>
+<li>Cache hit/miss ratio</li>
+<li>Error rates by type</li>
+<li>External API latency</li>
+<li><strong>Storage</strong>: In-memory counters, exportable to Prometheus (future)</li>
+<li><strong>Endpoint</strong>: <code>/metrics</code> (basic stats), <code>/metrics/prometheus</code> (future)</li>
+</ul>
+<p><strong>Code Location</strong>: <code>app/monitoring/</code></p>
+<hr/>
+<h3 id="provider-layer">Provider Layer<a class="headerlink" href="#provider-layer" title="Permanent link">¶</a></h3>
+<p>Data source abstraction layer implementing the provider pattern.</p>
+<h4 id="riot-api-provider">Riot API Provider<a class="headerlink" href="#riot-api-provider" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Purpose</strong>: Access to live League of Legends game data</li>
+<li><strong>Authentication</strong>: API key required (<code>RIOT_API_KEY</code>)</li>
+<li><strong>Base URL</strong>: <code>https://{region}.api.riotgames.com</code></li>
+<li><strong>Data Types</strong>:</li>
+<li>Summoner profiles and stats</li>
+<li>Match history and details</li>
+<li>Live game spectator data</li>
+<li>Ranked ladder (League)</li>
+<li>Champion mastery</li>
+<li>Tournament data</li>
+<li><strong>Rate Limits</strong>: Strict (20/sec, 100/2min default)</li>
+<li><strong>Caching</strong>: Aggressive caching with 5-10 minute TTL</li>
+<li><strong>Error Handling</strong>: Retries with exponential backoff</li>
+</ul>
+<p><strong>Regional Routing</strong>:
+- Americas: <code>na1</code>, <code>br1</code>, <code>la1</code>, <code>la2</code>
+- Europe: <code>euw1</code>, <code>eun1</code>, <code>tr1</code>, <code>ru</code>
+- Asia: <code>kr</code>, <code>jp1</code>, <code>oc1</code>, <code>ph2</code>, <code>sg2</code>, <code>th2</code>, <code>tw2</code>, <code>vn2</code></p>
+<p><strong>Code Location</strong>: <code>app/providers/riot_provider.py</code></p>
+<h4 id="data-dragon-provider">Data Dragon Provider<a class="headerlink" href="#data-dragon-provider" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Purpose</strong>: Static game data (champions, items, runes, spells)</li>
+<li><strong>Authentication</strong>: None (public CDN)</li>
+<li><strong>Base URL</strong>: <code>https://ddragon.leagueoflegends.com</code></li>
+<li><strong>Data Types</strong>:</li>
+<li>Champion data (stats, abilities, skins)</li>
+<li>Item data (stats, recipes, costs)</li>
+<li>Summoner spell data</li>
+<li>Rune data</li>
+<li>Profile icons</li>
+<li>Localization files</li>
+<li><strong>Versioning</strong>: Version-specific URLs (e.g., <code>14.1.1</code>)</li>
+<li><strong>Caching</strong>: Long TTL (1 hour+) due to static nature</li>
+<li><strong>Updates</strong>: Version changes with patches (every ~2 weeks)</li>
+</ul>
+<p><strong>URL Pattern</strong>: <code>https://ddragon.leagueoflegends.com/cdn/{version}/data/{lang}/{resource}.json</code></p>
+<p><strong>Code Location</strong>: <code>app/providers/data_dragon_provider.py</code></p>
+<h4 id="community-dragon-provider">Community Dragon Provider<a class="headerlink" href="#community-dragon-provider" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Purpose</strong>: Enhanced static data with additional details</li>
+<li><strong>Authentication</strong>: None (public CDN)</li>
+<li><strong>Base URL</strong>: <code>https://raw.communitydragon.org</code></li>
+<li><strong>Data Types</strong>:</li>
+<li>Detailed champion data (passive descriptions, recommended builds)</li>
+<li>High-resolution assets</li>
+<li>Augment data</li>
+<li>Mission/quest data</li>
+<li>Loot and crafting data</li>
+<li><strong>Advantages</strong>: More detailed than official Data Dragon</li>
+<li><strong>Caching</strong>: Long TTL (1 hour+)</li>
+<li><strong>Reliability</strong>: Community-maintained, may lag official patches</li>
+</ul>
+<p><strong>URL Pattern</strong>: <code>https://raw.communitydragon.org/{version}/plugins/rcp-be-lol-game-data/global/default/{resource}</code></p>
+<p><strong>Code Location</strong>: <code>app/providers/community_dragon_provider.py</code></p>
+<hr/>
+<h3 id="external-apis">External APIs<a class="headerlink" href="#external-apis" title="Permanent link">¶</a></h3>
+<p>Third-party services accessed by providers.</p>
+<h4 id="riot-games-api">Riot Games API<a class="headerlink" href="#riot-games-api" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Domain</strong>: <code>api.riotgames.com</code></li>
+<li><strong>Protocol</strong>: HTTPS with API key header (<code>X-Riot-Token</code>)</li>
+<li><strong>Rate Limits</strong>: Enforced per API key</li>
+<li><strong>Regions</strong>: Regional endpoints (e.g., <code>na1.api.riotgames.com</code>)</li>
+<li><strong>Documentation</strong>: https://developer.riotgames.com/</li>
+<li><strong>Availability</strong>: <code>99.9%+</code> uptime SLA</li>
+<li><strong>Latency</strong>: Typically <code>50-200ms</code> depending on region</li>
+</ul>
+<p><strong>Authentication Header</strong>:</p>
+<pre><code>X-Riot-Token: RGAPI-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+</code></pre>
+<h4 id="data-dragon-cdn">Data Dragon CDN<a class="headerlink" href="#data-dragon-cdn" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Domain</strong>: <code>ddragon.leagueoflegends.com</code></li>
+<li><strong>Protocol</strong>: HTTPS (no authentication)</li>
+<li><strong>Content</strong>: JSON data files and image assets</li>
+<li><strong>Caching</strong>: CDN-cached, very fast</li>
+<li><strong>Versions</strong>: Multiple versions available simultaneously</li>
+<li><strong>Update Frequency</strong>: Patch releases (~every 2 weeks)</li>
+<li><strong>Latency</strong>: Typically <code>20-100ms</code> (CDN performance)</li>
+</ul>
+<h4 id="community-dragon-cdn">Community Dragon CDN<a class="headerlink" href="#community-dragon-cdn" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Domain</strong>: <code>raw.communitydragon.org</code></li>
+<li><strong>Protocol</strong>: HTTPS (no authentication)</li>
+<li><strong>Content</strong>: Enhanced JSON data and high-res assets</li>
+<li><strong>Maintenance</strong>: Community-driven, GitHub-based</li>
+<li><strong>Latency</strong>: Typically <code>20-100ms</code></li>
+<li><strong>Reliability</strong>: Generally stable, may lag official patches by hours/days</li>
+</ul>
+<hr/>
+<h2 id="request-flow-overview">Request Flow Overview<a class="headerlink" href="#request-flow-overview" title="Permanent link">¶</a></h2>
+<h3 id="typical-request-path">Typical Request Path<a class="headerlink" href="#typical-request-path" title="Permanent link">¶</a></h3>
+<div class="mermaid">flowchart LR
+    start([Client Request]) --&gt;|1. HTTP POST/GET| app[FastAPI App]
+    app --&gt;|2. Middleware| validate[Validation]
+    validate --&gt;|3. Router| endpoint[Endpoint Handler]
+    endpoint --&gt;|4. Cache Check| cache{Cache&lt;br/&gt;Hit?}
+    cache --&gt;|Yes - &lt;10ms| response([Cached Response])
+    cache --&gt;|No| provider[Provider Selection]
+    provider --&gt;|5. External API&lt;br/&gt;50-200ms| external[External API]
+    external --&gt;|6. Process| format[Format Response]
+    format -.-&gt;|7. Update Cache| cacheupdate[(Redis)]
+    format --&gt;|8. Return| response
+
+    style app fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style cache fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    style provider fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+    style external fill:#ffebee,stroke:#c62828,stroke-width:2px
+    style cacheupdate fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+</div>
+<p><strong>Performance Breakdown</strong>:
+1. Request parsing: <code>&lt;1ms</code>
+2. Middleware processing: <code>&lt;1ms</code>
+3. Cache check: <code>&lt;1ms</code>
+4. <strong>Cache hit path</strong>: <code>&lt;10ms</code> total
+5. <strong>Cache miss path</strong>: <code>50-200ms</code> (external API latency)
+6. Response formatting: <code>&lt;1ms</code>
+7. Cache update: <code>&lt;1ms</code> (async)</p>
+<p><strong>Optimization</strong>: Cache hit rate <code>&gt;70%</code> means most requests complete in <code>&lt;10ms</code>.</p>
+<hr/>
+<h2 id="deployment-architecture">Deployment Architecture<a class="headerlink" href="#deployment-architecture" title="Permanent link">¶</a></h2>
+<h3 id="development-environment">Development Environment<a class="headerlink" href="#development-environment" title="Permanent link">¶</a></h3>
+<div class="mermaid">flowchart TD
+    subgraph DevMachine["Developer Machine (Windows)"]
+        direction TB
+        vscode[VS Code]
+        terminal[Terminal/CLI]
+        browser[Browser&lt;br/&gt;localhost:8080/docs]
+    end
+
+    subgraph LocalServices["Local Services"]
+        direction LR
+        gateway[FastAPI Gateway&lt;br/&gt;127.0.0.1:8080]
+        redis[Redis Docker&lt;br/&gt;127.0.0.1:6379]
+    end
+
+    DevMachine --&gt;|Development| LocalServices
+    gateway &lt;--&gt;|Cache| redis
+
+    style gateway fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style redis fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+</div>
+<p><strong>Setup</strong>:</p>
+<pre><code class="language-bash">cd lolstonks-api-gateway
+make docker-run  # Starts Redis + Gateway
+</code></pre>
+<p><strong>Access</strong>:
+- API: <code>http://127.0.0.1:8080</code>
+- Docs: <code>http://127.0.0.1:8080/docs</code>
+- Health: <code>http://127.0.0.1:8080/health</code></p>
+<h3 id="production-deployment-future">Production Deployment (Future)<a class="headerlink" href="#production-deployment-future" title="Permanent link">¶</a></h3>
+<p><strong>Planned Architecture</strong>:
+- <strong>Container</strong>: Docker image with multi-stage build
+- <strong>Orchestration</strong>: Kubernetes or Docker Swarm
+- <strong>Cache</strong>: Redis Cluster for high availability
+- <strong>Load Balancing</strong>: NGINX or cloud load balancer
+- <strong>Monitoring</strong>: Prometheus + Grafana
+- <strong>Logging</strong>: ELK stack or cloud logging</p>
+<hr/>
+<h2 id="security-considerations">Security Considerations<a class="headerlink" href="#security-considerations" title="Permanent link">¶</a></h2>
+<h3 id="api-key-management">API Key Management<a class="headerlink" href="#api-key-management" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Storage</strong>: Never in repository (use <code>.env</code> or environment variables)</li>
+<li><strong>Location</strong>: <code>D:\LoLProjects\docs</code> for development secrets</li>
+<li><strong>Rotation</strong>: Periodic key rotation recommended</li>
+<li><strong>Scoping</strong>: Use development keys for local, production keys for deployed</li>
+</ul>
+<h3 id="network-security">Network Security<a class="headerlink" href="#network-security" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Binding</strong>: <code>127.0.0.1</code> only (not <code>0.0.0.0</code>)</li>
+<li><strong>HTTPS</strong>: Required for production (TLS termination at load balancer)</li>
+<li><strong>CORS</strong>: Configured for specific origins only</li>
+<li><strong>Rate Limiting</strong>: Protects against abuse</li>
+</ul>
+<h3 id="data-privacy">Data Privacy<a class="headerlink" href="#data-privacy" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>PII</strong>: Minimal personal data stored (summoner names, Riot IDs)</li>
+<li><strong>Caching</strong>: Cached data expires via TTL</li>
+<li><strong>Logging</strong>: No sensitive data in logs</li>
+<li><strong>Compliance</strong>: GDPR considerations for EU players</li>
+</ul>
+<hr/>
+<h2 id="scalability-considerations">Scalability Considerations<a class="headerlink" href="#scalability-considerations" title="Permanent link">¶</a></h2>
+<h3 id="current-limits">Current Limits<a class="headerlink" href="#current-limits" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Throughput</strong>: <code>~100 requests/second</code> (limited by Riot API rate limits)</li>
+<li><strong>Cache Size</strong>: Redis memory limit (default 512MB)</li>
+<li><strong>Concurrent Connections</strong>: FastAPI async handles <code>1000+</code> concurrent connections</li>
+</ul>
+<h3 id="scaling-strategies">Scaling Strategies<a class="headerlink" href="#scaling-strategies" title="Permanent link">¶</a></h3>
+<h4 id="horizontal-scaling">Horizontal Scaling<a class="headerlink" href="#horizontal-scaling" title="Permanent link">¶</a></h4>
+<ul>
+<li>Multiple gateway instances behind load balancer</li>
+<li>Shared Redis cluster for cache coherency</li>
+<li>Distributed rate limiting</li>
+</ul>
+<h4 id="vertical-scaling">Vertical Scaling<a class="headerlink" href="#vertical-scaling" title="Permanent link">¶</a></h4>
+<ul>
+<li>Increase Redis memory for larger cache</li>
+<li>More CPU cores for FastAPI workers</li>
+<li>SSD storage for faster cache persistence</li>
+</ul>
+<h4 id="cache-optimization">Cache Optimization<a class="headerlink" href="#cache-optimization" title="Permanent link">¶</a></h4>
+<ul>
+<li>Increase TTLs for static data</li>
+<li>Implement cache warming for popular queries</li>
+<li>Use cache compression for large responses</li>
+</ul>
+<hr/>
+<h2 id="monitoring-and-observability">Monitoring and Observability<a class="headerlink" href="#monitoring-and-observability" title="Permanent link">¶</a></h2>
+<h3 id="health-checks">Health Checks<a class="headerlink" href="#health-checks" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Liveness</strong>: <code>/health</code> - Is the service running?</li>
+<li><strong>Readiness</strong>: <code>/health/detailed</code> - Can the service handle requests?</li>
+<li><strong>Component Status</strong>: Individual checks for Redis, providers, external APIs</li>
+</ul>
+<h3 id="metrics">Metrics<a class="headerlink" href="#metrics" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Request Metrics</strong>: Count, latency, error rate by endpoint</li>
+<li><strong>Cache Metrics</strong>: Hit rate, eviction rate, memory usage</li>
+<li><strong>Provider Metrics</strong>: API call count, latency, error rate by provider</li>
+<li><strong>System Metrics</strong>: CPU, memory, disk I/O</li>
+</ul>
+<h3 id="logging">Logging<a class="headerlink" href="#logging" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Structured Logging</strong>: JSON format via loguru</li>
+<li><strong>Log Levels</strong>: DEBUG, INFO, WARNING, ERROR, CRITICAL</li>
+<li><strong>Request Tracking</strong>: Unique request ID in all logs</li>
+<li><strong>Retention</strong>: Configurable (default 7 days)</li>
+</ul>
+<p><strong>Log Example</strong>:</p>
+<pre><code class="language-json">{
+  "timestamp": "2025-01-24T12:00:00.000Z",
+  "level": "INFO",
+  "request_id": "abc-123",
+  "endpoint": "/lol/summoner/v4/by-name",
+  "region": "euw1",
+  "cache_hit": true,
+  "duration_ms": 8.5
+}
+</code></pre>
+<hr/>
+<h2 id="technology-stack-summary">Technology Stack Summary<a class="headerlink" href="#technology-stack-summary" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Technology</th>
+<th>Version</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Application</strong></td>
+<td>FastAPI</td>
+<td>0.115+</td>
+<td>Web framework</td>
+</tr>
+<tr>
+<td><strong>Runtime</strong></td>
+<td>Python</td>
+<td>3.11+</td>
+<td>Programming language</td>
+</tr>
+<tr>
+<td><strong>Server</strong></td>
+<td>Uvicorn</td>
+<td>Latest</td>
+<td>ASGI server</td>
+</tr>
+<tr>
+<td><strong>Cache</strong></td>
+<td>Redis</td>
+<td>7.x</td>
+<td>High-performance cache</td>
+</tr>
+<tr>
+<td><strong>HTTP Client</strong></td>
+<td>httpx</td>
+<td>Latest</td>
+<td>Async HTTP requests</td>
+</tr>
+<tr>
+<td><strong>Validation</strong></td>
+<td>Pydantic</td>
+<td>2.5+</td>
+<td>Data modeling and validation</td>
+</tr>
+<tr>
+<td><strong>Logging</strong></td>
+<td>loguru</td>
+<td>Latest</td>
+<td>Structured logging</td>
+</tr>
+<tr>
+<td><strong>Package Manager</strong></td>
+<td>uv</td>
+<td>Latest</td>
+<td>Dependency management</td>
+</tr>
+<tr>
+<td><strong>Code Quality</strong></td>
+<td>ruff</td>
+<td>Latest</td>
+<td>Linting and formatting</td>
+</tr>
+<tr>
+<td><strong>Testing</strong></td>
+<td>pytest</td>
+<td>8.3+</td>
+<td>Test framework</td>
+</tr>
+<tr>
+<td><strong>Container</strong></td>
+<td>Docker</td>
+<td>Latest</td>
+<td>Containerization</td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<h2 id="cross-references">Cross-References<a class="headerlink" href="#cross-references" title="Permanent link">¶</a></h2>
+<h3 id="related-documentation">Related Documentation<a class="headerlink" href="#related-documentation" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong><a href="../data-flow/">Data Flow Architecture</a></strong> - Request processing details</li>
+<li><strong><a href="../routing/">Routing Architecture</a></strong> - Router organization and endpoints</li>
+<li><strong><a href="providers.md">Provider Documentation</a></strong> - Provider implementation details</li>
+<li><strong><a href="../caching/">Caching Strategy</a></strong> - Cache configuration and best practices</li>
+<li><strong><a href="../../api/overview/">API Reference</a></strong> - Endpoint specifications</li>
+</ul>
+<h3 id="implementation-guides">Implementation Guides<a class="headerlink" href="#implementation-guides" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong><a href="../../README.md">Development Setup</a></strong> - Getting started guide</li>
+<li><strong><a href="../../DEVELOPMENT.md">Development Workflows</a></strong> - Standard development patterns</li>
+<li><strong><a href="../configuration/">Configuration Guide</a></strong> - Environment and settings</li>
+</ul>
+<hr/>
+<h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">¶</a></h2>
+<h3 id="running-the-gateway">Running the Gateway<a class="headerlink" href="#running-the-gateway" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash"># Navigate to project
+cd D:\LoLProjects\lolstonks-api-gateway
+
+# Start Redis and Gateway
+make docker-run
+
+# Verify health
+curl http://127.0.0.1:8080/health
+
+# Access API docs
+# Open browser to http://127.0.0.1:8080/docs
+</code></pre>
+<h3 id="making-requests">Making Requests<a class="headerlink" href="#making-requests" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash"># Get summoner by name
+curl "http://127.0.0.1:8080/lol/summoner/v4/by-name/euw1/PlayerName"
+
+# Get match details
+curl "http://127.0.0.1:8080/lol/match/v5/by-match-id/europe/EUW1_123456789"
+
+# Force cache refresh
+curl "http://127.0.0.1:8080/lol/summoner/v4/by-name/euw1/PlayerName?force=true"
+</code></pre>
+<hr/>
+<p><strong>Last Updated</strong>: 2025-01-24</p>
+<p><strong>Next Steps</strong>:
+1. Read <a href="../data-flow/">Data Flow Architecture</a> to understand request processing
+2. Review <a href="../routing/">Routing Architecture</a> for endpoint organization
+3. Explore <a href="providers.md">Provider Documentation</a> for implementation details</p>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+<script>
+        // Enhanced Mermaid Interactivity for LOLStonks Documentation
+        (function() {
+            'use strict';
+
+            console.log('Initializing Mermaid interactivity...');
+
+            // Wait for DOM to be ready and Mermaid diagrams to render
+            const waitForMermaid = () => {
+                const mermaidElements = document.querySelectorAll('.mermaid');
+                console.log('Found Mermaid elements:', mermaidElements.length);
+
+                if (mermaidElements.length === 0) {
+                    console.log('No Mermaid elements found, retrying in 2 seconds...');
+                    setTimeout(waitForMermaid, 2000);
+                    return;
+                }
+
+                mermaidElements.forEach((element, index) => {
+                    const id = element.id || 'mermaid-diagram-' + index;
+                    element.setAttribute('id', id);
+
+                    // Wait for the diagram to be rendered as SVG
+                    const waitForSVG = () => {
+                        const svg = element.querySelector('svg');
+                        if (svg) {
+                            console.log('SVG found for element:', id);
+                            addInteractivityToDiagram(element, id);
+                        } else {
+                            console.log('SVG not found yet for element:', id, 'retrying...');
+                            setTimeout(waitForSVG, 500);
+                        }
+                    };
+
+                    waitForSVG();
+                });
+            };
+
+            const addInteractivityToDiagram = (element, id) => {
+                // Add interactive controls container
+                if (!element.previousSibling) {
+                    const controls = createInteractiveControls(id, element);
+                    element.parentNode.insertBefore(controls, element);
+                }
+
+                // Add zoom controls
+                addZoomControls(element, id);
+
+                // Add click handlers
+                addClickHandlers(element);
+
+                // Add tooltips
+                addTooltips(element);
+
+                // Make responsive
+                makeResponsive(element);
+
+                // Add pan and zoom
+                addPanAndZoom(element, id);
+            };
+
+            const createInteractiveControls = (id, element) => {
+                const controls = document.createElement('div');
+                controls.className = 'mermaid-controls';
+                controls.style.cssText = `
+                    margin: 10px 0;
+                    padding: 10px;
+                    background: #f5f5f5;
+                    border-radius: 5px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    gap: 10px;
+                    font-size: 14px;
+                    font-family: Arial, sans-serif;
+                `;
+
+                // Zoom controls
+                const zoomControls = document.createElement('div');
+                zoomControls.innerHTML = `
+                    <span style="font-weight: bold;">🔍 Zoom:</span>
+                    <button onclick="zoomDiagram('${id}', 1.2)" style="margin: 0 2px; padding: 4px 8px; background: #1976d2; color: white; border: none; border-radius: 3px; cursor: pointer;">+</button>
+                    <button onclick="zoomDiagram('${id}', 0.8)" style="margin: 0 2px; padding: 4px 8px; background: #1976d2; color: white; border: none; border-radius: 3px; cursor: pointer;">−</button>
+                    <button onclick="resetZoom('${id}')" style="margin: 0 2px; padding: 4px 8px; background: #666; color: white; border: none; border-radius: 3px; cursor: pointer;">Reset</button>
+                `;
+
+                // Navigation info
+                const navInfo = document.createElement('div');
+                navInfo.innerHTML = `<span style="color: #666;">🖱️ Click nodes for details • Scroll to zoom • Drag to pan</span>`;
+
+                // Fullscreen button
+                const fullscreenBtn = document.createElement('button');
+                fullscreenBtn.textContent = '⛶ Fullscreen';
+                fullscreenBtn.style.cssText = `
+                    padding: 4px 12px;
+                    background: #388e3c;
+                    color: white;
+                    border: none;
+                    border-radius: 3px;
+                    cursor: pointer;
+                `;
+                fullscreenBtn.onclick = () => toggleFullscreen(id, element);
+
+                // Download button
+                const downloadBtn = document.createElement('button');
+                downloadBtn.textContent = '📥 Download';
+                downloadBtn.style.cssText = `
+                    padding: 4px 12px;
+                    background: #ff9800;
+                    color: white;
+                    border: none;
+                    border-radius: 3px;
+                    cursor: pointer;
+                `;
+                downloadBtn.onclick = () => downloadDiagram(id, element);
+
+                controls.appendChild(zoomControls);
+                controls.appendChild(navInfo);
+                controls.appendChild(fullscreenBtn);
+                controls.appendChild(downloadBtn);
+
+                return controls;
+            };
+
+            const addZoomControls = (element, id) => {
+                element.style.transform = 'scale(1)';
+                element.style.transformOrigin = 'center top';
+                element.style.transition = 'transform 0.3s ease';
+                element.dataset.originalTransform = 'scale(1)';
+                element.dataset.currentZoom = '1';
+            };
+
+            const addPanAndZoom = (element, id) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                let isPanning = false;
+                let startX = 0, startY = 0, translateX = 0, translateY = 0;
+
+                // Mouse wheel zoom
+                element.addEventListener('wheel', function(e) {
+                    if (e.ctrlKey || e.metaKey) {
+                        e.preventDefault();
+                        const delta = e.deltaY > 0 ? 0.9 : 1.1;
+                        zoomDiagram(id, delta);
+                    }
+                });
+
+                // Pan functionality
+                svg.style.cursor = 'grab';
+                svg.addEventListener('mousedown', function(e) {
+                    if (e.button === 0 && !e.shiftKey) {
+                        isPanning = true;
+                        startX = e.clientX - translateX;
+                        startY = e.clientY - translateY;
+                        svg.style.cursor = 'grabbing';
+                        e.preventDefault();
+                    }
+                });
+
+                document.addEventListener('mousemove', function(e) {
+                    if (isPanning) {
+                        translateX = e.clientX - startX;
+                        translateY = e.clientY - startY;
+                        const currentZoom = parseFloat(element.dataset.currentZoom || 1);
+                        svg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
+                    }
+                });
+
+                document.addEventListener('mouseup', function() {
+                    isPanning = false;
+                    svg.style.cursor = 'grab';
+                });
+
+                // Touch support for mobile
+                let touchStartDistance = 0;
+                let touchStartZoom = 1;
+
+                element.addEventListener('touchstart', function(e) {
+                    if (e.touches.length === 2) {
+                        const dx = e.touches[0].clientX - e.touches[1].clientX;
+                        const dy = e.touches[0].clientY - e.touches[1].clientY;
+                        touchStartDistance = Math.sqrt(dx * dx + dy * dy);
+                        touchStartZoom = parseFloat(element.dataset.currentZoom || 1);
+                    }
+                });
+
+                element.addEventListener('touchmove', function(e) {
+                    if (e.touches.length === 2) {
+                        const dx = e.touches[0].clientX - e.touches[1].clientX;
+                        const dy = e.touches[0].clientY - e.touches[1].clientY;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        const scale = Math.max(0.5, Math.min(3, touchStartZoom * (distance / touchStartDistance)));
+                        element.dataset.currentZoom = scale;
+                        const svg = element.querySelector('svg');
+                        const currentZoom = parseFloat(element.dataset.currentZoom || 1);
+                        svg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
+                    }
+                });
+            };
+
+            const addClickHandlers = (element) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                const clickableElements = svg.querySelectorAll('g.node, g.edgePath, .cluster');
+                clickableElements.forEach(el => {
+                    el.style.cursor = 'pointer';
+                    el.addEventListener('click', function(e) {
+                        if (!e.shiftKey && !e.ctrlKey) {
+                            e.preventDefault();
+                            showNodeDetails(el, element);
+                        }
+                    });
+                });
+            };
+
+            const addTooltips = (element) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                const nodes = svg.querySelectorAll('g.node');
+                nodes.forEach(node => {
+                    const rect = node.querySelector('rect');
+                    const text = node.querySelector('text');
+                    if (rect && text) {
+                        node.title = text.textContent + ' - Click for more information';
+
+                        node.addEventListener('mouseenter', function() {
+                            rect.style.filter = 'brightness(1.2)';
+                            rect.style.transition = 'filter 0.2s ease';
+                        });
+
+                        node.addEventListener('mouseleave', function() {
+                            rect.style.filter = 'brightness(1)';
+                        });
+                    }
+                });
+            };
+
+            const makeResponsive = (element) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                svg.style.maxWidth = '100%';
+                svg.style.height = 'auto';
+                svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+
+                const resizeObserver = new ResizeObserver(() => {
+                    adjustDiagramSize(element);
+                });
+                resizeObserver.observe(element);
+            };
+
+            const adjustDiagramSize = (element) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                const container = element.parentElement;
+                const containerWidth = container.clientWidth;
+
+                if (containerWidth < 800) {
+                    const mobileZoom = Math.max(0.5, containerWidth / 800);
+                    element.dataset.currentZoom = mobileZoom;
+                    const translateMatch = svg.style.transform.match(/translate\(([^)]+)px/);
+                    const translate = translateMatch ? translateMatch[1] : '0px, 0px';
+                    svg.style.transform = `translate(${translate}) scale(${mobileZoom})`;
+                }
+            };
+
+            const showNodeDetails = (nodeElement, diagramElement) => {
+                const modal = document.createElement('div');
+                modal.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.5);
+                    z-index: 1000;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                `;
+
+                const content = document.createElement('div');
+                content.style.cssText = `
+                    background: white;
+                    padding: 20px;
+                    border-radius: 8px;
+                    max-width: 600px;
+                    max-height: 80%;
+                    overflow-y: auto;
+                `;
+
+                const text = nodeElement.querySelector('text');
+                const title = text ? text.textContent : 'Node Details';
+
+                content.innerHTML = `
+                    <h3>${title}</h3>
+                    <p><strong>Diagram:</strong> ${diagramElement.closest('h1, h2, h3, h4, h5, h6')?.textContent || 'Architecture Diagram'}</p>
+                    <p><strong>Component Type:</strong> ${getNodeInfo(nodeElement).type}</p>
+                    <p>${getNodeInfo(nodeElement).description}</p>
+                    <button onclick="this.closest('div[style*=fixed]').remove()" style="
+                        margin-top: 15px;
+                        padding: 8px 16px;
+                        background: #1976d2;
+                        color: white;
+                        border: none;
+                        border-radius: 4px;
+                        cursor: pointer;
+                    ">Close</button>
+                `;
+
+                modal.appendChild(content);
+                modal.appendChild(document.createElement('button'));
+                modal.onclick = (e) => {
+                    if (e.target === modal) modal.remove();
+                };
+
+                document.body.appendChild(modal);
+            };
+
+            const getNodeInfo = (nodeElement) => {
+                const text = nodeElement.querySelector('text')?.textContent?.toLowerCase() || '';
+
+                if (text.includes('api') || text.includes('gateway')) {
+                    return {
+                        type: 'API Component',
+                        description: 'This component handles API requests, routing, and response processing in the LOLStonks Gateway.'
+                    };
+                } else if (text.includes('cache') || text.includes('redis')) {
+                    return {
+                        type: 'Cache Layer',
+                        description: 'This component provides caching functionality to improve API response times and reduce external API calls.'
+                    };
+                } else if (text.includes('rate') || text.includes('limit')) {
+                    return {
+                        type: 'Rate Limiter',
+                        description: 'This component enforces rate limits to prevent API abuse and ensure fair usage across all clients.'
+                    };
+                } else if (text.includes('auth') || text.includes('security')) {
+                    return {
+                        type: 'Security Component',
+                        description: 'This component handles authentication, authorization, and security validation for API requests.'
+                    };
+                } else if (text.includes('provider') || text.includes('riot')) {
+                    return {
+                        type: 'External Provider',
+                        description: 'This component interfaces with external APIs (like Riot Games API) to fetch game data.'
+                    };
+                } else {
+                    return {
+                        type: 'System Component',
+                        description: 'This component is part of the LOLStonks API Gateway architecture. Click on different components to explore the system design.'
+                    };
+                }
+            };
+
+            // Global functions for button controls
+            window.zoomDiagram = function(id, factor) {
+                const element = document.getElementById(id);
+                if (!element) return;
+
+                const currentZoom = parseFloat(element.dataset.currentZoom || 1);
+                const newZoom = Math.max(0.1, Math.min(3, currentZoom * factor));
+
+                const svg = element.querySelector('svg');
+                const currentTransform = svg.style.transform || '';
+                const translateMatch = currentTransform.match(/translate\(([^)]+)px/);
+                const translate = translateMatch ? translateMatch[1] : '0px, 0px';
+
+                svg.style.transform = `translate(${translate}) scale(${newZoom})`;
+                element.dataset.currentZoom = newZoom;
+            };
+
+            window.resetZoom = function(id) {
+                const element = document.getElementById(id);
+                if (!element) return;
+
+                const svg = element.querySelector('svg');
+                svg.style.transform = 'translate(0px, 0px) scale(1)';
+                element.dataset.currentZoom = '1';
+            };
+
+            window.toggleFullscreen = function(id, element) {
+                if (element.style.position === 'fixed') {
+                    // Exit fullscreen
+                    element.style.position = '';
+                    element.style.top = '';
+                    element.style.left = '';
+                    element.style.width = '';
+                    element.style.height = '';
+                    element.style.zIndex = '';
+                    element.style.backgroundColor = '';
+                    element.style.padding = '';
+                    element.style.overflow = '';
+                    resetZoom(id);
+                } else {
+                    // Enter fullscreen
+                    element.style.position = 'fixed';
+                    element.style.top = '0';
+                    element.style.left = '0';
+                    element.style.width = '100vw';
+                    element.style.height = '100vh';
+                    element.style.zIndex = '999';
+                    element.style.backgroundColor = 'white';
+                    element.style.padding = '20px';
+                    element.style.overflow = 'auto';
+                    zoomDiagram(id, 1.5);
+                }
+            };
+
+            window.downloadDiagram = function(id, element) {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                const svgData = new XMLSerializer().serializeToString(svg);
+                const svgBlob = new Blob([svgData], {type: 'image/svg+xml;charset=utf-8'});
+                const svgUrl = URL.createObjectURL(svgBlob);
+
+                const downloadLink = document.createElement('a');
+                downloadLink.href = svgUrl;
+                downloadLink.download = `${id || 'diagram'}-${Date.now()}.svg`;
+                downloadLink.click();
+
+                URL.revokeObjectURL(svgUrl);
+            };
+
+            // Initialize everything
+            waitForMermaid();
+
+        })();
+    </script>
+<script type="module">import mermaid from "https://unpkg.com/mermaid@10.9.0/dist/mermaid.esm.min.mjs";
+mermaid.initialize({});</script></body>
+</html>
