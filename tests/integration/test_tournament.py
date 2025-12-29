@@ -435,9 +435,9 @@ async def test_tournament_code_cache_key_format(async_client: AsyncClient):
     # Verify cache key format (if cache was called)
     get_calls = [call for call in cache_calls if call[0] == "get"]
     if get_calls:
-        assert (
-            get_calls[0][1] == expected_key
-        ), f"Cache key mismatch: expected {expected_key}, got {get_calls[0][1]}"
+        assert get_calls[0][1] == expected_key, (
+            f"Cache key mismatch: expected {expected_key}, got {get_calls[0][1]}"
+        )
 
 
 @pytest.mark.asyncio
@@ -511,9 +511,9 @@ async def test_cache_ttl_tournament_code(async_client: AsyncClient):
     from app.config import settings
 
     # Verify the configured TTL
-    assert (
-        settings.cache_ttl_tournament_code == 300
-    ), f"Tournament code TTL should be 300 seconds, got {settings.cache_ttl_tournament_code}"
+    assert settings.cache_ttl_tournament_code == 300, (
+        f"Tournament code TTL should be 300 seconds, got {settings.cache_ttl_tournament_code}"
+    )
 
 
 @pytest.mark.asyncio
@@ -525,9 +525,9 @@ async def test_cache_ttl_tournament_lobby_events(async_client: AsyncClient):
     from app.config import settings
 
     # Verify the configured TTL
-    assert (
-        settings.cache_ttl_tournament_lobby_events == 30
-    ), f"Lobby events TTL should be 30 seconds, got {settings.cache_ttl_tournament_lobby_events}"
+    assert settings.cache_ttl_tournament_lobby_events == 30, (
+        f"Lobby events TTL should be 30 seconds, got {settings.cache_ttl_tournament_lobby_events}"
+    )
 
 
 @pytest.mark.asyncio
