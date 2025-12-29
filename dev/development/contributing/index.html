@@ -528,6 +528,13 @@
 <nav aria-label="Development Workflow" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
+<a class="md-nav__link" href="#git-flow-branching-strategy">
+<span class="md-ellipsis">
+      Git Flow Branching Strategy
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#1-create-a-branch">
 <span class="md-ellipsis">
       1. Create a Branch
@@ -801,6 +808,13 @@
 <nav aria-label="Development Workflow" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
+<a class="md-nav__link" href="#git-flow-branching-strategy">
+<span class="md-ellipsis">
+      Git Flow Branching Strategy
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#1-create-a-branch">
 <span class="md-ellipsis">
       1. Create a Branch
@@ -1042,19 +1056,34 @@ docker-compose up -d redis
 └── scripts/                 # Utility scripts
 </code></pre>
 <h2 id="development-workflow">Development Workflow<a class="headerlink" href="#development-workflow" title="Permanent link">¶</a></h2>
+<h3 id="git-flow-branching-strategy">Git Flow Branching Strategy<a class="headerlink" href="#git-flow-branching-strategy" title="Permanent link">¶</a></h3>
+<p>This project follows <strong>Git Flow</strong> branching strategy. Please read <a href="../git-workflow/">Git Flow Branching Strategy</a> for complete details.</p>
+<p><strong>Branch Structure</strong>:
+- <code>main</code> - Production-ready code (always deployable)
+- <code>develop</code> - Integration branch for all features
+- <code>feature/*</code> - New features (branch from <code>develop</code>)
+- <code>fix/*</code> - Bug fixes (branch from <code>develop</code>)
+- <code>hotfix/*</code> - Urgent production fixes (branch from <code>main</code>)
+- <code>refactor/*</code> - Code refactoring (branch from <code>develop</code>)
+- <code>docs/*</code> - Documentation changes (branch from <code>develop</code>)
+- <code>test/*</code> - Test additions (branch from <code>develop</code>)</p>
 <h3 id="1-create-a-branch">1. Create a Branch<a class="headerlink" href="#1-create-a-branch" title="Permanent link">¶</a></h3>
-<p>Create a feature branch from <code>main</code> or <code>develop</code>:</p>
-<pre><code class="language-bash">git checkout -b feat/your-feature-name
-# or
+<p><strong>For new features or bug fixes</strong>, branch from <code>develop</code>:</p>
+<pre><code class="language-bash"># Ensure you're on develop
+git checkout develop
+git pull origin develop
+
+# Create a feature branch
+git checkout -b feature/your-feature-name
+
+# Or create a fix branch
 git checkout -b fix/your-bug-fix
 </code></pre>
-<p><strong>Branch naming conventions</strong>:
-- <code>feat/</code> - New features
-- <code>fix/</code> - Bug fixes
-- <code>docs/</code> - Documentation changes
-- <code>refactor/</code> - Code refactoring
-- <code>test/</code> - Test additions or modifications
-- <code>chore/</code> - Maintenance tasks</p>
+<p><strong>For urgent production fixes</strong>, branch from <code>main</code>:</p>
+<pre><code class="language-bash">git checkout main
+git pull origin main
+git checkout -b hotfix/urgent-fix
+</code></pre>
 <h3 id="2-make-your-changes">2. Make Your Changes<a class="headerlink" href="#2-make-your-changes" title="Permanent link">¶</a></h3>
 <ul>
 <li>Follow the existing code style and patterns</li>
@@ -1086,8 +1115,15 @@ git commit -m "docs: update installation instructions"
 - Limit first line to 72 characters
 - Reference issues and pull requests when relevant</p>
 <h3 id="5-push-and-create-pull-request">5. Push and Create Pull Request<a class="headerlink" href="#5-push-and-create-pull-request" title="Permanent link">¶</a></h3>
-<pre><code class="language-bash">git push origin feat/your-feature-name
+<pre><code class="language-bash">git push origin feature/your-feature-name
 </code></pre>
+<p><strong>Pull Request Guidelines</strong>:
+- <strong>Target branch</strong>: <code>develop</code> for <code>feature/*</code>, <code>fix/*</code>, <code>refactor/*</code>, <code>docs/*</code>, <code>test/*</code> branches
+- <strong>Target branch</strong>: <code>main</code> for <code>hotfix/*</code> branches (must also be merged to <code>develop</code>)
+- Include clear title and description
+- Reference related issues
+- Ensure all CI checks pass
+- Get at least one maintainer approval</p>
 <p>Then open a pull request on GitHub with:</p>
 <ul>
 <li>Clear title describing the change</li>
