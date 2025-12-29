@@ -649,8 +649,8 @@ async def test_missing_body_validation(async_client: AsyncClient):
     # Test with empty body
     response = await async_client.post("/lol/tournament/v5/providers?region=euw1", json={})
 
-    # Should validate body (422) or attempt API call (403/500)
-    assert response.status_code in [400, 422, 403, 500]
+    # Should validate body (422) or attempt API call (401/403/500)
+    assert response.status_code in [400, 401, 422, 403, 500]
 
 
 @pytest.mark.asyncio

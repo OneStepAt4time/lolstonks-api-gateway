@@ -139,15 +139,18 @@ def pytest_addoption(parser):
         help="Environment to test: prod, dev, or both (default: prod)",
     )
     # Add --base-url option (may already be registered by pytest-playwright)
-    # Use a flag to track if we added it to avoid duplicate errors
-    if not hasattr(pytest_addoption, "_base_url_added"):
+    # If it exists, pytest-playwright already registered it, so skip
+    try:
+        # Try to add it - if it already exists, this will raise ValueError
         parser.addoption(
             "--base-url",
             action="store",
             default=None,
             help="Override base URL for local testing (e.g., http://127.0.0.1:8000)",
         )
-        pytest_addoption._base_url_added = True
+    except ValueError:
+        # Option already registered by pytest-playwright, ignore
+        pass
 
 
 # ============================================================================
