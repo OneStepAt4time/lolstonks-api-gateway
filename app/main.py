@@ -29,6 +29,8 @@ from app.routers import (
     clash,
     security,
     challenges,
+    tournament,
+    tournament_stub,
 )
 from app.routers.ddragon import (
     additional as ddragon_additional,
@@ -114,7 +116,7 @@ app = FastAPI(
     - Multi-provider fallback support
     - Comprehensive error monitoring and health checks
     """,
-    version="2.0.0",
+    version="2.1.0",
     lifespan=lifespan,
 )
 
@@ -206,6 +208,8 @@ app.include_router(spectator.router)  # Spectator-V5 (live games)
 app.include_router(platform.router)  # Platform/Status-V4
 app.include_router(clash.router)  # Clash-V1
 app.include_router(challenges.router)  # Challenges-V1
+app.include_router(tournament.router)  # Tournament-V5 (production)
+app.include_router(tournament_stub.router)  # Tournament-Stub-V5 (testing)
 app.include_router(security.router)  # Security monitoring
 
 # Include routers - Data Dragon
@@ -223,5 +227,5 @@ app.include_router(cdragon_tft.router)  # TFT data
 app.include_router(cdragon_additional.router)  # Chromas, ward skins, missions, lore, loot
 
 logger.info(
-    "FastAPI app initialized with all API endpoints (Riot API, Data Dragon, Community Dragon, Health Monitoring, Security)"
+    "FastAPI app initialized with all API endpoints (Riot API, Data Dragon, Community Dragon, Health Monitoring, Security, Tournament)"
 )

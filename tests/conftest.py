@@ -32,7 +32,7 @@ os.environ["REDIS_HOST"] = "localhost"
 os.environ["REDIS_PORT"] = "6379"
 os.environ["LOG_LEVEL"] = "ERROR"
 
-from app.main import app
+from app.main import app  # noqa: E402
 
 
 @pytest.fixture(scope="session")
@@ -313,12 +313,13 @@ def reset_riot_client():
 
 
 @pytest.fixture(autouse=True)
-def reset_cache():
+async def reset_cache():
     """Reset cache state between tests.
 
-    This fixture provides a hook for cache cleanup between tests. Currently
-    it serves as a placeholder for future cache reset logic but ensures that
-    any caching state doesn't leak between tests.
+    This fixture provides automatic cache cleanup between tests to prevent
+    cache leakage. It flushes the Redis database before and after each test
+    if Redis is available, and gracefully handles Redis unavailability for
+    unit tests that don't require cache integration.
 
     Autouse:
         True - Automatically runs before and after every test.
@@ -326,9 +327,10 @@ def reset_cache():
     Scope:
         function - Runs for each individual test.
 
-    Cleanup:
-        Executes after each test completes. Add cache-specific cleanup
-        logic in the post-yield section when needed.
+    Cache Behavior:
+        - Setup: Flushes Redis database before test execution
+        - Cleanup: Flushes Redis database after test completion
+        - Gracefully handles Redis unavailability (no error raised)
 
     Example:
         ```python
@@ -340,10 +342,25 @@ def reset_cache():
         ```
 
     Note:
-        If Redis or other cache backends are used in tests, add cleanup
-        logic here to ensure test isolation.
+        Redis flush only affects the configured database (settings.redis_db),
+        not other databases in the same Redis instance. Unit tests that don't
+        require Redis will skip cache cleanup without errors.
     """
-    # This fixture runs automatically before each test
-    # Add cache reset logic here if needed
+    # Setup: Clear Redis cache if available
+    try:
+        from app.cache.redis_cache import cache
+
+        await cache.flush()  # Flush current Redis DB
+    except Exception:
+        # Redis not available - skip (OK for unit tests)
+        pass
+
     yield
-    # Cleanup after test
+
+    # Cleanup: Clear cache again after test
+    try:
+        from app.cache.redis_cache import cache
+
+        await cache.flush()
+    except Exception:
+        pass

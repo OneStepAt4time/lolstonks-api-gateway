@@ -392,6 +392,278 @@ class RiotClient:
         # Return JSON response
         return response.json()  # type: ignore[no-any-return]
 
+    async def post(
+        self,
+        path: str,
+        region: str,
+        data: dict,
+        is_platform_endpoint: bool = False,
+        _attempted_keys: int = 0,
+    ) -> dict:
+        """
+        Makes a POST request to the Riot API with rate limiting and smart key fallback.
+
+        This method handles the entire process of making a POST request, including
+        acquiring a rate limit token, constructing the appropriate URL, and
+        handling potential 429 (rate limited) responses by trying all available
+        keys before waiting.
+
+        If one key is rate limited, it immediately tries the next available key.
+        Only if ALL keys are exhausted does it wait for the Retry-After period.
+
+        Args:
+            path (str): The API path for the request (e.g., "/lol/tournament/v4/codes").
+            region (str): The region to target for the request.
+            data (dict): The JSON body to send with the request.
+            is_platform_endpoint (bool): A flag indicating whether to use the platform-specific or regional endpoint.
+            _attempted_keys (int): Internal counter for tracking key fallback attempts. Do not set manually.
+
+        Returns:
+            dict: The JSON response from the API as a dictionary.
+
+        Raises:
+            httpx.HTTPStatusError: If the API returns a non-2xx and non-429 status code.
+            ValueError: If an invalid region is provided.
+
+        Example:
+            >>> await riot_client.post(
+            ...     "/lol/tournament/v4/codes",
+            ...     region="americas",
+            ...     data={"count": 10, "mapType": "SUMMONERS_RIFT"},
+            ...     is_platform_endpoint=True
+            ... )
+
+        Key Fallback Example:
+            POST request to create tournament codes:
+            1. Try Key 1 → 429 (rate limited)
+            2. Try Key 2 immediately → 200 OK ✓ (no wait!)
+        """
+        # Acquire rate limit tokens (blocks until available)
+        await rate_limiter.acquire()
+
+        # Get next API key from rotator
+        api_key = self.key_rotator.get_next_key()
+
+        # Build full URL
+        base_url = get_base_url(region, is_platform_endpoint)
+        url = f"{base_url}{path}"
+
+        logger.debug("Posting to Riot API: {} [region={}]", path, region)
+
+        # Make request with rotated API key
+        headers = {"X-Riot-Token": api_key}
+        response = await self.client.post(url, json=data, headers=headers)
+
+        # Debug: Log status code for troubleshooting
+        logger.info(f"Riot API status: {response.status_code} for {url}")
+
+        # Handle error responses with custom exceptions - use EXACT Riot messages
+        # Handle 400 (Bad Request) - Invalid request parameters
+        if response.status_code == 400:
+            error_msg = self._extract_riot_message(response, "Bad Request")
+            logger.warning(f"Bad request (400): {error_msg} [region={region}]")
+            raise BadRequestException(details=error_msg)
+
+        # Handle 401 (Unauthorized) - API key invalid or expired
+        if response.status_code == 401:
+            error_msg = self._extract_riot_message(response, "Unauthorized")
+            logger.error(f"Authentication failed (401): {error_msg} [region={region}]")
+            raise UnauthorizedException(message=error_msg)
+
+        # Handle 403 (Forbidden) - API key doesn't have access or endpoint/region restriction
+        if response.status_code == 403:
+            error_msg = self._extract_riot_message(response, "Forbidden")
+            logger.error(f"Access forbidden (403): {error_msg} [region={region}]")
+            raise ForbiddenException(message=error_msg)
+
+        # Handle 404 (Not Found) - Resource doesn't exist
+        if response.status_code == 404:
+            error_msg = self._extract_riot_message(response, "Data not found")
+            logger.info(f"Resource not found (404): {error_msg} [region={region}]")
+            raise NotFoundException(resource_type=error_msg)
+
+        # Handle 429 (rate limited) - try next key or wait if all exhausted
+        if response.status_code == 429:
+            retry_after = int(response.headers.get("Retry-After", 1))
+            total_keys = self.key_rotator.get_key_count()
+
+            # If we haven't tried all keys yet, try the next one immediately
+            if _attempted_keys + 1 < total_keys:
+                logger.warning(
+                    f"Rate limited (429), trying next key ({_attempted_keys + 1}/{total_keys} keys attempted)"
+                )
+                # Immediately retry with next key (no sleep!)
+                return await self.post(
+                    path, region, data, is_platform_endpoint, _attempted_keys=_attempted_keys + 1
+                )
+
+            # All keys exhausted - raise rate limit exception with exact Riot message
+            error_msg = self._extract_riot_message(response, "Rate limit exceeded")
+            logger.warning(
+                f"All {total_keys} keys rate limited (429): {error_msg} [retry_after={retry_after}s]"
+            )
+            raise RateLimitException(retry_after=retry_after, message=error_msg)
+
+        # Handle 500 (Internal Server Error) - Riot API server error
+        if response.status_code == 500:
+            error_msg = self._extract_riot_message(response, "Internal server error")
+            logger.error(f"Server error (500): {error_msg} [region={region}]")
+            raise InternalServerException(error_type=error_msg)
+
+        # Handle 503 (Service Unavailable) - Riot API is down or under maintenance
+        if response.status_code == 503:
+            error_msg = self._extract_riot_message(response, "Service unavailable")
+            logger.error(f"Service unavailable (503): {error_msg} [region={region}]")
+            raise ServiceUnavailableException(message=error_msg)
+
+        # Handle other HTTP errors
+        if response.status_code >= 400:
+            error_msg = self._extract_riot_message(response, f"HTTP {response.status_code}")
+            logger.error(f"{error_msg} [region={region}]")
+            if response.status_code >= 500:
+                raise InternalServerException(error_type=error_msg)
+            else:
+                raise BadRequestException(details=error_msg)
+
+        # Return JSON response
+        return response.json()  # type: ignore[no-any-return]
+
+    async def put(
+        self,
+        path: str,
+        region: str,
+        data: dict,
+        is_platform_endpoint: bool = False,
+        _attempted_keys: int = 0,
+    ) -> dict:
+        """
+        Makes a PUT request to the Riot API with rate limiting and smart key fallback.
+
+        This method handles the entire process of making a PUT request, including
+        acquiring a rate limit token, constructing the appropriate URL, and
+        handling potential 429 (rate limited) responses by trying all available
+        keys before waiting.
+
+        If one key is rate limited, it immediately tries the next available key.
+        Only if ALL keys are exhausted does it wait for the Retry-After period.
+
+        Args:
+            path (str): The API path for the request (e.g., "/lol/tournament/v4/codes/{code}").
+            region (str): The region to target for the request.
+            data (dict): The JSON body to send with the request.
+            is_platform_endpoint (bool): A flag indicating whether to use the platform-specific or regional endpoint.
+            _attempted_keys (int): Internal counter for tracking key fallback attempts. Do not set manually.
+
+        Returns:
+            dict: The JSON response from the API as a dictionary.
+
+        Raises:
+            httpx.HTTPStatusError: If the API returns a non-2xx and non-429 status code.
+            ValueError: If an invalid region is provided.
+
+        Example:
+            >>> await riot_client.put(
+            ...     "/lol/tournament/v4/codes/TOURNAMENT_CODE123",
+            ...     region="americas",
+            ...     data={"pickType": "TOURNAMENT_DRAFT"},
+            ...     is_platform_endpoint=True
+            ... )
+
+        Key Fallback Example:
+            PUT request to update tournament codes:
+            1. Try Key 1 → 429 (rate limited)
+            2. Try Key 2 immediately → 200 OK ✓ (no wait!)
+        """
+        # Acquire rate limit tokens (blocks until available)
+        await rate_limiter.acquire()
+
+        # Get next API key from rotator
+        api_key = self.key_rotator.get_next_key()
+
+        # Build full URL
+        base_url = get_base_url(region, is_platform_endpoint)
+        url = f"{base_url}{path}"
+
+        logger.debug("Putting to Riot API: {} [region={}]", path, region)
+
+        # Make request with rotated API key
+        headers = {"X-Riot-Token": api_key}
+        response = await self.client.put(url, json=data, headers=headers)
+
+        # Debug: Log status code for troubleshooting
+        logger.info(f"Riot API status: {response.status_code} for {url}")
+
+        # Handle error responses with custom exceptions - use EXACT Riot messages
+        # Handle 400 (Bad Request) - Invalid request parameters
+        if response.status_code == 400:
+            error_msg = self._extract_riot_message(response, "Bad Request")
+            logger.warning(f"Bad request (400): {error_msg} [region={region}]")
+            raise BadRequestException(details=error_msg)
+
+        # Handle 401 (Unauthorized) - API key invalid or expired
+        if response.status_code == 401:
+            error_msg = self._extract_riot_message(response, "Unauthorized")
+            logger.error(f"Authentication failed (401): {error_msg} [region={region}]")
+            raise UnauthorizedException(message=error_msg)
+
+        # Handle 403 (Forbidden) - API key doesn't have access or endpoint/region restriction
+        if response.status_code == 403:
+            error_msg = self._extract_riot_message(response, "Forbidden")
+            logger.error(f"Access forbidden (403): {error_msg} [region={region}]")
+            raise ForbiddenException(message=error_msg)
+
+        # Handle 404 (Not Found) - Resource doesn't exist
+        if response.status_code == 404:
+            error_msg = self._extract_riot_message(response, "Data not found")
+            logger.info(f"Resource not found (404): {error_msg} [region={region}]")
+            raise NotFoundException(resource_type=error_msg)
+
+        # Handle 429 (rate limited) - try next key or wait if all exhausted
+        if response.status_code == 429:
+            retry_after = int(response.headers.get("Retry-After", 1))
+            total_keys = self.key_rotator.get_key_count()
+
+            # If we haven't tried all keys yet, try the next one immediately
+            if _attempted_keys + 1 < total_keys:
+                logger.warning(
+                    f"Rate limited (429), trying next key ({_attempted_keys + 1}/{total_keys} keys attempted)"
+                )
+                # Immediately retry with next key (no sleep!)
+                return await self.put(
+                    path, region, data, is_platform_endpoint, _attempted_keys=_attempted_keys + 1
+                )
+
+            # All keys exhausted - raise rate limit exception with exact Riot message
+            error_msg = self._extract_riot_message(response, "Rate limit exceeded")
+            logger.warning(
+                f"All {total_keys} keys rate limited (429): {error_msg} [retry_after={retry_after}s]"
+            )
+            raise RateLimitException(retry_after=retry_after, message=error_msg)
+
+        # Handle 500 (Internal Server Error) - Riot API server error
+        if response.status_code == 500:
+            error_msg = self._extract_riot_message(response, "Internal server error")
+            logger.error(f"Server error (500): {error_msg} [region={region}]")
+            raise InternalServerException(error_type=error_msg)
+
+        # Handle 503 (Service Unavailable) - Riot API is down or under maintenance
+        if response.status_code == 503:
+            error_msg = self._extract_riot_message(response, "Service unavailable")
+            logger.error(f"Service unavailable (503): {error_msg} [region={region}]")
+            raise ServiceUnavailableException(message=error_msg)
+
+        # Handle other HTTP errors
+        if response.status_code >= 400:
+            error_msg = self._extract_riot_message(response, f"HTTP {response.status_code}")
+            logger.error(f"{error_msg} [region={region}]")
+            if response.status_code >= 500:
+                raise InternalServerException(error_type=error_msg)
+            else:
+                raise BadRequestException(details=error_msg)
+
+        # Return JSON response
+        return response.json()  # type: ignore[no-any-return]
+
 
 # Global client instance
 riot_client = RiotClient()
