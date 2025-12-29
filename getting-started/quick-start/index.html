@@ -6,24 +6,25 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="Unified League of Legends API Gateway with caching, rate limiting, and comprehensive monitoring" name="description"/>
-<link href="getting-started/installation/" rel="next"/>
-<link href="assets/logo.png" rel="icon"/>
+<link href="../installation/" rel="prev"/>
+<link href="../configuration/" rel="next"/>
+<link href="../../assets/logo.png" rel="icon"/>
 <meta content="mkdocs-1.6.1, mkdocs-material-9.6.23" name="generator"/>
-<title>LOLStonks API Gateway</title>
-<link href="assets/stylesheets/main.84d31ad4.min.css" rel="stylesheet"/>
-<link href="assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
+<title>Quick Start - LOLStonks API Gateway</title>
+<link href="../../assets/stylesheets/main.84d31ad4.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
 <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
-<link href="assets/_mkdocstrings.css" rel="stylesheet"/>
-<script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<link href="../../assets/_mkdocstrings.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
 </head>
 <body data-md-color-accent="blue" data-md-color-primary="blue" data-md-color-scheme="default" dir="ltr">
 <input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#lolstonks-api-gateway">
+<a class="md-skip" href="#quick-start">
           Skip to content
         </a>
 </div>
@@ -31,8 +32,8 @@
 </div>
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
 <nav aria-label="Header" class="md-header__inner md-grid">
-<a aria-label="LOLStonks API Gateway" class="md-header__button md-logo" data-md-component="logo" href="." title="LOLStonks API Gateway">
-<img alt="logo" src="assets/logo.png"/>
+<a aria-label="LOLStonks API Gateway" class="md-header__button md-logo" data-md-component="logo" href="../.." title="LOLStonks API Gateway">
+<img alt="logo" src="../../assets/logo.png"/>
 </a>
 <label class="md-header__button md-icon" for="__drawer">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
@@ -47,7 +48,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              Home
+              Quick Start
             
           </span>
 </div>
@@ -109,8 +110,8 @@
 <nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
 <div class="md-grid">
 <ul class="md-tabs__list">
-<li class="md-tabs__item md-tabs__item--active">
-<a class="md-tabs__link" href=".">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
         
   
   
@@ -120,8 +121,8 @@
 
       </a>
 </li>
-<li class="md-tabs__item">
-<a class="md-tabs__link" href="getting-started/installation/">
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../installation/">
           
   
   
@@ -132,7 +133,7 @@
         </a>
 </li>
 <li class="md-tabs__item">
-<a class="md-tabs__link" href="api/openapi-spec/">
+<a class="md-tabs__link" href="../../api/openapi-spec/">
           
   
   
@@ -143,7 +144,7 @@
         </a>
 </li>
 <li class="md-tabs__item">
-<a class="md-tabs__link" href="architecture/overview/">
+<a class="md-tabs__link" href="../../architecture/overview/">
           
   
   
@@ -154,7 +155,7 @@
         </a>
 </li>
 <li class="md-tabs__item">
-<a class="md-tabs__link" href="operations/monitoring/">
+<a class="md-tabs__link" href="../../operations/monitoring/">
           
   
   
@@ -165,7 +166,7 @@
         </a>
 </li>
 <li class="md-tabs__item">
-<a class="md-tabs__link" href="development/contributing/">
+<a class="md-tabs__link" href="../../development/contributing/">
           
   
   
@@ -187,8 +188,8 @@
 <div class="md-sidebar__inner">
 <nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
 <label class="md-nav__title" for="__drawer">
-<a aria-label="LOLStonks API Gateway" class="md-nav__button md-logo" data-md-component="logo" href="." title="LOLStonks API Gateway">
-<img alt="logo" src="assets/logo.png"/>
+<a aria-label="LOLStonks API Gateway" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="LOLStonks API Gateway">
+<img alt="logo" src="../../assets/logo.png"/>
 </a>
     LOLStonks API Gateway
   </label>
@@ -203,18 +204,49 @@
 </a>
 </div>
 <ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item md-nav__item--active">
-<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
-<label class="md-nav__link md-nav__link--active" for="__toc">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
 <span class="md-ellipsis">
     Home
     
   </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+<span class="md-ellipsis">
+    Getting Started
+    
+  </span>
 <span class="md-nav__icon md-icon"></span>
 </label>
-<a class="md-nav__link md-nav__link--active" href=".">
+<nav aria-expanded="true" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../installation/">
 <span class="md-ellipsis">
-    Home
+    Installation
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    Quick Start
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    Quick Start
     
   </span>
 </a>
@@ -225,93 +257,43 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#enterprise-features">
+<a class="md-nav__link" href="#prerequisites">
 <span class="md-ellipsis">
-      Enterprise Features
+      Prerequisites
     </span>
 </a>
-<nav aria-label="Enterprise Features" class="md-nav">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#start-the-gateway">
+<span class="md-ellipsis">
+      Start the Gateway
+    </span>
+</a>
+<nav aria-label="Start the Gateway" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#performance-scalability">
+<a class="md-nav__link" href="#option-1-development-mode">
 <span class="md-ellipsis">
-      Performance &amp; Scalability
+      Option 1: Development Mode
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#reliability-resilience">
+<a class="md-nav__link" href="#option-2-production-mode">
 <span class="md-ellipsis">
-      Reliability &amp; Resilience
+      Option 2: Production Mode
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#intelligent-caching">
+<a class="md-nav__link" href="#option-3-docker">
 <span class="md-ellipsis">
-      Intelligent Caching
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#observability-monitoring">
-<span class="md-ellipsis">
-      Observability &amp; Monitoring
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#developer-experience">
-<span class="md-ellipsis">
-      Developer Experience
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#production-ready">
-<span class="md-ellipsis">
-      Production Ready
+      Option 3: Docker
     </span>
 </a>
 </li>
 </ul>
 </nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#quick-start">
-<span class="md-ellipsis">
-      Quick Start
-    </span>
-</a>
-<nav aria-label="Quick Start" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#system-requirements">
-<span class="md-ellipsis">
-      System Requirements
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#installation-with-uv-recommended">
-<span class="md-ellipsis">
-      Installation with UV (Recommended)
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#configuration">
-<span class="md-ellipsis">
-      Configuration
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#launch-the-gateway">
-<span class="md-ellipsis">
-      Launch the Gateway
-    </span>
-</a>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#verify-installation">
@@ -319,57 +301,19 @@
       Verify Installation
     </span>
 </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#production-deployment">
-<span class="md-ellipsis">
-      Production Deployment
-    </span>
-</a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#documentation">
-<span class="md-ellipsis">
-      Documentation
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#quick-links">
-<span class="md-ellipsis">
-      Quick Links
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#example-usage">
-<span class="md-ellipsis">
-      Example Usage
-    </span>
-</a>
-<nav aria-label="Example Usage" class="md-nav">
+<nav aria-label="Verify Installation" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#get-summoner-by-name">
+<a class="md-nav__link" href="#health-check">
 <span class="md-ellipsis">
-      Get Summoner by Name
+      Health Check
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#get-current-match">
+<a class="md-nav__link" href="#interactive-documentation">
 <span class="md-ellipsis">
-      Get Current Match
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#get-match-history">
-<span class="md-ellipsis">
-      Get Match History
+      Interactive Documentation
     </span>
 </a>
 </li>
@@ -377,31 +321,70 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#architecture-overview">
+<a class="md-nav__link" href="#basic-usage-examples">
 <span class="md-ellipsis">
-      Architecture Overview
+      Basic Usage Examples
     </span>
 </a>
-<nav aria-label="Architecture Overview" class="md-nav">
+<nav aria-label="Basic Usage Examples" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#core-components">
+<a class="md-nav__link" href="#1-get-summoner-information">
 <span class="md-ellipsis">
-      Core Components
+      1. Get Summoner Information
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#supported-providers">
+<a class="md-nav__link" href="#2-get-current-match">
 <span class="md-ellipsis">
-      Supported Providers
+      2. Get Current Match
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#key-features">
+<a class="md-nav__link" href="#3-get-match-history">
 <span class="md-ellipsis">
-      Key Features
+      3. Get Match History
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-get-league-information">
+<span class="md-ellipsis">
+      4. Get League Information
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-get-champion-mastery">
+<span class="md-ellipsis">
+      5. Get Champion Mastery
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#python-client-examples">
+<span class="md-ellipsis">
+      Python Client Examples
+    </span>
+</a>
+<nav aria-label="Python Client Examples" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#using-httpx-recommended">
+<span class="md-ellipsis">
+      Using httpx (Recommended)
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#using-requests-synchronous">
+<span class="md-ellipsis">
+      Using requests (Synchronous)
     </span>
 </a>
 </li>
@@ -409,62 +392,81 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#contributing">
+<a class="md-nav__link" href="#common-operations">
 <span class="md-ellipsis">
-      Contributing
+      Common Operations
+    </span>
+</a>
+<nav aria-label="Common Operations" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#batch-operations">
+<span class="md-ellipsis">
+      Batch Operations
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#license">
+<a class="md-nav__link" href="#error-handling">
 <span class="md-ellipsis">
-      License
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#development-status">
-<span class="md-ellipsis">
-      Development Status
+      Error Handling
     </span>
 </a>
 </li>
 </ul>
 </nav>
 </li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_2" type="checkbox"/>
-<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
-<span class="md-ellipsis">
-    Getting Started
-    
-  </span>
-<span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
-<label class="md-nav__title" for="__nav_2">
-<span class="md-nav__icon md-icon"></span>
-            Getting Started
-          </label>
-<ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="getting-started/installation/">
+<a class="md-nav__link" href="#monitoring-the-gateway">
 <span class="md-ellipsis">
-    Installation
-    
-  </span>
+      Monitoring the Gateway
+    </span>
+</a>
+<nav aria-label="Monitoring the Gateway" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#health-checks">
+<span class="md-ellipsis">
+      Health Checks
+    </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="getting-started/quick-start/">
+<a class="md-nav__link" href="#log-monitoring">
 <span class="md-ellipsis">
-    Quick Start
-    
-  </span>
+      Log Monitoring
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#performance-tips">
+<span class="md-ellipsis">
+      Performance Tips
+    </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="getting-started/configuration/">
+<a class="md-nav__link" href="#next-steps">
+<span class="md-ellipsis">
+      Next Steps
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#troubleshooting">
+<span class="md-ellipsis">
+      Troubleshooting
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../configuration/">
 <span class="md-ellipsis">
     Configuration
     
@@ -472,7 +474,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="getting-started/deployment/">
+<a class="md-nav__link" href="../deployment/">
 <span class="md-ellipsis">
     Production Deployment
     
@@ -498,7 +500,7 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="api/openapi-spec/">
+<a class="md-nav__link" href="../../api/openapi-spec/">
 <span class="md-ellipsis">
     OpenAPI Specification
     
@@ -506,7 +508,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="api/overview/">
+<a class="md-nav__link" href="../../api/overview/">
 <span class="md-ellipsis">
     Overview
     
@@ -514,7 +516,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="api/providers/">
+<a class="md-nav__link" href="../../api/providers/">
 <span class="md-ellipsis">
     Providers
     
@@ -522,7 +524,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="api/riot-client/">
+<a class="md-nav__link" href="../../api/riot-client/">
 <span class="md-ellipsis">
     Riot Client
     
@@ -530,7 +532,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="api/models/">
+<a class="md-nav__link" href="../../api/models/">
 <span class="md-ellipsis">
     Models
     
@@ -538,7 +540,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="api/routers/">
+<a class="md-nav__link" href="../../api/routers/">
 <span class="md-ellipsis">
     Routers
     
@@ -546,7 +548,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="api/cache/">
+<a class="md-nav__link" href="../../api/cache/">
 <span class="md-ellipsis">
     Cache
     
@@ -554,7 +556,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="api/security/">
+<a class="md-nav__link" href="../../api/security/">
 <span class="md-ellipsis">
     Security
     
@@ -580,7 +582,7 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="architecture/overview/">
+<a class="md-nav__link" href="../../architecture/overview/">
 <span class="md-ellipsis">
     Overview
     
@@ -588,7 +590,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="architecture/system-overview/">
+<a class="md-nav__link" href="../../architecture/system-overview/">
 <span class="md-ellipsis">
     System Overview
     
@@ -596,7 +598,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="architecture/data-flow/">
+<a class="md-nav__link" href="../../architecture/data-flow/">
 <span class="md-ellipsis">
     Data Flow
     
@@ -604,7 +606,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="architecture/implementation-details/">
+<a class="md-nav__link" href="../../architecture/implementation-details/">
 <span class="md-ellipsis">
     Implementation Details
     
@@ -612,7 +614,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="architecture/models/">
+<a class="md-nav__link" href="../../architecture/models/">
 <span class="md-ellipsis">
     Data Models
     
@@ -638,7 +640,7 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="operations/monitoring/">
+<a class="md-nav__link" href="../../operations/monitoring/">
 <span class="md-ellipsis">
     Monitoring
     
@@ -646,7 +648,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="operations/troubleshooting/">
+<a class="md-nav__link" href="../../operations/troubleshooting/">
 <span class="md-ellipsis">
     Troubleshooting
     
@@ -654,7 +656,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="operations/security/">
+<a class="md-nav__link" href="../../operations/security/">
 <span class="md-ellipsis">
     Security
     
@@ -680,7 +682,7 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="development/contributing/">
+<a class="md-nav__link" href="../../development/contributing/">
 <span class="md-ellipsis">
     Contributing
     
@@ -688,7 +690,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="development/changelog-guide/">
+<a class="md-nav__link" href="../../development/changelog-guide/">
 <span class="md-ellipsis">
     Changelog Guide
     
@@ -696,7 +698,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="development/versioning/">
+<a class="md-nav__link" href="../../development/versioning/">
 <span class="md-ellipsis">
     Versioning
     
@@ -704,7 +706,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="development/releases/">
+<a class="md-nav__link" href="../../development/releases/">
 <span class="md-ellipsis">
     Releases
     
@@ -712,7 +714,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="development/testing/">
+<a class="md-nav__link" href="../../development/testing/">
 <span class="md-ellipsis">
     Testing
     
@@ -720,7 +722,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="development/documentation/">
+<a class="md-nav__link" href="../../development/documentation/">
 <span class="md-ellipsis">
     Documentation
     
@@ -745,93 +747,43 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#enterprise-features">
+<a class="md-nav__link" href="#prerequisites">
 <span class="md-ellipsis">
-      Enterprise Features
+      Prerequisites
     </span>
 </a>
-<nav aria-label="Enterprise Features" class="md-nav">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#start-the-gateway">
+<span class="md-ellipsis">
+      Start the Gateway
+    </span>
+</a>
+<nav aria-label="Start the Gateway" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#performance-scalability">
+<a class="md-nav__link" href="#option-1-development-mode">
 <span class="md-ellipsis">
-      Performance &amp; Scalability
+      Option 1: Development Mode
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#reliability-resilience">
+<a class="md-nav__link" href="#option-2-production-mode">
 <span class="md-ellipsis">
-      Reliability &amp; Resilience
+      Option 2: Production Mode
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#intelligent-caching">
+<a class="md-nav__link" href="#option-3-docker">
 <span class="md-ellipsis">
-      Intelligent Caching
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#observability-monitoring">
-<span class="md-ellipsis">
-      Observability &amp; Monitoring
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#developer-experience">
-<span class="md-ellipsis">
-      Developer Experience
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#production-ready">
-<span class="md-ellipsis">
-      Production Ready
+      Option 3: Docker
     </span>
 </a>
 </li>
 </ul>
 </nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#quick-start">
-<span class="md-ellipsis">
-      Quick Start
-    </span>
-</a>
-<nav aria-label="Quick Start" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#system-requirements">
-<span class="md-ellipsis">
-      System Requirements
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#installation-with-uv-recommended">
-<span class="md-ellipsis">
-      Installation with UV (Recommended)
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#configuration">
-<span class="md-ellipsis">
-      Configuration
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#launch-the-gateway">
-<span class="md-ellipsis">
-      Launch the Gateway
-    </span>
-</a>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#verify-installation">
@@ -839,57 +791,19 @@
       Verify Installation
     </span>
 </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#production-deployment">
-<span class="md-ellipsis">
-      Production Deployment
-    </span>
-</a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#documentation">
-<span class="md-ellipsis">
-      Documentation
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#quick-links">
-<span class="md-ellipsis">
-      Quick Links
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#example-usage">
-<span class="md-ellipsis">
-      Example Usage
-    </span>
-</a>
-<nav aria-label="Example Usage" class="md-nav">
+<nav aria-label="Verify Installation" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#get-summoner-by-name">
+<a class="md-nav__link" href="#health-check">
 <span class="md-ellipsis">
-      Get Summoner by Name
+      Health Check
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#get-current-match">
+<a class="md-nav__link" href="#interactive-documentation">
 <span class="md-ellipsis">
-      Get Current Match
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#get-match-history">
-<span class="md-ellipsis">
-      Get Match History
+      Interactive Documentation
     </span>
 </a>
 </li>
@@ -897,31 +811,45 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#architecture-overview">
+<a class="md-nav__link" href="#basic-usage-examples">
 <span class="md-ellipsis">
-      Architecture Overview
+      Basic Usage Examples
     </span>
 </a>
-<nav aria-label="Architecture Overview" class="md-nav">
+<nav aria-label="Basic Usage Examples" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#core-components">
+<a class="md-nav__link" href="#1-get-summoner-information">
 <span class="md-ellipsis">
-      Core Components
+      1. Get Summoner Information
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#supported-providers">
+<a class="md-nav__link" href="#2-get-current-match">
 <span class="md-ellipsis">
-      Supported Providers
+      2. Get Current Match
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#key-features">
+<a class="md-nav__link" href="#3-get-match-history">
 <span class="md-ellipsis">
-      Key Features
+      3. Get Match History
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-get-league-information">
+<span class="md-ellipsis">
+      4. Get League Information
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-get-champion-mastery">
+<span class="md-ellipsis">
+      5. Get Champion Mastery
     </span>
 </a>
 </li>
@@ -929,23 +857,98 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#contributing">
+<a class="md-nav__link" href="#python-client-examples">
 <span class="md-ellipsis">
-      Contributing
+      Python Client Examples
+    </span>
+</a>
+<nav aria-label="Python Client Examples" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#using-httpx-recommended">
+<span class="md-ellipsis">
+      Using httpx (Recommended)
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#license">
+<a class="md-nav__link" href="#using-requests-synchronous">
 <span class="md-ellipsis">
-      License
+      Using requests (Synchronous)
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#common-operations">
+<span class="md-ellipsis">
+      Common Operations
+    </span>
+</a>
+<nav aria-label="Common Operations" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#batch-operations">
+<span class="md-ellipsis">
+      Batch Operations
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#development-status">
+<a class="md-nav__link" href="#error-handling">
 <span class="md-ellipsis">
-      Development Status
+      Error Handling
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#monitoring-the-gateway">
+<span class="md-ellipsis">
+      Monitoring the Gateway
+    </span>
+</a>
+<nav aria-label="Monitoring the Gateway" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#health-checks">
+<span class="md-ellipsis">
+      Health Checks
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#log-monitoring">
+<span class="md-ellipsis">
+      Log Monitoring
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#performance-tips">
+<span class="md-ellipsis">
+      Performance Tips
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#next-steps">
+<span class="md-ellipsis">
+      Next Steps
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#troubleshooting">
+<span class="md-ellipsis">
+      Troubleshooting
     </span>
 </a>
 </li>
@@ -956,191 +959,250 @@
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<h1 id="lolstonks-api-gateway">LOLStonks API Gateway<a class="headerlink" href="#lolstonks-api-gateway" title="Permanent link">¶</a></h1>
-<p><img alt="LOLStonks Logo" src="assets/logo.png"/></p>
-<p><strong>Enterprise-grade League of Legends API Gateway</strong> with intelligent caching, rate limiting, and comprehensive monitoring for production workloads.</p>
-<hr/>
-<h2 id="enterprise-features">Enterprise Features<a class="headerlink" href="#enterprise-features" title="Permanent link">¶</a></h2>
-<h3 id="performance-scalability">Performance &amp; Scalability<a class="headerlink" href="#performance-scalability" title="Permanent link">¶</a></h3>
+<h1 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">¶</a></h1>
+<p>Get up and running with the LOLStonks API Gateway in minutes.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
 <ul>
-<li><strong>Sub-100ms Response Times</strong>: Optimized for high-throughput applications</li>
-<li><strong>Async Architecture</strong>: Built on FastAPI with full async/await support</li>
-<li><strong>Horizontal Scaling</strong>: Stateless design enables multi-instance deployment</li>
-<li><strong>Connection Pooling</strong>: Efficient resource management for high concurrency</li>
+<li>Installation completed (see <a href="../installation/">Installation Guide</a>)</li>
+<li>Redis server running</li>
+<li>Riot API key configured in <code>.env</code></li>
 </ul>
-<h3 id="reliability-resilience">Reliability &amp; Resilience<a class="headerlink" href="#reliability-resilience" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Intelligent Rate Limiting</strong>: Token bucket algorithm ensures Riot API compliance</li>
-<li><strong>Automatic Retries</strong>: Exponential backoff for 429 responses with configurable limits</li>
-<li><strong>Circuit Breaker Pattern</strong>: Fault tolerance for external API dependencies</li>
-<li><strong>Graceful Degradation</strong>: Continue operation during partial outages</li>
-</ul>
-<h3 id="intelligent-caching">Intelligent Caching<a class="headerlink" href="#intelligent-caching" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Multi-Layer Caching</strong>: Redis-based with strategic TTL configuration</li>
-<li><strong>High Cache Hit Rates</strong>: Optimized caching strategy for frequently accessed data</li>
-<li><strong>Smart Invalidation</strong>: Automatic cache updates based on data freshness</li>
-<li><strong>Memory Optimization</strong>: Efficient cache key management and eviction policies</li>
-</ul>
-<h3 id="observability-monitoring">Observability &amp; Monitoring<a class="headerlink" href="#observability-monitoring" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Comprehensive Metrics</strong>: Prometheus-compatible metrics for full stack monitoring</li>
-<li><strong>Structured Logging</strong>: JSON-formatted logs with request tracing</li>
-<li><strong>Health Checks</strong>: Multi-level health monitoring for all dependencies</li>
-<li><strong>Performance Analytics</strong>: Real-time performance insights and alerting</li>
-</ul>
-<h3 id="developer-experience">Developer Experience<a class="headerlink" href="#developer-experience" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Type-Safe API</strong>: Full Pydantic model validation with comprehensive error handling</li>
-<li><strong>Interactive Documentation</strong>: Auto-generated OpenAPI specs with Swagger UI and ReDoc</li>
-<li><strong>Multi-Region Support</strong>: Complete coverage of all Riot API regions</li>
-<li><strong>UV Integration</strong>: Modern Python package management with fast dependency resolution</li>
-<li><strong>Provider Abstraction</strong>: Clean architecture for adding new data providers</li>
-<li><strong>Security Monitoring</strong>: Built-in security status and monitoring endpoints</li>
-</ul>
-<h3 id="production-ready">Production Ready<a class="headerlink" href="#production-ready" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Container-Native</strong>: Docker support with optimized images</li>
-<li><strong>Security Hardened</strong>: Input validation, CORS protection, and secure defaults</li>
-<li><strong>Configuration Management</strong>: Environment-based configuration with validation</li>
-<li><strong>CI/CD Integration</strong>: Automated testing, documentation generation, and deployment</li>
-</ul>
-<h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">¶</a></h2>
-<h3 id="system-requirements">System Requirements<a class="headerlink" href="#system-requirements" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Python 3.12+</strong> with UV package manager</li>
-<li><strong>Redis 6.0+</strong> for caching and session management</li>
-<li><strong>Riot Developer API key</strong> from <a href="https://developer.riotgames.com/">developer.riotgames.com</a></li>
-</ul>
-<h3 id="installation-with-uv-recommended">Installation with UV (Recommended)<a class="headerlink" href="#installation-with-uv-recommended" title="Permanent link">¶</a></h3>
-<pre><code class="language-bash"># Clone the repository
-git clone https://github.com/OneStepAt4time/lolstonks-api-gateway.git
-cd lolstonks-api-gateway
+<h2 id="start-the-gateway">Start the Gateway<a class="headerlink" href="#start-the-gateway" title="Permanent link">¶</a></h2>
+<h3 id="option-1-development-mode">Option 1: Development Mode<a class="headerlink" href="#option-1-development-mode" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash"># Activate virtual environment
+source .venv/bin/activate  # Linux/macOS
+# or
+.venv\Scripts\activate     # Windows
 
-# Install dependencies with UV
-uv pip install -e ".[docs]"
-
-# Create environment configuration
-cp .env.example .env
+# Start the server
+python -m app.main
 </code></pre>
-<h3 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">¶</a></h3>
-<p>Edit your <code>.env</code> file with your settings:</p>
-<pre><code class="language-env"># Required: Riot API Configuration
-RIOT_API_KEY=RGAPI-your-production-api-key
-RIOT_DEFAULT_REGION=euw1
+<h3 id="option-2-production-mode">Option 2: Production Mode<a class="headerlink" href="#option-2-production-mode" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash"># Using uvicorn directly
+uvicorn app.main:app --host 0.0.0.0 --port 8080
 
-# Optional: Server Configuration
-HOST=0.0.0.0
-PORT=8080
-LOG_LEVEL=INFO
-
-# Optional: Redis Configuration
-REDIS_HOST=localhost
-REDIS_PORT=6379
-REDIS_PASSWORD=
-
-# Optional: Performance Tuning
-RIOT_RATE_LIMIT_PER_SECOND=20
-RIOT_RATE_LIMIT_PER_2MIN=100
+# Using gunicorn (production)
+gunicorn app.main:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8080
 </code></pre>
-<h3 id="launch-the-gateway">Launch the Gateway<a class="headerlink" href="#launch-the-gateway" title="Permanent link">¶</a></h3>
-<pre><code class="language-bash"># Start with uvicorn (development)
-uv run uvicorn app.main:app --reload
+<h3 id="option-3-docker">Option 3: Docker<a class="headerlink" href="#option-3-docker" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash"># Using docker-compose
+docker-compose up -d
 
-# Or with the provided script
-uv run python -m app.main
+# Check logs
+docker-compose logs -f api-gateway
 </code></pre>
-<h3 id="verify-installation">Verify Installation<a class="headerlink" href="#verify-installation" title="Permanent link">¶</a></h3>
-<pre><code class="language-bash"># Health check endpoint
-curl http://127.0.0.1:8080/health
+<h2 id="verify-installation">Verify Installation<a class="headerlink" href="#verify-installation" title="Permanent link">¶</a></h2>
+<h3 id="health-check">Health Check<a class="headerlink" href="#health-check" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash">curl http://localhost:8080/health
+# Expected response: {"status":"ok"}
+</code></pre>
+<h3 id="interactive-documentation">Interactive Documentation<a class="headerlink" href="#interactive-documentation" title="Permanent link">¶</a></h3>
+<p>Open your browser and navigate to:
+- <strong>Swagger UI</strong>: http://localhost:8080/docs
+- <strong>ReDoc</strong>: http://localhost:8080/redoc</p>
+<h2 id="basic-usage-examples">Basic Usage Examples<a class="headerlink" href="#basic-usage-examples" title="Permanent link">¶</a></h2>
+<h3 id="1-get-summoner-information">1. Get Summoner Information<a class="headerlink" href="#1-get-summoner-information" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash"># Get summoner by name
+curl "http://localhost:8080/summoner/by-name/Faker?region=kr"
 
-# Expected response
+# Response example
 {
-  "status": "ok",
-  "timestamp": "2024-01-01T12:00:00.000Z",
-  "version": "2.0.0"
+  "id": "KqOw12p4b3bLp5b6p7",
+  "accountId": "3b3Lp5b6p7KqOw12p4b",
+  "puuid": "p7KqOw12p4b3bLp5b6p7",
+  "name": "Faker",
+  "profileIconId": 3188,
+  "revisionDate": 1678901234567,
+  "summonerLevel": 523
 }
-
-# Interactive documentation
-# Open http://localhost:8080/docs in your browser
 </code></pre>
-<h3 id="production-deployment">Production Deployment<a class="headerlink" href="#production-deployment" title="Permanent link">¶</a></h3>
-<p>For production deployment, see our comprehensive <a href="getting-started/deployment/">Deployment Guide</a> which covers:
-- Docker containerization
-- Process management with systemd
-- Nginx reverse proxy configuration
-- SSL/TLS setup with Let's Encrypt
-- Monitoring and alerting setup</p>
-<h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">¶</a></h2>
-<ul>
-<li><a href="getting-started/installation/">Installation Guide</a> - Detailed setup instructions</li>
-<li><a href="getting-started/quick-start/">Quick Start</a> - Basic usage examples</li>
-<li><a href="getting-started/configuration/">Configuration</a> - Environment variables and settings</li>
-<li><a href="api/overview/">API Reference</a> - Complete API documentation</li>
-<li><a href="architecture/overview/">Architecture</a> - System design and components</li>
-</ul>
-<h2 id="quick-links">Quick Links<a class="headerlink" href="#quick-links" title="Permanent link">¶</a></h2>
-<ul>
-<li><strong>Interactive API Docs</strong>: <a href="http://localhost:8080/docs">Swagger UI</a> | <a href="http://localhost:8080/redoc">ReDoc</a></li>
-<li><strong>Riot Developer Portal</strong>: <a href="https://developer.riotgames.com/">developer.riotgames.com</a></li>
-<li><strong>GitHub Repository</strong>: <a href="https://github.com/OneStepAt4time/lolstonks-api-gateway">github.com/OneStepAt4time/lolstonks-api-gateway</a></li>
-</ul>
-<h2 id="example-usage">Example Usage<a class="headerlink" href="#example-usage" title="Permanent link">¶</a></h2>
-<h3 id="get-summoner-by-name">Get Summoner by Name<a class="headerlink" href="#get-summoner-by-name" title="Permanent link">¶</a></h3>
+<h3 id="2-get-current-match">2. Get Current Match<a class="headerlink" href="#2-get-current-match" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash"># Get active game for a summoner (using encrypted PUUID)
+curl "http://localhost:8080/lol/spectator/v5/active-games/by-summoner/KqOw12p4b3bLp5b6p7?region=kr"
+
+# Response contains game information
+{
+  "gameId": 1234567890,
+  "gameMode": "CLASSIC",
+  "gameQueueConfigId": 420,
+  "participants": [...],
+  "gameLength": 542,
+  "gameStartTime": 1678901234567
+}
+</code></pre>
+<h3 id="3-get-match-history">3. Get Match History<a class="headerlink" href="#3-get-match-history" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash"># Get recent match IDs
+curl "http://localhost:8080/match/ids/by-puuid/p7KqOw12p4b3bLp5b6p7?region=kr&amp;count=5"
+
+# Response: Array of match IDs
+["KR_1234567890", "KR_1234567891", "KR_1234567892", "KR_1234567893", "KR_1234567894"]
+</code></pre>
+<h3 id="4-get-league-information">4. Get League Information<a class="headerlink" href="#4-get-league-information" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash"># Get challenger league
+curl "http://localhost:8080/league/challenger/RANKED_SOLO_5x5?region=kr"
+
+# Get master league
+curl "http://localhost:8080/league/master/RANKED_SOLO_5x5?region=kr"
+</code></pre>
+<h3 id="5-get-champion-mastery">5. Get Champion Mastery<a class="headerlink" href="#5-get-champion-mastery" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash"># Get top masteries for summoner
+curl "http://localhost:8080/champion-mastery/top/KqOw12p4b3bLp5b6p7?region=kr&amp;count=5"
+
+# Get mastery for specific champion
+curl "http://localhost:8080/champion-mastery/by-champion/KqOw12p4b3bLp5b6p7/157?region=kr"
+</code></pre>
+<h2 id="python-client-examples">Python Client Examples<a class="headerlink" href="#python-client-examples" title="Permanent link">¶</a></h2>
+<h3 id="using-httpx-recommended">Using httpx (Recommended)<a class="headerlink" href="#using-httpx-recommended" title="Permanent link">¶</a></h3>
+<pre><code class="language-python">import httpx
+import asyncio
+
+async def get_summoner_data():
+    """Get basic summoner information"""
+    async with httpx.AsyncClient() as client:
+        # Get summoner by name
+        response = await client.get(
+            "http://localhost:8080/summoner/by-name/Faker",
+            params={"region": "kr"}
+        )
+        summoner = response.json()
+        print(f"Summoner: {summoner['name']} (Level: {summoner['summonerLevel']})")
+
+        # Get current match (using encrypted PUUID)
+        response = await client.get(
+            f"http://localhost:8080/lol/spectator/v5/active-games/by-summoner/{summoner['puuid']}",
+            params={"region": "kr"}
+        )
+
+        if response.status_code == 200:
+            game = response.json()
+            print(f"Currently in game: {game['gameMode']}")
+        else:
+            print("Not currently in a game")
+
+# Run the example
+asyncio.run(get_summoner_data())
+</code></pre>
+<h3 id="using-requests-synchronous">Using requests (Synchronous)<a class="headerlink" href="#using-requests-synchronous" title="Permanent link">¶</a></h3>
+<pre><code class="language-python">import requests
+
+def get_league_data():
+    """Get challenger league information"""
+    response = requests.get(
+        "http://localhost:8080/league/challenger/RANKED_SOLO_5x5",
+        params={"region": "euw1"}
+    )
+
+    if response.status_code == 200:
+        league = response.json()
+        print(f"League: {league['name']}")
+        print(f"Tier: {league['tier']}")
+        print(f"Number of players: {len(league['entries'])}")
+
+        # Show top 3 players
+        for i, entry in enumerate(league['entries'][:3], 1):
+            print(f"{i}. {entry['summonerName']} - {entry['leaguePoints']} LP")
+
+get_league_data()
+</code></pre>
+<h2 id="common-operations">Common Operations<a class="headerlink" href="#common-operations" title="Permanent link">¶</a></h2>
+<h3 id="batch-operations">Batch Operations<a class="headerlink" href="#batch-operations" title="Permanent link">¶</a></h3>
+<pre><code class="language-python">import asyncio
+import httpx
+
+async def get_multiple_summoners(names, region="kr"):
+    """Get data for multiple summoners concurrently"""
+    async with httpx.AsyncClient() as client:
+        tasks = []
+        for name in names:
+            task = client.get(
+                "http://localhost:8080/summoner/by-name/" + name,
+                params={"region": region}
+            )
+            tasks.append(task)
+
+        responses = await asyncio.gather(*tasks)
+        return [r.json() for r in responses if r.status_code == 200]
+
+# Usage
+summoners = asyncio.run(get_multiple_summoners(["Faker", "ShowMaker", "Canyon"]))
+for summoner in summoners:
+    print(f"{summoner['name']}: Level {summoner['summonerLevel']}")
+</code></pre>
+<h3 id="error-handling">Error Handling<a class="headerlink" href="#error-handling" title="Permanent link">¶</a></h3>
 <pre><code class="language-python">import httpx
 
-response = httpx.get("http://localhost:8080/summoner/by-name/Faker?region=kr")
-summoner = response.json()
-print(f"Summoner: {summoner['name']} (Level: {summoner['summonerLevel']})")
+async def safe_api_call(endpoint, params=None):
+    """Safe API call with error handling"""
+    try:
+        async with httpx.AsyncClient() as client:
+            response = await client.get(
+                f"http://localhost:8080{endpoint}",
+                params=params
+            )
+            response.raise_for_status()
+            return response.json()
+
+    except httpx.HTTPStatusError as e:
+        if e.response.status_code == 404:
+            print("Resource not found")
+        elif e.response.status_code == 429:
+            print("Rate limit exceeded - please wait")
+        elif e.response.status_code == 503:
+            print("Service temporarily unavailable")
+        else:
+            print(f"HTTP error: {e.response.status_code}")
+        return None
+
+    except httpx.RequestError as e:
+        print(f"Request error: {e}")
+        return None
+
+# Usage
+data = await safe_api_call("/summoner/by-name/Faker", {"region": "kr"})
+if data:
+    print(f"Successfully retrieved: {data['name']}")
 </code></pre>
-<h3 id="get-current-match">Get Current Match<a class="headerlink" href="#get-current-match" title="Permanent link">¶</a></h3>
-<pre><code class="language-python">summoner_id = "summoner-id-here"
-response = httpx.get(f"http://localhost:8080/spectator/active-game/{summoner_id}?region=kr")
-game = response.json()
-print(f"Game mode: {game['gameMode']}, Game time: {game['gameLength']}s")
+<h2 id="monitoring-the-gateway">Monitoring the Gateway<a class="headerlink" href="#monitoring-the-gateway" title="Permanent link">¶</a></h2>
+<h3 id="health-checks">Health Checks<a class="headerlink" href="#health-checks" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash"># Basic health check
+curl http://localhost:8080/health
+
+# Check specific endpoints
+curl http://localhost:8080/docs  # Should load Swagger UI
+curl http://localhost:8080/redoc  # Should load ReDoc
 </code></pre>
-<h3 id="get-match-history">Get Match History<a class="headerlink" href="#get-match-history" title="Permanent link">¶</a></h3>
-<pre><code class="language-python">puuid = "player-puuid-here"
-response = httpx.get(f"http://localhost:8080/match/ids/by-puuid/{puuid}?region=euw1&amp;count=5")
-match_ids = response.json()
-print(f"Recent matches: {match_ids}")
+<h3 id="log-monitoring">Log Monitoring<a class="headerlink" href="#log-monitoring" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash"># View application logs
+python -m app.main  # Logs will appear in console
+
+# Or use docker logs if running with Docker
+docker-compose logs -f api-gateway
 </code></pre>
-<h2 id="architecture-overview">Architecture Overview<a class="headerlink" href="#architecture-overview" title="Permanent link">¶</a></h2>
-<p>The League of Legends API Gateway uses a <strong>comprehensive data source architecture</strong> to support multiple data sources:</p>
-<h3 id="core-components">Core Components<a class="headerlink" href="#core-components" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>FastAPI Application</strong>: Modern async web framework with automatic documentation</li>
-<li><strong>Provider Registry</strong>: Dynamic provider management and initialization</li>
-<li><strong>Redis Cache</strong>: High-performance caching layer for API responses</li>
-<li><strong>Match Tracking</strong>: Service to prevent duplicate match processing</li>
-<li><strong>Error Monitoring</strong>: Real-time error tracking with alerting</li>
-<li><strong>Security Middleware</strong>: Security monitoring and status reporting</li>
-</ul>
-<h3 id="supported-providers">Supported Providers<a class="headerlink" href="#supported-providers" title="Permanent link">¶</a></h3>
+<h2 id="performance-tips">Performance Tips<a class="headerlink" href="#performance-tips" title="Permanent link">¶</a></h2>
 <ol>
-<li><strong>Riot Games Developer API</strong> - Live game data, match history, summoner info</li>
-<li><strong>Data Dragon CDN</strong> - Static game data (champions, items, runes)</li>
-<li><strong>Community Dragon</strong> - Enhanced static data with additional assets</li>
+<li><strong>Use Appropriate Cache TTLs</strong>: Configure cache durations based on data volatility</li>
+<li><strong>Batch Requests</strong>: Use concurrent requests for multiple API calls</li>
+<li><strong>Region Selection</strong>: Use the correct region parameter for optimal performance</li>
+<li><strong>Error Handling</strong>: Implement proper retry logic and error handling</li>
+<li><strong>Rate Limit Awareness</strong>: Be mindful of Riot's rate limits</li>
 </ol>
-<h3 id="key-features">Key Features<a class="headerlink" href="#key-features" title="Permanent link">¶</a></h3>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">¶</a></h2>
 <ul>
-<li><strong>Provider Abstraction</strong>: Clean interface for adding new data providers</li>
-<li><strong>Multi-Region Support</strong>: Automatic routing based on region configuration</li>
-<li><strong>Intelligent Failover</strong>: Graceful degradation when providers are unavailable</li>
-<li><strong>Comprehensive Monitoring</strong>: Health checks and metrics for all components</li>
+<li>Read the <a href="../configuration/">Configuration Guide</a> for advanced settings</li>
+<li>Explore the complete <a href="../../api/overview/">API Reference</a></li>
+<li>Set up <a href="../../development/testing/">development tools</a></li>
+<li>Review the <a href="../../architecture/overview/">Architecture Overview</a></li>
 </ul>
-<h2 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">¶</a></h2>
-<p>We welcome contributions! Please see our <a href="development/contributing/">Contributing Guide</a> for details on how to get started.</p>
-<h2 id="license">License<a class="headerlink" href="#license" title="Permanent link">¶</a></h2>
-<p>This project is licensed under the MIT License - see the <a href="../LICENSE">LICENSE</a> file for details.</p>
-<h2 id="development-status">Development Status<a class="headerlink" href="#development-status" title="Permanent link">¶</a></h2>
-<ul>
-<li><strong>Stable</strong>: Core API Gateway functionality</li>
-<li><strong>Active Development</strong>: Documentation system, monitoring, and additional features</li>
-<li><strong>Production Ready</strong>: Suitable for production deployments with proper monitoring</li>
-</ul>
-<hr/>
-<p><strong>Built for the League of Legends developer community</strong></p>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">¶</a></h2>
+<p>If you encounter issues:</p>
+<ol>
+<li><strong>Connection Refused</strong>: Check if the gateway is running on the correct port</li>
+<li><strong>401 Unauthorized</strong>: Verify your Riot API key in the <code>.env</code> file</li>
+<li><strong>404 Not Found</strong>: Check the endpoint path and parameters</li>
+<li><strong>429 Rate Limited</strong>: The gateway handles this automatically, but you may need to wait</li>
+<li><strong>503 Service Unavailable</strong>: Riot API may be temporarily down</li>
+</ol>
+<p>For more help, see the <a href="../../development/testing/#troubleshooting">Development Documentation</a>.</p>
 </article>
 </div>
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
@@ -1164,8 +1226,8 @@ print(f"Recent matches: {match_ids}")
 <div class="md-dialog" data-md-component="dialog">
 <div class="md-dialog__inner md-typeset"></div>
 </div>
-<script id="__config" type="application/json">{"base": ".", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
-<script src="assets/javascripts/bundle.f55a23d4.min.js"></script>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
 <script>
         // Enhanced Mermaid Interactivity for LOLStonks Documentation
         (function() {
