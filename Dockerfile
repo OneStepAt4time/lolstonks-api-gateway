@@ -7,11 +7,12 @@ WORKDIR /app
 # Install UV package manager
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
-# Copy dependency files
+# Copy dependency files and README
 COPY pyproject.toml ./
+COPY docs/ ./docs/
 
 # Install dependencies using UV
-RUN uv pip install --system --no-cache -r pyproject.toml
+RUN uv pip install --system --no-cache -e .
 
 # Copy application code
 COPY app/ ./app/

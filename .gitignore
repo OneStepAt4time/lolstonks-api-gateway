@@ -58,6 +58,10 @@ Logs/
 htmlcov/
 .tox/
 
+# Documentation verification test outputs
+docs_verification_output/
+mkdocs.pid
+
 # Docker
 *.pid
 
@@ -65,6 +69,8 @@ htmlcov/
 .claude/
 .mcp.json
 .playwright-mcp/
+glm_settings.json
+gl_*.json
 
 # Node.js (MCP development dependencies)
 node_modules/
