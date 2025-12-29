@@ -85,6 +85,8 @@ markers = [
     "integration: marks tests as integration tests",
     "unit: marks tests as unit tests",
 ]
+# Exclude docs_verification from standard test runs (requires test-docs extras)
+norecursedirs = ["tests/docs_verification"]
 
 [tool.coverage.run]
 source = ["app"]

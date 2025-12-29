@@ -139,7 +139,8 @@ def pytest_addoption(parser):
         help="Environment to test: prod, dev, or both (default: prod)",
     )
     # Check if --base-url already registered (by pytest-playwright)
-    if not any("--base-url" in opt for opt in parser.options):
+    # Use parser.args to check existing options (pytest 8.0+ compatible)
+    if not any("--base-url" in str(arg) for arg in parser.args):
         parser.addoption(
             "--base-url",
             action="store",

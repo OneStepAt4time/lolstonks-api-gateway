@@ -422,8 +422,9 @@ async def test_tournament_code_cache_key_format(async_client: AsyncClient):
         cache_calls.append(("set", key, ttl))
 
     # Patch both Redis cache and Riot client
-    with patch("app.cache.redis_cache.cache.get", side_effect=mock_get), patch(
-        "app.cache.redis_cache.cache.set", side_effect=mock_set
+    with (
+        patch("app.cache.redis_cache.cache.get", side_effect=mock_get),
+        patch("app.cache.redis_cache.cache.set", side_effect=mock_set),
     ):
         try:
             await async_client.get(f"/lol/tournament/v5/codes/{test_code}?region={region}")
@@ -580,8 +581,10 @@ async def test_forbidden_response_format(async_client: AsyncClient):
 
     if response.status_code == 403:
         data = response.json()
-        # Should have error structure
-        assert "error" in data or "message" in data or "detail" in data
+        # Response should have status.message structure
+        assert "status" in data, "Response should have 'status' field"
+        assert "message" in data["status"], "status should have 'message' field"
+        assert data["status"]["status_code"] == 403, "status_code should be 403"
 
 
 @pytest.mark.asyncio
