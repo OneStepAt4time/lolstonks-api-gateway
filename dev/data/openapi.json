@@ -3,7 +3,7 @@
   "info": {
     "title": "LOL API Gateway",
     "description": "\n    Multi-provider API Gateway for League of Legends data.\n\n    Supports:\n    - Riot Games Developer API (live game data)\n    - Data Dragon CDN (static game data)\n    - Community Dragon (enhanced static data and assets)\n\n    Features:\n    - Intelligent caching with Redis\n    - Rate limiting and key rotation\n    - Match tracking to avoid reprocessing\n    - Multi-provider fallback support\n    - Comprehensive error monitoring and health checks\n    ",
-    "version": "2.0.0"
+    "version": "2.1.0"
   },
   "paths": {
     "/health": {

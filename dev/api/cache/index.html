@@ -1267,7 +1267,7 @@ No TTL - permanent storage backed by Redis appendonly file.</p>
         <span class="k">return</span> <span class="kc">False</span>
 
     <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"processed_matches:</span><span class="si">{</span><span class="n">region</span><span class="si">}</span><span class="s2">"</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">sismember</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">match_id</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">sismember</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">match_id</span><span class="p">)</span>
     <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
 </details>
@@ -1356,7 +1356,7 @@ No TTL - permanent storage backed by Redis appendonly file.</p>
         <span class="k">return</span>
 
     <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"processed_matches:</span><span class="si">{</span><span class="n">region</span><span class="si">}</span><span class="s2">"</span>
-    <span class="n">_</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">sadd</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">match_id</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">sadd</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">match_id</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Marked match as processed: </span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">"</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">match_id</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
 </details>
@@ -1452,7 +1452,7 @@ No TTL - permanent storage backed by Redis appendonly file.</p>
         <span class="k">return</span> <span class="mi">0</span>
 
     <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"processed_matches:</span><span class="si">{</span><span class="n">region</span><span class="si">}</span><span class="s2">"</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">scard</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">scard</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
     <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
 </details>
