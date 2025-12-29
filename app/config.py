@@ -101,6 +101,8 @@ class Settings(BaseSettings):
         cache_ttl_spectator_active (int): The cache TTL for active spectator data.
         cache_ttl_spectator_featured (int): The cache TTL for featured spectator data.
         cache_ttl_ddragon (int): The cache TTL for Data Dragon data.
+        cache_ttl_tournament_code (int): The cache TTL for tournament code details.
+        cache_ttl_tournament_lobby_events (int): The cache TTL for tournament lobby events.
         cache_ttl_default (int): The default cache TTL.
         host (str): The host to bind the server to.
         port (int): The port to bind the server to.
@@ -200,6 +202,10 @@ class Settings(BaseSettings):
 
     # Data Dragon: Static game data (champions, items, etc.)
     cache_ttl_ddragon: int = 604800  # 7 days - Static data updated per patch
+
+    # TOURNAMENT-V5: Tournament management
+    cache_ttl_tournament_code: int = 300  # 5 minutes - Tournament code details
+    cache_ttl_tournament_lobby_events: int = 30  # 30 seconds - Lobby events (very dynamic)
 
     # Default TTL for any uncategorized cache
     cache_ttl_default: int = 3600  # 1 hour

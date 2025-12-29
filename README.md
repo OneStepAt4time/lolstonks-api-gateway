@@ -105,18 +105,33 @@ curl http://127.0.0.1:8080/health
 ### Local Installation
 
 ```bash
-# Create virtual environment
-python -m venv .venv
+# Install UV package manager (if not already installed)
+# https://docs.astral.sh/uv/getting-started/installation/
+
+# Clone the repository
+git clone https://github.com/OneStepAt4time/lolstonks-api-gateway.git
+cd lolstonks-api-gateway
+
+# Configure environment
+cp .env.example .env
+# Edit .env and set your RIOT_API_KEY
+
+# Run with UV (recommended)
+uv run uvicorn app.main:app --reload --host 127.0.0.1 --port 8080
+```
+
+**Alternative (with virtual environment)**:
+```bash
+# Create virtual environment (optional)
+uv venv
 source .venv/bin/activate  # Linux/macOS
 # or: .venv\Scripts\activate  # Windows
 
 # Install dependencies
-pip install -r requirements.txt
+uv pip install -e .
 
-# Configure and run
-cp .env.example .env
-# Edit .env and set your RIOT_API_KEY
-python -m app.main
+# Run the application
+uvicorn app.main:app --reload --host 127.0.0.1 --port 8080
 ```
 
 **📖 Detailed Setup**: See [Installation Guide](https://onestepat4time.github.io/lolstonks-api-gateway/getting-started/installation/)
@@ -185,6 +200,58 @@ curl "http://127.0.0.1:8080/cdragon/tft/champions"
 ```
 
 **📚 More Examples**: See [Usage Guide](https://onestepat4time.github.io/lolstonks-api-gateway/getting-started/quick-start/)
+
+---
+
+## Tournament API
+
+The gateway now supports the Tournament V5 and Tournament Stub V5 APIs for tournament organizers.
+
+### Prerequisites
+
+**IMPORTANT**: The Tournament API requires **special access** that is NOT available with standard Riot API keys. You must apply for tournament access separately at https://developer.riotgames.com/.
+
+For development and testing, you can use the Tournament Stub V5 API which doesn't require special access.
+
+### Tournament V5 Endpoints
+
+**Production Tournament API** - `/lol/tournament/v5/*`
+- `POST /providers` - Register as a tournament provider
+- `POST /tournaments` - Create a tournament
+- `POST /codes` - Generate tournament codes
+- `GET /codes/{tournamentCode}` - Get code details (5 min cache)
+- `PUT /codes/{tournamentCode}` - Update code settings
+- `GET /lobby-events/by-code/{tournamentCode}` - Get lobby events (30s cache)
+
+### Tournament Stub V5 Endpoints
+
+**Testing/Development API** - `/lol/tournament-stub/v5/*`
+- Same endpoints as production but for testing
+- No special access required
+- Perfect for development and CI/CD
+
+### Usage Examples
+
+```bash
+# Get tournament code details
+curl "http://127.0.0.1:8080/lol/tournament/v5/codes/MY-CODE?region=americas"
+
+# Get lobby events (real-time)
+curl "http://127.0.0.1:8080/lol/tournament/v5/lobby-events/by-code/MY-CODE?region=americas"
+
+# Force refresh (bypass cache)
+curl "http://127.0.0.1:8080/lol/tournament/v5/codes/MY-CODE?region=americas&force=true"
+```
+
+### Caching
+
+- Tournament codes: 5 minutes TTL
+- Lobby events: 30 seconds TTL (very dynamic)
+- All POST/PUT operations: Not cached (state-changing)
+
+### API Documentation
+
+Complete API reference: https://developer.riotgames.com/apis#tournament-v5
 
 ---
 
