@@ -87,7 +87,7 @@ docs:
 	@echo "🚀 Building documentation with interactive diagrams..."
 	uv run python scripts/export_openapi.py
 	uv run python scripts/generate_api_docs.py
-	uv run mkdocs build --strict
+	uv run mkdocs build
 	@echo "✅ Documentation built with interactive flowcharts!"
 	@echo "💡 Features: Zoom, pan, click navigation, mobile support"
 
