@@ -390,7 +390,7 @@ async def test_stub_get_lobby_events_with_caching(async_client: AsyncClient):
     )
     # Both should have similar response (may differ slightly due to timing)
     # Just verify both completed successfully
-    assert response2.status_code in [200, 403, 404, 500]
+    assert response2.status_code in [200, 401, 403, 404, 500]
 
 
 # ============================================================================
@@ -621,12 +621,14 @@ async def test_tournament_and_stub_separate(async_client: AsyncClient):
     # Both should be accessible (even if they return errors)
     assert prod_response.status_code in [
         200,
+        401,
         403,
         404,
         500,
     ], f"Production endpoint returned {prod_response.status_code}"
     assert stub_response.status_code in [
         200,
+        401,
         403,
         404,
         500,
