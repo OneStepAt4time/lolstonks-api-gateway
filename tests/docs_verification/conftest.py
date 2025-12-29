@@ -138,12 +138,14 @@ def pytest_addoption(parser):
         choices=["prod", "dev", "both"],
         help="Environment to test: prod, dev, or both (default: prod)",
     )
-    parser.addoption(
-        "--base-url",
-        action="store",
-        default=None,
-        help="Override base URL for local testing (e.g., http://127.0.0.1:8000)",
-    )
+    # Check if --base-url already registered (by pytest-playwright)
+    if not any("--base-url" in opt for opt in parser.options):
+        parser.addoption(
+            "--base-url",
+            action="store",
+            default=None,
+            help="Override base URL for local testing (e.g., http://127.0.0.1:8000)",
+        )
 
 
 # ============================================================================
