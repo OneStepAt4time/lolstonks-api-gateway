@@ -29,7 +29,7 @@ from .constants import (
 # ============================================================================
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def base_url(request) -> str:
     """Get base URL for current environment."""
     env = request.config.getoption("--env", default="prod")
@@ -324,7 +324,7 @@ async def test_diagrams_summary(env_name: str):
 
     import json
 
-    with open(report_path) as f:
+    with open(report_path, encoding="utf-8") as f:
         results = json.load(f)
 
     # Calculate statistics
@@ -348,7 +348,7 @@ async def test_diagrams_summary(env_name: str):
     summary_path = Path(f"docs_verification_output/reports/{env_name}/diagrams-summary.md")
     summary_path.parent.mkdir(parents=True, exist_ok=True)
 
-    with open(summary_path, "w") as f:
+    with open(summary_path, "w", encoding="utf-8") as f:
         f.write(f"# Diagram Verification Summary - {env_name.upper()}\n\n")
         f.write(f"**Environment**: {env_name}\n")
         f.write(f"**Total Diagrams**: {total}\n")

@@ -2,13 +2,25 @@
 Pytest configuration and fixtures for documentation verification tests.
 """
 
+import asyncio
 import json
+import sys
 from datetime import datetime
 from pathlib import Path
 from typing import AsyncGenerator
 
 import pytest
 from playwright.async_api import Browser, Page, async_playwright, Playwright
+
+
+# ============================================================================
+# Windows Event Loop Setup
+# ============================================================================
+
+
+# Set Windows event loop policy for subprocess support (required by Playwright)
+if sys.platform == "win32":
+    asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
 
 
 # ============================================================================

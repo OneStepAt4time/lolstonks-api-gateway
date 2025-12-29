@@ -21,7 +21,7 @@ from .constants import get_base_url, SELECTORS
 # ============================================================================
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def base_url(request) -> str:
     """Get base URL for current environment."""
     env = request.config.getoption("--env", default="prod")
@@ -359,7 +359,7 @@ async def test_formatting_summary(env_name: str):
     summary_path = Path(f"docs_verification_output/reports/{env_name}/formatting-summary.md")
     summary_path.parent.mkdir(parents=True, exist_ok=True)
 
-    with open(summary_path, "w") as f:
+    with open(summary_path, "w", encoding="utf-8") as f:
         f.write(f"# Formatting Verification Summary - {env_name.upper()}\n\n")
         f.write("## Elements Tested\n\n")
         for element, status in summary.items():
