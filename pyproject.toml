@@ -1,6 +1,6 @@
 [project]
 name = "lolstonks-api-gateway"
-version = "2.0.0"
+version = "2.1.0"
 description = "League of Legends API Gateway with caching, rate limiting, and comprehensive monitoring"
 readme = "docs/index.md"
 requires-python = ">=3.12"
@@ -16,6 +16,8 @@ dependencies = [
     "loguru>=0.7.0",
     "rich>=13.0.0",
     "typer>=0.12.0",
+    "urllib3>=2.6.0",  # GHSA-gm62-xv2j-4w53, GHSA-2xpw-w6gg-jr37
+    "filelock>=3.20.1",  # GHSA-w853-jp5j-5j7f
 ]
 
 [project.optional-dependencies]
@@ -40,6 +42,15 @@ docs = [
     "mkdocs-literate-nav>=0.6.0",
     "mkdocs-section-index>=0.3.0",
     "mkdocs-swagger-ui-tag>=0.6.0",
+]
+
+test-docs = [
+    "playwright>=1.40.0",
+    "pytest-playwright>=0.4.0",
+    "pytest-html>=4.0.0",
+    "pytest>=8.3.0",
+    "pytest-asyncio>=0.24.0",
+    "pytest-cov>=7.0.0",
 ]
 
 [build-system]
@@ -75,6 +86,8 @@ markers = [
     "integration: marks tests as integration tests",
     "unit: marks tests as unit tests",
 ]
+# Exclude docs_verification from standard test runs (requires test-docs extras)
+norecursedirs = ["tests/docs_verification"]
 
 [tool.coverage.run]
 source = ["app"]

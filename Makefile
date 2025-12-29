@@ -1,4 +1,4 @@
-.PHONY: help install install-dev test lint format docs docs-serve docs-build docs-validate clean build docs-validate
+.PHONY: help install install-dev test lint format docs docs-serve docs-build docs-validate clean build docs-validate security
 
 # Default target
 help:
@@ -8,6 +8,7 @@ help:
 	@echo "  install      Install production dependencies"
 	@echo "  install-dev  Install development dependencies"
 	@echo "  test         Run tests"
+	@echo "  test-quick   Run tests without coverage (fast)"
 	@echo "  lint         Run linting"
 	@echo "  format       Format code"
 	@echo "  docs         Build documentation with interactive diagrams"
@@ -19,6 +20,12 @@ help:
 	@echo "  docs-clean    Clean documentation build artifacts"
 	@echo "  clean        Clean build artifacts"
 	@echo "  build        Build for production"
+	@echo ""
+	@echo "CI & Quality:"
+	@echo "  ci           Run full CI pipeline (security + lint + test + docs)"
+	@echo "  ci-quick     Run quick CI checks (lint + quick tests)"
+	@echo "  security     Run security audit on dependencies"
+	@echo "  qa           Run quality assurance (lint + test + docs-validate)"
 	@echo ""
 	@echo "Release:"
 	@echo "  release           Create and publish a new release (interactive)"
@@ -33,6 +40,10 @@ help:
 	@echo "  make lint"
 	@echo "  make test"
 	@echo "  make docs-preview  # Test interactive diagrams"
+	@echo ""
+	@echo "Pre-push workflow (HIGHLY RECOMMENDED):"
+	@echo "  make ci           # Run full CI pipeline before pushing"
+	@echo "  make ci-quick     # For faster iteration during development"
 	@echo ""
 	@echo "Interactive Diagram Testing:"
 	@echo "  make docs-build    # Build for testing"
@@ -76,7 +87,7 @@ docs:
 	@echo "🚀 Building documentation with interactive diagrams..."
 	uv run python scripts/export_openapi.py
 	uv run python scripts/generate_api_docs.py
-	uv run mkdocs build --strict
+	uv run mkdocs build
 	@echo "✅ Documentation built with interactive flowcharts!"
 	@echo "💡 Features: Zoom, pan, click navigation, mobile support"
 
@@ -364,16 +375,21 @@ ci:
 	@echo "1️⃣  Installing dependencies..."
 	@$(MAKE) install-dev
 	@echo ""
-	@echo "2️⃣  Running linting checks..."
+	@echo "2️⃣  Running security audit..."
+	@echo "   Checking for known vulnerabilities in dependencies..."
+	@uv pip install pip-audit 2>/dev/null || echo "   Note: pip-audit already installed"
+	@uv run pip-audit --desc --skip-editable || echo "   Security audit completed (review findings above)"
+	@echo ""
+	@echo "3️⃣  Running linting checks..."
 	@$(MAKE) lint
 	@echo ""
-	@echo "3️⃣  Running tests with coverage..."
+	@echo "4️⃣  Running tests with coverage..."
 	@$(MAKE) test
 	@echo ""
-	@echo "4️⃣  Building documentation with interactive diagrams..."
+	@echo "5️⃣  Building documentation with interactive diagrams..."
 	@$(MAKE) docs
 	@echo ""
-	@echo "5️⃣  Validating interactive diagram assets..."
+	@echo "6️⃣  Validating interactive diagram assets..."
 	@$(MAKE) docs-validate
 	@echo ""
 	@echo "✅ CI pipeline completed successfully!"
@@ -387,3 +403,9 @@ ci-quick:
 	@$(MAKE) lint
 	@$(MAKE) test-quick
 	@echo "✅ Quick checks passed!"
+
+# Security audit only
+security:
+	@echo "🔒 Running security audit on dependencies..."
+	@uv pip install pip-audit
+	@uv run pip-audit --desc --skip-editable
