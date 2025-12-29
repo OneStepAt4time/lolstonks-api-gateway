@@ -1,0 +1,2631 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Unified League of Legends API Gateway with caching, rate limiting, and comprehensive monitoring" name="description"/>
+<link href="../../assets/logo.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.23" name="generator"/>
+<title>Tournament Router Architecture Design - LOLStonks API Gateway</title>
+<link href="../../assets/stylesheets/main.84d31ad4.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../assets/_mkdocstrings.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="blue" data-md-color-primary="blue" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#tournament-router-architecture-design">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="LOLStonks API Gateway" class="md-header__button md-logo" data-md-component="logo" href="../.." title="LOLStonks API Gateway">
+<img alt="logo" src="../../assets/logo.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            LOLStonks API Gateway
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Tournament Router Architecture Design
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="blue" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="blue" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/OneStepAt4time/lolstonks-api-gateway" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../getting-started/installation/">
+          
+  
+  
+    
+  
+  Getting Started
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../api/openapi-spec/">
+          
+  
+  
+    
+  
+  API Reference
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../overview/">
+          
+  
+  
+    
+  
+  Architecture
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../operations/monitoring/">
+          
+  
+  
+    
+  
+  Operations
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../development/contributing/">
+          
+  
+  
+    
+  
+  Development
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="LOLStonks API Gateway" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="LOLStonks API Gateway">
+<img alt="logo" src="../../assets/logo.png"/>
+</a>
+    LOLStonks API Gateway
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/OneStepAt4time/lolstonks-api-gateway" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+<span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/installation/">
+<span class="md-ellipsis">
+    Installation
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/quick-start/">
+<span class="md-ellipsis">
+    Quick Start
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/configuration/">
+<span class="md-ellipsis">
+    Configuration
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/deployment/">
+<span class="md-ellipsis">
+    Production Deployment
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+<span class="md-ellipsis">
+    API Reference
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/openapi-spec/">
+<span class="md-ellipsis">
+    OpenAPI Specification
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/overview/">
+<span class="md-ellipsis">
+    Overview
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/providers/">
+<span class="md-ellipsis">
+    Providers
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/riot-client/">
+<span class="md-ellipsis">
+    Riot Client
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/models/">
+<span class="md-ellipsis">
+    Models
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/routers/">
+<span class="md-ellipsis">
+    Routers
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/cache/">
+<span class="md-ellipsis">
+    Cache
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/security/">
+<span class="md-ellipsis">
+    Security
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+<span class="md-ellipsis">
+    Architecture
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+            Architecture
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../overview/">
+<span class="md-ellipsis">
+    Overview
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../system-overview/">
+<span class="md-ellipsis">
+    System Overview
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../data-flow/">
+<span class="md-ellipsis">
+    Data Flow
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../implementation-details/">
+<span class="md-ellipsis">
+    Implementation Details
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../models/">
+<span class="md-ellipsis">
+    Data Models
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    Operations
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            Operations
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operations/monitoring/">
+<span class="md-ellipsis">
+    Monitoring
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operations/troubleshooting/">
+<span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operations/security/">
+<span class="md-ellipsis">
+    Security
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Development
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            Development
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../development/contributing/">
+<span class="md-ellipsis">
+    Contributing
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../development/changelog-guide/">
+<span class="md-ellipsis">
+    Changelog Guide
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../development/versioning/">
+<span class="md-ellipsis">
+    Versioning
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../development/releases/">
+<span class="md-ellipsis">
+    Releases
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../development/testing/">
+<span class="md-ellipsis">
+    Testing
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../development/documentation/">
+<span class="md-ellipsis">
+    Documentation
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#executive-summary">
+<span class="md-ellipsis">
+      Executive Summary
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#table-of-contents">
+<span class="md-ellipsis">
+      Table of Contents
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-overview">
+<span class="md-ellipsis">
+      1. Overview
+    </span>
+</a>
+<nav aria-label="1. Overview" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#11-purpose">
+<span class="md-ellipsis">
+      1.1 Purpose
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#12-api-versions">
+<span class="md-ellipsis">
+      1.2 API Versions
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#13-special-considerations">
+<span class="md-ellipsis">
+      1.3 Special Considerations
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-architecture-principles">
+<span class="md-ellipsis">
+      2. Architecture Principles
+    </span>
+</a>
+<nav aria-label="2. Architecture Principles" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#21-design-principles">
+<span class="md-ellipsis">
+      2.1 Design Principles
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#22-core-principles">
+<span class="md-ellipsis">
+      2.2 Core Principles
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#23-naming-conventions">
+<span class="md-ellipsis">
+      2.3 Naming Conventions
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-router-structure">
+<span class="md-ellipsis">
+      3. Router Structure
+    </span>
+</a>
+<nav aria-label="3. Router Structure" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#31-file-organization">
+<span class="md-ellipsis">
+      3.1 File Organization
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#32-router-template">
+<span class="md-ellipsis">
+      3.2 Router Template
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#33-stub-router-template">
+<span class="md-ellipsis">
+      3.3 Stub Router Template
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-endpoint-specifications">
+<span class="md-ellipsis">
+      4. Endpoint Specifications
+    </span>
+</a>
+<nav aria-label="4. Endpoint Specifications" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#41-tournament-v5-endpoints">
+<span class="md-ellipsis">
+      4.1 Tournament V5 Endpoints
+    </span>
+</a>
+<nav aria-label="4.1 Tournament V5 Endpoints" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#411-post-providers-register-tournament-provider">
+<span class="md-ellipsis">
+      4.1.1 POST /providers - Register Tournament Provider
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#412-post-tournaments-create-tournament">
+<span class="md-ellipsis">
+      4.1.2 POST /tournaments - Create Tournament
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#413-post-codes-generate-tournament-codes">
+<span class="md-ellipsis">
+      4.1.3 POST /codes - Generate Tournament Codes
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#414-get-codestournamentcode-get-code-details">
+<span class="md-ellipsis">
+      4.1.4 GET /codes/{tournamentCode} - Get Code Details
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#415-put-codestournamentcode-update-code-settings">
+<span class="md-ellipsis">
+      4.1.5 PUT /codes/{tournamentCode} - Update Code Settings
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#416-get-lobby-eventsby-codetournamentcode-get-lobby-events">
+<span class="md-ellipsis">
+      4.1.6 GET /lobby-events/by-code/{tournamentCode} - Get Lobby Events
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#42-tournament-stub-v5-endpoints">
+<span class="md-ellipsis">
+      4.2 Tournament Stub V5 Endpoints
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-caching-strategy">
+<span class="md-ellipsis">
+      5. Caching Strategy
+    </span>
+</a>
+<nav aria-label="5. Caching Strategy" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#51-cache-ttl-configuration">
+<span class="md-ellipsis">
+      5.1 Cache TTL Configuration
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#52-cache-key-patterns">
+<span class="md-ellipsis">
+      5.2 Cache Key Patterns
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#53-caching-behavior">
+<span class="md-ellipsis">
+      5.3 Caching Behavior
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#54-cache-invalidation">
+<span class="md-ellipsis">
+      5.4 Cache Invalidation
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6-configuration-requirements">
+<span class="md-ellipsis">
+      6. Configuration Requirements
+    </span>
+</a>
+<nav aria-label="6. Configuration Requirements" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#61-settings-configuration">
+<span class="md-ellipsis">
+      6.1 Settings Configuration
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#62-environment-variables">
+<span class="md-ellipsis">
+      6.2 Environment Variables
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#63-router-exports">
+<span class="md-ellipsis">
+      6.3 Router Exports
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#7-integration-points">
+<span class="md-ellipsis">
+      7. Integration Points
+    </span>
+</a>
+<nav aria-label="7. Integration Points" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#71-files-to-create">
+<span class="md-ellipsis">
+      7.1 Files to Create
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#72-files-to-modify">
+<span class="md-ellipsis">
+      7.2 Files to Modify
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#73-mainpy-integration-later">
+<span class="md-ellipsis">
+      7.3 Main.py Integration (Later)
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#74-http-client-enhancement">
+<span class="md-ellipsis">
+      7.4 HTTP Client Enhancement
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#8-error-handling">
+<span class="md-ellipsis">
+      8. Error Handling
+    </span>
+</a>
+<nav aria-label="8. Error Handling" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#81-special-tournament-errors">
+<span class="md-ellipsis">
+      8.1 Special Tournament Errors
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#82-403-forbidden-handling">
+<span class="md-ellipsis">
+      8.2 403 Forbidden Handling
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#83-error-response-format">
+<span class="md-ellipsis">
+      8.3 Error Response Format
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#9-testing-strategy">
+<span class="md-ellipsis">
+      9. Testing Strategy
+    </span>
+</a>
+<nav aria-label="9. Testing Strategy" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#91-unit-tests">
+<span class="md-ellipsis">
+      9.1 Unit Tests
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#92-integration-tests">
+<span class="md-ellipsis">
+      9.2 Integration Tests
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#93-test-coverage-requirements">
+<span class="md-ellipsis">
+      9.3 Test Coverage Requirements
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10-implementation-guidance">
+<span class="md-ellipsis">
+      10. Implementation Guidance
+    </span>
+</a>
+<nav aria-label="10. Implementation Guidance" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#101-implementation-order">
+<span class="md-ellipsis">
+      10.1 Implementation Order
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#102-implementation-checklist">
+<span class="md-ellipsis">
+      10.2 Implementation Checklist
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#103-code-review-checklist">
+<span class="md-ellipsis">
+      10.3 Code Review Checklist
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#104-common-pitfalls-to-avoid">
+<span class="md-ellipsis">
+      10.4 Common Pitfalls to Avoid
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#11-api-reference">
+<span class="md-ellipsis">
+      11. API Reference
+    </span>
+</a>
+<nav aria-label="11. API Reference" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#111-official-riot-documentation">
+<span class="md-ellipsis">
+      11.1 Official Riot Documentation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#112-endpoint-summary">
+<span class="md-ellipsis">
+      11.2 Endpoint Summary
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#12-monitoring-and-observability">
+<span class="md-ellipsis">
+      12. Monitoring and Observability
+    </span>
+</a>
+<nav aria-label="12. Monitoring and Observability" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#121-logging-patterns">
+<span class="md-ellipsis">
+      12.1 Logging Patterns
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#122-metrics-to-track">
+<span class="md-ellipsis">
+      12.2 Metrics to Track
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#13-security-considerations">
+<span class="md-ellipsis">
+      13. Security Considerations
+    </span>
+</a>
+<nav aria-label="13. Security Considerations" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#131-tournament-api-key-requirements">
+<span class="md-ellipsis">
+      13.1 Tournament API Key Requirements
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#132-stub-api-advantage">
+<span class="md-ellipsis">
+      13.2 Stub API Advantage
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#14-conclusion">
+<span class="md-ellipsis">
+      14. Conclusion
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#appendix-a-code-templates">
+<span class="md-ellipsis">
+      Appendix A: Code Templates
+    </span>
+</a>
+<nav aria-label="Appendix A: Code Templates" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#a1-complete-tournament-router-template">
+<span class="md-ellipsis">
+      A.1 Complete Tournament Router Template
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#a2-http-client-postput-implementation">
+<span class="md-ellipsis">
+      A.2 HTTP Client POST/PUT Implementation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#a3-configuration-snippets">
+<span class="md-ellipsis">
+      A.3 Configuration Snippets
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="tournament-router-architecture-design">Tournament Router Architecture Design<a class="headerlink" href="#tournament-router-architecture-design" title="Permanent link">¶</a></h1>
+<p><strong>Version</strong>: 1.0
+<strong>Date</strong>: 2025-01-29
+<strong>Status</strong>: Design Document
+<strong>Author</strong>: ArchitectAgent</p>
+<hr/>
+<h2 id="executive-summary">Executive Summary<a class="headerlink" href="#executive-summary" title="Permanent link">¶</a></h2>
+<p>This document outlines the architecture for implementing <strong>Tournament V5</strong> and <strong>Tournament Stub V5</strong> API routers in the lolstonks-api-gateway. These routers provide endpoints for managing Riot's tournament system, including provider registration, tournament creation, and tournament code generation.</p>
+<p><strong>Key Design Decisions</strong>:
+- Two separate routers (production vs stub) following existing patterns
+- Passthrough architecture (no data transformation)
+- Intelligent caching with short TTLs for dynamic data
+- Special handling for 403 Forbidden (tournament access restrictions)
+- POST/PUT endpoints bypass cache (state-changing operations)</p>
+<hr/>
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">¶</a></h2>
+<ol>
+<li><a href="#1-overview">Overview</a></li>
+<li><a href="#2-architecture-principles">Architecture Principles</a></li>
+<li><a href="#3-router-structure">Router Structure</a></li>
+<li><a href="#4-endpoint-specifications">Endpoint Specifications</a></li>
+<li><a href="#5-caching-strategy">Caching Strategy</a></li>
+<li><a href="#6-configuration-requirements">Configuration Requirements</a></li>
+<li><a href="#7-integration-points">Integration Points</a></li>
+<li><a href="#8-error-handling">Error Handling</a></li>
+<li><a href="#9-testing-strategy">Testing Strategy</a></li>
+<li><a href="#10-implementation-guidance">Implementation Guidance</a></li>
+</ol>
+<hr/>
+<h2 id="1-overview">1. Overview<a class="headerlink" href="#1-overview" title="Permanent link">¶</a></h2>
+<h3 id="11-purpose">1.1 Purpose<a class="headerlink" href="#11-purpose" title="Permanent link">¶</a></h3>
+<p>The Tournament API routers enable:
+- <strong>Tournament Providers</strong>: Register tournament providers with Riot
+- <strong>Tournament Management</strong>: Create and manage tournament definitions
+- <strong>Code Generation</strong>: Generate tournament codes for lobby creation
+- <strong>Lobby Events</strong>: Monitor tournament lobby events in real-time</p>
+<h3 id="12-api-versions">1.2 API Versions<a class="headerlink" href="#12-api-versions" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Router</th>
+<th>API Path</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tournament V5</strong></td>
+<td><code>/lol/tournament/v5/*</code></td>
+<td>Production tournament API</td>
+</tr>
+<tr>
+<td><strong>Tournament Stub V5</strong></td>
+<td><code>/lol/tournament-stub/v5/*</code></td>
+<td>Testing/development stub API</td>
+</tr>
+</tbody>
+</table>
+<h3 id="13-special-considerations">1.3 Special Considerations<a class="headerlink" href="#13-special-considerations" title="Permanent link">¶</a></h3>
+<p><strong>Tournament API Access Requirements</strong>:
+- Requires <strong>tournament-specific API key</strong> (standard keys return 403 Forbidden)
+- Must apply for tournament access at <a href="https://developer.riotgames.com/">Riot Developer Portal</a>
+- Not all API keys have tournament permissions by default</p>
+<p><strong>Use Cases</strong>:
+- <strong>Production API</strong>: Live tournaments with real players and prizes
+- <strong>Stub API</strong>: Testing tournament logic without affecting live data</p>
+<hr/>
+<h2 id="2-architecture-principles">2. Architecture Principles<a class="headerlink" href="#2-architecture-principles" title="Permanent link">¶</a></h2>
+<h3 id="21-design-principles">2.1 Design Principles<a class="headerlink" href="#21-design-principles" title="Permanent link">¶</a></h3>
+<p>Following the existing gateway patterns from <code>clash.py</code> and <code>spectator.py</code>:</p>
+<pre><code class="language-python"># Standard pattern observed in existing routers
+from fastapi import APIRouter, Query
+from app.cache.helpers import fetch_with_cache
+from app.config import settings
+from app.riot.client import riot_client
+
+router = APIRouter(prefix="/lol/tournament/v5", tags=["tournament"])
+</code></pre>
+<h3 id="22-core-principles">2.2 Core Principles<a class="headerlink" href="#22-core-principles" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Principle</th>
+<th>Implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Passthrough</strong></td>
+<td>No data transformation, return Riot response as-is</td>
+</tr>
+<tr>
+<td><strong>Caching</strong></td>
+<td>Use <code>fetch_with_cache</code> for all GET endpoints</td>
+</tr>
+<tr>
+<td><strong>Force Refresh</strong></td>
+<td>Support <code>?force=true</code> query parameter</td>
+</tr>
+<tr>
+<td><strong>State-Changing</strong></td>
+<td>POST/PUT endpoints bypass cache entirely</td>
+</tr>
+<tr>
+<td><strong>Error Handling</strong></td>
+<td>Use existing custom exceptions</td>
+</tr>
+<tr>
+<td><strong>Logging</strong></td>
+<td>Structured logging with contextual information</td>
+</tr>
+<tr>
+<td><strong>Documentation</strong></td>
+<td>Comprehensive docstrings with API reference links</td>
+</tr>
+</tbody>
+</table>
+<h3 id="23-naming-conventions">2.3 Naming Conventions<a class="headerlink" href="#23-naming-conventions" title="Permanent link">¶</a></h3>
+<pre><code class="language-python"># File: app/routers/tournament.py
+# Router instance: router
+# Endpoint functions: &lt;action&gt;_&lt;resource&gt;
+# Example: register_provider, create_tournament, generate_codes
+
+# Cache keys: tournament:&lt;resource&gt;:&lt;region&gt;:&lt;identifier&gt;
+# Example: tournament:code:euw1:TURNACODE123
+</code></pre>
+<hr/>
+<h2 id="3-router-structure">3. Router Structure<a class="headerlink" href="#3-router-structure" title="Permanent link">¶</a></h2>
+<h3 id="31-file-organization">3.1 File Organization<a class="headerlink" href="#31-file-organization" title="Permanent link">¶</a></h3>
+<pre><code>app/routers/
+├── tournament.py          # Production Tournament V5 API
+├── tournament_stub.py     # Tournament Stub V5 API
+├── clash.py               # Existing - reference pattern
+├── spectator.py           # Existing - reference pattern
+└── __init__.py            # Export routers
+</code></pre>
+<h3 id="32-router-template">3.2 Router Template<a class="headerlink" href="#32-router-template" title="Permanent link">¶</a></h3>
+<pre><code class="language-python">"""Tournament-V5 API endpoints (Tournament management).
+
+This module provides endpoints for managing Riot's tournament system,
+including provider registration, tournament creation, and code generation.
+
+Riot Developer Portal API Reference:
+https://developer.riotgames.com/apis#tournament-v5
+
+Tournament API Access:
+    Requires tournament-specific API key. Standard API keys will return 403 Forbidden.
+    Apply for access at: https://developer.riotgames.com/
+
+Use Cases:
+    - Tournament Provider Registration
+    - Tournament Creation and Management
+    - Tournament Code Generation
+    - Lobby Event Monitoring
+"""
+
+from fastapi import APIRouter, Query
+from app.cache.helpers import fetch_with_cache
+from app.config import settings
+from app.riot.client import riot_client
+
+router = APIRouter(prefix="/lol/tournament/v5", tags=["tournament"])
+</code></pre>
+<h3 id="33-stub-router-template">3.3 Stub Router Template<a class="headerlink" href="#33-stub-router-template" title="Permanent link">¶</a></h3>
+<pre><code class="language-python">"""Tournament-Stub-V5 API endpoints (Testing environment).
+
+This module provides stub endpoints for testing tournament functionality
+without affecting live tournament data.
+
+Riot Developer Portal API Reference:
+https://developer.riotgames.com/apis#tournament-stub-v5
+
+Purpose:
+    Testing tournament logic in a sandbox environment.
+    All operations are isolated from production tournament data.
+"""
+
+from fastapi import APIRouter, Query
+from app.cache.helpers import fetch_with_cache
+from app.config import settings
+from app.riot.client import riot_client
+
+router = APIRouter(prefix="/lol/tournament-stub/v5", tags=["tournament-stub"])
+</code></pre>
+<hr/>
+<h2 id="4-endpoint-specifications">4. Endpoint Specifications<a class="headerlink" href="#4-endpoint-specifications" title="Permanent link">¶</a></h2>
+<h3 id="41-tournament-v5-endpoints">4.1 Tournament V5 Endpoints<a class="headerlink" href="#41-tournament-v5-endpoints" title="Permanent link">¶</a></h3>
+<h4 id="411-post-providers-register-tournament-provider">4.1.1 POST /providers - Register Tournament Provider<a class="headerlink" href="#411-post-providers-register-tournament-provider" title="Permanent link">¶</a></h4>
+<pre><code class="language-python">@router.post("/providers")
+async def register_provider(
+    region: str = Query(default=settings.riot_default_region, description="Region code")
+):
+    """
+    Register a tournament provider.
+
+    This endpoint registers a new tournament provider with Riot, which is
+    required before creating tournaments or generating codes.
+
+    API Reference: https://developer.riotgames.com/apis#tournament-v5/POST_postProviders
+
+    Args:
+        region (str): The region to register the provider in.
+
+    Returns:
+        dict: Provider registration response containing provider ID.
+
+    Request Body:
+        {
+            "region": "euw1",
+            "url": "https://example.com/callback"
+        }
+
+    Example:
+        &gt;&gt;&gt; curl -X POST "http://127.0.0.1:8080/lol/tournament/v5/providers?region=euw1" \
+        &gt;&gt;&gt;      -H "Content-Type: application/json" \
+        &gt;&gt;&gt;      -d '{"region": "euw1", "url": "https://example.com/callback"}'
+
+    Note:
+        - POST endpoint: NOT cached (state-changing operation)
+        - Requires tournament-specific API key (403 if no access)
+        - Provider URL must be reachable by Riot servers
+    """
+    # Direct API call, no caching for POST
+    return await riot_client.post(
+        "/lol/tournament/v5/providers",
+        region,
+        is_platform_endpoint=False
+    )
+</code></pre>
+<p><strong>Design Notes</strong>:
+- <strong>No caching</strong>: POST endpoints are state-changing, bypass cache entirely
+- <strong>Direct call</strong>: Use <code>riot_client.post()</code> (need to add POST method to client)
+- <strong>Region required</strong>: Provider registration is region-specific</p>
+<h4 id="412-post-tournaments-create-tournament">4.1.2 POST /tournaments - Create Tournament<a class="headerlink" href="#412-post-tournaments-create-tournament" title="Permanent link">¶</a></h4>
+<pre><code class="language-python">@router.post("/tournaments")
+async def create_tournament(
+    region: str = Query(default=settings.riot_default_region, description="Region code")
+):
+    """
+    Create a tournament.
+
+    This endpoint creates a new tournament definition with the specified
+    configuration (name, provider ID, etc.).
+
+    API Reference: https://developer.riotgames.com/apis#tournament-v5/POST_postTournaments
+
+    Args:
+        region (str): The region to create the tournament in.
+
+    Returns:
+        dict: Tournament creation response containing tournament ID.
+
+    Request Body:
+        {
+            "name": "My Tournament",
+            "providerId": 123
+        }
+
+    Example:
+        &gt;&gt;&gt; curl -X POST "http://127.0.0.1:8080/lol/tournament/v5/tournaments?region=euw1" \
+        &gt;&gt;&gt;      -H "Content-Type: application/json" \
+        &gt;&gt;&gt;      -d '{"name": "My Tournament", "providerId": 123}'
+
+    Note:
+        - POST endpoint: NOT cached (state-changing operation)
+        - Requires valid provider ID from previous provider registration
+    """
+    return await riot_client.post(
+        "/lol/tournament/v5/tournaments",
+        region,
+        is_platform_endpoint=False
+    )
+</code></pre>
+<h4 id="413-post-codes-generate-tournament-codes">4.1.3 POST /codes - Generate Tournament Codes<a class="headerlink" href="#413-post-codes-generate-tournament-codes" title="Permanent link">¶</a></h4>
+<pre><code class="language-python">@router.post("/codes")
+async def generate_codes(
+    region: str = Query(default=settings.riot_default_region, description="Region code")
+):
+    """
+    Generate tournament codes.
+
+    This endpoint generates one or more tournament codes that can be used
+    to create tournament lobbies in the League client.
+
+    API Reference: https://developer.riotgames.com/apis#tournament-v5/POST_postCodes
+
+    Args:
+        region (str): The region to generate codes for.
+
+    Returns:
+        list: List of generated tournament codes.
+
+    Request Body:
+        {
+            "tournamentId": 456,
+            "count": 5,
+            "teamSize": 5
+        }
+
+    Example:
+        &gt;&gt;&gt; curl -X POST "http://127.0.0.1:8080/lol/tournament/v5/codes?region=euw1" \
+        &gt;&gt;&gt;      -H "Content-Type: application/json" \
+        &gt;&gt;&gt;      -d '{"tournamentId": 456, "count": 5, "teamSize": 5}'
+
+    Note:
+        - POST endpoint: NOT cached (state-changing operation)
+        - Codes can be used in League client to create tournament lobbies
+    """
+    return await riot_client.post(
+        "/lol/tournament/v5/codes",
+        region,
+        is_platform_endpoint=False
+    )
+</code></pre>
+<h4 id="414-get-codestournamentcode-get-code-details">4.1.4 GET /codes/{tournamentCode} - Get Code Details<a class="headerlink" href="#414-get-codestournamentcode-get-code-details" title="Permanent link">¶</a></h4>
+<pre><code class="language-python">@router.get("/codes/{tournamentCode}")
+async def get_tournament_code(
+    tournamentCode: str,
+    region: str = Query(default=settings.riot_default_region, description="Region code"),
+    force: bool = Query(default=False, description="Force cache refresh")
+):
+    """
+    Retrieve tournament code details.
+
+    This endpoint fetches details about a specific tournament code, including
+    its tournament ID, lobby status, and metadata.
+
+    API Reference: https://developer.riotgames.com/apis#tournament-v5/GET_getLobbyEventsByCode
+
+    Args:
+        tournamentCode (str): The tournament code to query.
+        region (str): The region to fetch the code details from.
+        force (bool): If True, bypass cache and fetch from API.
+
+    Returns:
+        dict: Tournament code details.
+
+    Example:
+        &gt;&gt;&gt; curl "http://127.0.0.1:8080/lol/tournament/v5/codes/TURNACODE123?region=euw1"
+        &gt;&gt;&gt; curl "http://127.0.0.1:8080/lol/tournament/v5/codes/TURNACODE123?region=euw1&amp;force=true"
+
+    Note:
+        - Uses short TTL (5 min) - code status can change
+        - Supports ?force=true for real-time status
+    """
+    return await fetch_with_cache(
+        cache_key=f"tournament:code:{region}:{tournamentCode}",
+        resource_name="Tournament code",
+        fetch_fn=lambda: riot_client.get(
+            f"/lol/tournament/v5/codes/{tournamentCode}",
+            region,
+            False
+        ),
+        ttl=settings.cache_ttl_tournament_code,
+        context={"tournamentCode": tournamentCode, "region": region},
+        force_refresh=force
+    )
+</code></pre>
+<p><strong>Design Notes</strong>:
+- <strong>Cached with short TTL</strong>: 5 minutes (code details change during tournaments)
+- <strong>Force refresh</strong>: Supports <code>?force=true</code> for real-time updates
+- <strong>Cache key</strong>: Includes region and tournament code for uniqueness</p>
+<h4 id="415-put-codestournamentcode-update-code-settings">4.1.5 PUT /codes/{tournamentCode} - Update Code Settings<a class="headerlink" href="#415-put-codestournamentcode-update-code-settings" title="Permanent link">¶</a></h4>
+<pre><code class="language-python">@router.put("/codes/{tournamentCode}")
+async def update_tournament_code(
+    tournamentCode: str,
+    region: str = Query(default=settings.riot_default_region, description="Region code")
+):
+    """
+    Update tournament code settings.
+
+    This endpoint updates the settings for an existing tournament code,
+    such as pick type, map type, or spectator type.
+
+    API Reference: https://developer.riotgames.com/apis#tournament-v5/PUT_putCode
+
+    Args:
+        tournamentCode (str): The tournament code to update.
+        region (str): The region of the tournament code.
+
+    Returns:
+        dict: Updated tournament code details.
+
+    Request Body:
+        {
+            "pickType": "TOURNAMENT_DRAFT",
+            "mapType": "SUMMONERS_RIFT",
+            "spectatorType": "ALL"
+        }
+
+    Example:
+        &gt;&gt;&gt; curl -X PUT "http://127.0.0.1:8080/lol/tournament/v5/codes/TURNACODE123?region=euw1" \
+        &gt;&gt;&gt;      -H "Content-Type: application/json" \
+        &gt;&gt;&gt;      -d '{"pickType": "TOURNAMENT_DRAFT", "mapType": "SUMMONERS_RIFT"}'
+
+    Note:
+        - PUT endpoint: NOT cached (state-changing operation)
+        - Invalidates existing cache for this code
+    """
+    result = await riot_client.put(
+        f"/lol/tournament/v5/codes/{tournamentCode}",
+        region,
+        is_platform_endpoint=False
+    )
+
+    # Invalidate cache after update
+    await cache.delete(f"tournament:code:{region}:{tournamentCode}")
+
+    return result
+</code></pre>
+<p><strong>Design Notes</strong>:
+- <strong>Cache invalidation</strong>: After successful PUT, delete cached code details
+- <strong>Requires PUT method</strong>: Need to add <code>riot_client.put()</code> method</p>
+<h4 id="416-get-lobby-eventsby-codetournamentcode-get-lobby-events">4.1.6 GET /lobby-events/by-code/{tournamentCode} - Get Lobby Events<a class="headerlink" href="#416-get-lobby-eventsby-codetournamentcode-get-lobby-events" title="Permanent link">¶</a></h4>
+<pre><code class="language-python">@router.get("/lobby-events/by-code/{tournamentCode}")
+async def get_lobby_events(
+    tournamentCode: str,
+    region: str = Query(default=settings.riot_default_region, description="Region code"),
+    force: bool = Query(default=False, description="Force cache refresh")
+):
+    """
+    Retrieve lobby events for a tournament code.
+
+    This endpoint fetches real-time lobby events for a tournament code,
+    including player joins, lobby updates, and game start events.
+
+    API Reference: https://developer.riotgames.com/apis#tournament-v5/GET_getLobbyEventsByCode
+
+    Args:
+        tournamentCode (str): The tournament code to query.
+        region (str): The region to fetch the events from.
+        force (bool): If True, bypass cache and fetch from API.
+
+    Returns:
+        dict: Lobby events list.
+
+    Example:
+        &gt;&gt;&gt; curl "http://127.0.0.1:8080/lol/tournament/v5/lobby-events/by-code/TURNACODE123?region=euw1"
+        &gt;&gt;&gt; curl "http://127.0.0.1:8080/lol/tournament/v5/lobby-events/by-code/TURNACODE123?region=euw1&amp;force=true"
+
+    Note:
+        - Uses very short TTL (30s) - events are highly dynamic
+        - Supports ?force=true for real-time monitoring
+        - Use WebSocket or polling for continuous updates
+    """
+    return await fetch_with_cache(
+        cache_key=f"tournament:lobby_events:{region}:{tournamentCode}",
+        resource_name="Tournament lobby events",
+        fetch_fn=lambda: riot_client.get(
+            f"/lol/tournament/v5/lobby-events/by-code/{tournamentCode}",
+            region,
+            False
+        ),
+        ttl=settings.cache_ttl_tournament_lobby_events,
+        context={"tournamentCode": tournamentCode, "region": region},
+        force_refresh=force
+    )
+</code></pre>
+<p><strong>Design Notes</strong>:
+- <strong>Very short TTL</strong>: 30 seconds (lobby events change constantly)
+- <strong>Real-time monitoring</strong>: Use <code>?force=true</code> for live updates
+- <strong>Polling consideration</strong>: For continuous monitoring, poll every 30+ seconds</p>
+<h3 id="42-tournament-stub-v5-endpoints">4.2 Tournament Stub V5 Endpoints<a class="headerlink" href="#42-tournament-stub-v5-endpoints" title="Permanent link">¶</a></h3>
+<p>The stub API mirrors the production API with identical endpoints but operates in a sandbox environment:</p>
+<pre><code class="language-python"># Endpoints are identical to production, just different base path
+router = APIRouter(prefix="/lol/tournament-stub/v5", tags=["tournament-stub"])
+
+# Same 6 endpoints:
+POST   /providers
+POST   /tournaments
+POST   /codes
+GET    /codes/{tournamentCode}
+PUT    /codes/{tournamentCode}
+GET    /lobby-events/by-code/{tournamentCode}
+</code></pre>
+<p><strong>Key Differences</strong>:
+- <strong>Sandbox data</strong>: Operations don't affect production tournaments
+- <strong>Same API key</strong>: Can use standard API key (no special access required)
+- <strong>Testing environment</strong>: Ideal for development and testing</p>
+<hr/>
+<h2 id="5-caching-strategy">5. Caching Strategy<a class="headerlink" href="#5-caching-strategy" title="Permanent link">¶</a></h2>
+<h3 id="51-cache-ttl-configuration">5.1 Cache TTL Configuration<a class="headerlink" href="#51-cache-ttl-configuration" title="Permanent link">¶</a></h3>
+<p>Add to <code>app/config.py</code> in the Cache TTL section:</p>
+<pre><code class="language-python"># TOURNAMENT-V5: Tournament management and codes
+cache_ttl_tournament_code: int = 300  # 5 minutes - Code details
+cache_ttl_tournament_lobby_events: int = 30  # 30 seconds - Very dynamic
+</code></pre>
+<p><strong>Placement</strong> (after Clash TTLs, line ~190):</p>
+<pre><code class="language-python"># CLASH-V1: Clash tournament data
+cache_ttl_clash_player: int = 300  # 5 minutes - Player info
+cache_ttl_clash_team: int = 300  # 5 minutes - Team info
+cache_ttl_clash_tournament: int = 600  # 10 minutes - Tournament schedule
+
+# TOURNAMENT-V5: Tournament management and codes
+cache_ttl_tournament_code: int = 300  # 5 minutes - Code details
+cache_ttl_tournament_lobby_events: int = 30  # 30 seconds - Very dynamic
+
+# CHAMPION-V3: Champion rotation
+cache_ttl_champion_rotation: int = 86400  # 24 hours - Rotation changes weekly
+</code></pre>
+<h3 id="52-cache-key-patterns">5.2 Cache Key Patterns<a class="headerlink" href="#52-cache-key-patterns" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Endpoint</th>
+<th>Cache Key Pattern</th>
+<th>TTL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET /codes/{code}</td>
+<td><code>tournament:code:{region}:{tournamentCode}</code></td>
+<td>300s (5 min)</td>
+</tr>
+<tr>
+<td>GET /lobby-events/by-code/{code}</td>
+<td><code>tournament:lobby_events:{region}:{tournamentCode}</code></td>
+<td>30s</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Cache Key Design</strong>:</p>
+<pre><code class="language-python"># Pattern: tournament:&lt;resource_type&gt;:&lt;region&gt;:&lt;identifier&gt;
+cache_key = f"tournament:{resource}:{region}:{identifier}"
+
+# Examples:
+tournament:code:euw1:TURNACODE123
+tournament:lobby_events:euw1:TURNACODE123
+</code></pre>
+<h3 id="53-caching-behavior">5.3 Caching Behavior<a class="headerlink" href="#53-caching-behavior" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Caching</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>POST /providers</td>
+<td><strong>NO</strong></td>
+<td>State-changing, bypass cache</td>
+</tr>
+<tr>
+<td>POST /tournaments</td>
+<td><strong>NO</strong></td>
+<td>State-changing, bypass cache</td>
+</tr>
+<tr>
+<td>POST /codes</td>
+<td><strong>NO</strong></td>
+<td>State-changing, bypass cache</td>
+</tr>
+<tr>
+<td>GET /codes/{code}</td>
+<td><strong>YES</strong></td>
+<td>Cache with 5 min TTL, support ?force=true</td>
+</tr>
+<tr>
+<td>PUT /codes/{code}</td>
+<td><strong>NO</strong></td>
+<td>State-changing, invalidate cache</td>
+</tr>
+<tr>
+<td>GET /lobby-events</td>
+<td><strong>YES</strong></td>
+<td>Cache with 30s TTL, support ?force=true</td>
+</tr>
+</tbody>
+</table>
+<h3 id="54-cache-invalidation">5.4 Cache Invalidation<a class="headerlink" href="#54-cache-invalidation" title="Permanent link">¶</a></h3>
+<pre><code class="language-python"># When updating a code, invalidate its cache
+@router.put("/codes/{tournamentCode}")
+async def update_tournament_code(...):
+    result = await riot_client.put(...)
+
+    # Invalidate related caches
+    await cache.delete(f"tournament:code:{region}:{tournamentCode}")
+
+    return result
+</code></pre>
+<hr/>
+<h2 id="6-configuration-requirements">6. Configuration Requirements<a class="headerlink" href="#6-configuration-requirements" title="Permanent link">¶</a></h2>
+<h3 id="61-settings-configuration">6.1 Settings Configuration<a class="headerlink" href="#61-settings-configuration" title="Permanent link">¶</a></h3>
+<p><strong>File</strong>: <code>app/config.py</code></p>
+<pre><code class="language-python">class Settings(BaseSettings):
+    # ... existing settings ...
+
+    # Cache TTL (seconds) - Organized by API service
+
+    # ... existing TTLs ...
+
+    # TOURNAMENT-V5: Tournament management and codes
+    cache_ttl_tournament_code: int = 300  # 5 minutes
+    cache_ttl_tournament_lobby_events: int = 30  # 30 seconds
+
+    # ... rest of settings ...
+</code></pre>
+<h3 id="62-environment-variables">6.2 Environment Variables<a class="headerlink" href="#62-environment-variables" title="Permanent link">¶</a></h3>
+<p>Optional environment variable overrides:</p>
+<pre><code class="language-bash"># .env file or environment
+CACHE_TTL_TOURNAMENT_CODE=300
+CACHE_TTL_TOURNAMENT_LOBBY_EVENTS=30
+</code></pre>
+<h3 id="63-router-exports">6.3 Router Exports<a class="headerlink" href="#63-router-exports" title="Permanent link">¶</a></h3>
+<p><strong>File</strong>: <code>app/routers/__init__.py</code></p>
+<pre><code class="language-python">"""Routers package for lolstonks-api-gateway."""
+
+from app.routers import (
+    # ... existing routers ...
+    tournament,
+    tournament_stub,
+)
+
+__all__ = [
+    # ... existing exports ...
+    "tournament",
+    "tournament_stub",
+]
+</code></pre>
+<hr/>
+<h2 id="7-integration-points">7. Integration Points<a class="headerlink" href="#7-integration-points" title="Permanent link">¶</a></h2>
+<h3 id="71-files-to-create">7.1 Files to Create<a class="headerlink" href="#71-files-to-create" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+<th>Lines (approx)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>app/routers/tournament.py</code></td>
+<td>Production Tournament V5 API</td>
+<td>~350 lines</td>
+</tr>
+<tr>
+<td><code>app/routers/tournament_stub.py</code></td>
+<td>Tournament Stub V5 API</td>
+<td>~350 lines</td>
+</tr>
+</tbody>
+</table>
+<h3 id="72-files-to-modify">7.2 Files to Modify<a class="headerlink" href="#72-files-to-modify" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Changes</th>
+<th>Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>app/config.py</code></td>
+<td>Add 2 TTL settings</td>
+<td>+2 lines</td>
+</tr>
+<tr>
+<td><code>app/routers/__init__.py</code></td>
+<td>Export 2 routers</td>
+<td>+2 lines</td>
+</tr>
+<tr>
+<td><code>app/main.py</code></td>
+<td>Include routers</td>
+<td>+2 lines (later task)</td>
+</tr>
+<tr>
+<td><code>app/riot/client.py</code></td>
+<td>Add POST/PUT methods</td>
+<td>+~100 lines</td>
+</tr>
+</tbody>
+</table>
+<h3 id="73-mainpy-integration-later">7.3 Main.py Integration (Later)<a class="headerlink" href="#73-mainpy-integration-later" title="Permanent link">¶</a></h3>
+<pre><code class="language-python"># In app/main.py, add to imports:
+from app.routers import (
+    # ... existing ...
+    tournament,
+    tournament_stub,
+)
+
+# In router inclusion section (after Clash router):
+app.include_router(tournament.router)  # Tournament-V5
+app.include_router(tournament_stub.router)  # Tournament-Stub-V5
+</code></pre>
+<h3 id="74-http-client-enhancement">7.4 HTTP Client Enhancement<a class="headerlink" href="#74-http-client-enhancement" title="Permanent link">¶</a></h3>
+<p><strong>File</strong>: <code>app/riot/client.py</code></p>
+<p>Need to add POST and PUT methods:</p>
+<pre><code class="language-python">async def post(
+    self,
+    path: str,
+    region: str,
+    is_platform_endpoint: bool = False,
+    data: dict | None = None,
+) -&gt; dict:
+    """Make a POST request to the Riot API."""
+    # Similar to get(), but uses POST method
+    # Include request body (data parameter)
+    # Handle errors same way as GET
+    pass
+
+async def put(
+    self,
+    path: str,
+    region: str,
+    is_platform_endpoint: bool = False,
+    data: dict | None = None,
+) -&gt; dict:
+    """Make a PUT request to the Riot API."""
+    # Similar to post(), but uses PUT method
+    pass
+</code></pre>
+<hr/>
+<h2 id="8-error-handling">8. Error Handling<a class="headerlink" href="#8-error-handling" title="Permanent link">¶</a></h2>
+<h3 id="81-special-tournament-errors">8.1 Special Tournament Errors<a class="headerlink" href="#81-special-tournament-errors" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>HTTP Status</th>
+<th>Meaning</th>
+<th>Handling</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>403 Forbidden</strong></td>
+<td>No tournament access</td>
+<td>Special message about tournament API key requirement</td>
+</tr>
+<tr>
+<td><strong>400 Bad Request</strong></td>
+<td>Invalid tournament parameters</td>
+<td>Riot's exact error message</td>
+</tr>
+<tr>
+<td><strong>404 Not Found</strong></td>
+<td>Tournament code doesn't exist</td>
+<td>Tournament code not found</td>
+</tr>
+<tr>
+<td><strong>429 Rate Limit</strong></td>
+<td>Too many requests</td>
+<td>Retry-After header</td>
+</tr>
+</tbody>
+</table>
+<h3 id="82-403-forbidden-handling">8.2 403 Forbidden Handling<a class="headerlink" href="#82-403-forbidden-handling" title="Permanent link">¶</a></h3>
+<pre><code class="language-python"># In error handler, provide helpful message
+if response.status_code == 403 and "tournament" in str(e.request.url).lower():
+    logger.error(
+        f"Tournament API access forbidden (403): {error_msg} [region={region}]",
+    )
+    raise ForbiddenException(
+        message=f"Tournament API access forbidden. This endpoint requires a tournament-specific API key. "
+                f"Standard API keys do not have tournament access. Apply at https://developer.riotgames.com/ - "
+                f"Details: {error_msg}"
+    )
+</code></pre>
+<h3 id="83-error-response-format">8.3 Error Response Format<a class="headerlink" href="#83-error-response-format" title="Permanent link">¶</a></h3>
+<p>Follow existing error format from <code>app/exceptions.py</code>:</p>
+<pre><code class="language-json">{
+  "detail": "Tournament API access forbidden. This endpoint requires a tournament-specific API key..."
+}
+</code></pre>
+<hr/>
+<h2 id="9-testing-strategy">9. Testing Strategy<a class="headerlink" href="#9-testing-strategy" title="Permanent link">¶</a></h2>
+<h3 id="91-unit-tests">9.1 Unit Tests<a class="headerlink" href="#91-unit-tests" title="Permanent link">¶</a></h3>
+<p><strong>File</strong>: <code>tests/test_tournament.py</code></p>
+<pre><code class="language-python">"""Tests for tournament routers."""
+
+import pytest
+from unittest.mock import AsyncMock, patch
+from app.routers.tournament import router
+from app.routers.tournament_stub import router as stub_router
+
+
+class TestTournamentRouter:
+    """Test tournament router endpoints."""
+
+    @pytest.mark.asyncio
+    async def test_register_provider(self):
+        """Test POST /providers endpoint."""
+        # Mock riot_client.post
+        pass
+
+    @pytest.mark.asyncio
+    async def test_get_tournament_code_caching(self):
+        """Test GET /codes/{code} uses cache."""
+        # Test cache hit scenario
+        # Test cache miss scenario
+        pass
+
+    @pytest.mark.asyncio
+    async def test_get_lobby_events_force_refresh(self):
+        """Test ?force=true bypasses cache."""
+        pass
+
+    @pytest.mark.asyncio
+    async def test_update_code_invalidates_cache(self):
+        """Test PUT /codes invalidates cache."""
+        pass
+
+
+class TestTournamentStubRouter:
+    """Test tournament stub router endpoints."""
+
+    @pytest.mark.asyncio
+    async def test_stub_provider_registration(self):
+        """Test stub provider registration."""
+        pass
+</code></pre>
+<h3 id="92-integration-tests">9.2 Integration Tests<a class="headerlink" href="#92-integration-tests" title="Permanent link">¶</a></h3>
+<p><strong>File</strong>: <code>tests/integration/test_endpoints.py</code></p>
+<pre><code class="language-python"># Add to existing integration tests
+
+@pytest.mark.asyncio
+async def test_tournament_providers_validation(async_client: AsyncClient):
+    """Test tournament provider endpoint validates region."""
+    response = await async_client.post(
+        "/lol/tournament/v5/providers?region=invalid_region"
+    )
+    # Should return validation error
+    assert response.status_code in [400, 403, 422]
+
+
+@pytest.mark.asyncio
+async def test_tournament_code_validation(async_client: AsyncClient):
+    """Test tournament code endpoint validates parameters."""
+    response = await async_client.get(
+        "/lol/tournament/v5/codes/TESTCODE?region=invalid_region"
+    )
+    assert response.status_code in [400, 403, 404, 422]
+</code></pre>
+<h3 id="93-test-coverage-requirements">9.3 Test Coverage Requirements<a class="headerlink" href="#93-test-coverage-requirements" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Coverage Target</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>POST endpoints</td>
+<td>80%</td>
+<td>High</td>
+</tr>
+<tr>
+<td>GET endpoints with cache</td>
+<td>90%</td>
+<td>High</td>
+</tr>
+<tr>
+<td>PUT with cache invalidation</td>
+<td>85%</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Error handling (403, 404)</td>
+<td>85%</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>Force refresh logic</td>
+<td>80%</td>
+<td>Medium</td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<h2 id="10-implementation-guidance">10. Implementation Guidance<a class="headerlink" href="#10-implementation-guidance" title="Permanent link">¶</a></h2>
+<h3 id="101-implementation-order">10.1 Implementation Order<a class="headerlink" href="#101-implementation-order" title="Permanent link">¶</a></h3>
+<p><strong>Phase 1: Foundation</strong> (1 hour)
+1. Add TTL settings to <code>app/config.py</code>
+2. Export routers in <code>app/routers/__init__.py</code>
+3. Add POST/PUT methods to <code>app/riot/client.py</code></p>
+<p><strong>Phase 2: Tournament Router</strong> (1.5 hours)
+1. Create <code>app/routers/tournament.py</code>
+2. Implement all 6 endpoints
+3. Add comprehensive docstrings</p>
+<p><strong>Phase 3: Stub Router</strong> (30 minutes)
+1. Create <code>app/routers/tournament_stub.py</code>
+2. Copy endpoints from tournament.py
+3. Update prefix and tags</p>
+<p><strong>Phase 4: Testing</strong> (1 hour)
+1. Create unit tests
+2. Add integration tests
+3. Verify error handling</p>
+<p><strong>Phase 5: Integration</strong> (15 minutes)
+1. Include routers in <code>app/main.py</code>
+2. Test endpoints with Swagger UI
+3. Verify caching behavior</p>
+<p><strong>Total Time</strong>: ~4 hours</p>
+<h3 id="102-implementation-checklist">10.2 Implementation Checklist<a class="headerlink" href="#102-implementation-checklist" title="Permanent link">¶</a></h3>
+<ul>
+<li>[ ] Add cache TTL settings to <code>app/config.py</code></li>
+<li>[ ] Export routers in <code>app/routers/__init__.py</code></li>
+<li>[ ] Add <code>riot_client.post()</code> method</li>
+<li>[ ] Add <code>riot_client.put()</code> method</li>
+<li>[ ] Create <code>app/routers/tournament.py</code></li>
+<li>[ ] POST /providers</li>
+<li>[ ] POST /tournaments</li>
+<li>[ ] POST /codes</li>
+<li>[ ] GET /codes/{tournamentCode}</li>
+<li>[ ] PUT /codes/{tournamentCode}</li>
+<li>[ ] GET /lobby-events/by-code/{tournamentCode}</li>
+<li>[ ] Create <code>app/routers/tournament_stub.py</code></li>
+<li>[ ] All 6 endpoints (mirrored)</li>
+<li>[ ] Include routers in <code>app/main.py</code></li>
+<li>[ ] Write unit tests</li>
+<li>[ ] Add integration tests</li>
+<li>[ ] Test with Swagger UI</li>
+<li>[ ] Verify caching behavior</li>
+<li>[ ] Test 403 Forbidden handling</li>
+</ul>
+<h3 id="103-code-review-checklist">10.3 Code Review Checklist<a class="headerlink" href="#103-code-review-checklist" title="Permanent link">¶</a></h3>
+<p><strong>Architecture</strong>:
+- [ ] Follows existing patterns (clash.py, spectator.py)
+- [ ] Passthrough architecture (no data transformation)
+- [ ] Proper use of <code>fetch_with_cache</code> for GET endpoints
+- [ ] POST/PUT bypass cache entirely
+- [ ] Cache invalidation on PUT operations</p>
+<p><strong>Configuration</strong>:
+- [ ] TTL settings added to config.py
+- [ ] Cache keys follow pattern: <code>tournament:&lt;resource&gt;:&lt;region&gt;:&lt;id&gt;</code>
+- [ ] Router prefixes match API paths exactly
+- [ ] Tags for OpenAPI documentation</p>
+<p><strong>Error Handling</strong>:
+- [ ] Special 403 Forbidden message for tournament access
+- [ ] Uses existing custom exceptions
+- [ ] Proper error propagation from Riot API</p>
+<p><strong>Documentation</strong>:
+- [ ] Comprehensive module docstrings
+- [ ] API reference links in each endpoint
+- [ ] Usage examples in docstrings
+- [ ] Notes about tournament API key requirements</p>
+<p><strong>Testing</strong>:
+- [ ] Unit tests for all endpoints
+- [ ] Integration tests in test suite
+- [ ] Cache behavior verified
+- [ ] Error cases tested</p>
+<h3 id="104-common-pitfalls-to-avoid">10.4 Common Pitfalls to Avoid<a class="headerlink" href="#104-common-pitfalls-to-avoid" title="Permanent link">¶</a></h3>
+<p><strong>Pitfall 1: Caching POST/PUT endpoints</strong></p>
+<pre><code class="language-python"># WRONG - Don't use fetch_with_cache for POST
+@router.post("/providers")
+async def register_provider(...):
+    return await fetch_with_cache(...)  # ❌
+
+# CORRECT - Direct API call for state-changing operations
+@router.post("/providers")
+async def register_provider(...):
+    return await riot_client.post(...)  # ✓
+</code></pre>
+<p><strong>Pitfall 2: Missing cache invalidation</strong></p>
+<pre><code class="language-python"># WRONG - Update without invalidating cache
+@router.put("/codes/{code}")
+async def update_code(...):
+    return await riot_client.put(...)  # ❌
+
+# CORRECT - Invalidate cache after update
+@router.put("/codes/{code}")
+async def update_code(...):
+    result = await riot_client.put(...)
+    await cache.delete(f"tournament:code:{region}:{code}")
+    return result  # ✓
+</code></pre>
+<p><strong>Pitfall 3: Wrong TTL values</strong></p>
+<pre><code class="language-python"># WRONG - TTL too long for dynamic data
+ttl=3600  # 1 hour for lobby events ❌
+
+# CORRECT - Short TTL for dynamic data
+ttl=settings.cache_ttl_tournament_lobby_events  # 30 seconds ✓
+</code></pre>
+<p><strong>Pitfall 4: Forgetting ?force=true support</strong></p>
+<pre><code class="language-python"># WRONG - No force parameter
+@router.get("/codes/{code}")
+async def get_code(code: str, region: str):  # ❌
+    return await fetch_with_cache(...)
+
+# CORRECT - Support force refresh
+@router.get("/codes/{code}")
+async def get_code(code: str, region: str, force: bool = False):  # ✓
+    return await fetch_with_cache(..., force_refresh=force)
+</code></pre>
+<hr/>
+<h2 id="11-api-reference">11. API Reference<a class="headerlink" href="#11-api-reference" title="Permanent link">¶</a></h2>
+<h3 id="111-official-riot-documentation">11.1 Official Riot Documentation<a class="headerlink" href="#111-official-riot-documentation" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Tournament V5</strong>: https://developer.riotgames.com/apis#tournament-v5</li>
+<li><strong>Tournament Stub V5</strong>: https://developer.riotgames.com/apis#tournament-stub-v5</li>
+<li><strong>Tournament Access</strong>: https://developer.riotgames.com/tournaments</li>
+</ul>
+<h3 id="112-endpoint-summary">11.2 Endpoint Summary<a class="headerlink" href="#112-endpoint-summary" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Description</th>
+<th>Cache</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>POST</td>
+<td>/providers</td>
+<td>Register provider</td>
+<td>NO</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/tournaments</td>
+<td>Create tournament</td>
+<td>NO</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/codes</td>
+<td>Generate codes</td>
+<td>NO</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/codes/{code}</td>
+<td>Get code details</td>
+<td>YES (5 min)</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td>/codes/{code}</td>
+<td>Update code</td>
+<td>NO (invalidate)</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/lobby-events/by-code/{code}</td>
+<td>Get events</td>
+<td>YES (30s)</td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<h2 id="12-monitoring-and-observability">12. Monitoring and Observability<a class="headerlink" href="#12-monitoring-and-observability" title="Permanent link">¶</a></h2>
+<h3 id="121-logging-patterns">12.1 Logging Patterns<a class="headerlink" href="#121-logging-patterns" title="Permanent link">¶</a></h3>
+<pre><code class="language-python"># Structured logging examples
+logger.info(
+    "Tournament provider registered",
+    region=region,
+    provider_id=provider_id
+)
+
+logger.info(
+    "Tournament codes generated",
+    region=region,
+    count=len(codes),
+    tournament_id=tournament_id
+)
+
+logger.warning(
+    "Tournament code not found",
+    tournament_code=tournamentCode,
+    region=region
+)
+</code></pre>
+<h3 id="122-metrics-to-track">12.2 Metrics to Track<a class="headerlink" href="#122-metrics-to-track" title="Permanent link">¶</a></h3>
+<ul>
+<li>Provider registration success rate</li>
+<li>Code generation rate</li>
+<li>Lobby event polling frequency</li>
+<li>Cache hit/miss ratio for codes</li>
+<li>403 Forbidden errors (indicates access issues)</li>
+</ul>
+<hr/>
+<h2 id="13-security-considerations">13. Security Considerations<a class="headerlink" href="#13-security-considerations" title="Permanent link">¶</a></h2>
+<h3 id="131-tournament-api-key-requirements">13.1 Tournament API Key Requirements<a class="headerlink" href="#131-tournament-api-key-requirements" title="Permanent link">¶</a></h3>
+<p><strong>Important</strong>: Standard Riot API keys do NOT have tournament access.</p>
+<p><strong>Required Actions</strong>:
+1. Apply for tournament access at <a href="https://developer.riotgames.com/">Riot Developer Portal</a>
+2. Receive tournament-specific API key
+3. Configure key in environment: <code>RIOT_API_KEY</code> or <code>RIOT_API_KEYS</code></p>
+<p><strong>Error Indication</strong>:</p>
+<pre><code class="language-json">{
+  "detail": "Forbidden"
+}
+</code></pre>
+<p>If all tournament endpoints return 403, you likely don't have tournament access.</p>
+<h3 id="132-stub-api-advantage">13.2 Stub API Advantage<a class="headerlink" href="#132-stub-api-advantage" title="Permanent link">¶</a></h3>
+<p>The stub API can use standard API keys (no special access required), making it ideal for:
+- Development testing
+- CI/CD pipelines
+- Integration tests</p>
+<hr/>
+<h2 id="14-conclusion">14. Conclusion<a class="headerlink" href="#14-conclusion" title="Permanent link">¶</a></h2>
+<p>This architecture design provides a complete blueprint for implementing Tournament V5 and Tournament Stub V5 routers in the lolstonks-api-gateway. The design:</p>
+<ul>
+<li>Follows existing patterns from clash.py and spectator.py</li>
+<li>Implements intelligent caching for GET endpoints</li>
+<li>Properly handles state-changing operations (POST/PUT)</li>
+<li>Provides clear error messages for tournament access issues</li>
+<li>Includes comprehensive testing strategy</li>
+</ul>
+<p><strong>Next Steps</strong>:
+1. Review and approve this design
+2. Implement HTTP client POST/PUT methods
+3. Create tournament router file
+4. Create tournament stub router file
+5. Write tests
+6. Integrate into main.py
+7. Deploy and monitor</p>
+<p><strong>Estimated Implementation Time</strong>: 4 hours
+<strong>Estimated Testing Time</strong>: 1 hour
+<strong>Total</strong>: ~5 hours</p>
+<hr/>
+<h2 id="appendix-a-code-templates">Appendix A: Code Templates<a class="headerlink" href="#appendix-a-code-templates" title="Permanent link">¶</a></h2>
+<h3 id="a1-complete-tournament-router-template">A.1 Complete Tournament Router Template<a class="headerlink" href="#a1-complete-tournament-router-template" title="Permanent link">¶</a></h3>
+<p>See Section 4.1 for detailed endpoint implementations.</p>
+<h3 id="a2-http-client-postput-implementation">A.2 HTTP Client POST/PUT Implementation<a class="headerlink" href="#a2-http-client-postput-implementation" title="Permanent link">¶</a></h3>
+<p>See Section 7.4 for method signatures.</p>
+<h3 id="a3-configuration-snippets">A.3 Configuration Snippets<a class="headerlink" href="#a3-configuration-snippets" title="Permanent link">¶</a></h3>
+<p>See Section 6 for complete configuration examples.</p>
+<hr/>
+<p><strong>Document Version</strong>: 1.0
+<strong>Last Updated</strong>: 2025-01-29
+<strong>Status</strong>: Ready for Implementation</p>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+<script>
+        // Enhanced Mermaid Interactivity for LOLStonks Documentation
+        (function() {
+            'use strict';
+
+            console.log('Initializing Mermaid interactivity...');
+
+            // Wait for DOM to be ready and Mermaid diagrams to render
+            const waitForMermaid = () => {
+                const mermaidElements = document.querySelectorAll('.mermaid');
+                console.log('Found Mermaid elements:', mermaidElements.length);
+
+                if (mermaidElements.length === 0) {
+                    console.log('No Mermaid elements found, retrying in 2 seconds...');
+                    setTimeout(waitForMermaid, 2000);
+                    return;
+                }
+
+                mermaidElements.forEach((element, index) => {
+                    const id = element.id || 'mermaid-diagram-' + index;
+                    element.setAttribute('id', id);
+
+                    // Wait for the diagram to be rendered as SVG
+                    const waitForSVG = () => {
+                        const svg = element.querySelector('svg');
+                        if (svg) {
+                            console.log('SVG found for element:', id);
+                            addInteractivityToDiagram(element, id);
+                        } else {
+                            console.log('SVG not found yet for element:', id, 'retrying...');
+                            setTimeout(waitForSVG, 500);
+                        }
+                    };
+
+                    waitForSVG();
+                });
+            };
+
+            const addInteractivityToDiagram = (element, id) => {
+                // Add interactive controls container
+                if (!element.previousSibling) {
+                    const controls = createInteractiveControls(id, element);
+                    element.parentNode.insertBefore(controls, element);
+                }
+
+                // Add zoom controls
+                addZoomControls(element, id);
+
+                // Add click handlers
+                addClickHandlers(element);
+
+                // Add tooltips
+                addTooltips(element);
+
+                // Make responsive
+                makeResponsive(element);
+
+                // Add pan and zoom
+                addPanAndZoom(element, id);
+            };
+
+            const createInteractiveControls = (id, element) => {
+                const controls = document.createElement('div');
+                controls.className = 'mermaid-controls';
+                controls.style.cssText = `
+                    margin: 10px 0;
+                    padding: 10px;
+                    background: #f5f5f5;
+                    border-radius: 5px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    gap: 10px;
+                    font-size: 14px;
+                    font-family: Arial, sans-serif;
+                `;
+
+                // Zoom controls
+                const zoomControls = document.createElement('div');
+                zoomControls.innerHTML = `
+                    <span style="font-weight: bold;">🔍 Zoom:</span>
+                    <button onclick="zoomDiagram('${id}', 1.2)" style="margin: 0 2px; padding: 4px 8px; background: #1976d2; color: white; border: none; border-radius: 3px; cursor: pointer;">+</button>
+                    <button onclick="zoomDiagram('${id}', 0.8)" style="margin: 0 2px; padding: 4px 8px; background: #1976d2; color: white; border: none; border-radius: 3px; cursor: pointer;">−</button>
+                    <button onclick="resetZoom('${id}')" style="margin: 0 2px; padding: 4px 8px; background: #666; color: white; border: none; border-radius: 3px; cursor: pointer;">Reset</button>
+                `;
+
+                // Navigation info
+                const navInfo = document.createElement('div');
+                navInfo.innerHTML = `<span style="color: #666;">🖱️ Click nodes for details • Scroll to zoom • Drag to pan</span>`;
+
+                // Fullscreen button
+                const fullscreenBtn = document.createElement('button');
+                fullscreenBtn.textContent = '⛶ Fullscreen';
+                fullscreenBtn.style.cssText = `
+                    padding: 4px 12px;
+                    background: #388e3c;
+                    color: white;
+                    border: none;
+                    border-radius: 3px;
+                    cursor: pointer;
+                `;
+                fullscreenBtn.onclick = () => toggleFullscreen(id, element);
+
+                // Download button
+                const downloadBtn = document.createElement('button');
+                downloadBtn.textContent = '📥 Download';
+                downloadBtn.style.cssText = `
+                    padding: 4px 12px;
+                    background: #ff9800;
+                    color: white;
+                    border: none;
+                    border-radius: 3px;
+                    cursor: pointer;
+                `;
+                downloadBtn.onclick = () => downloadDiagram(id, element);
+
+                controls.appendChild(zoomControls);
+                controls.appendChild(navInfo);
+                controls.appendChild(fullscreenBtn);
+                controls.appendChild(downloadBtn);
+
+                return controls;
+            };
+
+            const addZoomControls = (element, id) => {
+                element.style.transform = 'scale(1)';
+                element.style.transformOrigin = 'center top';
+                element.style.transition = 'transform 0.3s ease';
+                element.dataset.originalTransform = 'scale(1)';
+                element.dataset.currentZoom = '1';
+            };
+
+            const addPanAndZoom = (element, id) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                let isPanning = false;
+                let startX = 0, startY = 0, translateX = 0, translateY = 0;
+
+                // Mouse wheel zoom
+                element.addEventListener('wheel', function(e) {
+                    if (e.ctrlKey || e.metaKey) {
+                        e.preventDefault();
+                        const delta = e.deltaY > 0 ? 0.9 : 1.1;
+                        zoomDiagram(id, delta);
+                    }
+                });
+
+                // Pan functionality
+                svg.style.cursor = 'grab';
+                svg.addEventListener('mousedown', function(e) {
+                    if (e.button === 0 && !e.shiftKey) {
+                        isPanning = true;
+                        startX = e.clientX - translateX;
+                        startY = e.clientY - translateY;
+                        svg.style.cursor = 'grabbing';
+                        e.preventDefault();
+                    }
+                });
+
+                document.addEventListener('mousemove', function(e) {
+                    if (isPanning) {
+                        translateX = e.clientX - startX;
+                        translateY = e.clientY - startY;
+                        const currentZoom = parseFloat(element.dataset.currentZoom || 1);
+                        svg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
+                    }
+                });
+
+                document.addEventListener('mouseup', function() {
+                    isPanning = false;
+                    svg.style.cursor = 'grab';
+                });
+
+                // Touch support for mobile
+                let touchStartDistance = 0;
+                let touchStartZoom = 1;
+
+                element.addEventListener('touchstart', function(e) {
+                    if (e.touches.length === 2) {
+                        const dx = e.touches[0].clientX - e.touches[1].clientX;
+                        const dy = e.touches[0].clientY - e.touches[1].clientY;
+                        touchStartDistance = Math.sqrt(dx * dx + dy * dy);
+                        touchStartZoom = parseFloat(element.dataset.currentZoom || 1);
+                    }
+                });
+
+                element.addEventListener('touchmove', function(e) {
+                    if (e.touches.length === 2) {
+                        const dx = e.touches[0].clientX - e.touches[1].clientX;
+                        const dy = e.touches[0].clientY - e.touches[1].clientY;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        const scale = Math.max(0.5, Math.min(3, touchStartZoom * (distance / touchStartDistance)));
+                        element.dataset.currentZoom = scale;
+                        const svg = element.querySelector('svg');
+                        const currentZoom = parseFloat(element.dataset.currentZoom || 1);
+                        svg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
+                    }
+                });
+            };
+
+            const addClickHandlers = (element) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                const clickableElements = svg.querySelectorAll('g.node, g.edgePath, .cluster');
+                clickableElements.forEach(el => {
+                    el.style.cursor = 'pointer';
+                    el.addEventListener('click', function(e) {
+                        if (!e.shiftKey && !e.ctrlKey) {
+                            e.preventDefault();
+                            showNodeDetails(el, element);
+                        }
+                    });
+                });
+            };
+
+            const addTooltips = (element) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                const nodes = svg.querySelectorAll('g.node');
+                nodes.forEach(node => {
+                    const rect = node.querySelector('rect');
+                    const text = node.querySelector('text');
+                    if (rect && text) {
+                        node.title = text.textContent + ' - Click for more information';
+
+                        node.addEventListener('mouseenter', function() {
+                            rect.style.filter = 'brightness(1.2)';
+                            rect.style.transition = 'filter 0.2s ease';
+                        });
+
+                        node.addEventListener('mouseleave', function() {
+                            rect.style.filter = 'brightness(1)';
+                        });
+                    }
+                });
+            };
+
+            const makeResponsive = (element) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                svg.style.maxWidth = '100%';
+                svg.style.height = 'auto';
+                svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+
+                const resizeObserver = new ResizeObserver(() => {
+                    adjustDiagramSize(element);
+                });
+                resizeObserver.observe(element);
+            };
+
+            const adjustDiagramSize = (element) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                const container = element.parentElement;
+                const containerWidth = container.clientWidth;
+
+                if (containerWidth < 800) {
+                    const mobileZoom = Math.max(0.5, containerWidth / 800);
+                    element.dataset.currentZoom = mobileZoom;
+                    const translateMatch = svg.style.transform.match(/translate\(([^)]+)px/);
+                    const translate = translateMatch ? translateMatch[1] : '0px, 0px';
+                    svg.style.transform = `translate(${translate}) scale(${mobileZoom})`;
+                }
+            };
+
+            const showNodeDetails = (nodeElement, diagramElement) => {
+                const modal = document.createElement('div');
+                modal.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.5);
+                    z-index: 1000;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                `;
+
+                const content = document.createElement('div');
+                content.style.cssText = `
+                    background: white;
+                    padding: 20px;
+                    border-radius: 8px;
+                    max-width: 600px;
+                    max-height: 80%;
+                    overflow-y: auto;
+                `;
+
+                const text = nodeElement.querySelector('text');
+                const title = text ? text.textContent : 'Node Details';
+
+                content.innerHTML = `
+                    <h3>${title}</h3>
+                    <p><strong>Diagram:</strong> ${diagramElement.closest('h1, h2, h3, h4, h5, h6')?.textContent || 'Architecture Diagram'}</p>
+                    <p><strong>Component Type:</strong> ${getNodeInfo(nodeElement).type}</p>
+                    <p>${getNodeInfo(nodeElement).description}</p>
+                    <button onclick="this.closest('div[style*=fixed]').remove()" style="
+                        margin-top: 15px;
+                        padding: 8px 16px;
+                        background: #1976d2;
+                        color: white;
+                        border: none;
+                        border-radius: 4px;
+                        cursor: pointer;
+                    ">Close</button>
+                `;
+
+                modal.appendChild(content);
+                modal.appendChild(document.createElement('button'));
+                modal.onclick = (e) => {
+                    if (e.target === modal) modal.remove();
+                };
+
+                document.body.appendChild(modal);
+            };
+
+            const getNodeInfo = (nodeElement) => {
+                const text = nodeElement.querySelector('text')?.textContent?.toLowerCase() || '';
+
+                if (text.includes('api') || text.includes('gateway')) {
+                    return {
+                        type: 'API Component',
+                        description: 'This component handles API requests, routing, and response processing in the LOLStonks Gateway.'
+                    };
+                } else if (text.includes('cache') || text.includes('redis')) {
+                    return {
+                        type: 'Cache Layer',
+                        description: 'This component provides caching functionality to improve API response times and reduce external API calls.'
+                    };
+                } else if (text.includes('rate') || text.includes('limit')) {
+                    return {
+                        type: 'Rate Limiter',
+                        description: 'This component enforces rate limits to prevent API abuse and ensure fair usage across all clients.'
+                    };
+                } else if (text.includes('auth') || text.includes('security')) {
+                    return {
+                        type: 'Security Component',
+                        description: 'This component handles authentication, authorization, and security validation for API requests.'
+                    };
+                } else if (text.includes('provider') || text.includes('riot')) {
+                    return {
+                        type: 'External Provider',
+                        description: 'This component interfaces with external APIs (like Riot Games API) to fetch game data.'
+                    };
+                } else {
+                    return {
+                        type: 'System Component',
+                        description: 'This component is part of the LOLStonks API Gateway architecture. Click on different components to explore the system design.'
+                    };
+                }
+            };
+
+            // Global functions for button controls
+            window.zoomDiagram = function(id, factor) {
+                const element = document.getElementById(id);
+                if (!element) return;
+
+                const currentZoom = parseFloat(element.dataset.currentZoom || 1);
+                const newZoom = Math.max(0.1, Math.min(3, currentZoom * factor));
+
+                const svg = element.querySelector('svg');
+                const currentTransform = svg.style.transform || '';
+                const translateMatch = currentTransform.match(/translate\(([^)]+)px/);
+                const translate = translateMatch ? translateMatch[1] : '0px, 0px';
+
+                svg.style.transform = `translate(${translate}) scale(${newZoom})`;
+                element.dataset.currentZoom = newZoom;
+            };
+
+            window.resetZoom = function(id) {
+                const element = document.getElementById(id);
+                if (!element) return;
+
+                const svg = element.querySelector('svg');
+                svg.style.transform = 'translate(0px, 0px) scale(1)';
+                element.dataset.currentZoom = '1';
+            };
+
+            window.toggleFullscreen = function(id, element) {
+                if (element.style.position === 'fixed') {
+                    // Exit fullscreen
+                    element.style.position = '';
+                    element.style.top = '';
+                    element.style.left = '';
+                    element.style.width = '';
+                    element.style.height = '';
+                    element.style.zIndex = '';
+                    element.style.backgroundColor = '';
+                    element.style.padding = '';
+                    element.style.overflow = '';
+                    resetZoom(id);
+                } else {
+                    // Enter fullscreen
+                    element.style.position = 'fixed';
+                    element.style.top = '0';
+                    element.style.left = '0';
+                    element.style.width = '100vw';
+                    element.style.height = '100vh';
+                    element.style.zIndex = '999';
+                    element.style.backgroundColor = 'white';
+                    element.style.padding = '20px';
+                    element.style.overflow = 'auto';
+                    zoomDiagram(id, 1.5);
+                }
+            };
+
+            window.downloadDiagram = function(id, element) {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                const svgData = new XMLSerializer().serializeToString(svg);
+                const svgBlob = new Blob([svgData], {type: 'image/svg+xml;charset=utf-8'});
+                const svgUrl = URL.createObjectURL(svgBlob);
+
+                const downloadLink = document.createElement('a');
+                downloadLink.href = svgUrl;
+                downloadLink.download = `${id || 'diagram'}-${Date.now()}.svg`;
+                downloadLink.click();
+
+                URL.revokeObjectURL(svgUrl);
+            };
+
+            // Initialize everything
+            waitForMermaid();
+
+        })();
+    </script>
+</body>
+</html>

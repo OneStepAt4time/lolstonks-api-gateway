@@ -2169,6 +2169,752 @@
         }
       }
     },
+    "/lol/tournament/v5/providers": {
+      "post": {
+        "tags": [
+          "tournament"
+        ],
+        "summary": "Register Provider",
+        "description": "Register a tournament provider.\n\nThis endpoint registers a new tournament provider with the specified callback URL.\nA provider must be registered before creating tournaments or generating codes.\nEach provider registration is region-specific and requires a Tournament API key.\n\nAPI Reference: https://developer.riotgames.com/apis#tournament-v5/POST_registerProvider\n\nArgs:\n    region (str): The region to register the provider in.\n    body (dict): Provider registration details containing:\n        - url (str): The callback URL where tournament events will be sent.\n        - region (str): The region for the provider.\n        - tournamentProviderCallbackUrl (str): Alternative callback URL field.\n\nReturns:\n    dict: A dictionary containing the provider ID.\n\nRaises:\n    ForbiddenException: If using a standard API key instead of Tournament API key.\n\nExample:\n    >>> curl -X POST \"http://127.0.0.1:8080/lol/tournament/v5/providers?region=euw1\" \\\n    >>>      -H \"Content-Type: application/json\" \\\n    >>>      -d '{\"url\": \"https://example.com/callback\"}'",
+        "operationId": "register_provider_lol_tournament_v5_providers_post",
+        "parameters": [
+          {
+            "name": "region",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Region code",
+              "title": "Region"
+            },
+            "description": "Region code"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true,
+                "description": "Provider registration data",
+                "title": "Body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/tournament/v5/tournaments": {
+      "post": {
+        "tags": [
+          "tournament"
+        ],
+        "summary": "Create Tournament",
+        "description": "Create a tournament.\n\nThis endpoint creates a new tournament under a registered provider.\nThe tournament can then be used to generate tournament codes for lobby creation.\n\nAPI Reference: https://developer.riotgames.com/apis#tournament-v5/POST_registerTournament\n\nArgs:\n    region (str): The region to create the tournament in.\n    body (dict): Tournament details containing:\n        - name (str): The name of the tournament.\n        - providerId (int): The ID of the registered provider.\n        - description (str, optional): Description of the tournament.\n\nReturns:\n    dict: A dictionary containing the tournament ID.\n\nRaises:\n    ForbiddenException: If using a standard API key instead of Tournament API key.\n\nExample:\n    >>> curl -X POST \"http://127.0.0.1:8080/lol/tournament/v5/tournaments?region=euw1\" \\\n    >>>      -H \"Content-Type: application/json\" \\\n    >>>      -d '{\"name\": \"My Tournament\", \"providerId\": 123}'",
+        "operationId": "create_tournament_lol_tournament_v5_tournaments_post",
+        "parameters": [
+          {
+            "name": "region",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Region code",
+              "title": "Region"
+            },
+            "description": "Region code"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true,
+                "description": "Tournament creation data",
+                "title": "Body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/tournament/v5/codes": {
+      "post": {
+        "tags": [
+          "tournament"
+        ],
+        "summary": "Create Tournament Codes",
+        "description": "Generate tournament codes.\n\nThis endpoint generates tournament codes for creating custom game lobbies.\nEach code is unique and can be used to create a lobby with the specified settings.\nMaximum of 1000 codes can be generated in a single request.\n\nAPI Reference: https://developer.riotgames.com/apis#tournament-v5/POST_createTournamentCode\n\nArgs:\n    region (str): The region to generate codes for.\n    body (dict): Code generation details containing:\n        - count (int): Number of codes to generate (max 1000).\n        - mapType (str): Map type (e.g., \"SUMMONERS_RIFT\").\n        - pickType (str): Pick type (e.g., \"TOURNAMENT_DRAFT\").\n        - spectatorType (str): Spectator type (e.g., \"LOBBYONLY\", \"ALL\").\n        - teamSize (int): Number of players per team (e.g., 5).\n        - tournamentId (int): The ID of the tournament.\n        - allowedSummonerIds (list, optional): List of summoner IDs allowed to join.\n        - metadata (str, optional): Optional metadata string.\n\nReturns:\n    list: A list of generated tournament code strings.\n\nRaises:\n    ForbiddenException: If using a standard API key instead of Tournament API key.\n\nExample:\n    >>> curl -X POST \"http://127.0.0.1:8080/lol/tournament/v5/codes?region=euw1\" \\\n    >>>      -H \"Content-Type: application/json\" \\\n    >>>      -d '{\n    >>>          \"count\": 5,\n    >>>          \"mapType\": \"SUMMONERS_RIFT\",\n    >>>          \"pickType\": \"TOURNAMENT_DRAFT\",\n    >>>          \"spectatorType\": \"LOBBYONLY\",\n    >>>          \"teamSize\": 5,\n    >>>          \"tournamentId\": 456\n    >>>      }'",
+        "operationId": "create_tournament_codes_lol_tournament_v5_codes_post",
+        "parameters": [
+          {
+            "name": "region",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Region code",
+              "title": "Region"
+            },
+            "description": "Region code"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true,
+                "description": "Tournament code generation data",
+                "title": "Body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/tournament/v5/codes/{tournamentCode}": {
+      "get": {
+        "tags": [
+          "tournament"
+        ],
+        "summary": "Get Tournament Code",
+        "description": "Retrieve tournament code details.\n\nThis endpoint fetches the metadata and settings associated with a tournament code.\nIncludes information about the code's configuration and the game it represents.\n\nAPI Reference: https://developer.riotgames.com/apis#tournament-v5/GET_getTournamentCode\n\nArgs:\n    tournamentCode (str): The tournament code to look up.\n    region (str): The region to fetch the code data from.\n    force (bool): If true, bypass cache and fetch from API.\n\nReturns:\n    dict: A dictionary containing the tournament code details, including:\n        - mapType (str): Map type setting.\n        - pickType (str): Pick type setting.\n        - spectatorType (str): Spectator type setting.\n        - teamSize (int): Team size setting.\n        - tournamentId (int): Associated tournament ID.\n        - lobbyName (str): Lobby name (if game started).\n        - lobbyPassword (str): Lobby password (if set).\n        - code (str): The tournament code itself.\n        - participants (list): List of participant summoner IDs.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/tournament/v5/codes/{tournamentCode}?region=euw1\"",
+        "operationId": "get_tournament_code_lol_tournament_v5_codes__tournamentCode__get",
+        "parameters": [
+          {
+            "name": "tournamentCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Tournamentcode"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Region code",
+              "default": "euw1",
+              "title": "Region"
+            },
+            "description": "Region code"
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Force refresh cache",
+              "title": "Force"
+            },
+            "description": "Force refresh cache"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "tournament"
+        ],
+        "summary": "Update Tournament Code",
+        "description": "Update tournament code settings.\n\nThis endpoint updates the settings of an existing tournament code.\nUse this to modify lobby parameters or metadata for a code.\n\nAPI Reference: https://developer.riotgames.com/apis#tournament-v5/PUT_updateTournamentCode\n\nArgs:\n    tournamentCode (str): The tournament code to update.\n    region (str): The region of the tournament code.\n    body (dict): Updated code settings:\n        - mapType (str, optional): New map type.\n        - pickType (str, optional): New pick type.\n        - spectatorType (str, optional): New spectator type.\n        - allowedSummonerIds (list, optional): Updated allowed summoner IDs.\n        - metadata (str, optional): Updated metadata string.\n\nReturns:\n    dict: Confirmation of the update.\n\nRaises:\n    ForbiddenException: If using a standard API key instead of Tournament API key.\n\nExample:\n    >>> curl -X PUT \"http://127.0.0.1:8080/lol/tournament/v5/codes/{tournamentCode}?region=euw1\" \\\n    >>>      -H \"Content-Type: application/json\" \\\n    >>>      -d '{\"spectatorType\": \"ALL\"}'",
+        "operationId": "update_tournament_code_lol_tournament_v5_codes__tournamentCode__put",
+        "parameters": [
+          {
+            "name": "tournamentCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Tournamentcode"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Region code",
+              "title": "Region"
+            },
+            "description": "Region code"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true,
+                "description": "Tournament code update data",
+                "title": "Body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/tournament/v5/lobby-events/by-code/{tournamentCode}": {
+      "get": {
+        "tags": [
+          "tournament"
+        ],
+        "summary": "Get Lobby Events",
+        "description": "Retrieve lobby events for a tournament code.\n\nThis endpoint fetches real-time events from the lobby associated with\na tournament code. Events include players joining, leaving, readying up,\nand other lobby state changes.\n\nAPI Reference: https://developer.riotgames.com/apis#tournament-v5/GET_getTournamentLobbyEvents\n\nArgs:\n    tournamentCode (str): The tournament code to get events for.\n    region (str): The region to fetch the events from.\n    force (bool): If true, bypass cache and fetch from API.\n\nReturns:\n    dict: A dictionary containing:\n        - eventList (list): List of lobby events, each with:\n            - eventType (str): Type of event (e.g., \"PlayerJoined\", \"PlayerReady\").\n            - timestamp (str): When the event occurred.\n            - summonerId (str): Summoner ID involved in the event.\n            - summonerName (str): Summoner name involved in the event.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/tournament/v5/lobby-events/by-code/{tournamentCode}?region=euw1\"",
+        "operationId": "get_lobby_events_lol_tournament_v5_lobby_events_by_code__tournamentCode__get",
+        "parameters": [
+          {
+            "name": "tournamentCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Tournamentcode"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Region code",
+              "default": "euw1",
+              "title": "Region"
+            },
+            "description": "Region code"
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Force refresh cache",
+              "title": "Force"
+            },
+            "description": "Force refresh cache"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/tournament-stub/v5/providers": {
+      "post": {
+        "tags": [
+          "tournament-stub"
+        ],
+        "summary": "Register Provider",
+        "description": "Register a tournament provider (testing environment).\n\nThis endpoint simulates registering a tournament provider in the test environment.\nNo actual provider is created, making it safe for testing without Tournament API keys.\n\nAPI Reference: https://developer.riotgames.com/apis#tournament-stub-v5/POST_registerProvider\n\nArgs:\n    region (str): The region to register the provider in.\n    body (dict): Provider registration details containing:\n        - url (str): The callback URL where tournament events would be sent.\n        - region (str): The region for the provider.\n        - tournamentProviderCallbackUrl (str): Alternative callback URL field.\n\nReturns:\n    dict: A dictionary containing the mock provider ID.\n\nNote:\n    This is a testing endpoint. No actual provider is created in production.\n\nExample:\n    >>> curl -X POST \"http://127.0.0.1:8080/lol/tournament-stub/v5/providers?region=euw1\" \\\n    >>>      -H \"Content-Type: application/json\" \\\n    >>>      -d '{\"url\": \"https://example.com/callback\"}'",
+        "operationId": "register_provider_lol_tournament_stub_v5_providers_post",
+        "parameters": [
+          {
+            "name": "region",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Region code",
+              "title": "Region"
+            },
+            "description": "Region code"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true,
+                "description": "Provider registration data",
+                "title": "Body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/tournament-stub/v5/tournaments": {
+      "post": {
+        "tags": [
+          "tournament-stub"
+        ],
+        "summary": "Create Tournament",
+        "description": "Create a tournament (testing environment).\n\nThis endpoint simulates creating a tournament in the test environment.\nNo actual tournament is created, making it safe for testing without Tournament API keys.\n\nAPI Reference: https://developer.riotgames.com/apis#tournament-stub-v5/POST_registerTournament\n\nArgs:\n    region (str): The region to create the tournament in.\n    body (dict): Tournament details containing:\n        - name (str): The name of the tournament.\n        - providerId (int): The ID of the registered provider.\n        - description (str, optional): Description of the tournament.\n\nReturns:\n    dict: A dictionary containing the mock tournament ID.\n\nNote:\n    This is a testing endpoint. No actual tournament is created in production.\n\nExample:\n    >>> curl -X POST \"http://127.0.0.1:8080/lol/tournament-stub/v5/tournaments?region=euw1\" \\\n    >>>      -H \"Content-Type: application/json\" \\\n    >>>      -d '{\"name\": \"My Tournament\", \"providerId\": 123}'",
+        "operationId": "create_tournament_lol_tournament_stub_v5_tournaments_post",
+        "parameters": [
+          {
+            "name": "region",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Region code",
+              "title": "Region"
+            },
+            "description": "Region code"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true,
+                "description": "Tournament creation data",
+                "title": "Body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/tournament-stub/v5/codes": {
+      "post": {
+        "tags": [
+          "tournament-stub"
+        ],
+        "summary": "Create Tournament Codes",
+        "description": "Generate tournament codes (testing environment).\n\nThis endpoint simulates generating tournament codes in the test environment.\nGenerated codes are mock codes and cannot be used to create actual game lobbies.\n\nAPI Reference: https://developer.riotgames.com/apis#tournament-stub-v5/POST_createTournamentCode\n\nArgs:\n    region (str): The region to generate codes for.\n    body (dict): Code generation details containing:\n        - count (int): Number of codes to generate (max 1000).\n        - mapType (str): Map type (e.g., \"SUMMONERS_RIFT\").\n        - pickType (str): Pick type (e.g., \"TOURNAMENT_DRAFT\").\n        - spectatorType (str): Spectator type (e.g., \"LOBBYONLY\", \"ALL\").\n        - teamSize (int): Number of players per team (e.g., 5).\n        - tournamentId (int): The ID of the tournament.\n        - allowedSummonerIds (list, optional): List of summoner IDs allowed to join.\n        - metadata (str, optional): Optional metadata string.\n\nReturns:\n    list: A list of mock tournament code strings.\n\nNote:\n    This is a testing endpoint. Generated codes are not valid in production.\n\nExample:\n    >>> curl -X POST \"http://127.0.0.1:8080/lol/tournament-stub/v5/codes?region=euw1\" \\\n    >>>      -H \"Content-Type: application/json\" \\\n    >>>      -d '{\n    >>>          \"count\": 5,\n    >>>          \"mapType\": \"SUMMONERS_RIFT\",\n    >>>          \"pickType\": \"TOURNAMENT_DRAFT\",\n    >>>          \"spectatorType\": \"LOBBYONLY\",\n    >>>          \"teamSize\": 5,\n    >>>          \"tournamentId\": 456\n    >>>      }'",
+        "operationId": "create_tournament_codes_lol_tournament_stub_v5_codes_post",
+        "parameters": [
+          {
+            "name": "region",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Region code",
+              "title": "Region"
+            },
+            "description": "Region code"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true,
+                "description": "Tournament code generation data",
+                "title": "Body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/tournament-stub/v5/codes/{tournamentCode}": {
+      "get": {
+        "tags": [
+          "tournament-stub"
+        ],
+        "summary": "Get Tournament Code",
+        "description": "Retrieve tournament code details (testing environment).\n\nThis endpoint fetches mock metadata and settings for a tournament code.\nReturns simulated code configuration data for testing purposes.\n\nAPI Reference: https://developer.riotgames.com/apis#tournament-stub-v5/GET_getTournamentCode\n\nArgs:\n    tournamentCode (str): The tournament code to look up.\n    region (str): The region to fetch the code data from.\n    force (bool): If true, bypass cache and fetch from API.\n\nReturns:\n    dict: A dictionary containing mock tournament code details, including:\n        - mapType (str): Mock map type setting.\n        - pickType (str): Mock pick type setting.\n        - spectatorType (str): Mock spectator type setting.\n        - teamSize (int): Mock team size setting.\n        - tournamentId (int): Mock tournament ID.\n        - lobbyName (str): Mock lobby name.\n        - lobbyPassword (str): Mock lobby password.\n        - code (str): The tournament code itself.\n        - participants (list): Mock participant summoner IDs.\n\nNote:\n    This is a testing endpoint. Returns mock data, not actual code details.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/tournament-stub/v5/codes/{tournamentCode}?region=euw1\"",
+        "operationId": "get_tournament_code_lol_tournament_stub_v5_codes__tournamentCode__get",
+        "parameters": [
+          {
+            "name": "tournamentCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Tournamentcode"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Region code",
+              "default": "euw1",
+              "title": "Region"
+            },
+            "description": "Region code"
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Force refresh cache",
+              "title": "Force"
+            },
+            "description": "Force refresh cache"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "tournament-stub"
+        ],
+        "summary": "Update Tournament Code",
+        "description": "Update tournament code settings (testing environment).\n\nThis endpoint simulates updating settings for a tournament code.\nNo actual codes are modified in production.\n\nAPI Reference: https://developer.riotgames.com/apis#tournament-stub-v5/PUT_updateTournamentCode\n\nArgs:\n    tournamentCode (str): The tournament code to update.\n    region (str): The region of the tournament code.\n    body (dict): Updated code settings:\n        - mapType (str, optional): New map type.\n        - pickType (str, optional): New pick type.\n        - spectatorType (str, optional): New spectator type.\n        - allowedSummonerIds (list, optional): Updated allowed summoner IDs.\n        - metadata (str, optional): Updated metadata string.\n\nReturns:\n    dict: Confirmation of the mock update.\n\nNote:\n    This is a testing endpoint. No actual codes are modified in production.\n\nExample:\n    >>> curl -X PUT \"http://127.0.0.1:8080/lol/tournament-stub/v5/codes/{tournamentCode}?region=euw1\" \\\n    >>>      -H \"Content-Type: application/json\" \\\n    >>>      -d '{\"spectatorType\": \"ALL\"}'",
+        "operationId": "update_tournament_code_lol_tournament_stub_v5_codes__tournamentCode__put",
+        "parameters": [
+          {
+            "name": "tournamentCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Tournamentcode"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Region code",
+              "title": "Region"
+            },
+            "description": "Region code"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true,
+                "description": "Tournament code update data",
+                "title": "Body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lol/tournament-stub/v5/lobby-events/by-code/{tournamentCode}": {
+      "get": {
+        "tags": [
+          "tournament-stub"
+        ],
+        "summary": "Get Lobby Events",
+        "description": "Retrieve lobby events for a tournament code (testing environment).\n\nThis endpoint fetches mock lobby events for a tournament code.\nReturns simulated event data for testing lobby event handling logic.\n\nAPI Reference: https://developer.riotgames.com/apis#tournament-stub-v5/GET_getTournamentLobbyEvents\n\nArgs:\n    tournamentCode (str): The tournament code to get events for.\n    region (str): The region to fetch the events from.\n    force (bool): If true, bypass cache and fetch from API.\n\nReturns:\n    dict: A dictionary containing mock lobby events:\n        - eventList (list): List of mock lobby events, each with:\n            - eventType (str): Type of event (e.g., \"PlayerJoined\", \"PlayerReady\").\n            - timestamp (str): When the mock event occurred.\n            - summonerId (str): Mock summoner ID involved in the event.\n            - summonerName (str): Mock summoner name involved in the event.\n\nNote:\n    This is a testing endpoint. Returns mock data, not actual lobby events.\n\nExample:\n    >>> curl \"http://127.0.0.1:8080/lol/tournament-stub/v5/lobby-events/by-code/{tournamentCode}?region=euw1\"",
+        "operationId": "get_lobby_events_lol_tournament_stub_v5_lobby_events_by_code__tournamentCode__get",
+        "parameters": [
+          {
+            "name": "tournamentCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Tournamentcode"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Region code",
+              "default": "euw1",
+              "title": "Region"
+            },
+            "description": "Region code"
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Force refresh cache",
+              "title": "Force"
+            },
+            "description": "Force refresh cache"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/security/status": {
       "get": {
         "tags": [
