@@ -1,0 +1,1928 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Unified League of Legends API Gateway with caching, rate limiting, and comprehensive monitoring" name="description"/>
+<link href="../routers/" rel="prev"/>
+<link href="../security/" rel="next"/>
+<link href="../../assets/logo.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.23" name="generator"/>
+<title>Cache - LOLStonks API Gateway</title>
+<link href="../../assets/stylesheets/main.84d31ad4.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../assets/_mkdocstrings.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="blue" data-md-color-primary="blue" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#caching-system">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="LOLStonks API Gateway" class="md-header__button md-logo" data-md-component="logo" href="../.." title="LOLStonks API Gateway">
+<img alt="logo" src="../../assets/logo.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            LOLStonks API Gateway
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Cache
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="blue" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="blue" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/OneStepAt4time/lolstonks-api-gateway" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../getting-started/installation/">
+          
+  
+  
+    
+  
+  Getting Started
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../openapi-spec/">
+          
+  
+  
+    
+  
+  API Reference
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../architecture/overview/">
+          
+  
+  
+    
+  
+  Architecture
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../operations/monitoring/">
+          
+  
+  
+    
+  
+  Operations
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../development/contributing/">
+          
+  
+  
+    
+  
+  Development
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="LOLStonks API Gateway" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="LOLStonks API Gateway">
+<img alt="logo" src="../../assets/logo.png"/>
+</a>
+    LOLStonks API Gateway
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/OneStepAt4time/lolstonks-api-gateway" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+<span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/installation/">
+<span class="md-ellipsis">
+    Installation
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/quick-start/">
+<span class="md-ellipsis">
+    Quick Start
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/configuration/">
+<span class="md-ellipsis">
+    Configuration
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/deployment/">
+<span class="md-ellipsis">
+    Production Deployment
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-ellipsis">
+    API Reference
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../openapi-spec/">
+<span class="md-ellipsis">
+    OpenAPI Specification
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../overview/">
+<span class="md-ellipsis">
+    Overview
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../providers/">
+<span class="md-ellipsis">
+    Providers
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../riot-client/">
+<span class="md-ellipsis">
+    Riot Client
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../models/">
+<span class="md-ellipsis">
+    Models
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../routers/">
+<span class="md-ellipsis">
+    Routers
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    Cache
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    Cache
+    
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#redis-cache-configuration">
+<span class="md-ellipsis">
+      Redis Cache Configuration
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#app.cache.redis_cache">
+<span class="md-ellipsis">
+      redis_cache
+    </span>
+</a>
+<nav aria-label="redis_cache" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#app.cache.redis_cache.RedisCache">
+<span class="md-ellipsis">
+      RedisCache
+    </span>
+</a>
+<nav aria-label="RedisCache" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#app.cache.redis_cache.RedisCache.ping">
+<span class="md-ellipsis">
+      ping
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#match-tracking-service">
+<span class="md-ellipsis">
+      Match Tracking Service
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#app.cache.tracking">
+<span class="md-ellipsis">
+      tracking
+    </span>
+</a>
+<nav aria-label="tracking" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#app.cache.tracking.MatchTracker">
+<span class="md-ellipsis">
+      MatchTracker
+    </span>
+</a>
+<nav aria-label="MatchTracker" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#app.cache.tracking.MatchTracker.connect">
+<span class="md-ellipsis">
+      connect
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#app.cache.tracking.MatchTracker.close">
+<span class="md-ellipsis">
+      close
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#app.cache.tracking.MatchTracker.is_processed">
+<span class="md-ellipsis">
+      is_processed
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#app.cache.tracking.MatchTracker.mark_processed">
+<span class="md-ellipsis">
+      mark_processed
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#app.cache.tracking.MatchTracker.get_processed_count">
+<span class="md-ellipsis">
+      get_processed_count
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../security/">
+<span class="md-ellipsis">
+    Security
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+<span class="md-ellipsis">
+    Architecture
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+            Architecture
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../architecture/overview/">
+<span class="md-ellipsis">
+    Overview
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../architecture/system-overview/">
+<span class="md-ellipsis">
+    System Overview
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../architecture/data-flow/">
+<span class="md-ellipsis">
+    Data Flow
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../architecture/implementation-details/">
+<span class="md-ellipsis">
+    Implementation Details
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../architecture/models/">
+<span class="md-ellipsis">
+    Data Models
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    Operations
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            Operations
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operations/monitoring/">
+<span class="md-ellipsis">
+    Monitoring
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operations/troubleshooting/">
+<span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operations/security/">
+<span class="md-ellipsis">
+    Security
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Development
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            Development
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../development/contributing/">
+<span class="md-ellipsis">
+    Contributing
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../development/changelog-guide/">
+<span class="md-ellipsis">
+    Changelog Guide
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../development/versioning/">
+<span class="md-ellipsis">
+    Versioning
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../development/releases/">
+<span class="md-ellipsis">
+    Releases
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../development/testing/">
+<span class="md-ellipsis">
+    Testing
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../development/documentation/">
+<span class="md-ellipsis">
+    Documentation
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#redis-cache-configuration">
+<span class="md-ellipsis">
+      Redis Cache Configuration
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#app.cache.redis_cache">
+<span class="md-ellipsis">
+      redis_cache
+    </span>
+</a>
+<nav aria-label="redis_cache" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#app.cache.redis_cache.RedisCache">
+<span class="md-ellipsis">
+      RedisCache
+    </span>
+</a>
+<nav aria-label="RedisCache" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#app.cache.redis_cache.RedisCache.ping">
+<span class="md-ellipsis">
+      ping
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#match-tracking-service">
+<span class="md-ellipsis">
+      Match Tracking Service
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#app.cache.tracking">
+<span class="md-ellipsis">
+      tracking
+    </span>
+</a>
+<nav aria-label="tracking" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#app.cache.tracking.MatchTracker">
+<span class="md-ellipsis">
+      MatchTracker
+    </span>
+</a>
+<nav aria-label="MatchTracker" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#app.cache.tracking.MatchTracker.connect">
+<span class="md-ellipsis">
+      connect
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#app.cache.tracking.MatchTracker.close">
+<span class="md-ellipsis">
+      close
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#app.cache.tracking.MatchTracker.is_processed">
+<span class="md-ellipsis">
+      is_processed
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#app.cache.tracking.MatchTracker.mark_processed">
+<span class="md-ellipsis">
+      mark_processed
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#app.cache.tracking.MatchTracker.get_processed_count">
+<span class="md-ellipsis">
+      get_processed_count
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="caching-system">Caching System<a class="headerlink" href="#caching-system" title="Permanent link">¶</a></h1>
+<p>This section documents the caching infrastructure used throughout the API Gateway for performance optimization and rate limit compliance.</p>
+<h2 id="redis-cache-configuration">Redis Cache Configuration<a class="headerlink" href="#redis-cache-configuration" title="Permanent link">¶</a></h2>
+<div class="doc doc-object doc-module">
+<h2 class="doc doc-heading" id="app.cache.redis_cache">
+<code>app.cache.redis_cache</code>
+<a class="headerlink" href="#app.cache.redis_cache" title="Permanent link">¶</a></h2>
+<div class="doc doc-contents first">
+<p>Redis cache configuration and management using aiocache library.</p>
+<p>This module provides the Redis caching infrastructure for the gateway application.
+It implements TTL-based (Time-To-Live) caching for Riot API responses to minimize
+external API calls, reduce latency, and improve overall application performance.</p>
+<details class="caching-strategy" open="">
+<summary>Caching Strategy</summary>
+<p>The gateway uses Redis as a distributed cache layer between the application
+and the Riot API. Benefits include:
+- Reduced API calls to Riot (avoiding rate limits)
+- Faster response times for cached data
+- Consistent cache across multiple gateway instances
+- Configurable TTLs per endpoint type
+- Automatic expiration and memory management</p>
+</details>
+<details class="cache-key-structure" open="">
+<summary>Cache Key Structure</summary>
+<p>All cache keys follow a hierarchical pattern for organization:
+Format: "lol:{resource}:{region}:{identifier}..."</p>
+<p>Examples:
+    - "lol:summoner:name:euw1:Faker"
+    - "lol:match:na1:NA1_4567890123"
+    - "lol:league:challenger:kr:RANKED_SOLO_5x5"</p>
+<p>The "lol" prefix (namespace) prevents key collisions with other applications
+sharing the same Redis instance.</p>
+</details>
+<details class="ttl-configuration" open="">
+<summary>TTL Configuration</summary>
+<p>Different data types have different staleness tolerances:
+- Static data (champion rotation): 24 hours
+- Semi-static data (summoner profiles): 1 hour
+- Dynamic data (league entries): 5-10 minutes
+- Live data (active games): 30 seconds</p>
+<p>TTLs are configured per-endpoint in app.config.Settings and passed to
+caching helper functions.</p>
+</details>
+<details class="redis-configuration" open="">
+<summary>Redis Configuration</summary>
+<p>Connection settings from environment variables:
+- REDIS_HOST: Redis server hostname (default: localhost)
+- REDIS_PORT: Redis server port (default: 6379)
+- REDIS_DB: Database number (default: 0)
+- REDIS_PASSWORD: Optional authentication password</p>
+<p>The module creates a global cache instance at import time.</p>
+</details>
+<details class="serialization" open="">
+<summary>Serialization</summary>
+<ul>
+<li>Uses JsonSerializer from aiocache for automatic JSON encoding/decoding</li>
+<li>Handles Python dicts, lists, and primitives automatically</li>
+<li>Response data from Riot API is already in JSON-compatible format</li>
+</ul>
+</details>
+<details class="error-handling" open="">
+<summary>Error Handling</summary>
+<p>Redis failures are logged but don't crash the application:
+- Connection failures: Logged and bypass cache
+- Serialization errors: Logged and bypass cache
+- Timeout errors: Logged and bypass cache</p>
+<p>The gateway can operate without Redis (degraded performance mode).</p>
+</details>
+<details class="health-monitoring" open="">
+<summary>Health Monitoring</summary>
+<p>The RedisCache class provides a ping() method for health checks:
+- Used by /health endpoint
+- Tests actual Redis connectivity
+- Returns boolean status</p>
+</details>
+<details class="performance-considerations" open="">
+<summary>Performance Considerations</summary>
+<ul>
+<li>Connection pooling handled by aiocache/aioredis</li>
+<li>Async operations prevent blocking</li>
+<li>Namespace prefix adds minimal overhead</li>
+<li>JSON serialization is efficient for API responses</li>
+</ul>
+</details>
+<details class="usage" open="">
+<summary>Usage</summary>
+<p>This module exports a global <code>cache</code> instance that should be used
+throughout the application:</p>
+<pre><code class="language-python">from app.cache.redis_cache import cache
+
+# Set value with TTL
+await cache.set("summoner:euw1:Faker", data, ttl=3600)
+
+# Get value (returns None if not found or expired)
+data = await cache.get("summoner:euw1:Faker")
+
+# Delete value
+await cache.delete("summoner:euw1:Faker")
+</code></pre>
+<p>For higher-level caching with automatic key generation and TTL management,
+use app.cache.helpers.fetch_with_cache instead.</p>
+</details>
+<details class="see-also" open="">
+<summary>See Also</summary>
+<p>app.cache.helpers: High-level caching utilities with automatic key generation
+app.cache.tracking: Permanent tracking for processed matches
+app.config: Redis configuration settings</p>
+</details>
+<div class="doc doc-children">
+<div class="doc doc-object doc-class">
+<h3 class="doc doc-heading" id="app.cache.redis_cache.RedisCache">
+<code class="highlight language-python"><span class="n">RedisCache</span><span class="p">()</span></code>
+<a class="headerlink" href="#app.cache.redis_cache.RedisCache" title="Permanent link">¶</a></h3>
+<div class="doc doc-contents">
+<p>Redis cache wrapper providing health monitoring and connectivity testing.</p>
+<p>This class wraps the global cache instance and adds health check functionality
+for monitoring and diagnostics. It's primarily used by the health endpoint
+to verify Redis availability.</p>
+<p>The wrapper is intentionally minimal, delegating most operations to the
+underlying aiocache instance while providing specific health monitoring
+capabilities.</p>
+<p><span class="doc-section-title">Attributes:</span></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="doc-section-item">
+<td><code><span title="app.cache.redis_cache.RedisCache.cache">cache</span></code></td>
+<td>
+<code><span title="aiocache.Cache">Cache</span></code>
+</td>
+<td>
+<div class="doc-md-description">
+<p>The underlying aiocache instance configured for Redis</p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<details class="example" open="">
+<summary>Example</summary>
+<pre><code class="language-python">redis = RedisCache()
+
+# Test connectivity
+is_healthy = await redis.ping()
+if not is_healthy:
+    logger.error("Redis is unavailable")
+</code></pre>
+</details>
+<details class="see-also" open="">
+<summary>See Also</summary>
+<p>cache: Global cache instance for direct caching operations
+app.routers.health: Health check endpoint using this class</p>
+</details>
+<p>Initialize Redis cache wrapper with global cache instance.</p>
+<details class="quote">
+<summary>Source code in <code>app/cache/redis_cache.py</code></summary>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Initialize Redis cache wrapper with global cache instance."""</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cache</span> <span class="o">=</span> <span class="n">cache</span>
+</code></pre></div></td></tr></table></div>
+</details>
+<div class="doc doc-children">
+<div class="doc doc-object doc-function">
+<h4 class="doc doc-heading" id="app.cache.redis_cache.RedisCache.ping">
+<code class="highlight language-python"><span class="n">ping</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+<span class="doc doc-labels">
+<small class="doc doc-label doc-label-async"><code>async</code></small>
+</span>
+<a class="headerlink" href="#app.cache.redis_cache.RedisCache.ping" title="Permanent link">¶</a></h4>
+<div class="doc doc-contents">
+<p>Tests Redis connectivity and basic operations.</p>
+<p>This method verifies that Redis is:
+- Reachable from the application
+- Accepting connections
+- Able to perform basic read/write operations</p>
+<p>The test performs a complete write-read-delete cycle to ensure
+full functionality rather than just TCP connectivity.</p>
+<p><span class="doc-section-title">Returns:</span></p>
+<table>
+<thead>
+<tr>
+<th>Name</th> <th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="doc-section-item">
+<td><code>bool</code></td> <td>
+<code><span title="bool">bool</span></code>
+</td>
+<td>
+<div class="doc-md-description">
+<p>True if Redis is healthy and responsive, False if any
+error occurs during the test operations.</p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<details class="note" open="">
+<summary>Note</summary>
+<ul>
+<li>This method never raises exceptions; failures return False</li>
+<li>All errors are logged for debugging</li>
+<li>Test uses a temporary key that is immediately deleted</li>
+<li>10-second TTL ensures cleanup even if delete fails</li>
+</ul>
+</details>
+<details class="example" open="">
+<summary>Example</summary>
+<pre><code class="language-python">redis = RedisCache()
+
+if await redis.ping():
+    print("Redis is healthy")
+else:
+    print("Redis is unavailable or experiencing issues")
+</code></pre>
+</details>
+<details class="quote">
+<summary>Source code in <code>app/cache/redis_cache.py</code></summary>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">ping</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Tests Redis connectivity and basic operations.</span>
+
+<span class="sd">    This method verifies that Redis is:</span>
+<span class="sd">    - Reachable from the application</span>
+<span class="sd">    - Accepting connections</span>
+<span class="sd">    - Able to perform basic read/write operations</span>
+
+<span class="sd">    The test performs a complete write-read-delete cycle to ensure</span>
+<span class="sd">    full functionality rather than just TCP connectivity.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        bool: True if Redis is healthy and responsive, False if any</span>
+<span class="sd">            error occurs during the test operations.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        - This method never raises exceptions; failures return False</span>
+<span class="sd">        - All errors are logged for debugging</span>
+<span class="sd">        - Test uses a temporary key that is immediately deleted</span>
+<span class="sd">        - 10-second TTL ensures cleanup even if delete fails</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        ```python</span>
+<span class="sd">        redis = RedisCache()</span>
+
+<span class="sd">        if await redis.ping():</span>
+<span class="sd">            print("Redis is healthy")</span>
+<span class="sd">        else:</span>
+<span class="sd">            print("Redis is unavailable or experiencing issues")</span>
+<span class="sd">        ```</span>
+<span class="sd">    """</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Use a simple GET operation as ping equivalent</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"health_check"</span><span class="p">,</span> <span class="s2">"ok"</span><span class="p">,</span> <span class="n">ttl</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">result</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"health_check"</span><span class="p">)</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s2">"health_check"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span> <span class="o">==</span> <span class="s2">"ok"</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Redis ping failed: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span>
+</code></pre></div></td></tr></table></div>
+</details>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><h2 id="match-tracking-service">Match Tracking Service<a class="headerlink" href="#match-tracking-service" title="Permanent link">¶</a></h2>
+<div class="doc doc-object doc-module">
+<h2 class="doc doc-heading" id="app.cache.tracking">
+<code>app.cache.tracking</code>
+<a class="headerlink" href="#app.cache.tracking" title="Permanent link">¶</a></h2>
+<div class="doc doc-contents first">
+<p>Match tracking service using Redis SETs.</p>
+<p>Provides permanent tracking of processed matches to avoid reprocessing.
+Uses Redis SETs with NO TTL - data persists across restarts via appendonly file.</p>
+<div class="doc doc-children">
+<div class="doc doc-object doc-class">
+<h3 class="doc doc-heading" id="app.cache.tracking.MatchTracker">
+<code class="highlight language-python"><span class="n">MatchTracker</span><span class="p">()</span></code>
+<a class="headerlink" href="#app.cache.tracking.MatchTracker" title="Permanent link">¶</a></h3>
+<div class="doc doc-contents">
+<p>Track processed matches in Redis using SET data structure.</p>
+<p>Key pattern: processed_matches:{region}
+No TTL - permanent storage backed by Redis appendonly file.</p>
+<p>Initialize tracker (connection established on startup).</p>
+<details class="quote">
+<summary>Source code in <code>app/cache/tracking.py</code></summary>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Initialize tracker (connection established on startup)."""</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="p">:</span> <span class="n">redis</span><span class="o">.</span><span class="n">Redis</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Match tracker initialized (connection pending)"</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+</details>
+<div class="doc doc-children">
+<div class="doc doc-object doc-function">
+<h4 class="doc doc-heading" id="app.cache.tracking.MatchTracker.connect">
+<code class="highlight language-python"><span class="n">connect</span><span class="p">()</span></code>
+<span class="doc doc-labels">
+<small class="doc doc-label doc-label-async"><code>async</code></small>
+</span>
+<a class="headerlink" href="#app.cache.tracking.MatchTracker.connect" title="Permanent link">¶</a></h4>
+<div class="doc doc-contents">
+<p>Establish Redis connection.</p>
+<p>Should be called during FastAPI startup event.</p>
+<details class="quote">
+<summary>Source code in <code>app/cache/tracking.py</code></summary>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Establish Redis connection.</span>
+
+<span class="sd">    Should be called during FastAPI startup event.</span>
+<span class="sd">    """</span>
+    <span class="n">redis_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"redis://</span><span class="si">{</span><span class="n">settings</span><span class="o">.</span><span class="n">redis_host</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">settings</span><span class="o">.</span><span class="n">redis_port</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">settings</span><span class="o">.</span><span class="n">redis_db</span><span class="si">}</span><span class="s2">"</span>
+    <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">redis_password</span><span class="p">:</span>
+        <span class="n">redis_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"redis://:</span><span class="si">{</span><span class="n">settings</span><span class="o">.</span><span class="n">redis_password</span><span class="si">}</span><span class="s2">@</span><span class="si">{</span><span class="n">settings</span><span class="o">.</span><span class="n">redis_host</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">settings</span><span class="o">.</span><span class="n">redis_port</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">settings</span><span class="o">.</span><span class="n">redis_db</span><span class="si">}</span><span class="s2">"</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">redis</span> <span class="o">=</span> <span class="k">await</span> <span class="n">redis</span><span class="o">.</span><span class="n">from_url</span><span class="p">(</span><span class="n">redis_url</span><span class="p">,</span> <span class="n">decode_responses</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="s2">"Match tracker connected to Redis"</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-function">
+<h4 class="doc doc-heading" id="app.cache.tracking.MatchTracker.close">
+<code class="highlight language-python"><span class="n">close</span><span class="p">()</span></code>
+<span class="doc doc-labels">
+<small class="doc doc-label doc-label-async"><code>async</code></small>
+</span>
+<a class="headerlink" href="#app.cache.tracking.MatchTracker.close" title="Permanent link">¶</a></h4>
+<div class="doc doc-contents">
+<p>Close Redis connection.</p>
+<details class="quote">
+<summary>Source code in <code>app/cache/tracking.py</code></summary>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Close Redis connection."""</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="p">:</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Match tracker connection closed"</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-function">
+<h4 class="doc doc-heading" id="app.cache.tracking.MatchTracker.is_processed">
+<code class="highlight language-python"><span class="n">is_processed</span><span class="p">(</span><span class="n">region</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">match_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+<span class="doc doc-labels">
+<small class="doc doc-label doc-label-async"><code>async</code></small>
+</span>
+<a class="headerlink" href="#app.cache.tracking.MatchTracker.is_processed" title="Permanent link">¶</a></h4>
+<div class="doc doc-contents">
+<p>Check if a match has already been processed.</p>
+<p><span class="doc-section-title">Parameters:</span></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="doc-section-item">
+<td>
+<code>region</code>
+</td>
+<td>
+<code><span title="str">str</span></code>
+</td>
+<td>
+<div class="doc-md-description">
+<p>Region code (e.g., 'euw1')</p>
+</div>
+</td>
+<td>
+<em>required</em>
+</td>
+</tr>
+<tr class="doc-section-item">
+<td>
+<code>match_id</code>
+</td>
+<td>
+<code><span title="str">str</span></code>
+</td>
+<td>
+<div class="doc-md-description">
+<p>Match ID (e.g., 'EUW1_123456789')</p>
+</div>
+</td>
+<td>
+<em>required</em>
+</td>
+</tr>
+</tbody>
+</table>
+<p><span class="doc-section-title">Returns:</span></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="doc-section-item">
+<td>
+<code><span title="bool">bool</span></code>
+</td>
+<td>
+<div class="doc-md-description">
+<p>True if match is in tracking set, False otherwise</p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+<summary>Source code in <code>app/cache/tracking.py</code></summary>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">is_processed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">region</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">match_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Check if a match has already been processed.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        region: Region code (e.g., 'euw1')</span>
+<span class="sd">        match_id: Match ID (e.g., 'EUW1_123456789')</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        True if match is in tracking set, False otherwise</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">"Redis not connected, assuming match not processed"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"processed_matches:</span><span class="si">{</span><span class="n">region</span><span class="si">}</span><span class="s2">"</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">sismember</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">match_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-function">
+<h4 class="doc doc-heading" id="app.cache.tracking.MatchTracker.mark_processed">
+<code class="highlight language-python"><span class="n">mark_processed</span><span class="p">(</span><span class="n">region</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">match_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span></code>
+<span class="doc doc-labels">
+<small class="doc doc-label doc-label-async"><code>async</code></small>
+</span>
+<a class="headerlink" href="#app.cache.tracking.MatchTracker.mark_processed" title="Permanent link">¶</a></h4>
+<div class="doc doc-contents">
+<p>Mark a match as processed.</p>
+<p><span class="doc-section-title">Parameters:</span></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="doc-section-item">
+<td>
+<code>region</code>
+</td>
+<td>
+<code><span title="str">str</span></code>
+</td>
+<td>
+<div class="doc-md-description">
+<p>Region code (e.g., 'euw1')</p>
+</div>
+</td>
+<td>
+<em>required</em>
+</td>
+</tr>
+<tr class="doc-section-item">
+<td>
+<code>match_id</code>
+</td>
+<td>
+<code><span title="str">str</span></code>
+</td>
+<td>
+<div class="doc-md-description">
+<p>Match ID (e.g., 'EUW1_123456789')</p>
+</div>
+</td>
+<td>
+<em>required</em>
+</td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+<summary>Source code in <code>app/cache/tracking.py</code></summary>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">mark_processed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">region</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">match_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Mark a match as processed.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        region: Region code (e.g., 'euw1')</span>
+<span class="sd">        match_id: Match ID (e.g., 'EUW1_123456789')</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">"Redis not connected, cannot mark match as processed"</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"processed_matches:</span><span class="si">{</span><span class="n">region</span><span class="si">}</span><span class="s2">"</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">sadd</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">match_id</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Marked match as processed: </span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">"</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">match_id</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-function">
+<h4 class="doc doc-heading" id="app.cache.tracking.MatchTracker.get_processed_count">
+<code class="highlight language-python"><span class="n">get_processed_count</span><span class="p">(</span><span class="n">region</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span></code>
+<span class="doc doc-labels">
+<small class="doc doc-label doc-label-async"><code>async</code></small>
+</span>
+<a class="headerlink" href="#app.cache.tracking.MatchTracker.get_processed_count" title="Permanent link">¶</a></h4>
+<div class="doc doc-contents">
+<p>Get count of processed matches for a region.</p>
+<p><span class="doc-section-title">Parameters:</span></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="doc-section-item">
+<td>
+<code>region</code>
+</td>
+<td>
+<code><span title="str">str</span></code>
+</td>
+<td>
+<div class="doc-md-description">
+<p>Region code (e.g., 'euw1')</p>
+</div>
+</td>
+<td>
+<em>required</em>
+</td>
+</tr>
+</tbody>
+</table>
+<p><span class="doc-section-title">Returns:</span></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="doc-section-item">
+<td>
+<code><span title="int">int</span></code>
+</td>
+<td>
+<div class="doc-md-description">
+<p>Number of tracked matches for the region</p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+<summary>Source code in <code>app/cache/tracking.py</code></summary>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span>
+<span class="normal">94</span>
+<span class="normal">95</span>
+<span class="normal">96</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_processed_count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">region</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Get count of processed matches for a region.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        region: Region code (e.g., 'euw1')</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Number of tracked matches for the region</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"processed_matches:</span><span class="si">{</span><span class="n">region</span><span class="si">}</span><span class="s2">"</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">scard</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+</details>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+<script>
+        // Enhanced Mermaid Interactivity for LOLStonks Documentation
+        (function() {
+            'use strict';
+
+            console.log('Initializing Mermaid interactivity...');
+
+            // Wait for DOM to be ready and Mermaid diagrams to render
+            const waitForMermaid = () => {
+                const mermaidElements = document.querySelectorAll('.mermaid');
+                console.log('Found Mermaid elements:', mermaidElements.length);
+
+                if (mermaidElements.length === 0) {
+                    console.log('No Mermaid elements found, retrying in 2 seconds...');
+                    setTimeout(waitForMermaid, 2000);
+                    return;
+                }
+
+                mermaidElements.forEach((element, index) => {
+                    const id = element.id || 'mermaid-diagram-' + index;
+                    element.setAttribute('id', id);
+
+                    // Wait for the diagram to be rendered as SVG
+                    const waitForSVG = () => {
+                        const svg = element.querySelector('svg');
+                        if (svg) {
+                            console.log('SVG found for element:', id);
+                            addInteractivityToDiagram(element, id);
+                        } else {
+                            console.log('SVG not found yet for element:', id, 'retrying...');
+                            setTimeout(waitForSVG, 500);
+                        }
+                    };
+
+                    waitForSVG();
+                });
+            };
+
+            const addInteractivityToDiagram = (element, id) => {
+                // Add interactive controls container
+                if (!element.previousSibling) {
+                    const controls = createInteractiveControls(id, element);
+                    element.parentNode.insertBefore(controls, element);
+                }
+
+                // Add zoom controls
+                addZoomControls(element, id);
+
+                // Add click handlers
+                addClickHandlers(element);
+
+                // Add tooltips
+                addTooltips(element);
+
+                // Make responsive
+                makeResponsive(element);
+
+                // Add pan and zoom
+                addPanAndZoom(element, id);
+            };
+
+            const createInteractiveControls = (id, element) => {
+                const controls = document.createElement('div');
+                controls.className = 'mermaid-controls';
+                controls.style.cssText = `
+                    margin: 10px 0;
+                    padding: 10px;
+                    background: #f5f5f5;
+                    border-radius: 5px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    gap: 10px;
+                    font-size: 14px;
+                    font-family: Arial, sans-serif;
+                `;
+
+                // Zoom controls
+                const zoomControls = document.createElement('div');
+                zoomControls.innerHTML = `
+                    <span style="font-weight: bold;">🔍 Zoom:</span>
+                    <button onclick="zoomDiagram('${id}', 1.2)" style="margin: 0 2px; padding: 4px 8px; background: #1976d2; color: white; border: none; border-radius: 3px; cursor: pointer;">+</button>
+                    <button onclick="zoomDiagram('${id}', 0.8)" style="margin: 0 2px; padding: 4px 8px; background: #1976d2; color: white; border: none; border-radius: 3px; cursor: pointer;">−</button>
+                    <button onclick="resetZoom('${id}')" style="margin: 0 2px; padding: 4px 8px; background: #666; color: white; border: none; border-radius: 3px; cursor: pointer;">Reset</button>
+                `;
+
+                // Navigation info
+                const navInfo = document.createElement('div');
+                navInfo.innerHTML = `<span style="color: #666;">🖱️ Click nodes for details • Scroll to zoom • Drag to pan</span>`;
+
+                // Fullscreen button
+                const fullscreenBtn = document.createElement('button');
+                fullscreenBtn.textContent = '⛶ Fullscreen';
+                fullscreenBtn.style.cssText = `
+                    padding: 4px 12px;
+                    background: #388e3c;
+                    color: white;
+                    border: none;
+                    border-radius: 3px;
+                    cursor: pointer;
+                `;
+                fullscreenBtn.onclick = () => toggleFullscreen(id, element);
+
+                // Download button
+                const downloadBtn = document.createElement('button');
+                downloadBtn.textContent = '📥 Download';
+                downloadBtn.style.cssText = `
+                    padding: 4px 12px;
+                    background: #ff9800;
+                    color: white;
+                    border: none;
+                    border-radius: 3px;
+                    cursor: pointer;
+                `;
+                downloadBtn.onclick = () => downloadDiagram(id, element);
+
+                controls.appendChild(zoomControls);
+                controls.appendChild(navInfo);
+                controls.appendChild(fullscreenBtn);
+                controls.appendChild(downloadBtn);
+
+                return controls;
+            };
+
+            const addZoomControls = (element, id) => {
+                element.style.transform = 'scale(1)';
+                element.style.transformOrigin = 'center top';
+                element.style.transition = 'transform 0.3s ease';
+                element.dataset.originalTransform = 'scale(1)';
+                element.dataset.currentZoom = '1';
+            };
+
+            const addPanAndZoom = (element, id) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                let isPanning = false;
+                let startX = 0, startY = 0, translateX = 0, translateY = 0;
+
+                // Mouse wheel zoom
+                element.addEventListener('wheel', function(e) {
+                    if (e.ctrlKey || e.metaKey) {
+                        e.preventDefault();
+                        const delta = e.deltaY > 0 ? 0.9 : 1.1;
+                        zoomDiagram(id, delta);
+                    }
+                });
+
+                // Pan functionality
+                svg.style.cursor = 'grab';
+                svg.addEventListener('mousedown', function(e) {
+                    if (e.button === 0 && !e.shiftKey) {
+                        isPanning = true;
+                        startX = e.clientX - translateX;
+                        startY = e.clientY - translateY;
+                        svg.style.cursor = 'grabbing';
+                        e.preventDefault();
+                    }
+                });
+
+                document.addEventListener('mousemove', function(e) {
+                    if (isPanning) {
+                        translateX = e.clientX - startX;
+                        translateY = e.clientY - startY;
+                        const currentZoom = parseFloat(element.dataset.currentZoom || 1);
+                        svg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
+                    }
+                });
+
+                document.addEventListener('mouseup', function() {
+                    isPanning = false;
+                    svg.style.cursor = 'grab';
+                });
+
+                // Touch support for mobile
+                let touchStartDistance = 0;
+                let touchStartZoom = 1;
+
+                element.addEventListener('touchstart', function(e) {
+                    if (e.touches.length === 2) {
+                        const dx = e.touches[0].clientX - e.touches[1].clientX;
+                        const dy = e.touches[0].clientY - e.touches[1].clientY;
+                        touchStartDistance = Math.sqrt(dx * dx + dy * dy);
+                        touchStartZoom = parseFloat(element.dataset.currentZoom || 1);
+                    }
+                });
+
+                element.addEventListener('touchmove', function(e) {
+                    if (e.touches.length === 2) {
+                        const dx = e.touches[0].clientX - e.touches[1].clientX;
+                        const dy = e.touches[0].clientY - e.touches[1].clientY;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        const scale = Math.max(0.5, Math.min(3, touchStartZoom * (distance / touchStartDistance)));
+                        element.dataset.currentZoom = scale;
+                        const svg = element.querySelector('svg');
+                        const currentZoom = parseFloat(element.dataset.currentZoom || 1);
+                        svg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
+                    }
+                });
+            };
+
+            const addClickHandlers = (element) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                const clickableElements = svg.querySelectorAll('g.node, g.edgePath, .cluster');
+                clickableElements.forEach(el => {
+                    el.style.cursor = 'pointer';
+                    el.addEventListener('click', function(e) {
+                        if (!e.shiftKey && !e.ctrlKey) {
+                            e.preventDefault();
+                            showNodeDetails(el, element);
+                        }
+                    });
+                });
+            };
+
+            const addTooltips = (element) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                const nodes = svg.querySelectorAll('g.node');
+                nodes.forEach(node => {
+                    const rect = node.querySelector('rect');
+                    const text = node.querySelector('text');
+                    if (rect && text) {
+                        node.title = text.textContent + ' - Click for more information';
+
+                        node.addEventListener('mouseenter', function() {
+                            rect.style.filter = 'brightness(1.2)';
+                            rect.style.transition = 'filter 0.2s ease';
+                        });
+
+                        node.addEventListener('mouseleave', function() {
+                            rect.style.filter = 'brightness(1)';
+                        });
+                    }
+                });
+            };
+
+            const makeResponsive = (element) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                svg.style.maxWidth = '100%';
+                svg.style.height = 'auto';
+                svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+
+                const resizeObserver = new ResizeObserver(() => {
+                    adjustDiagramSize(element);
+                });
+                resizeObserver.observe(element);
+            };
+
+            const adjustDiagramSize = (element) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                const container = element.parentElement;
+                const containerWidth = container.clientWidth;
+
+                if (containerWidth < 800) {
+                    const mobileZoom = Math.max(0.5, containerWidth / 800);
+                    element.dataset.currentZoom = mobileZoom;
+                    const translateMatch = svg.style.transform.match(/translate\(([^)]+)px/);
+                    const translate = translateMatch ? translateMatch[1] : '0px, 0px';
+                    svg.style.transform = `translate(${translate}) scale(${mobileZoom})`;
+                }
+            };
+
+            const showNodeDetails = (nodeElement, diagramElement) => {
+                const modal = document.createElement('div');
+                modal.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.5);
+                    z-index: 1000;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                `;
+
+                const content = document.createElement('div');
+                content.style.cssText = `
+                    background: white;
+                    padding: 20px;
+                    border-radius: 8px;
+                    max-width: 600px;
+                    max-height: 80%;
+                    overflow-y: auto;
+                `;
+
+                const text = nodeElement.querySelector('text');
+                const title = text ? text.textContent : 'Node Details';
+
+                content.innerHTML = `
+                    <h3>${title}</h3>
+                    <p><strong>Diagram:</strong> ${diagramElement.closest('h1, h2, h3, h4, h5, h6')?.textContent || 'Architecture Diagram'}</p>
+                    <p><strong>Component Type:</strong> ${getNodeInfo(nodeElement).type}</p>
+                    <p>${getNodeInfo(nodeElement).description}</p>
+                    <button onclick="this.closest('div[style*=fixed]').remove()" style="
+                        margin-top: 15px;
+                        padding: 8px 16px;
+                        background: #1976d2;
+                        color: white;
+                        border: none;
+                        border-radius: 4px;
+                        cursor: pointer;
+                    ">Close</button>
+                `;
+
+                modal.appendChild(content);
+                modal.appendChild(document.createElement('button'));
+                modal.onclick = (e) => {
+                    if (e.target === modal) modal.remove();
+                };
+
+                document.body.appendChild(modal);
+            };
+
+            const getNodeInfo = (nodeElement) => {
+                const text = nodeElement.querySelector('text')?.textContent?.toLowerCase() || '';
+
+                if (text.includes('api') || text.includes('gateway')) {
+                    return {
+                        type: 'API Component',
+                        description: 'This component handles API requests, routing, and response processing in the LOLStonks Gateway.'
+                    };
+                } else if (text.includes('cache') || text.includes('redis')) {
+                    return {
+                        type: 'Cache Layer',
+                        description: 'This component provides caching functionality to improve API response times and reduce external API calls.'
+                    };
+                } else if (text.includes('rate') || text.includes('limit')) {
+                    return {
+                        type: 'Rate Limiter',
+                        description: 'This component enforces rate limits to prevent API abuse and ensure fair usage across all clients.'
+                    };
+                } else if (text.includes('auth') || text.includes('security')) {
+                    return {
+                        type: 'Security Component',
+                        description: 'This component handles authentication, authorization, and security validation for API requests.'
+                    };
+                } else if (text.includes('provider') || text.includes('riot')) {
+                    return {
+                        type: 'External Provider',
+                        description: 'This component interfaces with external APIs (like Riot Games API) to fetch game data.'
+                    };
+                } else {
+                    return {
+                        type: 'System Component',
+                        description: 'This component is part of the LOLStonks API Gateway architecture. Click on different components to explore the system design.'
+                    };
+                }
+            };
+
+            // Global functions for button controls
+            window.zoomDiagram = function(id, factor) {
+                const element = document.getElementById(id);
+                if (!element) return;
+
+                const currentZoom = parseFloat(element.dataset.currentZoom || 1);
+                const newZoom = Math.max(0.1, Math.min(3, currentZoom * factor));
+
+                const svg = element.querySelector('svg');
+                const currentTransform = svg.style.transform || '';
+                const translateMatch = currentTransform.match(/translate\(([^)]+)px/);
+                const translate = translateMatch ? translateMatch[1] : '0px, 0px';
+
+                svg.style.transform = `translate(${translate}) scale(${newZoom})`;
+                element.dataset.currentZoom = newZoom;
+            };
+
+            window.resetZoom = function(id) {
+                const element = document.getElementById(id);
+                if (!element) return;
+
+                const svg = element.querySelector('svg');
+                svg.style.transform = 'translate(0px, 0px) scale(1)';
+                element.dataset.currentZoom = '1';
+            };
+
+            window.toggleFullscreen = function(id, element) {
+                if (element.style.position === 'fixed') {
+                    // Exit fullscreen
+                    element.style.position = '';
+                    element.style.top = '';
+                    element.style.left = '';
+                    element.style.width = '';
+                    element.style.height = '';
+                    element.style.zIndex = '';
+                    element.style.backgroundColor = '';
+                    element.style.padding = '';
+                    element.style.overflow = '';
+                    resetZoom(id);
+                } else {
+                    // Enter fullscreen
+                    element.style.position = 'fixed';
+                    element.style.top = '0';
+                    element.style.left = '0';
+                    element.style.width = '100vw';
+                    element.style.height = '100vh';
+                    element.style.zIndex = '999';
+                    element.style.backgroundColor = 'white';
+                    element.style.padding = '20px';
+                    element.style.overflow = 'auto';
+                    zoomDiagram(id, 1.5);
+                }
+            };
+
+            window.downloadDiagram = function(id, element) {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                const svgData = new XMLSerializer().serializeToString(svg);
+                const svgBlob = new Blob([svgData], {type: 'image/svg+xml;charset=utf-8'});
+                const svgUrl = URL.createObjectURL(svgBlob);
+
+                const downloadLink = document.createElement('a');
+                downloadLink.href = svgUrl;
+                downloadLink.download = `${id || 'diagram'}-${Date.now()}.svg`;
+                downloadLink.click();
+
+                URL.revokeObjectURL(svgUrl);
+            };
+
+            // Initialize everything
+            waitForMermaid();
+
+        })();
+    </script>
+</body>
+</html>

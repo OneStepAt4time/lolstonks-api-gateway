@@ -1,0 +1,2381 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Unified League of Legends API Gateway with caching, rate limiting, and comprehensive monitoring" name="description"/>
+<link href="../system-overview/" rel="prev"/>
+<link href="../implementation-details/" rel="next"/>
+<link href="../../assets/logo.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.23" name="generator"/>
+<title>Data Flow - LOLStonks API Gateway</title>
+<link href="../../assets/stylesheets/main.84d31ad4.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../assets/_mkdocstrings.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="blue" data-md-color-primary="blue" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#data-flow-architecture">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="LOLStonks API Gateway" class="md-header__button md-logo" data-md-component="logo" href="../.." title="LOLStonks API Gateway">
+<img alt="logo" src="../../assets/logo.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            LOLStonks API Gateway
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Data Flow
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="blue" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="blue" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/OneStepAt4time/lolstonks-api-gateway" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../getting-started/installation/">
+          
+  
+  
+    
+  
+  Getting Started
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../api/openapi-spec/">
+          
+  
+  
+    
+  
+  API Reference
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../overview/">
+          
+  
+  
+    
+  
+  Architecture
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../operations/monitoring/">
+          
+  
+  
+    
+  
+  Operations
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../development/contributing/">
+          
+  
+  
+    
+  
+  Development
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="LOLStonks API Gateway" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="LOLStonks API Gateway">
+<img alt="logo" src="../../assets/logo.png"/>
+</a>
+    LOLStonks API Gateway
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/OneStepAt4time/lolstonks-api-gateway" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+<span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/installation/">
+<span class="md-ellipsis">
+    Installation
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/quick-start/">
+<span class="md-ellipsis">
+    Quick Start
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/configuration/">
+<span class="md-ellipsis">
+    Configuration
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/deployment/">
+<span class="md-ellipsis">
+    Production Deployment
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+<span class="md-ellipsis">
+    API Reference
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/openapi-spec/">
+<span class="md-ellipsis">
+    OpenAPI Specification
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/overview/">
+<span class="md-ellipsis">
+    Overview
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/providers/">
+<span class="md-ellipsis">
+    Providers
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/riot-client/">
+<span class="md-ellipsis">
+    Riot Client
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/models/">
+<span class="md-ellipsis">
+    Models
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/routers/">
+<span class="md-ellipsis">
+    Routers
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/cache/">
+<span class="md-ellipsis">
+    Cache
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/security/">
+<span class="md-ellipsis">
+    Security
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+<span class="md-ellipsis">
+    Architecture
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+            Architecture
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../overview/">
+<span class="md-ellipsis">
+    Overview
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../system-overview/">
+<span class="md-ellipsis">
+    System Overview
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    Data Flow
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    Data Flow
+    
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#overview">
+<span class="md-ellipsis">
+      Overview
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#complete-request-flow">
+<span class="md-ellipsis">
+      Complete Request Flow
+    </span>
+</a>
+<nav aria-label="Complete Request Flow" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#end-to-end-request-processing">
+<span class="md-ellipsis">
+      End-to-End Request Processing
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#performance-breakdown">
+<span class="md-ellipsis">
+      Performance Breakdown
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cache-flow-detailed">
+<span class="md-ellipsis">
+      Cache Flow Detailed
+    </span>
+</a>
+<nav aria-label="Cache Flow Detailed" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cache-hit-path-fast-path">
+<span class="md-ellipsis">
+      Cache Hit Path (Fast Path)
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cache-miss-path-slow-path">
+<span class="md-ellipsis">
+      Cache Miss Path (Slow Path)
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#force-refresh-path">
+<span class="md-ellipsis">
+      Force Refresh Path
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cache-ttl-strategy">
+<span class="md-ellipsis">
+      Cache TTL Strategy
+    </span>
+</a>
+<nav aria-label="Cache TTL Strategy" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ttl-configuration-by-data-type">
+<span class="md-ellipsis">
+      TTL Configuration by Data Type
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#dynamic-ttl-adjustment">
+<span class="md-ellipsis">
+      Dynamic TTL Adjustment
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#error-handling-flow">
+<span class="md-ellipsis">
+      Error Handling Flow
+    </span>
+</a>
+<nav aria-label="Error Handling Flow" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#error-propagation-and-recovery">
+<span class="md-ellipsis">
+      Error Propagation and Recovery
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#error-response-format">
+<span class="md-ellipsis">
+      Error Response Format
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#http-status-code-mapping">
+<span class="md-ellipsis">
+      HTTP Status Code Mapping
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#retry-strategy">
+<span class="md-ellipsis">
+      Retry Strategy
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#provider-selection-flow">
+<span class="md-ellipsis">
+      Provider Selection Flow
+    </span>
+</a>
+<nav aria-label="Provider Selection Flow" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#dynamic-provider-routing">
+<span class="md-ellipsis">
+      Dynamic Provider Routing
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#provider-selection-logic">
+<span class="md-ellipsis">
+      Provider Selection Logic
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#regional-routing">
+<span class="md-ellipsis">
+      Regional Routing
+    </span>
+</a>
+<nav aria-label="Regional Routing" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#region-mapping-and-validation">
+<span class="md-ellipsis">
+      Region Mapping and Validation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#region-configuration">
+<span class="md-ellipsis">
+      Region Configuration
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#performance-optimization">
+<span class="md-ellipsis">
+      Performance Optimization
+    </span>
+</a>
+<nav aria-label="Performance Optimization" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#request-coalescing">
+<span class="md-ellipsis">
+      Request Coalescing
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#compression">
+<span class="md-ellipsis">
+      Compression
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#connection-pooling">
+<span class="md-ellipsis">
+      Connection Pooling
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cross-references">
+<span class="md-ellipsis">
+      Cross-References
+    </span>
+</a>
+<nav aria-label="Cross-References" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#related-documentation">
+<span class="md-ellipsis">
+      Related Documentation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#implementation-files">
+<span class="md-ellipsis">
+      Implementation Files
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#monitoring-checklist">
+<span class="md-ellipsis">
+      Monitoring Checklist
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../implementation-details/">
+<span class="md-ellipsis">
+    Implementation Details
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../models/">
+<span class="md-ellipsis">
+    Data Models
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    Operations
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            Operations
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operations/monitoring/">
+<span class="md-ellipsis">
+    Monitoring
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operations/troubleshooting/">
+<span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operations/security/">
+<span class="md-ellipsis">
+    Security
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Development
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            Development
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../development/contributing/">
+<span class="md-ellipsis">
+    Contributing
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../development/changelog-guide/">
+<span class="md-ellipsis">
+    Changelog Guide
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../development/versioning/">
+<span class="md-ellipsis">
+    Versioning
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../development/releases/">
+<span class="md-ellipsis">
+    Releases
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../development/testing/">
+<span class="md-ellipsis">
+    Testing
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../development/documentation/">
+<span class="md-ellipsis">
+    Documentation
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#overview">
+<span class="md-ellipsis">
+      Overview
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#complete-request-flow">
+<span class="md-ellipsis">
+      Complete Request Flow
+    </span>
+</a>
+<nav aria-label="Complete Request Flow" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#end-to-end-request-processing">
+<span class="md-ellipsis">
+      End-to-End Request Processing
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#performance-breakdown">
+<span class="md-ellipsis">
+      Performance Breakdown
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cache-flow-detailed">
+<span class="md-ellipsis">
+      Cache Flow Detailed
+    </span>
+</a>
+<nav aria-label="Cache Flow Detailed" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cache-hit-path-fast-path">
+<span class="md-ellipsis">
+      Cache Hit Path (Fast Path)
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cache-miss-path-slow-path">
+<span class="md-ellipsis">
+      Cache Miss Path (Slow Path)
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#force-refresh-path">
+<span class="md-ellipsis">
+      Force Refresh Path
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cache-ttl-strategy">
+<span class="md-ellipsis">
+      Cache TTL Strategy
+    </span>
+</a>
+<nav aria-label="Cache TTL Strategy" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ttl-configuration-by-data-type">
+<span class="md-ellipsis">
+      TTL Configuration by Data Type
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#dynamic-ttl-adjustment">
+<span class="md-ellipsis">
+      Dynamic TTL Adjustment
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#error-handling-flow">
+<span class="md-ellipsis">
+      Error Handling Flow
+    </span>
+</a>
+<nav aria-label="Error Handling Flow" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#error-propagation-and-recovery">
+<span class="md-ellipsis">
+      Error Propagation and Recovery
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#error-response-format">
+<span class="md-ellipsis">
+      Error Response Format
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#http-status-code-mapping">
+<span class="md-ellipsis">
+      HTTP Status Code Mapping
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#retry-strategy">
+<span class="md-ellipsis">
+      Retry Strategy
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#provider-selection-flow">
+<span class="md-ellipsis">
+      Provider Selection Flow
+    </span>
+</a>
+<nav aria-label="Provider Selection Flow" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#dynamic-provider-routing">
+<span class="md-ellipsis">
+      Dynamic Provider Routing
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#provider-selection-logic">
+<span class="md-ellipsis">
+      Provider Selection Logic
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#regional-routing">
+<span class="md-ellipsis">
+      Regional Routing
+    </span>
+</a>
+<nav aria-label="Regional Routing" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#region-mapping-and-validation">
+<span class="md-ellipsis">
+      Region Mapping and Validation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#region-configuration">
+<span class="md-ellipsis">
+      Region Configuration
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#performance-optimization">
+<span class="md-ellipsis">
+      Performance Optimization
+    </span>
+</a>
+<nav aria-label="Performance Optimization" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#request-coalescing">
+<span class="md-ellipsis">
+      Request Coalescing
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#compression">
+<span class="md-ellipsis">
+      Compression
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#connection-pooling">
+<span class="md-ellipsis">
+      Connection Pooling
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cross-references">
+<span class="md-ellipsis">
+      Cross-References
+    </span>
+</a>
+<nav aria-label="Cross-References" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#related-documentation">
+<span class="md-ellipsis">
+      Related Documentation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#implementation-files">
+<span class="md-ellipsis">
+      Implementation Files
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#monitoring-checklist">
+<span class="md-ellipsis">
+      Monitoring Checklist
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="data-flow-architecture">Data Flow Architecture<a class="headerlink" href="#data-flow-architecture" title="Permanent link">¶</a></h1>
+<blockquote>
+<p><strong>Detailed request processing</strong> and data flow through the lolstonks-api-gateway system</p>
+</blockquote>
+<hr/>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">¶</a></h2>
+<p>This document describes how data flows through the gateway, from incoming client requests to cached responses. Understanding these flows is critical for optimizing performance, debugging issues, and maintaining the system.</p>
+<hr/>
+<h2 id="complete-request-flow">Complete Request Flow<a class="headerlink" href="#complete-request-flow" title="Permanent link">¶</a></h2>
+<h3 id="end-to-end-request-processing">End-to-End Request Processing<a class="headerlink" href="#end-to-end-request-processing" title="Permanent link">¶</a></h3>
+<div class="mermaid">flowchart TD
+    start([Client Request&lt;br/&gt;HTTP GET/POST]) --&gt;|1. TCP Connection| server[Uvicorn Server&lt;br/&gt;127.0.0.1:8080]
+    server --&gt;|2. ASGI Protocol| fastapi[FastAPI Application&lt;br/&gt;Request Parsing]
+    fastapi --&gt;|3. Middleware Chain| cors[CORS Middleware&lt;br/&gt;Origin Check]
+    cors --&gt; logging[Logging Middleware&lt;br/&gt;Request ID Generation]
+    logging --&gt; errorhandler[Error Handler&lt;br/&gt;Global Exception Catching]
+    errorhandler --&gt;|4. Route Matching| router{Router&lt;br/&gt;Match&lt;br/&gt;Endpoint?}
+
+    router --&gt;|No Match| notfound[404 Not Found]
+    notfound --&gt; errorresponse([Error Response])
+
+    router --&gt;|Match Found| validate[Pydantic Validation&lt;br/&gt;Path/Query Parameters]
+    validate --&gt;|Invalid| validationerror[422 Validation Error]
+    validationerror --&gt; errorresponse
+
+    validate --&gt;|Valid| ratelimit{Rate Limit&lt;br/&gt;Check}
+    ratelimit --&gt;|Exceeded| toomany[429 Too Many Requests]
+    toomany --&gt; errorresponse
+
+    ratelimit --&gt;|OK| cachecheck{Cache&lt;br/&gt;Check}
+    cachecheck --&gt;|"Hit (&lt;1ms)"| cachehit[Retrieve from Redis]
+    cachehit --&gt;|Deserialize| cachedresponse[Cached Data]
+    cachedresponse --&gt; format[Format Response&lt;br/&gt;Add Headers]
+
+    cachecheck --&gt;|"Miss or ?force=true"| provider[Provider Registry&lt;br/&gt;Select Provider]
+    provider --&gt;|Static Data| dataDragon[Data Dragon Provider]
+    provider --&gt;|Live Data| riotProvider[Riot API Provider]
+    provider --&gt;|Community Data| communityProvider[Community Dragon Provider]
+
+    dataDragon --&gt;|"HTTP GET (20-100ms)"| dragonAPI[Data Dragon CDN]
+    riotProvider --&gt;|"HTTP GET + API Key (50-200ms)"| riotAPI[Riot API]
+    communityProvider --&gt;|"HTTP GET (20-100ms)"| communityAPI[Community Dragon CDN]
+
+    dragonAPI --&gt;|Response| processData[Process Response&lt;br/&gt;Validate &amp; Transform]
+    riotAPI --&gt;|Response| processData
+    communityAPI --&gt;|Response| processData
+
+    processData --&gt;|Success| updatecache[Update Redis Cache&lt;br/&gt;Set TTL]
+    processData --&gt;|API Error| apierror[Handle API Error&lt;br/&gt;Retry or Fallback]
+
+    apierror --&gt;|Retry Success| updatecache
+    apierror --&gt;|Retry Failed| errorresponse
+
+    updatecache -.-&gt;|"Async (&lt;1ms)"| redis[(Redis Cache)]
+    updatecache --&gt; format
+
+    format --&gt;|6. Response Middleware| addheaders[Add Headers&lt;br/&gt;Cache-Control, X-Response-Time]
+    addheaders --&gt;|7. Log Response| logresponse[Log Response Time&lt;br/&gt;&amp; Cache Status]
+    logresponse --&gt;|8. Send| success([HTTP Response&lt;br/&gt;200 OK + JSON])
+
+    classDef gateway fill:#e3f2fd,stroke:#1976d2,stroke-width:2px,color:#000
+    classDef provider fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
+    classDef cache fill:#fff3e0,stroke:#f57c00,stroke-width:2px,color:#000
+    classDef external fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#000
+    classDef decision fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#000
+    classDef error fill:#fce4ec,stroke:#c2185b,stroke-width:2px,color:#000
+
+    class server,fastapi,cors,logging,errorhandler,validate,format,addheaders,logresponse gateway
+    class dataDragon,riotProvider,communityProvider provider
+    class cachehit,cachedresponse,updatecache,redis cache
+    class dragonAPI,riotAPI,communityAPI external
+    class router,ratelimit,cachecheck decision
+    class notfound,validationerror,toomany,apierror error
+</div>
+<h3 id="performance-breakdown">Performance Breakdown<a class="headerlink" href="#performance-breakdown" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Component</th>
+<th>Time (Typical)</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>TCP Connection</td>
+<td><code>&lt;1ms</code></td>
+<td>Local network, very fast</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Request Parsing</td>
+<td><code>&lt;1ms</code></td>
+<td>FastAPI/Pydantic validation</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Middleware Chain</td>
+<td><code>&lt;1ms</code></td>
+<td>CORS, logging, error handler</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Route Matching</td>
+<td><code>&lt;1ms</code></td>
+<td>FastAPI router lookup</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Parameter Validation</td>
+<td><code>&lt;1ms</code></td>
+<td>Pydantic model validation</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Rate Limit Check</td>
+<td><code>&lt;1ms</code></td>
+<td>Redis counter check</td>
+</tr>
+<tr>
+<td><strong>7a</strong></td>
+<td><strong>Cache Hit</strong></td>
+<td><strong>&lt;1ms</strong></td>
+<td><strong>Redis GET operation</strong></td>
+</tr>
+<tr>
+<td><strong>7b</strong></td>
+<td><strong>Cache Miss</strong></td>
+<td><strong>50-200ms</strong></td>
+<td><strong>External API call</strong></td>
+</tr>
+<tr>
+<td>8</td>
+<td>Response Formatting</td>
+<td><code>&lt;1ms</code></td>
+<td>JSON serialization</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Response Headers</td>
+<td><code>&lt;1ms</code></td>
+<td>Header injection</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Response Logging</td>
+<td><code>&lt;1ms</code></td>
+<td>Async log write</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Total Time</strong>:
+- <strong>Cache Hit</strong>: <code>&lt;10ms</code> (typically <code>5-8ms</code>)
+- <strong>Cache Miss</strong>: <code>60-220ms</code> (depends on external API latency)</p>
+<hr/>
+<h2 id="cache-flow-detailed">Cache Flow Detailed<a class="headerlink" href="#cache-flow-detailed" title="Permanent link">¶</a></h2>
+<h3 id="cache-hit-path-fast-path">Cache Hit Path (Fast Path)<a class="headerlink" href="#cache-hit-path-fast-path" title="Permanent link">¶</a></h3>
+<div class="mermaid">sequenceDiagram
+    participant C as Client
+    participant G as Gateway
+    participant R as Redis Cache
+    participant L as Logger
+
+    C-&gt;&gt;G: GET /lol/summoner/v4/by-name/euw1/Player
+    activate G
+
+    Note over G: Generate cache key&lt;br/&gt;riot:summoner:euw1:player_hash
+
+    G-&gt;&gt;R: GET cache key
+    activate R
+    R--&gt;&gt;G: Cached data (JSON)
+    deactivate R
+
+    Note over G: Deserialize JSON&lt;br/&gt;Validate expiry
+
+    G-&gt;&gt;L: Log cache hit (async)
+
+    G--&gt;&gt;C: 200 OK + Cached Data&lt;br/&gt;X-Cache-Status: HIT&lt;br/&gt;X-Response-Time: 7ms
+    deactivate G
+
+    Note over C,G: Total time: ~7ms
+</div>
+<p><strong>Cache Key Format</strong>:</p>
+<pre><code>{provider}:{endpoint}:{region}:{params_hash}
+</code></pre>
+<p><strong>Example Keys</strong>:
+- <code>riot:summoner:euw1:d4f2a1b9</code> (summoner by name)
+- <code>dragon:champion:14.1.1:en_us</code> (champion data)
+- <code>riot:match:europe:euw1_123456</code> (match details)</p>
+<p><strong>Cache Headers in Response</strong>:</p>
+<pre><code class="language-http">X-Cache-Status: HIT
+X-Cache-TTL: 285
+X-Response-Time: 7
+Cache-Control: public, max-age=300
+</code></pre>
+<h3 id="cache-miss-path-slow-path">Cache Miss Path (Slow Path)<a class="headerlink" href="#cache-miss-path-slow-path" title="Permanent link">¶</a></h3>
+<div class="mermaid">sequenceDiagram
+    participant C as Client
+    participant G as Gateway
+    participant RC as Redis Cache
+    participant P as Provider
+    participant E as External API
+    participant L as Logger
+
+    C-&gt;&gt;G: GET /lol/summoner/v4/by-name/euw1/NewPlayer
+    activate G
+
+    Note over G: Generate cache key&lt;br/&gt;riot:summoner:euw1:newplayer_hash
+
+    G-&gt;&gt;RC: GET cache key
+    activate RC
+    RC--&gt;&gt;G: NULL (not found)
+    deactivate RC
+
+    Note over G: Select Provider&lt;br/&gt;(Riot API for summoner)
+
+    G-&gt;&gt;P: Fetch summoner data
+    activate P
+
+    P-&gt;&gt;E: HTTPS GET + X-Riot-Token header
+    activate E
+    Note over E: Process request&lt;br/&gt;Check rate limits&lt;br/&gt;Query database
+    E--&gt;&gt;P: 200 OK + JSON response
+    deactivate E
+
+    Note over P: Validate response&lt;br/&gt;Transform if needed
+
+    P--&gt;&gt;G: Processed data
+    deactivate P
+
+    Note over G: Serialize for cache
+
+    G-&gt;&gt;RC: SET cache key (TTL=300s)
+    activate RC
+    RC--&gt;&gt;G: OK
+    deactivate RC
+
+    G-&gt;&gt;L: Log cache miss + latency (async)
+
+    G--&gt;&gt;C: 200 OK + Fresh Data&lt;br/&gt;X-Cache-Status: MISS&lt;br/&gt;X-Response-Time: 157ms
+    deactivate G
+
+    Note over C,G: Total time: ~157ms
+</div>
+<p><strong>Cache Update Logic</strong>:</p>
+<pre><code class="language-python"># Pseudo-code for cache update
+async def cache_or_fetch(key: str, ttl: int, fetch_fn):
+    # Try cache first
+    cached = await redis.get(key)
+    if cached and not force_refresh:
+        return json.loads(cached)
+
+    # Cache miss - fetch from provider
+    data = await fetch_fn()
+
+    # Update cache (async, don't block response)
+    await redis.set(key, json.dumps(data), ex=ttl)
+
+    return data
+</code></pre>
+<h3 id="force-refresh-path">Force Refresh Path<a class="headerlink" href="#force-refresh-path" title="Permanent link">¶</a></h3>
+<div class="mermaid">flowchart LR
+    request([Request with&lt;br/&gt;?force=true]) --&gt;|Skip cache| provider[Provider Fetch]
+    provider --&gt;|Fetch fresh| external[External API]
+    external --&gt; update[Update Cache]
+    update -.-&gt;|Overwrite| cache[(Redis Cache)]
+    update --&gt; response([Fresh Response])
+
+    style request fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    style provider fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+    style external fill:#ffebee,stroke:#c62828,stroke-width:2px
+    style cache fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+</div>
+<p><strong>Use Cases</strong>:
+- Debugging stale cache data
+- Manual cache invalidation
+- Testing external API changes
+- Ensuring real-time data accuracy</p>
+<p><strong>Example</strong>:</p>
+<pre><code class="language-bash"># Normal request (may return cached data)
+curl "http://127.0.0.1:8080/lol/summoner/v4/by-name/euw1/Player"
+
+# Force refresh (always fetches fresh data)
+curl "http://127.0.0.1:8080/lol/summoner/v4/by-name/euw1/Player?force=true"
+</code></pre>
+<hr/>
+<h2 id="cache-ttl-strategy">Cache TTL Strategy<a class="headerlink" href="#cache-ttl-strategy" title="Permanent link">¶</a></h2>
+<h3 id="ttl-configuration-by-data-type">TTL Configuration by Data Type<a class="headerlink" href="#ttl-configuration-by-data-type" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Data Type</th>
+<th>TTL</th>
+<th>Rationale</th>
+<th>Example Endpoints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Live Game Data</strong></td>
+<td>30 seconds</td>
+<td>Changes frequently during active game</td>
+<td><code>/spectator/active-game</code></td>
+</tr>
+<tr>
+<td><strong>Player Profiles</strong></td>
+<td>5 minutes</td>
+<td>Updates occasionally (rank, level)</td>
+<td><code>/summoner/by-name</code>, <code>/summoner/by-puuid</code></td>
+</tr>
+<tr>
+<td><strong>Match History</strong></td>
+<td>10 minutes</td>
+<td>Recent matches may update, older stable</td>
+<td><code>/match/by-puuid</code> (list)</td>
+</tr>
+<tr>
+<td><strong>Match Details</strong></td>
+<td>30 minutes</td>
+<td>Match details don't change after completion</td>
+<td><code>/match/by-match-id</code> (details)</td>
+</tr>
+<tr>
+<td><strong>Ranked Ladders</strong></td>
+<td>5 minutes</td>
+<td>Ladder updates frequently</td>
+<td><code>/league/challenger</code>, <code>/league/entries</code></td>
+</tr>
+<tr>
+<td><strong>Champion Mastery</strong></td>
+<td>10 minutes</td>
+<td>Updates after games</td>
+<td><code>/champion-mastery/by-puuid</code></td>
+</tr>
+<tr>
+<td><strong>Static Data</strong></td>
+<td>1 hour</td>
+<td>Changes only with patches</td>
+<td><code>/champion/all</code>, <code>/item/all</code></td>
+</tr>
+<tr>
+<td><strong>Version Info</strong></td>
+<td>6 hours</td>
+<td>Updates with new patches (~2 weeks)</td>
+<td><code>/version/latest</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="dynamic-ttl-adjustment">Dynamic TTL Adjustment<a class="headerlink" href="#dynamic-ttl-adjustment" title="Permanent link">¶</a></h3>
+<div class="mermaid">flowchart TD
+    fetch[Fetch Data] --&gt; analyze{Analyze&lt;br/&gt;Data Type}
+
+    analyze --&gt;|Live/Active| short[Short TTL&lt;br/&gt;30s - 5min]
+    analyze --&gt;|Historical| medium[Medium TTL&lt;br/&gt;10min - 30min]
+    analyze --&gt;|Static| long[Long TTL&lt;br/&gt;1h - 6h]
+
+    short --&gt; cache[(Redis Cache)]
+    medium --&gt; cache
+    long --&gt; cache
+
+    cache --&gt;|TTL Expired| evict[Auto-Evict]
+    evict -.-&gt;|Next Request| fetch
+
+    style analyze fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    style cache fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+</div>
+<p><strong>Configuration</strong>:</p>
+<pre><code class="language-python"># app/core/cache_config.py
+CACHE_TTL = {
+    "summoner": 300,          # 5 minutes
+    "match_list": 600,        # 10 minutes
+    "match_details": 1800,    # 30 minutes
+    "league": 300,            # 5 minutes
+    "champion_data": 3600,    # 1 hour
+    "spectator": 30,          # 30 seconds
+}
+</code></pre>
+<hr/>
+<h2 id="error-handling-flow">Error Handling Flow<a class="headerlink" href="#error-handling-flow" title="Permanent link">¶</a></h2>
+<h3 id="error-propagation-and-recovery">Error Propagation and Recovery<a class="headerlink" href="#error-propagation-and-recovery" title="Permanent link">¶</a></h3>
+<div class="mermaid">flowchart TD
+    request([Incoming Request]) --&gt; process[Process Request]
+
+    process --&gt; success{Success?}
+    success --&gt;|Yes| response([200 OK Response])
+
+    success --&gt;|No| classify{Classify&lt;br/&gt;Error Type}
+
+    classify --&gt;|Validation Error| validate_error[422 Unprocessable Entity&lt;br/&gt;Invalid parameters]
+    classify --&gt;|Not Found| not_found[404 Not Found&lt;br/&gt;Endpoint/resource missing]
+    classify --&gt;|Rate Limit| rate_error[429 Too Many Requests&lt;br/&gt;Rate limit exceeded]
+    classify --&gt;|External API Error| api_error{API&lt;br/&gt;Error&lt;br/&gt;Code?}
+    classify --&gt;|Server Error| server_error[500 Internal Server Error&lt;br/&gt;Unexpected error]
+
+    api_error --&gt;|404| resource_missing[404 Not Found&lt;br/&gt;Resource doesn't exist in API]
+    api_error --&gt;|429| external_rate[502 Bad Gateway&lt;br/&gt;External API rate limited]
+    api_error --&gt;|500/502/503| retry{Retry&lt;br/&gt;Count&lt;br/&gt;&lt; 3?}
+    api_error --&gt;|403| forbidden[403 Forbidden&lt;br/&gt;Invalid API key or permissions]
+
+    retry --&gt;|Yes| backoff[Exponential Backoff&lt;br/&gt;Wait 1s, 2s, 4s...]
+    backoff -.-&gt;|Retry| process
+    retry --&gt;|No| give_up[503 Service Unavailable&lt;br/&gt;External API down]
+
+    validate_error --&gt; log[Log Error Details]
+    not_found --&gt; log
+    rate_error --&gt; log
+    resource_missing --&gt; log
+    external_rate --&gt; log
+    forbidden --&gt; log
+    server_error --&gt; log
+    give_up --&gt; log
+
+    log --&gt; error_response([Error Response&lt;br/&gt;JSON + Error Details])
+
+    classDef success fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
+    classDef client_error fill:#fff3e0,stroke:#f57c00,stroke-width:2px,color:#000
+    classDef server_error fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#000
+    classDef decision fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#000
+
+    class response success
+    class validate_error,not_found,rate_error,resource_missing client_error
+    class server_error,external_rate,forbidden,give_up server_error
+    class success,classify,api_error,retry decision
+</div>
+<h3 id="error-response-format">Error Response Format<a class="headerlink" href="#error-response-format" title="Permanent link">¶</a></h3>
+<p>All errors follow a consistent JSON structure:</p>
+<pre><code class="language-json">{
+  "error": {
+    "code": "SUMMONER_NOT_FOUND",
+    "message": "Summoner 'PlayerName' not found in region 'euw1'",
+    "details": {
+      "region": "euw1",
+      "summoner_name": "PlayerName",
+      "provider": "riot_api"
+    },
+    "request_id": "req_abc123xyz",
+    "timestamp": "2025-01-24T12:00:00Z"
+  }
+}
+</code></pre>
+<h3 id="http-status-code-mapping">HTTP Status Code Mapping<a class="headerlink" href="#http-status-code-mapping" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Status Code</th>
+<th>Error Type</th>
+<th>When It Occurs</th>
+<th>Retry?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>400</strong></td>
+<td>Bad Request</td>
+<td>Malformed request syntax</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>404</strong></td>
+<td>Not Found</td>
+<td>Resource doesn't exist</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>422</strong></td>
+<td>Unprocessable Entity</td>
+<td>Validation error (invalid parameters)</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>429</strong></td>
+<td>Too Many Requests</td>
+<td>Gateway rate limit exceeded</td>
+<td>Yes (with backoff)</td>
+</tr>
+<tr>
+<td><strong>403</strong></td>
+<td>Forbidden</td>
+<td>Invalid API key or permissions</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td>Internal Server Error</td>
+<td>Unexpected gateway error</td>
+<td>Maybe (check logs)</td>
+</tr>
+<tr>
+<td><strong>502</strong></td>
+<td>Bad Gateway</td>
+<td>External API error (4xx/5xx)</td>
+<td>Yes (auto-retry)</td>
+</tr>
+<tr>
+<td><strong>503</strong></td>
+<td>Service Unavailable</td>
+<td>External API down after retries</td>
+<td>Yes (manual retry later)</td>
+</tr>
+<tr>
+<td><strong>504</strong></td>
+<td>Gateway Timeout</td>
+<td>External API timeout</td>
+<td>Yes (with backoff)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="retry-strategy">Retry Strategy<a class="headerlink" href="#retry-strategy" title="Permanent link">¶</a></h3>
+<div class="mermaid">sequenceDiagram
+    participant G as Gateway
+    participant P as Provider
+    participant E as External API
+
+    G-&gt;&gt;P: Request data
+    P-&gt;&gt;E: API Call (Attempt 1)
+    E--&gt;&gt;P: 503 Service Unavailable
+
+    Note over P: Wait 1 second&lt;br/&gt;(2^0 = 1s)
+
+    P-&gt;&gt;E: API Call (Attempt 2)
+    E--&gt;&gt;P: 502 Bad Gateway
+
+    Note over P: Wait 2 seconds&lt;br/&gt;(2^1 = 2s)
+
+    P-&gt;&gt;E: API Call (Attempt 3)
+    E--&gt;&gt;P: 500 Internal Error
+
+    Note over P: Wait 4 seconds&lt;br/&gt;(2^2 = 4s)
+
+    P-&gt;&gt;E: API Call (Attempt 4 - Final)
+    E--&gt;&gt;P: 503 Service Unavailable
+
+    P--&gt;&gt;G: Error: Max retries exceeded
+    G--&gt;&gt;G: Return 503 to client
+</div>
+<p><strong>Retry Configuration</strong>:</p>
+<pre><code class="language-python">MAX_RETRIES = 3
+RETRY_BACKOFF_BASE = 1.0  # seconds
+RETRY_BACKOFF_MAX = 10.0  # seconds
+RETRYABLE_STATUS_CODES = [500, 502, 503, 504]
+</code></pre>
+<hr/>
+<h2 id="provider-selection-flow">Provider Selection Flow<a class="headerlink" href="#provider-selection-flow" title="Permanent link">¶</a></h2>
+<h3 id="dynamic-provider-routing">Dynamic Provider Routing<a class="headerlink" href="#dynamic-provider-routing" title="Permanent link">¶</a></h3>
+<div class="mermaid">flowchart TD
+    request([API Request]) --&gt; parse[Parse Endpoint]
+    parse --&gt; registry[Provider Registry]
+
+    registry --&gt; detect{Data&lt;br/&gt;Type?}
+
+    detect --&gt;|Summoner, Match, League| live[Live Data]
+    detect --&gt;|Champion, Item, Spell| static[Static Data]
+    detect --&gt;|Augments, Missions| community[Community Data]
+
+    live --&gt; region_check{Region&lt;br/&gt;Valid?}
+    region_check --&gt;|Yes| riot[Riot API Provider&lt;br/&gt;Live game data]
+    region_check --&gt;|No| error[400 Bad Request&lt;br/&gt;Invalid region]
+
+    static --&gt; version_check{Version&lt;br/&gt;Specified?}
+    version_check --&gt;|Yes| dragon[Data Dragon Provider&lt;br/&gt;Specific version]
+    version_check --&gt;|No| latest[Data Dragon Provider&lt;br/&gt;Latest version]
+
+    community --&gt; community_provider[Community Dragon Provider&lt;br/&gt;Enhanced static data]
+
+    riot --&gt;|With API Key| riot_api[Riot API&lt;br/&gt;HTTPS + Auth]
+    dragon --&gt; dragon_cdn[Data Dragon CDN&lt;br/&gt;HTTPS]
+    latest --&gt; dragon_cdn
+    community_provider --&gt; community_cdn[Community Dragon CDN&lt;br/&gt;HTTPS]
+
+    riot_api --&gt; response([Provider Response])
+    dragon_cdn --&gt; response
+    community_cdn --&gt; response
+    error --&gt; error_response([Error Response])
+
+    classDef decision fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#000
+    classDef provider fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
+    classDef external fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#000
+
+    class detect,region_check,version_check decision
+    class riot,dragon,latest,community_provider provider
+    class riot_api,dragon_cdn,community_cdn external
+</div>
+<h3 id="provider-selection-logic">Provider Selection Logic<a class="headerlink" href="#provider-selection-logic" title="Permanent link">¶</a></h3>
+<p><strong>Decision Table</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Endpoint Pattern</th>
+<th>Data Type</th>
+<th>Provider</th>
+<th>Authentication</th>
+<th>Cache TTL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/summoner/**</code></td>
+<td>Live</td>
+<td>Riot API</td>
+<td>API Key Required</td>
+<td>5 min</td>
+</tr>
+<tr>
+<td><code>/match/**</code></td>
+<td>Live</td>
+<td>Riot API</td>
+<td>API Key Required</td>
+<td>10-30 min</td>
+</tr>
+<tr>
+<td><code>/league/**</code></td>
+<td>Live</td>
+<td>Riot API</td>
+<td>API Key Required</td>
+<td>5 min</td>
+</tr>
+<tr>
+<td><code>/spectator/**</code></td>
+<td>Live</td>
+<td>Riot API</td>
+<td>API Key Required</td>
+<td>30 sec</td>
+</tr>
+<tr>
+<td><code>/champion-mastery/**</code></td>
+<td>Live</td>
+<td>Riot API</td>
+<td>API Key Required</td>
+<td>10 min</td>
+</tr>
+<tr>
+<td><code>/champion/**</code></td>
+<td>Static</td>
+<td>Data Dragon</td>
+<td>Public</td>
+<td>1 hour</td>
+</tr>
+<tr>
+<td><code>/item/**</code></td>
+<td>Static</td>
+<td>Data Dragon</td>
+<td>Public</td>
+<td>1 hour</td>
+</tr>
+<tr>
+<td><code>/spell/**</code></td>
+<td>Static</td>
+<td>Data Dragon</td>
+<td>Public</td>
+<td>1 hour</td>
+</tr>
+<tr>
+<td><code>/augments/**</code></td>
+<td>Static</td>
+<td>Community Dragon</td>
+<td>Public</td>
+<td>1 hour</td>
+</tr>
+<tr>
+<td><code>/missions/**</code></td>
+<td>Community</td>
+<td>Community Dragon</td>
+<td>Public</td>
+<td>1 hour</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Code Example</strong>:</p>
+<pre><code class="language-python">async def select_provider(endpoint: str, region: str) -&gt; BaseProvider:
+    if endpoint.startswith("/lol/summoner"):
+        return RiotAPIProvider(region=region, api_key=settings.RIOT_API_KEY)
+    elif endpoint.startswith("/lol/static/champion"):
+        return DataDragonProvider(version="latest", locale="en_US")
+    elif endpoint.startswith("/lol/community"):
+        return CommunityDragonProvider(version="latest")
+    else:
+        raise ValueError(f"No provider for endpoint: {endpoint}")
+</code></pre>
+<hr/>
+<h2 id="regional-routing">Regional Routing<a class="headerlink" href="#regional-routing" title="Permanent link">¶</a></h2>
+<h3 id="region-mapping-and-validation">Region Mapping and Validation<a class="headerlink" href="#region-mapping-and-validation" title="Permanent link">¶</a></h3>
+<div class="mermaid">flowchart TD
+    request([Request with Region]) --&gt; validate{Region&lt;br/&gt;Valid?}
+
+    validate --&gt;|Invalid| error[400 Bad Request&lt;br/&gt;Invalid region code]
+    error --&gt; error_response([Error Response])
+
+    validate --&gt;|Valid| map[Map to API Region]
+
+    map --&gt; platform{Platform&lt;br/&gt;Region?}
+
+    platform --&gt;|Americas| americas[americas.api.riotgames.com&lt;br/&gt;na1, br1, la1, la2]
+    platform --&gt;|Europe| europe[europe.api.riotgames.com&lt;br/&gt;euw1, eun1, tr1, ru]
+    platform --&gt;|Asia| asia[asia.api.riotgames.com&lt;br/&gt;kr, jp1, oc1, ph2, sg2, th2, tw2, vn2]
+    platform --&gt;|SEA| sea[sea.api.riotgames.com&lt;br/&gt;ph2, sg2, th2, tw2, vn2]
+
+    americas --&gt; endpoint[Platform-Specific Endpoint]
+    europe --&gt; endpoint
+    asia --&gt; endpoint
+    sea --&gt; endpoint
+
+    endpoint --&gt;|Add Region Header| headers[X-Region: {region}]
+    headers --&gt; call[Make API Call]
+    call --&gt; response([API Response])
+
+    classDef decision fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#000
+    classDef provider fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
+    classDef error fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#000
+
+    class validate,platform decision
+    class americas,europe,asia,sea,endpoint,headers,call provider
+    class error error
+</div>
+<h3 id="region-configuration">Region Configuration<a class="headerlink" href="#region-configuration" title="Permanent link">¶</a></h3>
+<p><strong>Platform Routing Table</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>Regions</th>
+<th>API Domain</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Americas</strong></td>
+<td><code>na1</code>, <code>br1</code>, <code>la1</code>, <code>la2</code></td>
+<td><code>americas.api.riotgames.com</code></td>
+</tr>
+<tr>
+<td><strong>Europe</strong></td>
+<td><code>euw1</code>, <code>eun1</code>, <code>tr1</code>, <code>ru</code></td>
+<td><code>europe.api.riotgames.com</code></td>
+</tr>
+<tr>
+<td><strong>Asia</strong></td>
+<td><code>kr</code>, <code>jp1</code>, <code>oc1</code></td>
+<td><code>asia.api.riotgames.com</code></td>
+</tr>
+<tr>
+<td><strong>SEA</strong></td>
+<td><code>ph2</code>, <code>sg2</code>, <code>th2</code>, <code>tw2</code>, <code>vn2</code></td>
+<td><code>sea.api.riotgames.com</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Regional Aliases</strong>:</p>
+<pre><code class="language-python">REGION_ALIASES = {
+    "euw": "euw1",
+    "eune": "eun1",
+    "na": "na1",
+    "br": "br1",
+    "lan": "la1",
+    "las": "la2",
+    "oce": "oc1",
+}
+</code></pre>
+<hr/>
+<h2 id="performance-optimization">Performance Optimization<a class="headerlink" href="#performance-optimization" title="Permanent link">¶</a></h2>
+<h3 id="request-coalescing">Request Coalescing<a class="headerlink" href="#request-coalescing" title="Permanent link">¶</a></h3>
+<p><strong>Problem</strong>: Multiple simultaneous requests for the same data cause redundant API calls.</p>
+<p><strong>Solution</strong>: Request coalescing (deduplication).</p>
+<div class="mermaid">sequenceDiagram
+    participant C1 as Client 1
+    participant C2 as Client 2
+    participant C3 as Client 3
+    participant G as Gateway
+    participant E as External API
+
+    Note over C1,C3: All request same summoner&lt;br/&gt;at same time
+
+    C1-&gt;&gt;G: GET /summoner/by-name/euw1/Player
+    C2-&gt;&gt;G: GET /summoner/by-name/euw1/Player
+    C3-&gt;&gt;G: GET /summoner/by-name/euw1/Player
+
+    Note over G: Detect duplicate in-flight request&lt;br/&gt;Coalesce into single API call
+
+    G-&gt;&gt;E: Single API call
+    E--&gt;&gt;G: Response
+
+    Note over G: Fan out response to all waiters
+
+    G--&gt;&gt;C1: Response (from shared call)
+    G--&gt;&gt;C2: Response (from shared call)
+    G--&gt;&gt;C3: Response (from shared call)
+
+    Note over C1,C3: Saved 2 API calls!
+</div>
+<h3 id="compression">Compression<a class="headerlink" href="#compression" title="Permanent link">¶</a></h3>
+<p><strong>Response Compression</strong>: Reduce bandwidth for large responses.</p>
+<pre><code class="language-http"># Request
+GET /lol/champion/all
+Accept-Encoding: gzip, deflate
+
+# Response
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Encoding: gzip
+Content-Length: 15234 (original: 68451)
+</code></pre>
+<p><strong>Compression Savings</strong>:
+- Champion data: <code>~78% reduction</code> (68KB → 15KB)
+- Match details: <code>~65% reduction</code> (120KB → 42KB)
+- Match lists: <code>~70% reduction</code> (50KB → 15KB)</p>
+<h3 id="connection-pooling">Connection Pooling<a class="headerlink" href="#connection-pooling" title="Permanent link">¶</a></h3>
+<div class="mermaid">flowchart LR
+    subgraph Gateway["Gateway Application"]
+        router1[Router 1]
+        router2[Router 2]
+        router3[Router 3]
+    end
+
+    subgraph Pool["HTTP Connection Pool"]
+        conn1[Connection 1]
+        conn2[Connection 2]
+        conn3[Connection 3]
+        conn4[Connection 4]
+    end
+
+    subgraph External["External APIs"]
+        riot[Riot API]
+        dragon[Data Dragon]
+    end
+
+    router1 -.-&gt;|Reuse| Pool
+    router2 -.-&gt;|Reuse| Pool
+    router3 -.-&gt;|Reuse| Pool
+
+    Pool --&gt;|Keep-Alive| External
+
+    style Pool fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+</div>
+<p><strong>Configuration</strong>:</p>
+<pre><code class="language-python"># httpx client configuration
+httpx.AsyncClient(
+    limits=httpx.Limits(
+        max_keepalive_connections=20,
+        max_connections=100,
+        keepalive_expiry=30.0
+    )
+)
+</code></pre>
+<p><strong>Benefits</strong>:
+- Eliminates TCP handshake overhead (<code>~50ms</code>)
+- Reuses SSL/TLS sessions
+- Reduces server load</p>
+<hr/>
+<h2 id="cross-references">Cross-References<a class="headerlink" href="#cross-references" title="Permanent link">¶</a></h2>
+<h3 id="related-documentation">Related Documentation<a class="headerlink" href="#related-documentation" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong><a href="../system-overview/">System Overview</a></strong> - High-level architecture</li>
+<li><strong><a href="../routing/">Routing Architecture</a></strong> - API endpoint organization</li>
+<li><strong><a href="../caching/">Caching Strategy</a></strong> - Detailed cache configuration</li>
+<li><strong><a href="providers.md">Provider Documentation</a></strong> - Provider implementations</li>
+<li><strong><a href="../rate-limiting/">Rate Limiting</a></strong> - Rate limit configuration</li>
+</ul>
+<h3 id="implementation-files">Implementation Files<a class="headerlink" href="#implementation-files" title="Permanent link">¶</a></h3>
+<ul>
+<li><code>app/main.py</code> - FastAPI application and middleware</li>
+<li><code>app/routers/</code> - Router implementations</li>
+<li><code>app/providers/</code> - Provider implementations</li>
+<li><code>app/core/cache.py</code> - Cache logic</li>
+<li><code>app/core/rate_limiter.py</code> - Rate limiting</li>
+<li><code>app/middleware/</code> - Custom middleware</li>
+</ul>
+<hr/>
+<h2 id="monitoring-checklist">Monitoring Checklist<a class="headerlink" href="#monitoring-checklist" title="Permanent link">¶</a></h2>
+<p>Use this checklist to monitor data flow health:</p>
+<ul>
+<li>[ ] <strong>Cache Hit Rate</strong>: Should be <code>&gt;70%</code> in steady state</li>
+<li>[ ] <strong>Response Time P95</strong>: Should be <code>&lt;50ms</code> for cache hits, <code>&lt;300ms</code> for cache misses</li>
+<li>[ ] <strong>Error Rate</strong>: Should be <code>&lt;1%</code> overall</li>
+<li>[ ] <strong>Rate Limit Errors</strong>: Should be <code>&lt;0.1%</code> (indicates proper cache usage)</li>
+<li>[ ] <strong>External API Latency</strong>: Monitor for degradation</li>
+<li>[ ] <strong>Redis Connection</strong>: Check for connection pool exhaustion</li>
+<li>[ ] <strong>Request Coalescing</strong>: Verify deduplication is working</li>
+</ul>
+<hr/>
+<p><strong>Last Updated</strong>: 2025-01-24</p>
+<p><strong>Next Steps</strong>:
+1. Review <a href="../routing/">Routing Architecture</a> for endpoint organization
+2. Explore <a href="../caching/">Caching Strategy</a> for detailed TTL configuration
+3. Check <a href="providers.md">Provider Documentation</a> for implementation details</p>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+<script>
+        // Enhanced Mermaid Interactivity for LOLStonks Documentation
+        (function() {
+            'use strict';
+
+            console.log('Initializing Mermaid interactivity...');
+
+            // Wait for DOM to be ready and Mermaid diagrams to render
+            const waitForMermaid = () => {
+                const mermaidElements = document.querySelectorAll('.mermaid');
+                console.log('Found Mermaid elements:', mermaidElements.length);
+
+                if (mermaidElements.length === 0) {
+                    console.log('No Mermaid elements found, retrying in 2 seconds...');
+                    setTimeout(waitForMermaid, 2000);
+                    return;
+                }
+
+                mermaidElements.forEach((element, index) => {
+                    const id = element.id || 'mermaid-diagram-' + index;
+                    element.setAttribute('id', id);
+
+                    // Wait for the diagram to be rendered as SVG
+                    const waitForSVG = () => {
+                        const svg = element.querySelector('svg');
+                        if (svg) {
+                            console.log('SVG found for element:', id);
+                            addInteractivityToDiagram(element, id);
+                        } else {
+                            console.log('SVG not found yet for element:', id, 'retrying...');
+                            setTimeout(waitForSVG, 500);
+                        }
+                    };
+
+                    waitForSVG();
+                });
+            };
+
+            const addInteractivityToDiagram = (element, id) => {
+                // Add interactive controls container
+                if (!element.previousSibling) {
+                    const controls = createInteractiveControls(id, element);
+                    element.parentNode.insertBefore(controls, element);
+                }
+
+                // Add zoom controls
+                addZoomControls(element, id);
+
+                // Add click handlers
+                addClickHandlers(element);
+
+                // Add tooltips
+                addTooltips(element);
+
+                // Make responsive
+                makeResponsive(element);
+
+                // Add pan and zoom
+                addPanAndZoom(element, id);
+            };
+
+            const createInteractiveControls = (id, element) => {
+                const controls = document.createElement('div');
+                controls.className = 'mermaid-controls';
+                controls.style.cssText = `
+                    margin: 10px 0;
+                    padding: 10px;
+                    background: #f5f5f5;
+                    border-radius: 5px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    gap: 10px;
+                    font-size: 14px;
+                    font-family: Arial, sans-serif;
+                `;
+
+                // Zoom controls
+                const zoomControls = document.createElement('div');
+                zoomControls.innerHTML = `
+                    <span style="font-weight: bold;">🔍 Zoom:</span>
+                    <button onclick="zoomDiagram('${id}', 1.2)" style="margin: 0 2px; padding: 4px 8px; background: #1976d2; color: white; border: none; border-radius: 3px; cursor: pointer;">+</button>
+                    <button onclick="zoomDiagram('${id}', 0.8)" style="margin: 0 2px; padding: 4px 8px; background: #1976d2; color: white; border: none; border-radius: 3px; cursor: pointer;">−</button>
+                    <button onclick="resetZoom('${id}')" style="margin: 0 2px; padding: 4px 8px; background: #666; color: white; border: none; border-radius: 3px; cursor: pointer;">Reset</button>
+                `;
+
+                // Navigation info
+                const navInfo = document.createElement('div');
+                navInfo.innerHTML = `<span style="color: #666;">🖱️ Click nodes for details • Scroll to zoom • Drag to pan</span>`;
+
+                // Fullscreen button
+                const fullscreenBtn = document.createElement('button');
+                fullscreenBtn.textContent = '⛶ Fullscreen';
+                fullscreenBtn.style.cssText = `
+                    padding: 4px 12px;
+                    background: #388e3c;
+                    color: white;
+                    border: none;
+                    border-radius: 3px;
+                    cursor: pointer;
+                `;
+                fullscreenBtn.onclick = () => toggleFullscreen(id, element);
+
+                // Download button
+                const downloadBtn = document.createElement('button');
+                downloadBtn.textContent = '📥 Download';
+                downloadBtn.style.cssText = `
+                    padding: 4px 12px;
+                    background: #ff9800;
+                    color: white;
+                    border: none;
+                    border-radius: 3px;
+                    cursor: pointer;
+                `;
+                downloadBtn.onclick = () => downloadDiagram(id, element);
+
+                controls.appendChild(zoomControls);
+                controls.appendChild(navInfo);
+                controls.appendChild(fullscreenBtn);
+                controls.appendChild(downloadBtn);
+
+                return controls;
+            };
+
+            const addZoomControls = (element, id) => {
+                element.style.transform = 'scale(1)';
+                element.style.transformOrigin = 'center top';
+                element.style.transition = 'transform 0.3s ease';
+                element.dataset.originalTransform = 'scale(1)';
+                element.dataset.currentZoom = '1';
+            };
+
+            const addPanAndZoom = (element, id) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                let isPanning = false;
+                let startX = 0, startY = 0, translateX = 0, translateY = 0;
+
+                // Mouse wheel zoom
+                element.addEventListener('wheel', function(e) {
+                    if (e.ctrlKey || e.metaKey) {
+                        e.preventDefault();
+                        const delta = e.deltaY > 0 ? 0.9 : 1.1;
+                        zoomDiagram(id, delta);
+                    }
+                });
+
+                // Pan functionality
+                svg.style.cursor = 'grab';
+                svg.addEventListener('mousedown', function(e) {
+                    if (e.button === 0 && !e.shiftKey) {
+                        isPanning = true;
+                        startX = e.clientX - translateX;
+                        startY = e.clientY - translateY;
+                        svg.style.cursor = 'grabbing';
+                        e.preventDefault();
+                    }
+                });
+
+                document.addEventListener('mousemove', function(e) {
+                    if (isPanning) {
+                        translateX = e.clientX - startX;
+                        translateY = e.clientY - startY;
+                        const currentZoom = parseFloat(element.dataset.currentZoom || 1);
+                        svg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
+                    }
+                });
+
+                document.addEventListener('mouseup', function() {
+                    isPanning = false;
+                    svg.style.cursor = 'grab';
+                });
+
+                // Touch support for mobile
+                let touchStartDistance = 0;
+                let touchStartZoom = 1;
+
+                element.addEventListener('touchstart', function(e) {
+                    if (e.touches.length === 2) {
+                        const dx = e.touches[0].clientX - e.touches[1].clientX;
+                        const dy = e.touches[0].clientY - e.touches[1].clientY;
+                        touchStartDistance = Math.sqrt(dx * dx + dy * dy);
+                        touchStartZoom = parseFloat(element.dataset.currentZoom || 1);
+                    }
+                });
+
+                element.addEventListener('touchmove', function(e) {
+                    if (e.touches.length === 2) {
+                        const dx = e.touches[0].clientX - e.touches[1].clientX;
+                        const dy = e.touches[0].clientY - e.touches[1].clientY;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        const scale = Math.max(0.5, Math.min(3, touchStartZoom * (distance / touchStartDistance)));
+                        element.dataset.currentZoom = scale;
+                        const svg = element.querySelector('svg');
+                        const currentZoom = parseFloat(element.dataset.currentZoom || 1);
+                        svg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
+                    }
+                });
+            };
+
+            const addClickHandlers = (element) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                const clickableElements = svg.querySelectorAll('g.node, g.edgePath, .cluster');
+                clickableElements.forEach(el => {
+                    el.style.cursor = 'pointer';
+                    el.addEventListener('click', function(e) {
+                        if (!e.shiftKey && !e.ctrlKey) {
+                            e.preventDefault();
+                            showNodeDetails(el, element);
+                        }
+                    });
+                });
+            };
+
+            const addTooltips = (element) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                const nodes = svg.querySelectorAll('g.node');
+                nodes.forEach(node => {
+                    const rect = node.querySelector('rect');
+                    const text = node.querySelector('text');
+                    if (rect && text) {
+                        node.title = text.textContent + ' - Click for more information';
+
+                        node.addEventListener('mouseenter', function() {
+                            rect.style.filter = 'brightness(1.2)';
+                            rect.style.transition = 'filter 0.2s ease';
+                        });
+
+                        node.addEventListener('mouseleave', function() {
+                            rect.style.filter = 'brightness(1)';
+                        });
+                    }
+                });
+            };
+
+            const makeResponsive = (element) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                svg.style.maxWidth = '100%';
+                svg.style.height = 'auto';
+                svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+
+                const resizeObserver = new ResizeObserver(() => {
+                    adjustDiagramSize(element);
+                });
+                resizeObserver.observe(element);
+            };
+
+            const adjustDiagramSize = (element) => {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                const container = element.parentElement;
+                const containerWidth = container.clientWidth;
+
+                if (containerWidth < 800) {
+                    const mobileZoom = Math.max(0.5, containerWidth / 800);
+                    element.dataset.currentZoom = mobileZoom;
+                    const translateMatch = svg.style.transform.match(/translate\(([^)]+)px/);
+                    const translate = translateMatch ? translateMatch[1] : '0px, 0px';
+                    svg.style.transform = `translate(${translate}) scale(${mobileZoom})`;
+                }
+            };
+
+            const showNodeDetails = (nodeElement, diagramElement) => {
+                const modal = document.createElement('div');
+                modal.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.5);
+                    z-index: 1000;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                `;
+
+                const content = document.createElement('div');
+                content.style.cssText = `
+                    background: white;
+                    padding: 20px;
+                    border-radius: 8px;
+                    max-width: 600px;
+                    max-height: 80%;
+                    overflow-y: auto;
+                `;
+
+                const text = nodeElement.querySelector('text');
+                const title = text ? text.textContent : 'Node Details';
+
+                content.innerHTML = `
+                    <h3>${title}</h3>
+                    <p><strong>Diagram:</strong> ${diagramElement.closest('h1, h2, h3, h4, h5, h6')?.textContent || 'Architecture Diagram'}</p>
+                    <p><strong>Component Type:</strong> ${getNodeInfo(nodeElement).type}</p>
+                    <p>${getNodeInfo(nodeElement).description}</p>
+                    <button onclick="this.closest('div[style*=fixed]').remove()" style="
+                        margin-top: 15px;
+                        padding: 8px 16px;
+                        background: #1976d2;
+                        color: white;
+                        border: none;
+                        border-radius: 4px;
+                        cursor: pointer;
+                    ">Close</button>
+                `;
+
+                modal.appendChild(content);
+                modal.appendChild(document.createElement('button'));
+                modal.onclick = (e) => {
+                    if (e.target === modal) modal.remove();
+                };
+
+                document.body.appendChild(modal);
+            };
+
+            const getNodeInfo = (nodeElement) => {
+                const text = nodeElement.querySelector('text')?.textContent?.toLowerCase() || '';
+
+                if (text.includes('api') || text.includes('gateway')) {
+                    return {
+                        type: 'API Component',
+                        description: 'This component handles API requests, routing, and response processing in the LOLStonks Gateway.'
+                    };
+                } else if (text.includes('cache') || text.includes('redis')) {
+                    return {
+                        type: 'Cache Layer',
+                        description: 'This component provides caching functionality to improve API response times and reduce external API calls.'
+                    };
+                } else if (text.includes('rate') || text.includes('limit')) {
+                    return {
+                        type: 'Rate Limiter',
+                        description: 'This component enforces rate limits to prevent API abuse and ensure fair usage across all clients.'
+                    };
+                } else if (text.includes('auth') || text.includes('security')) {
+                    return {
+                        type: 'Security Component',
+                        description: 'This component handles authentication, authorization, and security validation for API requests.'
+                    };
+                } else if (text.includes('provider') || text.includes('riot')) {
+                    return {
+                        type: 'External Provider',
+                        description: 'This component interfaces with external APIs (like Riot Games API) to fetch game data.'
+                    };
+                } else {
+                    return {
+                        type: 'System Component',
+                        description: 'This component is part of the LOLStonks API Gateway architecture. Click on different components to explore the system design.'
+                    };
+                }
+            };
+
+            // Global functions for button controls
+            window.zoomDiagram = function(id, factor) {
+                const element = document.getElementById(id);
+                if (!element) return;
+
+                const currentZoom = parseFloat(element.dataset.currentZoom || 1);
+                const newZoom = Math.max(0.1, Math.min(3, currentZoom * factor));
+
+                const svg = element.querySelector('svg');
+                const currentTransform = svg.style.transform || '';
+                const translateMatch = currentTransform.match(/translate\(([^)]+)px/);
+                const translate = translateMatch ? translateMatch[1] : '0px, 0px';
+
+                svg.style.transform = `translate(${translate}) scale(${newZoom})`;
+                element.dataset.currentZoom = newZoom;
+            };
+
+            window.resetZoom = function(id) {
+                const element = document.getElementById(id);
+                if (!element) return;
+
+                const svg = element.querySelector('svg');
+                svg.style.transform = 'translate(0px, 0px) scale(1)';
+                element.dataset.currentZoom = '1';
+            };
+
+            window.toggleFullscreen = function(id, element) {
+                if (element.style.position === 'fixed') {
+                    // Exit fullscreen
+                    element.style.position = '';
+                    element.style.top = '';
+                    element.style.left = '';
+                    element.style.width = '';
+                    element.style.height = '';
+                    element.style.zIndex = '';
+                    element.style.backgroundColor = '';
+                    element.style.padding = '';
+                    element.style.overflow = '';
+                    resetZoom(id);
+                } else {
+                    // Enter fullscreen
+                    element.style.position = 'fixed';
+                    element.style.top = '0';
+                    element.style.left = '0';
+                    element.style.width = '100vw';
+                    element.style.height = '100vh';
+                    element.style.zIndex = '999';
+                    element.style.backgroundColor = 'white';
+                    element.style.padding = '20px';
+                    element.style.overflow = 'auto';
+                    zoomDiagram(id, 1.5);
+                }
+            };
+
+            window.downloadDiagram = function(id, element) {
+                const svg = element.querySelector('svg');
+                if (!svg) return;
+
+                const svgData = new XMLSerializer().serializeToString(svg);
+                const svgBlob = new Blob([svgData], {type: 'image/svg+xml;charset=utf-8'});
+                const svgUrl = URL.createObjectURL(svgBlob);
+
+                const downloadLink = document.createElement('a');
+                downloadLink.href = svgUrl;
+                downloadLink.download = `${id || 'diagram'}-${Date.now()}.svg`;
+                downloadLink.click();
+
+                URL.revokeObjectURL(svgUrl);
+            };
+
+            // Initialize everything
+            waitForMermaid();
+
+        })();
+    </script>
+<script type="module">import mermaid from "https://unpkg.com/mermaid@10.9.0/dist/mermaid.esm.min.mjs";
+mermaid.initialize({});</script></body>
+</html>
