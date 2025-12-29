@@ -94,20 +94,20 @@ async def test_all_diagrams_render(page: Page, diagrams: list[dict], env_name: s
             height = bbox["height"]
 
             # Verify dimensions are adequate
-            assert (
-                width >= MIN_DIAGRAM_WIDTH
-            ), f"Diagram {diagram['name']} too narrow: {width}px < {MIN_DIAGRAM_WIDTH}px"
-            assert (
-                height >= MIN_DIAGRAM_HEIGHT
-            ), f"Diagram {diagram['name']} too short: {height}px < {MIN_DIAGRAM_HEIGHT}px"
+            assert width >= MIN_DIAGRAM_WIDTH, (
+                f"Diagram {diagram['name']} too narrow: {width}px < {MIN_DIAGRAM_WIDTH}px"
+            )
+            assert height >= MIN_DIAGRAM_HEIGHT, (
+                f"Diagram {diagram['name']} too short: {height}px < {MIN_DIAGRAM_HEIGHT}px"
+            )
 
             # Check for Mermaid error messages
             svg_content = await svg.inner_text()
             mermaid_errors = ["Syntax error", "Parse error", "Error:", "undefined"]
             has_error = any(err.lower() in svg_content.lower() for err in mermaid_errors)
-            assert (
-                not has_error
-            ), f"Mermaid error detected in {diagram['name']}: {svg_content[:200]}"
+            assert not has_error, (
+                f"Mermaid error detected in {diagram['name']}: {svg_content[:200]}"
+            )
 
             # Verify expected nodes (if specified)
             if diagram.get("expected_nodes"):
@@ -181,9 +181,9 @@ async def test_all_diagrams_render(page: Page, diagrams: list[dict], env_name: s
 
     # Assert all diagrams passed
     failed = [r for r in results if r["status"] == "✗"]
-    assert (
-        len(failed) == 0
-    ), f"{len(failed)}/{len(results)} diagrams failed to render correctly: {[f['diagram'] for f in failed]}"
+    assert len(failed) == 0, (
+        f"{len(failed)}/{len(results)} diagrams failed to render correctly: {[f['diagram'] for f in failed]}"
+    )
 
 
 @pytest.mark.asyncio
@@ -275,9 +275,9 @@ async def test_diagram_text_readability(page: Page, diagrams: list[dict]):
             # Font size should be at least 10px for readability
             if font_size:
                 size_px = float(font_size.replace("px", ""))
-                assert (
-                    size_px >= 10
-                ), f"Text too small in {diagram['name']}: {size_px}px (should be >= 10px)"
+                assert size_px >= 10, (
+                    f"Text too small in {diagram['name']}: {size_px}px (should be >= 10px)"
+                )
 
 
 @pytest.mark.asyncio

@@ -179,9 +179,9 @@ async def test_tables_rendering(page: Page, base_url: str):
 
     # All tables should have headers
     tables_with_headers = sum(1 for r in results if r["has_header"])
-    assert tables_with_headers == len(
-        results
-    ), f"Only {tables_with_headers}/{len(results)} tables have headers"
+    assert tables_with_headers == len(results), (
+        f"Only {tables_with_headers}/{len(results)} tables have headers"
+    )
 
 
 # ============================================================================

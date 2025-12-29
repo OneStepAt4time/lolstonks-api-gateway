@@ -79,9 +79,9 @@ async def test_all_pages_accessible(page: Page, all_pages: dict[str, str], env_n
             # Verify content is not empty
             content_text = await content_element.inner_text()
             content_length = len(content_text.strip())
-            assert (
-                content_length > MIN_PAGE_CONTENT_LENGTH
-            ), f"Page {page_name} has suspiciously little content ({content_length} chars)"
+            assert content_length > MIN_PAGE_CONTENT_LENGTH, (
+                f"Page {page_name} has suspiciously little content ({content_length} chars)"
+            )
 
             # Take full-page screenshot
             screenshot_path = Path(
@@ -129,9 +129,9 @@ async def test_all_pages_accessible(page: Page, all_pages: dict[str, str], env_n
 
     # Assert all pages passed
     failed = [r for r in results if r["status"] == "✗"]
-    assert (
-        len(failed) == 0
-    ), f"{len(failed)}/{len(results)} pages failed accessibility check: {[f['page'] for f in failed]}"
+    assert len(failed) == 0, (
+        f"{len(failed)}/{len(results)} pages failed accessibility check: {[f['page'] for f in failed]}"
+    )
 
 
 @pytest.mark.asyncio
