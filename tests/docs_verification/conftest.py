@@ -139,8 +139,19 @@ def pytest_addoption(parser):
         help="Environment to test: prod, dev, or both (default: prod)",
     )
     # Check if --base-url already registered (by pytest-playwright)
-    # Use parser.args to check existing options (pytest 8.0+ compatible)
-    if not any("--base-url" in str(arg) for arg in parser.args):
+    # Try-except approach for pytest compatibility across versions
+    try:
+        # Try to access existing options (pytest < 8.0)
+        if not any("--base-url" in str(opt) for opt in parser.options):
+            parser.addoption(
+                "--base-url",
+                action="store",
+                default=None,
+                help="Override base URL for local testing (e.g., http://127.0.0.1:8000)",
+            )
+    except AttributeError:
+        # pytest >= 8.0 doesn't have parser.options, just add the option
+        # If it's already registered by pytest-playwright, pytest will handle the duplicate
         parser.addoption(
             "--base-url",
             action="store",
