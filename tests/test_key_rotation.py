@@ -260,13 +260,13 @@ class TestSmartKeyFallback:
 
         await client.close()
 
-    @pytest.mark.skip(reason="Flaky test - mock setup conflicts with reset_riot_client fixture")
     @pytest.mark.asyncio
-    async def test_all_keys_rate_limited_waits(self, monkeypatch):
-        """Test that if ALL keys are 429, it waits before retrying."""
-        from unittest.mock import AsyncMock, Mock
+    async def test_all_keys_rate_limited_raises_exception(self, monkeypatch):
+        """Test that if ALL keys are 429, RateLimitException is raised with retry_after."""
+        from unittest.mock import AsyncMock, Mock, patch
         from pydantic_settings import SettingsConfigDict
         import httpx
+        from app.exceptions import RateLimitException
 
         class TestSettings(Settings):
             model_config = SettingsConfigDict(env_file=None, extra="ignore")
@@ -277,33 +277,29 @@ class TestSmartKeyFallback:
 
         client = RiotClient(settings_override=test_settings)
 
-        # Mock responses: Both keys get 429, then Key 1 succeeds
+        # Mock responses: Both keys get 429
         response_429_key1 = Mock(spec=httpx.Response)
         response_429_key1.status_code = 429
-        response_429_key1.headers = {"Retry-After": "1"}
+        response_429_key1.headers = {"Retry-After": "5"}
 
         response_429_key2 = Mock(spec=httpx.Response)
         response_429_key2.status_code = 429
-        response_429_key2.headers = {"Retry-After": "1"}
+        response_429_key2.headers = {"Retry-After": "3"}
 
-        response_200 = Mock(spec=httpx.Response)
-        response_200.status_code = 200
-        response_200.json = Mock(return_value={"success": True})
+        # Use patch context manager to avoid conflicts with reset_riot_client fixture
+        with patch.object(
+            client.client,
+            "get",
+            new=AsyncMock(side_effect=[response_429_key1, response_429_key2]),
+        ):
+            # Make request - should raise RateLimitException
+            with pytest.raises(RateLimitException) as exc_info:
+                await client.get("/test", region="euw1")
 
-        client.client.get = AsyncMock(
-            side_effect=[response_429_key1, response_429_key2, response_200]
-        )
-
-        # Make request
-        import time
-
-        start = time.time()
-        result = await client.get("/test", region="euw1")
-        elapsed = time.time() - start
-
-        # Verify success and sleep DID happen (should be ~1 second)
-        assert result == {"success": True}
-        assert elapsed >= 1.0, f"Request took {elapsed}s, should wait ~1s when all keys exhausted"
+            # Verify exception contains retry_after from the last response
+            assert exc_info.value.retry_after == 3  # Uses the Retry-After from second 429
+            # Verify that both keys were tried
+            assert client.client.get.call_count == 2
 
         await client.close()
 

@@ -59,7 +59,7 @@ class MatchTracker:
             return False
 
         key = f"processed_matches:{region}"
-        result = await self.redis.sismember(key, match_id)  # type: ignore
+        result = await self.redis.sismember(key, match_id)
         return bool(result)
 
     async def mark_processed(self, region: str, match_id: str):
@@ -75,7 +75,7 @@ class MatchTracker:
             return
 
         key = f"processed_matches:{region}"
-        _ = await self.redis.sadd(key, match_id)  # type: ignore
+        _ = await self.redis.sadd(key, match_id)
         logger.debug("Marked match as processed: {}/{}", region, match_id)
 
     async def get_processed_count(self, region: str) -> int:
@@ -92,7 +92,7 @@ class MatchTracker:
             return 0
 
         key = f"processed_matches:{region}"
-        result = await self.redis.scard(key)  # type: ignore
+        result = await self.redis.scard(key)
         return int(result)
 
 
