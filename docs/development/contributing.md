@@ -82,23 +82,43 @@ lolstonks-api-gateway/
 
 ## Development Workflow
 
+### Git Flow Branching Strategy
+
+This project follows **Git Flow** branching strategy. Please read [Git Flow Branching Strategy](git-workflow.md) for complete details.
+
+**Branch Structure**:
+- `main` - Production-ready code (always deployable)
+- `develop` - Integration branch for all features
+- `feature/*` - New features (branch from `develop`)
+- `fix/*` - Bug fixes (branch from `develop`)
+- `hotfix/*` - Urgent production fixes (branch from `main`)
+- `refactor/*` - Code refactoring (branch from `develop`)
+- `docs/*` - Documentation changes (branch from `develop`)
+- `test/*` - Test additions (branch from `develop`)
+
 ### 1. Create a Branch
 
-Create a feature branch from `main` or `develop`:
+**For new features or bug fixes**, branch from `develop`:
 
 ```bash
-git checkout -b feat/your-feature-name
-# or
+# Ensure you're on develop
+git checkout develop
+git pull origin develop
+
+# Create a feature branch
+git checkout -b feature/your-feature-name
+
+# Or create a fix branch
 git checkout -b fix/your-bug-fix
 ```
 
-**Branch naming conventions**:
-- `feat/` - New features
-- `fix/` - Bug fixes
-- `docs/` - Documentation changes
-- `refactor/` - Code refactoring
-- `test/` - Test additions or modifications
-- `chore/` - Maintenance tasks
+**For urgent production fixes**, branch from `main`:
+
+```bash
+git checkout main
+git pull origin main
+git checkout -b hotfix/urgent-fix
+```
 
 ### 2. Make Your Changes
 
@@ -142,8 +162,16 @@ git commit -m "docs: update installation instructions"
 ### 5. Push and Create Pull Request
 
 ```bash
-git push origin feat/your-feature-name
+git push origin feature/your-feature-name
 ```
+
+**Pull Request Guidelines**:
+- **Target branch**: `develop` for `feature/*`, `fix/*`, `refactor/*`, `docs/*`, `test/*` branches
+- **Target branch**: `main` for `hotfix/*` branches (must also be merged to `develop`)
+- Include clear title and description
+- Reference related issues
+- Ensure all CI checks pass
+- Get at least one maintainer approval
 
 Then open a pull request on GitHub with:
 
