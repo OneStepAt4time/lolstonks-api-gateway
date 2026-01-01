@@ -4,12 +4,12 @@ Intelligent proxy for Riot Games API with caching, rate limiting, and match trac
 
 **Version**: 1.0.0
 
-**Generated**: 2025-10-28 18:34:54 UTC
+**Generated**: 2025-01-XX
 
 ## API Statistics
 
-- **Total Endpoints**: 34
-- **Total Schemas**: 7
+- **Total Endpoints**: 36 (34 core + 2 spectator)
+- **Total Schemas**: 9 (7 core + 2 spectator)
 - **API Base URL**: `http://localhost:8080`
 
 ## Interactive Documentation
@@ -206,6 +206,46 @@ Retrieve summoner information using their summoner name.
 curl "http://localhost:8080/summoner/by-name/Faker?region=kr"
 ```
 
+### Get Active Game (Spectator)
+
+Retrieve information about a player's current live game. Returns 404 if the player is not in a game.
+
+**Endpoint**: `GET /lol/spectator/v5/active-games/by-summoner/{encryptedPUUID}`
+
+```bash
+curl "http://localhost:8080/lol/spectator/v5/active-games/by-summoner/{puuid}?region=kr"
+```
+
+**Response (200)**:
+```json
+{
+  "gameId": 1234567890,
+  "gameType": "MATCHED_GAME",
+  "gameStartTime": 1704067200000,
+  "mapId": 11,
+  "gameMode": "CLASSIC",
+  "participants": [
+    {
+      "summonerName": "Player1",
+      "championId": 157,
+      "teamId": 100
+    }
+  ]
+}
+```
+
+**Response (404)**: Player is not in a game (this is normal)
+
+### Get Featured Games
+
+Retrieve the list of featured games promoted by Riot.
+
+**Endpoint**: `GET /lol/spectator/v5/featured-games`
+
+```bash
+curl "http://localhost:8080/lol/spectator/v5/featured-games?region=kr"
+```
+
 ### Get Match History
 
 Retrieve recent match IDs for a player using their PUUID.
@@ -243,14 +283,35 @@ async def get_summoner_data():
             return response.json()
         return None
 
+async def get_active_game(puuid: str):
+    """Get active game for a summoner (Spectator API)."""
+    async with httpx.AsyncClient() as client:
+        response = await client.get(
+            f"http://localhost:8080/lol/spectator/v5/active-games/by-summoner/{puuid}",
+            params={"region": "kr"}
+        )
+        if response.status_code == 200:
+            return response.json()
+        elif response.status_code == 404:
+            print("Player is not in a game")
+            return None
+        return None
+
 # Usage
 summoner = asyncio.run(get_summoner_data())
 if summoner:
     print(f"Summoner: {summoner[\'name\']} (Level {summoner[\'summonerLevel\']})")
+
+# Check if player is in game
+game = asyncio.run(get_active_game(summoner[\'puuid\']))
+if game:
+    print(f"Game ID: {game[\'gameId\']}")
+    print(f"Game Mode: {game[\'gameMode\']}")
+    print(f"Participants: {len(game[\'participants\'])} players")
 ```
 
 ---
 
-*Documentation generated on 2024-10-28 18:34:54 UTC*
+**Full Documentation**: See the complete API reference at [docs/api](docs/api) for detailed endpoint documentation.
 
-For the most up-to-date interactive documentation, visit [Swagger UI](http://localhost:8080/docs) when the server is running.
+**Cross-Project Integration**: See [docs/CROSS_PROJECT_INTEGRATION.md](docs/CROSS_PROJECT_INTEGRATION.md) for integration with the LoLStonks workspace.
