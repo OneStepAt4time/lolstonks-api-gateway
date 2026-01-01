@@ -43,7 +43,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- **Spectator API documentation**: Complete documentation for live game tracking endpoints
+  - Active Game endpoint with response examples and 404 handling guidance
+  - Featured Games endpoint with curl examples
+  - Python client example for checking live game status
+  - Updated API statistics (36 endpoints, 9 schemas)
+
 ### Fixed
+- **Type safety**: Added `types-redis` dependency to resolve mypy warnings
+  - Provides accurate type stubs for `redis.asyncio` methods (sismember, sadd, scard)
+  - Eliminates false positives in `app/cache/tracking.py`
 - **Documentation Mermaid diagrams**: Fixed syntax errors in architecture documentation diagrams
   - **HTML entities**: Fixed HTML entities (`&lt;`, `&gt;`, `&amp;`) that were causing rendering errors
     - `docs/architecture/data-flow.md`: Fixed 3 HTML entities in timing annotations
