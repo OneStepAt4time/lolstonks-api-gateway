@@ -527,6 +527,20 @@
 </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#get-active-game-spectator">
+<span class="md-ellipsis">
+      Get Active Game (Spectator)
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#get-featured-games">
+<span class="md-ellipsis">
+      Get Featured Games
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#get-match-history">
 <span class="md-ellipsis">
       Get Match History
@@ -1005,6 +1019,20 @@
 </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#get-active-game-spectator">
+<span class="md-ellipsis">
+      Get Active Game (Spectator)
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#get-featured-games">
+<span class="md-ellipsis">
+      Get Featured Games
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#get-match-history">
 <span class="md-ellipsis">
       Get Match History
@@ -1038,11 +1066,11 @@
 <h1 id="lol-api-gateway">LOL API Gateway<a class="headerlink" href="#lol-api-gateway" title="Permanent link">¶</a></h1>
 <p>Intelligent proxy for Riot Games API with caching, rate limiting, and match tracking</p>
 <p><strong>Version</strong>: 1.0.0</p>
-<p><strong>Generated</strong>: 2025-10-28 18:34:54 UTC</p>
+<p><strong>Generated</strong>: 2025-01-XX</p>
 <h2 id="api-statistics">API Statistics<a class="headerlink" href="#api-statistics" title="Permanent link">¶</a></h2>
 <ul>
-<li><strong>Total Endpoints</strong>: 34</li>
-<li><strong>Total Schemas</strong>: 7</li>
+<li><strong>Total Endpoints</strong>: 36 (34 core + 2 spectator)</li>
+<li><strong>Total Schemas</strong>: 9 (7 core + 2 spectator)</li>
 <li><strong>API Base URL</strong>: <code>http://localhost:8080</code></li>
 </ul>
 <h2 id="interactive-documentation">Interactive Documentation<a class="headerlink" href="#interactive-documentation" title="Permanent link">¶</a></h2>
@@ -1585,6 +1613,33 @@ Master, Grandmaster, and Challenger don't use divisions.</p>
 <p><strong>Endpoint</strong>: <code>GET /summoner/by-name/{summonerName}</code></p>
 <pre><code class="language-bash">curl "http://localhost:8080/summoner/by-name/Faker?region=kr"
 </code></pre>
+<h3 id="get-active-game-spectator">Get Active Game (Spectator)<a class="headerlink" href="#get-active-game-spectator" title="Permanent link">¶</a></h3>
+<p>Retrieve information about a player's current live game. Returns 404 if the player is not in a game.</p>
+<p><strong>Endpoint</strong>: <code>GET /lol/spectator/v5/active-games/by-summoner/{encryptedPUUID}</code></p>
+<pre><code class="language-bash">curl "http://localhost:8080/lol/spectator/v5/active-games/by-summoner/{puuid}?region=kr"
+</code></pre>
+<p><strong>Response (200)</strong>:</p>
+<pre><code class="language-json">{
+  "gameId": 1234567890,
+  "gameType": "MATCHED_GAME",
+  "gameStartTime": 1704067200000,
+  "mapId": 11,
+  "gameMode": "CLASSIC",
+  "participants": [
+    {
+      "summonerName": "Player1",
+      "championId": 157,
+      "teamId": 100
+    }
+  ]
+}
+</code></pre>
+<p><strong>Response (404)</strong>: Player is not in a game (this is normal)</p>
+<h3 id="get-featured-games">Get Featured Games<a class="headerlink" href="#get-featured-games" title="Permanent link">¶</a></h3>
+<p>Retrieve the list of featured games promoted by Riot.</p>
+<p><strong>Endpoint</strong>: <code>GET /lol/spectator/v5/featured-games</code></p>
+<pre><code class="language-bash">curl "http://localhost:8080/lol/spectator/v5/featured-games?region=kr"
+</code></pre>
 <h3 id="get-match-history">Get Match History<a class="headerlink" href="#get-match-history" title="Permanent link">¶</a></h3>
 <p>Retrieve recent match IDs for a player using their PUUID.</p>
 <p><strong>Endpoint</strong>: <code>GET /match/ids/by-puuid/{puuid}</code></p>
@@ -1610,14 +1665,35 @@ async def get_summoner_data():
             return response.json()
         return None
 
+async def get_active_game(puuid: str):
+    """Get active game for a summoner (Spectator API)."""
+    async with httpx.AsyncClient() as client:
+        response = await client.get(
+            f"http://localhost:8080/lol/spectator/v5/active-games/by-summoner/{puuid}",
+            params={"region": "kr"}
+        )
+        if response.status_code == 200:
+            return response.json()
+        elif response.status_code == 404:
+            print("Player is not in a game")
+            return None
+        return None
+
 # Usage
 summoner = asyncio.run(get_summoner_data())
 if summoner:
     print(f"Summoner: {summoner[\'name\']} (Level {summoner[\'summonerLevel\']})")
+
+# Check if player is in game
+game = asyncio.run(get_active_game(summoner[\'puuid\']))
+if game:
+    print(f"Game ID: {game[\'gameId\']}")
+    print(f"Game Mode: {game[\'gameMode\']}")
+    print(f"Participants: {len(game[\'participants\'])} players")
 </code></pre>
 <hr/>
-<p><em>Documentation generated on 2024-10-28 18:34:54 UTC</em></p>
-<p>For the most up-to-date interactive documentation, visit <a href="http://localhost:8080/docs">Swagger UI</a> when the server is running.</p>
+<p><strong>Full Documentation</strong>: See the complete API reference at <a href="docs/api">docs/api</a> for detailed endpoint documentation.</p>
+<p><strong>Cross-Project Integration</strong>: See <a href="docs/CROSS_PROJECT_INTEGRATION.md">docs/CROSS_PROJECT_INTEGRATION.md</a> for integration with the LoLStonks workspace.</p>
 </article>
 </div>
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
