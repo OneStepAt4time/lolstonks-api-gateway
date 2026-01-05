@@ -247,13 +247,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Download production reports
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: production-reports
           path: prod-reports/
 
       - name: Download development reports
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: development-reports
           path: dev-reports/
