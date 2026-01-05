@@ -68,7 +68,7 @@ jobs:
 
       - name: Upload production screenshots
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: production-screenshots
           path: docs_verification_output/screenshots/prod/
@@ -76,7 +76,7 @@ jobs:
 
       - name: Upload production reports
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: production-reports
           path: docs_verification_output/reports/prod/
@@ -148,7 +148,7 @@ jobs:
 
       - name: Upload development screenshots
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: development-screenshots
           path: docs_verification_output/screenshots/dev/
@@ -156,7 +156,7 @@ jobs:
 
       - name: Upload development reports
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: development-reports
           path: docs_verification_output/reports/dev/
@@ -222,7 +222,7 @@ jobs:
 
       - name: Upload local build screenshots
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: local-build-screenshots
           path: docs_verification_output/screenshots/prod/
@@ -230,7 +230,7 @@ jobs:
 
       - name: Upload local build reports
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: local-build-reports
           path: docs_verification_output/reports/local/
@@ -287,7 +287,7 @@ jobs:
           fi
 
       - name: Upload comparison report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: comparison-report
           path: comparison/
